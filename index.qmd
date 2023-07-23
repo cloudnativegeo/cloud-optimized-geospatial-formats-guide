@@ -1,0 +1,12 @@
+---
+title: "Cloud-Optimized Data Guide"
+subtitle: "Methods for Generating and Testing Cloud-Optimized Data"
+---
+
+The audience for this guide is any data provider wishing to make their data accessible without users needing to download entire files. 
+
+## Knowledge Sharing
+
+We hope to answer common questions such as what is Zarr, why would I use it and what is the right chunk shape for popular data formats. 
+
+While there is no one-size-fits-all approach to cloud-optimized data at this time, the community has developed many tools for creating and assessing cloud-optimized data formats that should be organized and shared.

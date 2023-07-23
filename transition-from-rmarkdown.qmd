@@ -1,0 +1,128 @@
+---
+title: Transition from RMarkdown
+---
+
+You may already have workflows in RMarkdown and are interested in transitioning to Quarto. There's no hurry to migrate to Quarto. Keep using Rmarkdown and when you're ready the migration will be fine.
+
+Here are some notes as we migrate RMarkdown sites and books.
+
+*TODO: translating R code chunks*
+
+## Bookdown to Quarto
+
+Converting a Bookdown book to Quarto is slightly more involved than converting a website. A book has chapters whose order must be defined, and likely has citations and [cross-refs](https://quarto.org/docs/books/book-crossrefs.html). Still, conversion is not that hard.
+
+We got some practice converting from Bookdown to Quarto by helping Gavin Fay convert his lab's fantastic onboarding documentation, the [Faylab Lab Manual](https://thefaylab.github.io/lab-manual/). Here's the GitHub view [before](https://github.com/thefaylab/lab-manual/tree/4ebe9614d4fcab9d782073057ef6e56e9213c167) and [after](https://github.com/thefaylab/lab-manual/tree/3ce2418ed7bd65936a130a42a7f975f55fb9b734).
+
+Our best first reference material for this was Nick Tierney's [Notes on Changing from Rmarkdown/Bookdown to Quarto](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/). Nick shares some scripts in that post to automate some changes. In our case, the book was small enough that we made all changes manually. [Quarto documentation](https://quarto.org/) was indispensable.
+
+### Experimenting in a low-risk environment
+
+We forked a copy of the Faylab Lab manual to the Openscapes organization, and worked in a branch so we could make changes relatively risk-free. We could always fork a new copy of the original if we "broke" something. (Caution: the default when making a pull request from a fork is to push changes to the original upstream repo, not your fork and it does this without warning if you have write-access to that repo.) With local previews it's easy to test / play with settings to see what they do. We tended to make a change, Preview, then compare the look and functionality of the book to the original. It was helpful to comment out some elements of the configuration file `_output.yml` after their counterparts had been added to the Quarto configuration file `_quarto.yml`, or to confirm they were no longer needed, before making the drastic move of deleting them.
+
+### The conversion
+
+Here are the main steps to convert the Faylab Lab manual from Bookdown to Quarto.
+
+Create new empty file called `_quarto.yml` and add book metadata there. The screenshots below
+
+Set project type as `book`.
+
+Move metadata out of `index.qmd` and into `_quarto.yml`. Title, author, and publication date were in `index.qmd` with date set using `date: "Last updated:r Sys.Date()"`. Now these are in `_quarto.yml` with date set using `date: last-modified`. Note that having R code would require you to adjust code chunk options in the Quarto style (`#|`). This tripped us up a bit; see [GitHub Actions](#github-actions).
+
+Move chapters listing out of `_bookdown.yml` and into `_quarto.yml`.
+
+Add page footer to `_quarto.yml`.
+
+Here's what ours looked like when we finished the steps above ([`_quarto.yml`](https://github.com/thefaylab/lab-manual/blob/main/_quarto.yml)).
+
+::: {layout-ncol="2"}
+![\_quarto.yml contents](images/faylab-manual-quarto-yml.png){fig-alt="_quarto.yml file contents" width=45%}
+
+![Faylab Lab Manual](images/faylab-manual.png){fig-alt="screenshot of Lab Manual book" width=45%}
+:::
+
+Change insertion of images from html style to Quarto style. (Note Quarto calls them "figures", not "images".) The following snippet will insert the GitHub octocat logo in a page:
+
+``` bash
+![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){fig-align="left" width="35px"}
+```
+
+Change all filename extensions `.Rmd` -\> `.qmd` (you could Preview after this change and see that the book looks the same). Note that Quarto works with `.Rmd` files just as well as it does `.qmd`, so this change is not urgent. In fact, if you have a lot of R code in your .Rmds (unlike the Faylab Lab Manual), there will be additional tinkering needed to make the code chunks happy.
+
+
+### Citations
+
+The Faylab Lab Manual cited two papers, presenting us with an opportunity to see how easy it is to add references to a Quarto book. Briefly, in the Visual Editor, Insert \> Citation \> DOI. Pasting the DOI or its full URL, we can insert the citation. This automatically creates a `references.bib` file and adds the full citations at the bottom of the chapter page ([watch demo](https://youtu.be/azVAl343CIU?t=2923)). In July 2022, we had to manually add a `## References` heading, but this may not be necessary in future Quarto updates.
+
+::: {layout-ncol="2"}
+![Insert citation via its DOI using RStudio Visual Editor](images/rstudio-insert-citation.png){fig-alt="RStudio Visual Editor Insert dropdown menu with Citation highlighted"}
+
+![](images/rstudio-insert-citation-doi.png)
+:::
+
+### Publishing notes
+
+If the book's output is strictly html, there's no need to specify `output-dir` in `_quarto.yml`. The output directory default is `_book/`, which is what we'd like. If we wanted other types of output like like PDF or EPUB, etc. those single file outputs are also written to the output-dir ([Quarto docs](https://quarto.org/docs/books/book-output.html#output-path)).
+
+If you currently have a `docs/` folder, delete it.
+
+Update [`.gitignore`](https://github.com/thefaylab/lab-manual/blob/main/.gitignore) to ignore `_book/`. At the same time, we have it ignore caches and a .quarto file:
+
+``` bash
+/.quarto/
+*_cache/
+_book/
+```
+
+Once all is settled, delete `_output.yml`.
+
+Once the Openscapes fork was fully reviewed, we made a pull request from that to the main branch of the book's repo. Once that was merged, we set up GitHub Actions to render the book. (TODO: instructions for GitHub Actions)
+
+### GitHub Actions {#github-actions}
+
+This book was mostly prose and screenshots without any R code. This made the conversion from RMarkdown to Quarto likely more straightforward than if you also needed to adjust code chunk options in the quarto style (#|). Our initial GitHub Action to render the converted Faylab Lab Manual failed because we had a piece of R code - even though the code was commented out! This was resolved when we deleted the line. 
+
+## Distill to quarto
+
+We transitioned our [events site](https://openscapes.org/events) from distill to quarto in May 2022 (github view [before](https://github.com/Openscapes/events/tree/13f95f507629eba5e6ed721d1902258dcbc421e6) and [after](https://github.com/Openscapes/events/tree/237acd5144d810cb5465cc5616ee453f2e261fbc)). We followed excellent notes and examples from [Nick Tierney](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/) and [Danielle Navarro](https://blog.djnavarro.net/posts/2022-04-20_porting-to-quarto/).
+
+After we had changed all the files, the Build tab in the RStudio IDE still showed "Build website" rather then "Render Website" and "Preview Website", and would error when we pushed them (because that button was expecting a distill site, not a quarto site). To fix this, we updated the `.Rproj` file. Clicking on the `.Rproj` file in the RStudio IDE will open a dialog box where you can click things you want (you can also open these in a text editor or from the GitHub website to see the actual text). To fix this situation with the Build tab: Project Options \> Build Tools \> Project Build Tools \> **None**.
+
+Looking at files [`/posts/_metadata.yml`](https://github.com/Openscapes/events/blob/main/posts/_metadata.yml) and [`_quarto.yml`](https://github.com/Openscapes/events/blob/main/_quarto.yml) helps see where things are defined. For example, to make event post citations appear, we added `citation: true` to [`/posts/_metadata.yml`](https://github.com/Openscapes/events/blob/main/posts/_metadata.yml) and in [`_quarto.yml`](https://github.com/Openscapes/events/blob/main/_quarto.yml) under the `website` key we set `site-url: https://openscapes.github.io/events`. We deleted `footer.html` used with distill because footer is now defined in `quarto.yml`.
+
+### Publishing notes
+
+> **Background**: Our distill site had been set up to output to a `docs` folder, and had GitHub Settings \> Pages set to look there rather `gh-pages` branch. (Julie note: this was a new-to-me capability when we set up the events distill site in Spring 2021 so I had forgotten that was an option). We've inititally kept this same set-up for now with our events page in `_quarto.yml`: [`output-dir: docs`](https://github.com/Openscapes/events/blob/237acd5144d810cb5465cc5616ee453f2e261fbc/_quarto.yml#L3). However, this is sub-optimal; better to not have to commit and push these files but to instead have a GitHub Action generate them upon a commit. So the following is what we did -
+
+**Don't specify `output-dir` in `_quarto.yml`**. The output directory default is `_site/`, which is what we'd like.
+
+If you currently have a `docs/` folder (like we did as we were experimenting), delete it.
+
+**Update `.gitignore` to ignore `_site/`**. At the same time, we have it ignore caches and a .quarto file:
+
+``` bash
+/.quarto/
+*_cache/
+_site/
+```
+
+**Push these changes, merge into main.**
+
+**On GitHub.com, in your repo, set up GitHub publishing**
+
+Follow instructions from the [explore and setup chapter](https://openscapes.github.io/quarto-website-tutorial/explore.html#set-up-github-publishing).
+
+## Troubleshooting
+
+### GitHub Action fails, says you need RMarkdown but you don't have R code!
+
+And you changed all .Rmds to .qmds!
+
+You likely have a few `setup` code chunks from RMarkdown, that look like this:
+
+`{r setup, include=FALSE}`
+
+`knitr::opts_chunk$set(echo = FALSE)`
+
+You can find them by opening each of your files and having a look, or use GitHub's search for the keyword `knitr`

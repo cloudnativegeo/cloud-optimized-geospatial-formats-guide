@@ -1,0 +1,73 @@
+project: 
+  type: website
+  
+website: 
+  page-navigation: true
+  title: [👷IN DEVELOPMENT] Cloud-Optimized Data Guide
+  repo-url: https://github.com/nasa-impact/cloud-optimized-data-guide
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    left: "&copy; CC-By Openscapes, 2022"
+    
+  sidebar:
+    pinned: true
+    align: center
+    tools: 
+      - icon: github
+        href: https://github.com/NASA-IMPACT/cloud-optimized-data-guide
+        text: "Cloud-Optimized Data Guide"
+
+    style: "docked"
+    search: true
+    collapse-level: 2
+    contents:
+      - href: index.qmd
+        text: Welcome
+      - section: Formats for N-Dimensional Gridded Data
+        contents:
+        - section: Cloud-Optimized GeoTIFFs (COGs)
+          contents:
+          - cloud-optimized-geotiffs/guide.ipynb
+        - section: Zarr + Kerchunk
+          contents:
+          - text: Zarr + Kerchunk
+        - section: Cloud-Optimized HDF5 + NetCDF
+          contents:
+          - text: Cloud-Optimized HDF5 + NetCDF
+        - section: Practical Examples
+          contents:
+          - text: Practical Examples
+      - section: Formats for Point and Vector data
+        contents:
+          - section: Cloud-Optimized Point Clouds (COPC)
+            contents:
+            - text: Cloud-Optimized Point Clouds (COPC)
+          - section: GeoParquet
+            contents:
+            - text: GeoParquet
+          - section: Flatgeobuf
+            contents:
+            - text: Flatgeobuf
+          - section: Practical Examples
+            contents:
+            - text: Practical Examples          
+      
+
+format:
+  html:
+    theme:
+      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+      dark: [cosmo, theme-dark.scss]
+    code-copy: true
+    code-overflow: wrap
+    css: styles.css
+    toc: true
+
+
+filters:
+  - include-files.lua
+  - quarto
+
+  
