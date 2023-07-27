@@ -1,6 +1,8 @@
-# Cloud-Optimized Data Guide (In development 👷)
+# Cloud-Optimized Data Guide (In development)
 
-To preview the site, install quarto and run:
+[https://devseed.com/cloud-optimized-data-guide/](https://devseed.com/cloud-optimized-data-guide/)
+
+To preview the site locally, install quarto and run:
 
 ```sh
 quarto render --to html
