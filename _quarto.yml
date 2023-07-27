@@ -21,7 +21,7 @@ website:
 
     style: "docked"
     search: true
-    collapse-level: 2
+    collapse-level: 1
     contents:
       - href: index.qmd
         text: Welcome
@@ -64,6 +64,8 @@ format:
     code-overflow: wrap
     css: styles.css
     toc: true
+    grid:
+      sidebar-width: 350px
 
 
 filters:
