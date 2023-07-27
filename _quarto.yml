@@ -36,9 +36,6 @@ website:
         - section: Cloud-Optimized HDF5 + NetCDF
           contents:
           - text: Cloud-Optimized HDF5 + NetCDF
-        - section: Practical Examples
-          contents:
-          - text: Practical Examples
       - section: Formats for Point and Vector data
         contents:
           - section: Cloud-Optimized Point Clouds (COPC)
@@ -50,10 +47,6 @@ website:
           - section: Flatgeobuf
             contents:
             - text: Flatgeobuf
-          - section: Practical Examples
-            contents:
-            - text: Practical Examples          
-      
 
 format:
   html:
