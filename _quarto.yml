@@ -4,7 +4,7 @@ project:
 website: 
   page-navigation: true
   title: 👷 IN DEVELOPMENT - Cloud-Optimized Data Guide
-  repo-url: https://github.com/nasa-impact/cloud-optimized-data-guide
+  repo-url: https://github.com/developmentseed/cloud-optimized-data-guide
   repo-actions: [edit, issue]
   
   page-footer:
