@@ -1,0 +1,11 @@
+---
+title: "Template"
+subtitle: Template for content on a specific format
+---
+
+# Format Basics (or What is a XX?)
+
+# Example of Creating this Format
+
+# Example of Cloud-Optimized Access for this Format
+

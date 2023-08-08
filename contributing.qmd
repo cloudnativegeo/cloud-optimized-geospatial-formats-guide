@@ -1,0 +1,10 @@
+---
+title: Contributing
+subtitle: Guidelines for contributing
+---
+
+We welcome contributions to this guide. If you wish to contribute, please consider the following tenets:
+
+* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials.
+* Landing pages with no code should be use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
+* Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html)
