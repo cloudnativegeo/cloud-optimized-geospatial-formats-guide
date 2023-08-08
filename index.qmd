@@ -1,12 +1,33 @@
 ---
-title: "Cloud-Optimized Data Guide"
-subtitle: "Methods for Generating and Testing Cloud-Optimized Data"
+title: "Cloud-Optimized Geospatial Formats Guide"
+subtitle: "Methods for Generating and Testing Cloud-Optimized Geospatial Formats"
 ---
 
-The audience for this guide is any data provider wishing to make their data accessible without users needing to download entire files. 
+# Who this guide is for
+
+If you wish to provide optimized access geospatial data, this guide is for you. Given the size of geospatial data, now and in the future, users can no longer rely on file download to achieve their science goals.
 
 ## Built for the community, by the community.
 
-There is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing cloud-optimized data formats that should be organized and shared.
+There is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
 
-With this guide, we provide the landscape of cloud-optimized data formats and provide the best-known answers to common questions. 
+With this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions. 
+
+## The Opportunity
+
+Just putting data on the cloud does not solve the big geospatial data problem. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
+
+## Table of Contents
+
+1. Overview of options
+2. 
+
+# Questions to ask when generating Cloud-Optimized Geospatial Data in any format
+
+1. What variable(s) should be included in the new data foramt
+2. Will you create copies to optimize for different needs?
+3. What is the intended use case or usage profile? Will this product be used for visualization, analysis or both?
+4. What is the expected access method?
+5. How much of your data is typically rendered or selected at once? All to very select subsets?
+
+
