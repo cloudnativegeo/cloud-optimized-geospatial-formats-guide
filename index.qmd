@@ -19,10 +19,17 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
 
 ## Table of Contents
 
-1. Overview of options
-2. 
+1. Overview of Formats (slideshow)
+2. Formats
+   a. Cloud-Optimized GeoTIFFs
+   b. Zarr
+   c. Cloud-Optimized HDF5
+   d. Geoparquet
+   e. Flatgeobuf
+3. Cookbooks
+   a. Zarr Visualization Cookbook
 
-# Questions to ask when generating Cloud-Optimized Geospatial Data in any format
+## Questions to ask when generating cloud-optimized geospatial data in any format
 
 1. What variable(s) should be included in the new data foramt
 2. Will you create copies to optimize for different needs?

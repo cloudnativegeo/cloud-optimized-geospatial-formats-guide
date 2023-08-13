@@ -25,6 +25,8 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
+      - href: overview.ipynb
+        text: Overview
       - section: Formats
         contents:
         - section: template.qmd
