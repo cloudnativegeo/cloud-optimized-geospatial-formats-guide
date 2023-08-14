@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [main, feat/rename-and-restructure]
+    branches: main
 
 name: Render and Publish
 
