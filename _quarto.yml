@@ -32,25 +32,14 @@ website:
         text: Overview Slides    
       - section: Formats
         contents:
-        - section: template.qmd
         - section: cloud-optimized-geotiffs.ipynb
           contents:
           - cogs-examples.ipynb
-        - section: Zarr + Kerchunk
-          contents:
-          - text: Zarr + Kerchunk
-        - section: Cloud-Optimized HDF5 + NetCDF
-          contents:
-          - text: Cloud-Optimized HDF5 + NetCDF
+        - section: Zarr and Kerchunk
+        - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
-          contents:
-          - text: Cloud-Optimized Point Clouds (COPC)
         - section: GeoParquet
-          contents:
-          - text: GeoParquet
         - section: Flatgeobuf
-          contents:
-          - text: Flatgeobuf
 
 format:
   html:

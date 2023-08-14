@@ -19,15 +19,15 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
 
 ## Table of Contents
 
-1. Overview of Formats (slideshow)
+1. [Overview of Formats (slideshow)](./overview.qmd)
 2. Formats
-   a. Cloud-Optimized GeoTIFFs
-   b. Zarr
-   c. Cloud-Optimized HDF5
-   d. Geoparquet
-   e. Flatgeobuf
+   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs.ipynb)
+   b. Zarr and Kerchunk - COMING SOON
+   c. Cloud-Optimized HDF5 - COMING SOON
+   d. Geoparquet - COMING SOON
+   e. Flatgeobuf - COMING SOON
 3. Cookbooks
-   a. Zarr Visualization Cookbook
+   a. [Zarr Visualization Cookbook - IN DEVELOPMENT](https://nasa-impact.github.io/zarr-visualization-cookbook/)
 
 ## Questions to ask when generating cloud-optimized geospatial data in any format
 
