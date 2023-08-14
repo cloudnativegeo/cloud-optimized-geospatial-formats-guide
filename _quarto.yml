@@ -12,7 +12,7 @@ website:
   
   page-footer:
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    left: "&copy; CC-By Openscapes, 2022"
+    left: "&copy; CC-By [Development Seed](https://developmentseed.org), 2023"
     
   sidebar:
     pinned: true

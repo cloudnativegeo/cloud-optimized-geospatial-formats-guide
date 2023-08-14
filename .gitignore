@@ -12,3 +12,5 @@ test_data/
 _env*
 __pycache__/
 .ipynb_checkpoints
+
+/.luarc.json
