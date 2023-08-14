@@ -1,0 +1,55 @@
+---
+title: "Zarr"
+subtitle: Chunked and Compressed N-Dimensional Arrays
+---
+
+# What is Zarr?
+
+The Zarr data format, originally created by Alistair Miles, is a community-maintained format for large-scale n-dimensional data. The data is stored as compressed and chunked n-dimensional arrays. Because of Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
+
+Read more: https://zarr.readthedocs.io/en/stable/tutorial.html
+
+## Zarr Data Organization
+
+### Arrays
+
+Zarr arrays are similar to numpy arrays, but chunked and compressed. More details about chunking and compression are to follow.
+
+### Groups
+
+Zarr supports hierarchical organization via groups.
+
+### Shape
+
+The shape of a Zarr data store are the cumulative set of dimensions from each of the data arrays stored.
+
+## Coordinates and Indexes
+
+In order to subselect data within a Zarr store, Zarr can be used by Xarray dataset structure which includes indexes and coordinates for subselecting data. Indexes specify the place within the dimension space data is stored. Coordinates are data arrays stored in a seaprate directory from the data itself, but are used to identify where, in the coordinate space, the data is.
+
+## Consolidated Metadata
+
+Every Zarr array will have its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.
+
+https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata
+
+## Zarr Data Storage
+
+## Storage
+
+Zarr can also be stored in-memory, on-disk, in Zip files and in object storage like S3. Any backend that implements `MutableMapping` interface from the Python `collections` module. Additional backends have been implemented, such as DBM, LMDB, SQLite, Redis and MongoDB. 
+
+As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.
+
+## Chunking
+
+Chunking is the process of dividing the data arrays into smaller pieces. This allows for parallel processing and efficient storage.
+
+Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed, within-chunk reads are not possible.
+
+## Compression
+
+Zarr supports compression algorithms to support efficient storage and retrieval.
+
+
+
