@@ -1,0 +1,287 @@
+---
+title: Cloud-Optimized Geospatial Formats Overview
+author: "Aimee Barciauskas, Alex Mandel, Brianna Pagán, Aimee Barciauskas, Alex Mandel, Credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
+format:
+  revealjs:
+    incremental: true
+    theme: [default, custom.scss]
+---
+
+::: {.notes}
+These slides were generated with https://quarto.org/docs/presentations/revealjs.
+Source: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide.
+:::
+
+# Cloud-Optimized Geospatial Formats Overview
+
+Google Slides version of this content: [Cloud-Optimized Geospatial Formats](https://docs.google.com/presentation/d/1F89kcrtX9LNQPTOuwyL5FRex_8--Vlg-DA8GJNzWqGk/edit?usp=sharing).
+
+::: {.incremental}
+# What makes cloud-optimized challenging?
+
+* No one size fits all approach
+* Earth observation data may be processed into raster, vector and point cloud data types and stored in a long list of data formats and structures.
+* Optimization depends on the user.
+* Users must learn new tools and which data is accessed and how may differ depending on the user.
+* ... hopefully only a few new methods and concepts are necessary.
+:::
+
+# What makes cloud-optimized challenging?
+
+![](./images/2019-points-lines-polygons.png)
+
+image source: <a href="https://ui.josiahparry.com/spatial-analysis.html#types-of-spatial-data">ui.josiahparry.com/spatial-analysis.html</a>
+
+# What makes cloud-optimized challenging?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+>There is no one-size-fits-all packaging for data, as the optimal packaging is highly use-case dependent.
+
+[Task 51 - Cloud-Optimized Format Study](https://ntrs.nasa.gov/citations/20200001178)
+
+Authors: Chris Durbin, Patrick Quinn, Dana Shum
+:::
+
+::: {.column width="50%"}
+![](./images/type-format-support-matrix.png)
+:::
+
+::::
+
+# What does cloud-optimized mean?
+
+File formats are read-oriented to support:
+
+* Partial reads
+* Parallel reads
+
+## What does cloud-optimized mean?
+
+* File metadata in one read
+* When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads.
+* An easy win is metadata in one read, which can be used to read a cloud-native dataset.
+* A cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.
+
+## What does cloud-optimized mean?
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+* Accessible over HTTP using range requests.
+* This makes it compatible with object storage (a file storage alternative to local disk) and thus accessible via HTTP, from many compute instances.
+* Supports lazy access and intelligent subsetting.
+* Integrates with high-level analysis libraries and distributed frameworks.
+:::
+
+::: {.column width="40%"}
+<img alt="higher level libraries" src="./images/higher-level-libraries.png"/>
+:::
+
+::::
+
+::: aside
+image credit: Ryan Abernathey
+:::
+
+# Formats by Data Type
+
+| Format  | Data Type  | Standard Status  |
+|:--------|:-----------|:-----------------|
+| Cloud-Optimized GeoTIFF (COG)                                 | Raster                   | OGC standard for comment               |
+| Zarr, Kerchunk                                                | Multi-dimensional raster | ESDIS and OGC standards in development |
+| Cloud-Optimized Point Cloud (COPC), Entwine Point Tiles (EPT) | Point Clouds*            | no known ESDIS or OGC standard         |
+| Flatgeobuf, GeoParquet,                                       | Vector                   | no known ESDIS, draft OGC standard     |
+
+# Formats by Adoption
+
+| Format  | Adoption | Standard Status   |
+|:--------|:---------| :-----------------|
+| Cloud-Optimized GeoTIFF (COG)                                 | Widely adopted                                            | OGC standard for comment               |
+| Zarr, Kerchunk                                                | (Less) widely adopted, especially in specific communities | ESDIS and OGC standards in development |
+| Entwine Point Tiles (EPT), Cloud-Optimized Point Cloud (COPC) | Less common (PDAL Supported)                              | no known ESDIS or OGC standard         |
+| GeoParquet, FlatGeobuf                                        | Less common (OGR Supported)                               | no known ESDIS, draft OGC standard     |
+
+# What are COGs?
+
+:::: {.columns}
+
+::: {.column width="40%"}
+* COGs are raster data representing a snapshot in time of gridded data, for example digital elevation models (DEMs).
+* COGs are a de facto standard, with an Open Geospatial Consortium (OGC) standard under review.
+* The standard specifies conformance to how the GeoTIFF is formatted, with additional requirements of tiling and overviews.
+:::
+
+::: {.column width="60%"}
+![](./images/tile-diagram.png)
+:::
+
+::::
+
+::: aside
+image source: https://www.kitware.com/deciphering-cloud-optimized-geotiffs/
+:::
+
+## What are COGs?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+* COGs have internal file directories (IFDs) which are used to tell clients where to find different overview levels and data within the file.
+* Clients can use this metadata to read only the data they need to visualize or calculate.
+* This internal organization is friendly for consumption by clients issuing HTTP GET range request ("bytes: start_offset-end_offset" HTTP header) 
+:::
+
+::: {.column width="50%"}
+![](./images/cog-overviews.png)
+:::
+
+::::
+
+::: aside
+image source: https://medium.com/devseed/cog-talk-part-1-whats-new-941facbcd3d1
+:::
+
+# What is Zarr?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+* Zarr is used to represent multidimensional raster data or “data cubes”. For example, weather data and climate models.
+* Chunked, compressed, N-dimensional arrays.
+* The metadata is stored external to the data files themselves. The data itself is often reorganized and compressed into many files which can be accessed according to which chunks the user is interested in.
+:::
+
+::: {.column width="50%"}
+![](./images/xarray-datastructure.png)
+:::
+
+::::
+
+::: aside
+image source: https://xarray.dev/
+:::
+
+# What is Kerchunk?
+
+* Kerchunk is a way to create Zarr metadata for archival formats, so that you can leverage the benefits of partial and parallel reads for archives in NetCDF4, HDF5, GRIB2, TIFF and FITS.
+
+. . .
+
+<img src="./images/multi_refs.png" style="margin: 0px auto; display: block; width:700px;"/>
+
+::: aside
+image source: https://fsspec.github.io/kerchunk/detail.html
+:::
+
+## Zarr specs in development
+
+* V2 and older specs exist, however,
+* A cross-organization working group has just formed to establish a GeoZarr standards working group, organized by Brianna Pagán (NASA) and includes representatives from many other orgs in the industry.
+* The GeoZarr spec defines conventions for how geospatial data should be organized in a Zarr store. The spec details how the Zarr DataArray and DataSet metadata, and subsequent organization of data, must be in order to be conformant as GeoZarr archive.
+* There is a proposal for Zarr v3 which will address challenges in language support, and storage organization to address the issues of high-latency reads and volume of reads for the many objects stored.
+* There is recent work on a parquet alternative to JSON for indexing.
+
+## COPC (Cloud-Optimized Point Clouds)
+
+<img src="./images/copc-vlr-chunk-table-illustration.png" style="margin: 0px auto; display: block; width:900px;"/>
+
+::: aside
+image source: https://copc.io/
+:::
+
+* Point clouds are a set of data points in space, such as gathered from LiDAR measurements.
+* COPC is a valid LAZ file.
+* Similar to COGs but for point clouds: COPC is just one file, but data is reorganized into a clustered octree instead of regularly gridded overviews.
+* 2 key features:
+    * Support for partial decompression via storage of data in a series of chunks
+    * Variable-length records (VLRs) can store application-specific metadata of any kind. VLRs describe the octree structure.
+* Limitation: Not all attribute types are compatible.
+
+# FlatGeoBuf {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+![](./images/fgb_diagram_2.png)
+:::
+
+::: {.column width="40%"}
+* Vector data is traditionally stored as rows representing points, lines, or polygons with an attribute table.
+* Flatgeobuf is a binary encoding format for geographic data. Flatbuffers that hold a collection of Simple Features. Single-File.
+* A row-based streamable-spatial index optimizes for remote reading.
+* Developed with OGR compatibility in mind. Works with existing OGR APIs, e.g. python and R.
+* Works with HTTP range requests, and has CDN compatibility.
+* Limitation: Not compressed specifically to allow random reads.
+* Learn more: [https://github.com/flatgeobuf/flatgeobuf](https://github.com/flatgeobuf/flatgeobuf), [Kicking the Tires: Flatgeobuf](https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/)
+:::
+
+::::
+
+::: aside
+image source: https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/
+:::
+
+# Geoparquet {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<img src="./images/gpq_query_window.png"/>
+:::
+
+::: {.column width="50%"}
+
+* Vector data is traditionally stored as rows representing points, lines, or polygons with an attribute table
+* GeoParquet defines how to store vector data in Apache Parquet, which is a columnar storage format (like many cloud data warehouses). “Give me all points with height greater than 10m”.
+* Highly compressed
+* Single-file or multi-file
+* Recent support added to geopandas as a distinct function, R support with geoarrow
+* Potential for cross language in-memory shared access
+* Specifications for spatial-indexing, projection handling, etc. are still in discussion
+* Learn more: [https://github.com/opengeospatial/geoparquet](https://github.com/opengeospatial/geoparquet)
+:::
+
+::::
+
+<br />
+
+::: aside
+image source: https://www.wherobots.ai/post/spatial-data-parquet-and-apache-sedona
+:::
+
+# The End?
+
+[Return to Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/) or ...
+
+## Not quite
+
+* These formats and their tooling are in active development
+* Some formats were not mentioned, such as EPT, geopkg, tiledb, Cloud-Optimized HDF5. This presentation was scoped to those known best by the authors.
+* This site will continue to be updated with new content.
+
+# References {.smaller}
+
+:::  {.nonincremental}
+
+Prior presentations and studies discussing multiple formats
+
+* [Cloud Optimized Data Formats](https://ceos.org/document_management/Working_Groups/WGISS/Meetings/WGISS-49/2.%20Wednesday%20April%2022/20200422T1330_Cloud%20Optimized%20Data%20Formats_.pdf) Task 51 Study presentation slides
+    * [https://ntrs.nasa.gov/citations/20200001178](https://ntrs.nasa.gov/citations/20200001178) paper
+* [COG and Zarr for Geospatial Data](https://paper.dropbox.com/doc/COG-and-Zarr-for-Geospatial-Data--BxJTwISajTC1Yk3wzzw_iEKOAg-NTY7c2dmGxr96D0MDdxf6) - draft white paper by Vincent and Ryan
+* [Guide for Generating and Using Cloud Optimized GeoTIFFs](https://docs.google.com/document/d/1rBRr4xcz2NH3JXS0Y8wNEqvd2-pzVw23_p2NV3jKnlM/edit?usp=sharing)
+* [What is Analysis Ready Cloud Optimized data and Why Does it Matter? for NOAA EDMW Sept 15, 2022](https://docs.google.com/presentation/d/1737SXcWC7XgFpOG2Y0AeaWqdDbc-rjxn6e2L8avcMO4/edit#slide=id.g13eebffd241_0_654) - previous presentation on this topic
+* [Brianna-ESIP-2022.pptx](https://docs.google.com/presentation/d/1r6BZgwLowP9PN4wSDLlxRMFMXFCYk6XC/edit#slide=id.p12) - previous presentation on this topic
+* [An Exploration of ‘Cloud-Native Vector’ | by Chris Holmes](https://cholmes.medium.com/an-overview-of-cloud-native-vector-c223845638e0)
+
+Format Homepages and Explainers
+
+* [https://flatgeobuf.org/](https://flatgeobuf.org/) - links to some example notebooks and provides the specification
+* [HDF in the Cloud challenges and solutions for scientific data](https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud) - Matthew Rocklin’s discussion about HDF in the cloud
+* [https://copc.io/](https://copc.io/) - Cloud-Optimized Point Cloud home page + explainer
+* [Cloud Native Geospatial Lidar with the Cloud Optimized Point Cloud - LIDAR Magazine](https://lidarmag.com/2021/12/27/cloud-native-geospatial-lidar-with-the-cloud-optimized-point-cloud/) - Howard Butler explains COPC in lidarmag
+* [Kicking the Tires: Flatgeobuf](https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/) - Flatgeobuff Blog by Horace Williams
+
+:::

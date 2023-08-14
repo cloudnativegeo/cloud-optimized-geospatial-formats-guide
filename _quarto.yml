@@ -1,5 +1,8 @@
 project: 
   type: website
+  preview:
+    port: 4200
+    browser: false
   
 website: 
   page-navigation: true
@@ -25,8 +28,8 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - href: overview.ipynb
-        text: Overview
+      - href: overview.qmd
+        text: Overview Slides    
       - section: Formats
         contents:
         - section: template.qmd
