@@ -5,11 +5,11 @@ subtitle: Chunked and Compressed N-Dimensional Arrays
 
 # What is Zarr?
 
-Zarr, despite it's name, is not a scary format. It's designed for data that is too bit for users' machines, but it makes that data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of thos bits (aka chunks) across many machines.
+[Zarr](https://zarr.dev/), despite it's name, is not a scary format. It's designed for data that is too big for users' machines, but Zarr makes data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of those bits (stored as chunks) across many machines.
 
 The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
-Read more: https://zarr.readthedocs.io/en/stable/tutorial.html
+Read more in the official tutorial: [Zarr Tutorial](https://zarr.readthedocs.io/en/stable/tutorial.html)
 
 ## Zarr Data Organization
 
@@ -29,13 +29,13 @@ Each Zarr array has a shape which corresponds to hits length in each of its dime
 
 Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
 
-The Xarray library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
+The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
 
 ### Consolidated Metadata
 
 Every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.
 
-https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata
+Read more on [consolidating metadata](https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata).
 
 ## Zarr Data Storage
 
@@ -56,3 +56,13 @@ Once data is chunked, applications may read in 1 or many chunks. Because the dat
 Zarr supports compression algorithms to support efficient storage and retrieval.
 
 To explore these concepts in practice, see the [Zarr in Practice](./zarr-in-practice.ipynb) notebook.
+
+# Other Things to Know about Zarr
+
+## What Zarr is not
+
+Zarr is not designed for vector, point cloud or sparse data, although there is investigations into supporting a greater variety of data types.
+
+## Zarr is in Development
+
+There are some limitations of Zarr which is why there are [Zarr Enhancement Proposals](https://zarr.dev/zeps/). Draft ZEPs are recommended reading for anyone considering creating a new Zarr store, especially for very large data.
