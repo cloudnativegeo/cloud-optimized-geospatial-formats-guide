@@ -5,6 +5,8 @@ subtitle: Chunked and Compressed N-Dimensional Arrays
 
 # What is Zarr?
 
+Zarr, despite it's name, is not a scary format. It's designed for data that is too bit for users' machines, but it makes that data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of thos bits (aka chunks) across many machines.
+
 The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
 Read more: https://zarr.readthedocs.io/en/stable/tutorial.html
@@ -23,35 +25,34 @@ Zarr supports hierarchical organization via groups.
 
 Each Zarr array has a shape which corresponds to hits length in each of its dimensions.
 
-## Coordinates and Indexing into Data
+### Coordinates and Indexes
 
 Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
 
 The Xarray library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
 
-## Consolidated Metadata
+### Consolidated Metadata
 
-Every Zarr array will have its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.
+Every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.
 
 https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata
 
 ## Zarr Data Storage
 
-## Storage
+### Storage
 
 Zarr can be stored in-memory, on-disk, in Zip files and in object storage like S3. Any backend that implements `MutableMapping` interface from the Python `collections` module. Additional backends have been implemented, such as DBM, LMDB, SQLite, Redis and MongoDB. 
 
 As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.
 
-## Chunking
+### Chunking
 
 Chunking is the process of dividing the data arrays into smaller pieces. This allows for parallel processing and efficient storage.
 
 Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed, within-chunk reads are not possible.
 
-## Compression
+### Compression
 
 Zarr supports compression algorithms to support efficient storage and retrieval.
 
-
-
+To explore these concepts in practice, see the [Zarr in Practice](./zarr-in-practice.ipynb) notebook.

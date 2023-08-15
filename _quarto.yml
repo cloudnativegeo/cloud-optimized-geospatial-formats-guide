@@ -35,7 +35,9 @@ website:
         - section: cloud-optimized-geotiffs.ipynb
           contents:
           - cogs-examples.ipynb
-        - section: Zarr and Kerchunk
+        - section: zarr.qmd
+          contents:
+          - zarr-in-practice.ipynb
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
         - section: GeoParquet
