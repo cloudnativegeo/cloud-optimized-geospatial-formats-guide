@@ -1,1 +1,2 @@
-RISE
+zarr[jupyter]
+ipytree

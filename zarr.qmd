@@ -5,7 +5,7 @@ subtitle: Chunked and Compressed N-Dimensional Arrays
 
 # What is Zarr?
 
-The Zarr data format, originally created by Alistair Miles, is a community-maintained format for large-scale n-dimensional data. The data is stored as compressed and chunked n-dimensional arrays. Because of Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
+The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
 Read more: https://zarr.readthedocs.io/en/stable/tutorial.html
 
@@ -21,11 +21,13 @@ Zarr supports hierarchical organization via groups.
 
 ### Shape
 
-The shape of a Zarr data store are the cumulative set of dimensions from each of the data arrays stored.
+Each Zarr array has a shape which corresponds to hits length in each of its dimensions.
 
-## Coordinates and Indexes
+## Coordinates and Indexing into Data
 
-In order to subselect data within a Zarr store, Zarr can be used by Xarray dataset structure which includes indexes and coordinates for subselecting data. Indexes specify the place within the dimension space data is stored. Coordinates are data arrays stored in a seaprate directory from the data itself, but are used to identify where, in the coordinate space, the data is.
+Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
+
+The Xarray library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
 
 ## Consolidated Metadata
 
@@ -37,7 +39,7 @@ https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata
 
 ## Storage
 
-Zarr can also be stored in-memory, on-disk, in Zip files and in object storage like S3. Any backend that implements `MutableMapping` interface from the Python `collections` module. Additional backends have been implemented, such as DBM, LMDB, SQLite, Redis and MongoDB. 
+Zarr can be stored in-memory, on-disk, in Zip files and in object storage like S3. Any backend that implements `MutableMapping` interface from the Python `collections` module. Additional backends have been implemented, such as DBM, LMDB, SQLite, Redis and MongoDB. 
 
 As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.
 
