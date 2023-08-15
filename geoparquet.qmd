@@ -1,0 +1,22 @@
+---
+title: GeoParquet
+subtitle: Guidelines for GeoParquet
+---
+
+
+test
+
+- Columnar format
+- Full type system that can support even nested types
+
+The Parquet format supports a wide variety of data types for attributes, even including _nested_ types. This means that you can store a key-value mapping or a multi-dimensional array _within an attribute column_ of a GeoParquet dataset.
+
+## Multiple-file datasets
+
+GeoParquet is most often distributed as a single file, but the Parquet format allows for
+
+Some reasons why you might want to use a multiple file dataset are:
+
+- Writing from a distributed program
+- Spatial partitioning (this is not yet defined by the GeoParquet specification)
+-

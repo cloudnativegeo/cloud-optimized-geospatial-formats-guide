@@ -1,0 +1,108 @@
+---
+title: FlatGeobuf
+subtitle: Guidelines for FlatGeobuf
+---
+
+# FlatGeobuf
+
+- This is a  new format, not derived on an existing file format, like COG is for TIFF.
+
+
+### File layout
+
+The internal layout of the file has four sections
+
+### Row based
+
+Internally, features are laid out in a row-oriented fashion rather than a column-oriented fasion.
+
+todo
+
+### No internal chunking
+
+In contrast to some formats like COG and GeoParquet, there's no internal chunking.
+
+todo
+
+### No internal compression
+
+Unlike some formats like Cloud-Optimized GeoTIFF and GeoParquet, FlatGeobuf does not include any support for _internal_ data compression.
+
+This means that
+
+
+For FlatGeobuf files with a spatial index, the index describes the byte ranges in the _uncompressed_ file. That means if you c
+
+_Potentially_ it might
+
+### No append support
+
+FlatGeobuf is a write-only format, and doesn't support appending, as that would invalidate the spatial index in the file.
+
+### Random access supported via spatial index
+
+FlatGeobuf optionally supports a spatial index at the beginning of the file. This is a [_static packed Hilbert R-tree index_](https://flatgeobuf.org/#specification) that enables random access for each geometry in the file. That's a mouthful, so let's break it down:
+
+- _R-tree index_: An R-Tree is a hierarchical collection of bounding boxes. From the bottom up, at the lowest level of the tree is a bounding box of every geometry. Then one level above the bottom holds a collection of bounding boxes, each of which is formed as the union of all child boxes. This means that each box encompasses every child box. There are fewer boxes at this level, because each box contains many child boxes, each of which represents one original geometry. This process continues repeatedly until there's only one bounding box that indirectly contains the entire dataset.
+
+    This index allows you to quickly search for features that intersect a given bounding box query. At the top level, compare the bounding box of each node to your query region. If those two don't intersect, you can discard that node _and all of its child nodes_ from the search, because you know that none of them could possibly fall within your search region.
+
+    If you keep going, you'll quickly find which items
+
+    The [Wikipedia article](https://en.wikipedia.org/wiki/R-tree) and this [Mapbox blog post](https://blog.mapbox.com/a-dive-into-spatial-search-algorithms-ebd0c5e39d2a) are great resources for better understanding how R-Trees work.
+
+- _Hilbert_: The elements of an R-Tree must be _sorted_ before insertion to make the R-Tree useful. This is because the core benefit of an R-Tree is to _exclude_ elements that aren't within a spatial filter. If elements
+
+    But how do you sort geometries? They encompass two dimensions and a range of shapes. If you sort all geometries first on the `x` coordinate, then you may pair geometries that are far from each other on the `y` dimension. Instead, it's ideal to use a [_space-filling curve_](https://en.wikipedia.org/wiki/Space-filling_curve). That's math jargon, but essentially defines a way to group
+
+    A Hilbert R-Tree uses a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve), a special type of space-filling curve, to sort the centers of geometries. This ensures that geometries that are nearby on both the `x` _and_ `y` dimensions are placed close to each other in the R-Tree. This ensures that the resulting bounding boxes of the R-Tree are as small as possible, which means that the maximum number of elements can be discarded for any given spatial query.
+
+    Mathematically, a Hilbert Curve
+
+- _static_: FlatGeobuf files can't be modified without rewriting the entire file, so this [R-Tree](https://en.wikipedia.org/wiki/R-tree) is constructed in such a way that it can't be modified, which allows for improved tree generation.
+- _packed_: R-Trees work by having a series of leaves in the tree, where each leaf contains a number of inner leaves and so on. So that searching the tree doesn't take too much time, each leaf has a maximum number of items, usually something like 16. When R-Trees are intended to be mutable, many leaves contain _less than_ the maximum number of children, so that a child can be added without having to rebalance the tree.
+
+    Because we require this index to be static, we can make the R-Tree more efficient! We can create the minimum number of nodes to handle the known number of geometries, as we know there will be no added features later.
+
+    FlatGeobuf does this
+
+This index
+
+1. Maps every bounding box to a byte range within the file
+2. Allows for discarding features outside of a spatial query, having only the index.
+
+<!-- Keep in mind that since FlatGeobuf isn't chunked, -->
+
+And because FlatGeobuf is a row-based format, if some properties are really large, like if a column is a string description with many characters, you'll have a tradeoff between fetching lots of extra data to combine multiple requests into one or making many requests for small features that are scattered throughout the file.
+
+### Streaming features is supported
+
+This even works with compression algorithms like gzip or deflate that support streaming decompression.
+
+A good example of this is [this example](https://observablehq.com/@bjornharrtell/streaming-flatgeobuf) by FlatGeobuf's author Björn Harrtell. As the file is downloaded to the browser, portions of the file get rendered progressively in parts.
+
+
+FlatGeobuf is a geospatial
+
+FlatGeobuf created a _new_
+
+- Write once
+
+- Append not usually possible. is technically possible
+
+
+### Full type system, except nested types
+
+FlatGeobuf supports attributes with many primitive types, but does not support nested types without overhead. It defines a JSON type, but that requires parsing the internal JSON.
+
+Dates are stored as strings, which must be parsed into an application's native date type.
+
+### Known table schema
+
+TODO: is there a guaranteed that every row in the file has the same schema? It looks like yes. https://github.com/flatgeobuf/flatgeobuf/blob/b013ac326568914aee43bcf3aa3c77574d629aa5/src/fbs/header.fbs#L75
+
+
+### References
+
+- [flatgeobuf.org](https://flatgeobuf.org/): Official project website.
+-
