@@ -1,23 +1,23 @@
-project: 
+project:
   type: website
   preview:
     port: 4200
     browser: false
-  
-website: 
+
+website:
   page-navigation: true
   title: Cloud-Optimized Geospatial Formats Guide
   repo-url: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide
   repo-actions: [edit, issue]
-  
+
   page-footer:
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
     left: "&copy; CC-By [Development Seed](https://developmentseed.org), 2023"
-    
+
   sidebar:
     pinned: true
     align: center
-    tools: 
+    tools:
       - icon: github
         href: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide
         text: "Cloud-Optimized Geospatial Formats Guide"
@@ -29,7 +29,7 @@ website:
       - href: index.qmd
         text: Welcome
       - href: overview.qmd
-        text: Overview Slides    
+        text: Overview Slides
       - section: Formats
         contents:
         - section: cloud-optimized-geotiffs.ipynb
@@ -38,7 +38,9 @@ website:
         - section: Zarr and Kerchunk
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
-        - section: GeoParquet
+        - section: geoparquet/index.qmd
+          contents:
+            - geoparquet/index.qmd
         - section: Flatgeobuf
 
 format:
@@ -58,4 +60,4 @@ filters:
   - include-files.lua
   - quarto
 
-  
+

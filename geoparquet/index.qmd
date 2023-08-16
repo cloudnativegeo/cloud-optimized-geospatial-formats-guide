@@ -1,0 +1,60 @@
+---
+title: GeoParquet
+subtitle: Guidelines for GeoParquet
+---
+
+# GeoParquet
+
+GeoParquet is an encoding for how to store geospatial vector data (point, lines, polygons) in [Apache Parquet](https://parquet.apache.org/), a popular columnar storage format for tabular data.
+
+GeoParquet builds on the existing success of Parquet, by defining how to store geometries
+
+### File layout
+
+Parquet files consist of a sequence of chunks called "record batches". Each record batch consists of a collection of columns with the same length. All record batches in the file must have the exact same schema.
+
+In Parquet, metadata is located at the _end_ of the file rather than at the beginning. This makes it much easier to write, as you don't need to know how many total rows you have at the beginning, but makes it slightly harder to read. In practice, this is not too much more difficult to read: a Parquet reader first reads the end of the file, then makes reads for select columns.
+
+todo: Add diagram
+
+#### Terminology:
+
+- Column: A logical column consisting of one or more internal chunks
+- Column chunk: A contiguous array that is one of the elements making up a column
+- Record Batch
+- Table: A full Parquet file
+- Dataset: A collection of Parquet files with the same schema and that are logically understood to be part of the same dataset.
+
+### Column oriented
+
+The bytes of each _column_ are contiguous, instead of each _row_. This means that it's easy to filter on columns — fetching _all rows of a single column_ — but not possible to filter on individual rows.
+
+### Internal compression by default
+
+It's possible to have random access to one of the internal chunks inside the file at large, even though that chunk is compressed. Note that it isn't possible to fetch partial data _inside one chunk_ without loading and decompressing the entire chunk.
+
+### Geometries encoded as WKB
+
+For maximum compatibility with existing systems, geometries are stored as [ISO WKB](https://github.com/opengeospatial/geoparquet/blob/main/format-specs/geoparquet.md#encoding).
+
+### No spatial index (yet!)
+
+GeoParquet is a young specification, and spatial indices are not yet part of the standard. Some ways around this are to store data by some region as multiple files and catalog each file with STAC.
+
+### Multi-file support
+
+While at medium data sizes GeoParquet is most easily distributed as a single file, at large data sizes a single dataset is often split into multiple files. Sometimes multiple files can be easier to write, such as if the data is output from a distributed system.
+
+### Multithreading support but no streaming
+
+In a streaming download, you read bytes starting at the beginning of the file, progressing towards the end. In Parquet, this is not helpful because the metadata is in the _footer_ of the file instead of the header.
+
+Instead, we can replicate something similar to streaming by first fetching only the metadata region at the end of the file, and then making multiple requests for each internal chunk.
+
+### Files are immutable
+
+Appends are not possible in Parquet. If you wish to modify a file, you must create a new file.
+
+### Extensive type system
+
+Parquet supports a very extensive type system, including nested types such as lists and maps (dictionaries). This means that you can store a key-value mapping or a multi-dimensional array _within an attribute column_ of a GeoParquet dataset.
