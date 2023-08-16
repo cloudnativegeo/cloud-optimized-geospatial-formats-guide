@@ -19,7 +19,7 @@ website:
     align: center
     tools: 
       - icon: github
-        href: https://github.com/NASA-IMPACT/cloud-optimized-geospatial-formats-guide
+        href: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide
         text: "Cloud-Optimized Geospatial Formats Guide"
 
     style: "docked"
