@@ -5,12 +5,23 @@ subtitle: Guidelines for FlatGeobuf
 
 # FlatGeobuf
 
-- This is a  new format, not derived on an existing file format, like COG is for TIFF.
+Flatgeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
 
+Unlike some formats like Cloud-Optimized GeoTIFF, which builds on the previous success of TIFF and GeoTIFF, FlatGeobuf is a new format, designed from the ground up to be faster for geospatial data.
+
+- Any vector geometry defined in the OGC Simple Features specification is supported. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection, but also includes more obscure types such as CircularString, Surface, and TIN (Triangulated irregular network). (A best practice is to store only geometries with the same type )
+- An optional row-based spatial index optimizes for remote reading.
 
 ### File layout
 
-The internal layout of the file has four sections
+The internal layout of the file has four sections: magic bytes (aka signature), header, index, and data (aka features).
+
+1. The file signature is 8 “magic bytes” indicating the file type and spec version.
+2. The header is a length-prefixed flatbuffer containing the [flatgeobuf `Header` record](https://github.com/flatgeobuf/flatgeobuf/blob/master/src/fbs/header.fbs#L67-L82).
+3. Index (optional): A flattened, packed RTree containing a spatial index for performing bounding-box filtering of features (aka data). If the index is omitted this is indicated by setting the index_node_size Header field to 0. In this case the Features section will appear immediately after the Header.
+4. Features / Data: A buffer containing sequential length-prefixed [Feature](https://github.com/flatgeobuf/flatgeobuf/blob/master/src/fbs/feature.fbs) flatbuffer records.
+
+source: [Flatgeobuf: Implementer's Guide](https://worace.works/2022/03/12/flatgeobuf-implementers-guide/)
 
 ### Row based
 
@@ -30,7 +41,6 @@ Unlike some formats like Cloud-Optimized GeoTIFF and GeoParquet, FlatGeobuf does
 
 This means that
 
-
 For FlatGeobuf files with a spatial index, the index describes the byte ranges in the _uncompressed_ file. That means if you c
 
 _Potentially_ it might
@@ -43,7 +53,6 @@ FlatGeobuf is a write-only format, and doesn't support appending, as that would 
 
 FlatGeobuf optionally supports a spatial index at the beginning of the file. This is a [_static packed Hilbert R-tree index_](https://flatgeobuf.org/#specification) that enables random access for each geometry in the file. That's a mouthful, so let's break it down:
 
-
 <!-- Keep in mind that since FlatGeobuf isn't chunked, -->
 
 And because FlatGeobuf is a row-based format, if some properties are really large, like if a column is a string description with many characters, you'll have a tradeoff between fetching lots of extra data to combine multiple requests into one or making many requests for small features that are scattered throughout the file.
@@ -54,7 +63,6 @@ This even works with compression algorithms like gzip or deflate that support st
 
 A good example of this is [this example](https://observablehq.com/@bjornharrtell/streaming-flatgeobuf) by FlatGeobuf's author Björn Harrtell. As the file is downloaded to the browser, portions of the file get rendered progressively in parts.
 
-
 FlatGeobuf is a geospatial
 
 FlatGeobuf created a _new_
@@ -62,7 +70,6 @@ FlatGeobuf created a _new_
 - Write once
 
 - Append not usually possible. is technically possible
-
 
 ### Full type system, except nested types
 
@@ -73,7 +80,6 @@ Dates are stored as strings, which must be parsed into an application's native d
 ### Known table schema
 
 TODO: is there a guaranteed that every row in the file has the same schema? It looks like yes. https://github.com/flatgeobuf/flatgeobuf/blob/b013ac326568914aee43bcf3aa3c77574d629aa5/src/fbs/header.fbs#L75
-
 
 ### References
 
