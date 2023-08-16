@@ -9,41 +9,30 @@ Flatgeobuf is a binary file format for geographic vector data, such as points, l
 
 Unlike some formats like Cloud-Optimized GeoTIFF, which builds on the previous success of TIFF and GeoTIFF, FlatGeobuf is a new format, designed from the ground up to be faster for geospatial data.
 
-- Any vector geometry defined in the OGC Simple Features specification is supported. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection, but also includes more obscure types such as CircularString, Surface, and TIN (Triangulated irregular network). A best practice is to store only geometries with the same type, as that allows readers to know which geometry type is stored without scanning the entire file.
-- An optional row-based spatial index optimizes for remote reading.
+FlatGeobuf is widely supported — via its [GDAL implementation](https://gdal.org/drivers/vector/flatgeobuf.html) — in many programming languages as well as applications like QGIS.
+
+FlatGeobuf supports any vector geometry type defined in the OGC Simple Features specification. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection, but also includes more obscure types such as CircularString, Surface, and TIN (Triangulated irregular network). A best practice is to store only geometries with the same type, as that allows readers to know which geometry type is stored without scanning the entire file.
+
+An optional row-based spatial index optimizes for remote reading.
 
 ### File layout
 
 The internal layout of the file has four sections: magic bytes (aka signature), header, index, and data (aka features).
 
-1. The file signature is 8 “magic bytes” indicating the file type and spec version.
-2. The header is a length-prefixed flatbuffer containing the [flatgeobuf `Header` record](https://github.com/flatgeobuf/flatgeobuf/blob/master/src/fbs/header.fbs#L67-L82).
-3. Index (optional): A flattened, packed RTree containing a spatial index for performing bounding-box filtering of features (aka data). If the index is omitted this is indicated by setting the index_node_size Header field to 0. In this case the Features section will appear immediately after the Header.
-4. Features / Data: A buffer containing sequential length-prefixed [Feature](https://github.com/flatgeobuf/flatgeobuf/blob/master/src/fbs/feature.fbs) flatbuffer records.
-
-source: [Flatgeobuf: Implementer's Guide](https://worace.works/2022/03/12/flatgeobuf-implementers-guide/)
+1. The file signature is 8 "magic bytes" indicating the file type and specification version, which allows readers to know a file is FlatGeobuf, even if it's missing a file extension.
+2. Next comes the header, which stores the bounding box of the dataset, the geometry type of the features (if known and unique), the attribute schema, the number of features, and coordinate reference system information.
+3. After the file header is an optional spatial index. If included, this lets a reader skip reading features that are not within a provided spatial query.
+4. Last come the individual features. The rest of the file is a sequence of feature records, placed end to end in a row-wise fashion.
 
 ### Row based
 
-Internally, features are laid out in a row-oriented fashion rather than a column-oriented fasion.
-
-todo
-
-### No internal chunking
-
-In contrast to some formats like COG and GeoParquet, there's no internal chunking.
-
-todo
+Internally, features are laid out in a row-oriented fashion rather than a column-oriented fasion. This means that it's relatively cheap to select specific records from the file, but relatively expensive to select a specific column. This is ideal for a small spatial query (assuming an index exists in the file) but to load all geometries requires loading all attribute information as well.
 
 ### No internal compression
 
-Unlike some formats like Cloud-Optimized GeoTIFF and GeoParquet, FlatGeobuf does not include any support for _internal_ data compression.
+FlatGeobuf does not support compression while maintaining the ability to seek within the file. In particular, FlatGeobuf's spatial index describes the byte ranges in the _uncompressed_ file. Those byte ranges will be incorrect if the file is compressed.
 
-This means that
-
-For FlatGeobuf files with a spatial index, the index describes the byte ranges in the _uncompressed_ file. That means if you c
-
-_Potentially_ it might
+A compression like gzip can be applied to the FlatGeobuf file in full, but keep in mind that storing the compressed file will eliminate random access support.
 
 ### No append support
 
@@ -51,37 +40,56 @@ FlatGeobuf is a write-only format, and doesn't support appending, as that would 
 
 ### Random access supported via spatial index
 
-FlatGeobuf optionally supports a spatial index at the beginning of the file. This is a [_static packed Hilbert R-tree index_](https://flatgeobuf.org/#specification) that enables random access for each geometry in the file. That's a mouthful, so let's break it down:
+FlatGeobuf optionally supports a spatial index at the beginning of the file, which can speed up reading portions of a file based on a spatial query. For more information on how this spatial index works, refer to the [Hilbert R Tree](./flatgeobuf/hilbert-r-tree.qmd) page.
 
-<!-- Keep in mind that since FlatGeobuf isn't chunked, -->
+<!--
+TODO: Not sure whether this section makes sense to include
 
-And because FlatGeobuf is a row-based format, if some properties are really large, like if a column is a string description with many characters, you'll have a tradeoff between fetching lots of extra data to combine multiple requests into one or making many requests for small features that are scattered throughout the file.
+### No internal chunking
+
+FlatGeobuf has no internal chunking. Rather, the binary features are stored sequentially with no other grouping.
+
+One implication of this is that you have
+
+And because FlatGeobuf is a row-based format, if some properties are really large, like if a column is a string description with many characters, you'll have a tradeoff between fetching lots of extra data to combine multiple requests into one or making many requests for small features that are scattered throughout the file. -->
 
 ### Streaming features is supported
 
-This even works with compression algorithms like gzip or deflate that support streaming decompression.
+FlatGeobuf supports _streaming_, meaning that you can use part of the file before the entire file has finished downloading. This is different than random access, because you have no ability to skip around in the file.
 
-A good example of this is [this example](https://observablehq.com/@bjornharrtell/streaming-flatgeobuf) by FlatGeobuf's author Björn Harrtell. As the file is downloaded to the browser, portions of the file get rendered progressively in parts.
+Streaming can be valuable because it makes an application seem more responsive; you can have _something_ happen without having to wait for the full download to complete. A good example of this is [this example](https://observablehq.com/@bjornharrtell/streaming-flatgeobuf) by FlatGeobuf's author Björn Harrtell. As the file is downloaded to the browser, portions of the file get rendered progressively in parts.
 
-FlatGeobuf is a geospatial
+This works even with full-file compression like gzip or deflate because those compression algorithms support streaming decompression.
 
-FlatGeobuf created a _new_
+### Broad type system
 
-- Write once
+FlatGeobuf supports attributes with a range of types:
 
-- Append not usually possible. is technically possible
+- `Byte`: Signed 8-bit integer
+- `UByte`: Unsigned 8-bit integer
+- `Bool`: Boolean
+- `Short`: Signed 16-bit integer
+- `UShort`: Unsigned 16-bit integer
+- `Int`: Signed 32-bit integer
+- `UInt`: Unsigned 32-bit integer
+- `Long`: Signed 64-bit integer
+- `ULong`: Unsigned 64-bit integer
+- `Float`: Single precision floating point number
+- `Double`: Double precision floating point number
+- `String`: UTF8 string
+- `Json`: General JSON type intended to be application specific
+- `DateTime`: ISO 8601 date time
+- `Binary`: General binary type intended to be application specific
 
-### Full type system, except nested types
+Note that FlatGeobuf is unable to store nested types without overhead. It doesn't support a "list" or "dict" type apart from JSON, which has a parsing overhead.
 
-FlatGeobuf supports attributes with many primitive types, but does not support nested types without overhead. It defines a JSON type, but that requires parsing the internal JSON.
-
-Dates are stored as strings, which must be parsed into an application's native date type.
+In some situations, having strong nested type support can be useful. For example STAC stored as GeoParquet has columns that are nested, such as the `assets` column that needs to store a dictionary-like mapping from asset names to their information. FlatGeobuf is able to store such data by serializing it to JSON, but it's not possible to see the nested schema before parsing the full dataset.
 
 ### Known table schema
 
-TODO: is there a guaranteed that every row in the file has the same schema? It looks like yes. https://github.com/flatgeobuf/flatgeobuf/blob/b013ac326568914aee43bcf3aa3c77574d629aa5/src/fbs/header.fbs#L75
+FlatGeobuf declares the schema of properties at the beginning of the file. This makes it much easier to read the file — compared to a fully schemaless format like GeoJSON — because the reader knows what data type each attribute has in advance.
 
 ### References
 
 - [flatgeobuf.org](https://flatgeobuf.org/): Official project website.
--
+- [Flatgeobuf: Implementer's Guide](https://worace.works/2022/03/12/flatgeobuf-implementers-guide/)
