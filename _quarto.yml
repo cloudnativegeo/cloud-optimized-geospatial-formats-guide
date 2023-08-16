@@ -40,6 +40,9 @@ website:
         - section: Cloud-Optimized Point Clouds (COPC)
         - section: geoparquet.md
         - section: flatgeobuf.qmd
+          contents:
+            - flatgeobuf/hilbert-r-tree.qmd
+            - flatgeobuf.qmd
 
 format:
   html:

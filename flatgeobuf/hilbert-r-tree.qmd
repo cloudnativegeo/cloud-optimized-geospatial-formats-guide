@@ -1,0 +1,55 @@
+---
+title: FlatGeobuf Spatial Index
+subtitle: Breaking down the Hilbert Packed R-Tree
+---
+
+FlatGeobuf supports optionally including a spatial index that enables random access for each geometry in the file.
+
+## When to use
+
+When _writing_ a FlatGeobuf file, one must decide whether to include a spatial index. A spatial index cannot be added to a FlatGeobuf file after the file has been written.
+
+A spatial index can enable much more efficient reading from FlatGeobuf, by allowing the reader to skip over portions of the file that fall outside of a qiven spatial query region.
+
+## Technical details
+
+In this section we'll get into some gory technical details of how FlatGeobuf's spatial index works. Understanding the below isn't necessary for using FlatGeobuf, but can provide some extra context.
+
+FlatGeobuf's spatial index is a [_static packed Hilbert R-tree index_](https://flatgeobuf.org/#specification). That's a mouthful, so let's break it down:
+
+### R-tree index
+
+An R-Tree is a hierarchical collection of bounding boxes. From the bottom up, at the lowest level of the tree is a bounding box of every geometry. Then one level above the bottom holds a collection of bounding boxes, each of which is formed as the union of all child boxes. This means that each box encompasses every child box. There are fewer boxes at this level, because each box contains many child boxes, each of which represents one original geometry. This process continues repeatedly until there's only one bounding box that indirectly contains the entire dataset.
+
+This index allows you to quickly search for features that intersect a given bounding box query. At the top level, compare the bounding box of each node to your query region. If those two don't intersect, you can discard that node _and all of its child nodes_ from the search, because you know that none of them could possibly fall within your search region.
+
+If you keep going, you'll quickly find which items
+
+The [Wikipedia article](https://en.wikipedia.org/wiki/R-tree) and this [Mapbox blog post](https://blog.mapbox.com/a-dive-into-spatial-search-algorithms-ebd0c5e39d2a) are great resources for better understanding how R-Trees work.
+
+### Hilbert
+
+The elements of an R-Tree must be _sorted_ before insertion to make the R-Tree useful. This is because the core benefit of an R-Tree is to _exclude_ elements that aren't within a spatial filter. If elements
+
+But how do you sort geometries? They encompass two dimensions and a range of shapes. If you sort all geometries first on the `x` coordinate, then you may pair geometries that are far from each other on the `y` dimension. Instead, it's ideal to use a [_space-filling curve_](https://en.wikipedia.org/wiki/Space-filling_curve). That's math jargon, but essentially defines a way to group
+
+A Hilbert R-Tree uses a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve), a special type of space-filling curve, to sort the centers of geometries. This ensures that geometries that are nearby on both the `x` _and_ `y` dimensions are placed close to each other in the R-Tree. This ensures that the resulting bounding boxes of the R-Tree are as small as possible, which means that the maximum number of elements can be discarded for any given spatial query.
+
+Mathematically, a Hilbert Curve
+
+### Static
+
+FlatGeobuf files can't be modified without rewriting the entire file, so this [R-Tree](https://en.wikipedia.org/wiki/R-tree) is constructed in such a way that it can't be modified, which allows for improved tree generation.
+
+### Packed
+
+R-Trees work by having a series of leaves in the tree, where each leaf contains a number of inner leaves and so on. So that searching the tree doesn't take too much time, each leaf has a maximum number of items, usually something like 16. When R-Trees are intended to be mutable, many leaves contain _less than_ the maximum number of children, so that a child can be added without having to rebalance the tree.
+
+Because we require this index to be static, we can make the R-Tree more efficient! We can create the minimum number of nodes to handle the known number of geometries, as we know there will be no added features later.
+
+FlatGeobuf does this
+
+This index
+
+1. Maps every bounding box to a byte range within the file
+2. Allows for discarding features outside of a spatial query, having only the index.
