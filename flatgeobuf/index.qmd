@@ -40,7 +40,7 @@ FlatGeobuf is a write-only format, and doesn't support appending, as that would 
 
 ### Random access supported via spatial index
 
-FlatGeobuf optionally supports a spatial index at the beginning of the file, which can speed up reading portions of a file based on a spatial query. For more information on how this spatial index works, refer to the [Hilbert R Tree](./flatgeobuf/hilbert-r-tree.qmd) page.
+FlatGeobuf optionally supports a spatial index at the beginning of the file, which can speed up reading portions of a file based on a spatial query. For more information on how this spatial index works, refer to the [Hilbert R Tree](./hilbert-r-tree.qmd) page.
 
 <!--
 TODO: Not sure whether this section makes sense to include

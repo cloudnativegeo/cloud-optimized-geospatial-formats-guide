@@ -39,10 +39,9 @@ website:
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
         - section: geoparquet.md
-        - section: flatgeobuf.qmd
+        - section: flatgeobuf/index.qmd
           contents:
             - flatgeobuf/hilbert-r-tree.qmd
-            - flatgeobuf.qmd
 
 format:
   html:
