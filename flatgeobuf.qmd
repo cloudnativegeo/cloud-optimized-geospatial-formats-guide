@@ -9,7 +9,7 @@ Flatgeobuf is a binary file format for geographic vector data, such as points, l
 
 Unlike some formats like Cloud-Optimized GeoTIFF, which builds on the previous success of TIFF and GeoTIFF, FlatGeobuf is a new format, designed from the ground up to be faster for geospatial data.
 
-- Any vector geometry defined in the OGC Simple Features specification is supported. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection, but also includes more obscure types such as CircularString, Surface, and TIN (Triangulated irregular network). (A best practice is to store only geometries with the same type )
+- Any vector geometry defined in the OGC Simple Features specification is supported. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection, but also includes more obscure types such as CircularString, Surface, and TIN (Triangulated irregular network). A best practice is to store only geometries with the same type, as that allows readers to know which geometry type is stored without scanning the entire file.
 - An optional row-based spatial index optimizes for remote reading.
 
 ### File layout
