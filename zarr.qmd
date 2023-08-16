@@ -1,6 +1,6 @@
 ---
 title: "Zarr"
-subtitle: Chunked and Compressed N-Dimensional Arrays
+subtitle: Chunked, Compressed N-Dimensional Arrays
 ---
 
 # What is Zarr?
