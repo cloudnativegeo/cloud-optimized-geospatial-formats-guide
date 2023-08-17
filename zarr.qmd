@@ -11,23 +11,45 @@ The Zarr data format is a community-maintained format for large-scale n-dimensio
 
 Read more in the official tutorial: [Zarr Tutorial](https://zarr.readthedocs.io/en/stable/tutorial.html)
 
+## Zarr Version 2 and Version 3
+
+::: {.callout-important}
+Zarr Version 3 is in active development, so all the examples in this guide are for Zarr Version 2 data. The concepts in this page are consistent across both Zarr Version 2 and Zarr Version 3, however some metadata field names and organization are changing from Version 2 to version 3. 
+:::
+
+Version 3 changes from Version 2:
+
+* `dtype` has been renamed to `data_type`,
+* `chunks` has been replaced with `chunk_grid`,
+* `dimension_separator` has been replaced with `chunk_key_encoding`,
+* `order` has been replaced by the [transpose](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/transpose/v1.0.html#transpose-codec-v1) codec,
+* the separate `filters` and `compressor` fields been combined into the single `codecs` field.
+
+Read more:
+* [Zarr specification version 2](https://zarr.readthedocs.io/en/stable/spec/v2.html)
+* [Zarr specification version 3.0](https://zarr.readthedocs.io/en/stable/spec/v3.html)
+
 ## Zarr Data Organization
 
 ### Arrays
 
 Zarr arrays are similar to numpy arrays, but chunked and compressed. More details about chunking and compression are to follow.
 
-### Groups
+### Hierarchy via Groups
 
-Zarr supports hierarchical organization via groups.
+Zarr supports hierarchical organization via groups. Each node in the Zarr hierarchy is either a group or an array.
 
-### Shape
+### Dimensions and Shape
 
-Each Zarr array has a shape which corresponds to hits length in each of its dimensions.
+A Zarr array has zero or more dimensions. A Zarr array's shape is the tuple of the length of the array in each respective dimension.
 
 ### Coordinates and Indexes
 
 Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
+
+::: {.callout-note}
+The Zarr format is language agnostic, but this indexing reference is specific to Python.
+:::
 
 The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
 
@@ -41,7 +63,11 @@ Read more on [consolidating metadata](https://zarr.readthedocs.io/en/stable/tuto
 
 ### Storage
 
-Zarr can be stored in-memory, on-disk, in Zip files and in object storage like S3. Any backend that implements `MutableMapping` interface from the Python `collections` module. Additional backends have been implemented, such as DBM, LMDB, SQLite, Redis and MongoDB. 
+Zarr can be stored in-memory, on-disk, in Zip files and in object storage like S3.
+
+::: {.callout-note}
+Any backend that implements `MutableMapping` interface from the Python `collections` module can be used to store Zarr. Learn more and see all the options on the [`Storage (zarr.storage)`](https://zarr.readthedocs.io/en/stable/api/storage.html) documentation page.
+:::
 
 As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.
 
@@ -65,4 +91,8 @@ Zarr is not designed for vector, point cloud or sparse data, although there is i
 
 ## Zarr is in Development
 
-There are some limitations of Zarr which is why there are [Zarr Enhancement Proposals](https://zarr.dev/zeps/). Draft ZEPs are recommended reading for anyone considering creating a new Zarr store, especially for very large data.
+There are some limitations of Zarr which is why there are [Zarr Enhancement Proposals](https://zarr.dev/zeps/). 
+
+Zarr Version 3 was itself a ZEP, which has been accepted.
+
+Draft ZEPs are recommended reading for anyone considering creating a new Zarr store, since they address common challenges with Zarr data to date.
