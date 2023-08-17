@@ -5,7 +5,7 @@ subtitle: Chunked, Compressed N-Dimensional Arrays
 
 # What is Zarr?
 
-[Zarr](https://zarr.dev/), despite it's name, is not a scary format. It's designed for data that is too big for users' machines, but Zarr makes data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of those bits (stored as chunks) across many machines.
+[Zarr](https://zarr.dev/), despite its name, is not a scary format. It's designed for data that is too big for users' machines, but Zarr makes data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of those bits (stored as chunks) across many machines.
 
 The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
