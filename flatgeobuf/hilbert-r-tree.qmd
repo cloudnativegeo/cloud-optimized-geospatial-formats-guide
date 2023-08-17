@@ -23,19 +23,23 @@ An R-Tree is a hierarchical collection of bounding boxes. From the bottom up, at
 
 This index allows you to quickly search for features that intersect a given bounding box query. At the top level, compare the bounding box of each node to your query region. If those two don't intersect, you can discard that node _and all of its child nodes_ from the search, because you know that none of them could possibly fall within your search region.
 
-If you keep going, you'll quickly find which items
+Continuing this process allows you to quickly find only the specific items that are candidates for your search query.
+
+<img src="../images/r-tree.svg" height="500">
+
+> R-Tree diagram from [Wikipedia](https://en.wikipedia.org/wiki/R-tree). From top to bottom, the three levels of this tree are the black, blue, and red boxes. The black boxes contain the most items and encompass the largest area, while the red boxes contain the fewest items and encompass a smaller area.
 
 The [Wikipedia article](https://en.wikipedia.org/wiki/R-tree) and this [Mapbox blog post](https://blog.mapbox.com/a-dive-into-spatial-search-algorithms-ebd0c5e39d2a) are great resources for better understanding how R-Trees work.
 
 ### Hilbert
 
-The elements of an R-Tree must be _sorted_ before insertion to make the R-Tree useful. This is because the core benefit of an R-Tree is to _exclude_ elements that aren't within a spatial filter. If elements
+The elements of an R-Tree must be _sorted_ before insertion to make the R-Tree useful. This is because the core benefit of an R-Tree is to _exclude_ elements that aren't within a spatial filter. If elements of each node are randomly drawn from different geographies, then each node's bounding box will be so large that no nodes can be excluded.
 
-But how do you sort geometries? They encompass two dimensions and a range of shapes. If you sort all geometries first on the `x` coordinate, then you may pair geometries that are far from each other on the `y` dimension. Instead, it's ideal to use a [_space-filling curve_](https://en.wikipedia.org/wiki/Space-filling_curve). That's math jargon, but essentially defines a way to group
+But how do you sort geometries? They encompass two dimensions and a range of shapes. If you sort all geometries first on the `x` coordinate, then you may pair geometries that are far from each other on the `y` dimension. Instead, it's ideal to use a [_space-filling curve_](https://en.wikipedia.org/wiki/Space-filling_curve). That's math jargon, but essentially defines a way to sort elements in _n_ dimensions using _1_ dimensional numbers.
 
-A Hilbert R-Tree uses a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve), a special type of space-filling curve, to sort the centers of geometries. This ensures that geometries that are nearby on both the `x` _and_ `y` dimensions are placed close to each other in the R-Tree. This ensures that the resulting bounding boxes of the R-Tree are as small as possible, which means that the maximum number of elements can be discarded for any given spatial query.
+A Hilbert R-Tree uses a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve), a special type of space-filling curve, to sort the centers of geometries. This ensures that geometries that are nearby on both the `x` _and_ `y` dimensions are placed close to each other in the R-Tree. This ensures that the resulting bounding boxes of the R-Tree are as small as possible, which means that the **maximum number of elements can be discarded for any given spatial query**.
 
-Mathematically, a Hilbert Curve
+This [Crunchy Data blog post](https://www.crunchydata.com/blog/tricks-for-faster-spatial-indexes) has helpful examples for why sorting input is important.
 
 ### Static
 
@@ -43,13 +47,6 @@ FlatGeobuf files can't be modified without rewriting the entire file, so this [R
 
 ### Packed
 
-R-Trees work by having a series of leaves in the tree, where each leaf contains a number of inner leaves and so on. So that searching the tree doesn't take too much time, each leaf has a maximum number of items, usually something like 16. When R-Trees are intended to be mutable, many leaves contain _less than_ the maximum number of children, so that a child can be added without having to rebalance the tree.
+An R-Tree has a series of nodes at each level, where each node can contain up to _n_ children. If the R-Tree might be updated, not every node will have a total of _n_ children, because some space needs to be reserved for future elements.
 
-Because we require this index to be static, we can make the R-Tree more efficient! We can create the minimum number of nodes to handle the known number of geometries, as we know there will be no added features later.
-
-FlatGeobuf does this
-
-This index
-
-1. Maps every bounding box to a byte range within the file
-2. Allows for discarding features outside of a spatial query, having only the index.
+Because the index is static and immutable, we can construct a _packed_ index, where every node is completely full. This achieves better space utilization, and is more efficient for queries because there are fewer nodes to traverse.
