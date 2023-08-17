@@ -7,6 +7,7 @@
 *_cache/
 _site/
 test_data/
+*.zarr
 
 .DS_Store
 _env*

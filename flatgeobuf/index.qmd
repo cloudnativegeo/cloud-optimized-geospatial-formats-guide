@@ -5,7 +5,7 @@ subtitle: Guidelines for FlatGeobuf
 
 # FlatGeobuf
 
-Flatgeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
+FlatGeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
 
 Unlike some formats like Cloud-Optimized GeoTIFF, which builds on the previous success of TIFF and GeoTIFF, FlatGeobuf is a new format, designed from the ground up to be faster for geospatial data.
 
@@ -18,6 +18,10 @@ An optional row-based spatial index optimizes for remote reading.
 ### File layout
 
 The internal layout of the file has four sections: magic bytes (aka signature), header, index, and data (aka features).
+
+<img src = "../images/flatgeobuf_file_layout.png" width = "700" >
+
+> Image source: Horace Williams, [Kicking the Tires: Flatgeobuf](https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/)
 
 1. The file signature is 8 "magic bytes" indicating the file type and specification version, which allows readers to know a file is FlatGeobuf, even if it's missing a file extension.
 2. Next comes the header, which stores the bounding box of the dataset, the geometry type of the features (if known and unique), the attribute schema, the number of features, and coordinate reference system information.
@@ -63,7 +67,7 @@ This works even with full-file compression like gzip or deflate because those co
 
 ### Broad type system
 
-FlatGeobuf supports attributes with a range of types:
+FlatGeobuf supports attributes with a [range of types](https://github.com/flatgeobuf/flatgeobuf/blob/b013ac326568914aee43bcf3aa3c77574d629aa5/src/fbs/header.fbs#L26-L42):
 
 - `Byte`: Signed 8-bit integer
 - `UByte`: Unsigned 8-bit integer
@@ -81,9 +85,13 @@ FlatGeobuf supports attributes with a range of types:
 - `DateTime`: ISO 8601 date time
 - `Binary`: General binary type intended to be application specific
 
+::: {.callout-note}
+
 Note that FlatGeobuf is unable to store nested types without overhead. It doesn't support a "list" or "dict" type apart from JSON, which has a parsing overhead.
 
 In some situations, having strong nested type support can be useful. For example STAC stored as GeoParquet has columns that are nested, such as the `assets` column that needs to store a dictionary-like mapping from asset names to their information. FlatGeobuf is able to store such data by serializing it to JSON, but it's not possible to see the nested schema before parsing the full dataset.
+
+:::
 
 ### Known table schema
 
