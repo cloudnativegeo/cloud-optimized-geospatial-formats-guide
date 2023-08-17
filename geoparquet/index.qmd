@@ -7,39 +7,61 @@ subtitle: Guidelines for GeoParquet
 
 GeoParquet is an encoding for how to store geospatial vector data (point, lines, polygons) in [Apache Parquet](https://parquet.apache.org/), a popular columnar storage format for tabular data.
 
-GeoParquet builds on the existing success of Parquet, by defining how to store geometries
+Parquet has a wide ecosystem of tools and support; GeoParquet builds on this existing success by defining how to store geometries in the Parquet format. Because GeoParquet is not a separate format, any program that can read Parquet is able to load GeoParquet as well, even if it can't make sense of the geometry information. This is very similar to how GeoTIFF layers geospatial information on top of the existing TIFF image standard.
+
+The two main things that GeoParquet defines on top of Parquet are how to encode geometries in the geometry column and how to include metadata like the geometries' CRS.
+
+GeoParquet is a relatively young format, and the specification has not yet reached a 1.0 release (as of August 2023, it's at [1.0.0-rc.1](https://github.com/opengeospatial/geoparquet/releases/tag/v1.0.0-rc.1)). However, reading and writing GeoParquet has been [supported in GDAL since version 3.5](https://gdal.org/drivers/vector/parquet.html), and thus can be used in programs like GeoPandas and QGIS.
+
+Because GeoParquet stores geometries in standard [Well-Known Binary](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) (WKB), it supports any vector geometry type defined in the OGC Simple Features specification. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. A best practice is to store only geometries with the same type, as that allows readers to know which geometry type is stored without scanning the entire file.
+
+Some of the sections below will discuss strengths of Parquet in general. Keep in mind that because GeoParquet is built on top of Parquet, GeoParquet inherits all of these strengths.
 
 ### File layout
 
-Parquet files consist of a sequence of chunks called "record batches". Each record batch consists of a collection of columns with the same length. All record batches in the file must have the exact same schema.
+Parquet files are laid out differently than other tabular formats like CSV or FlatGeobuf, so it's helpful to see a diagram:
 
-In Parquet, metadata is located at the _end_ of the file rather than at the beginning. This makes it much easier to write, as you don't need to know how many total rows you have at the beginning, but makes it slightly harder to read. In practice, this is not too much more difficult to read: a Parquet reader first reads the end of the file, then makes reads for select columns.
+![Schematic of Parquet file layout](../images/geoparquet_layout.png)
 
-todo: Add diagram
+A Parquet _file_ consists of a sequence of chunks called _row groups_. These are logical groups of columns with the same number of rows. A row group consists of multiple columns, each of which is called a _column chunk_. These are sequences of raw column values that are guaranteed to be contiguous in the file. All row groups in the file must have the same schema, meaning that the data type of each column must be the same for every row group.
 
-#### Terminology:
+A Parquet file includes metadata describing the internal chunking. This metadata includes the byte range of every column chunk in the dataset. This allows a Parquet reader to fetch _any given column chunk_ once they have the file metadata.
 
-- Column: A logical column consisting of one or more internal chunks
-- Column chunk: A contiguous array that is one of the elements making up a column
-- Record Batch
-- Table: A full Parquet file
-- Dataset: A collection of Parquet files with the same schema and that are logically understood to be part of the same dataset.
+The Parquet metadata also includes _column statistics_ (the minimum and maximum value) for each column chunk. This means that if a user is interested in data where column "A" has values greater than 100, the Parquet reader can skip loading and parsing any column chunks where the maximum is known to be less than 100.
+
+In Parquet, the metadata is located at the _end_ of the file rather than at the beginning. This makes it much easier to write, as you don't need to know how many total rows you have at the beginning, but makes it slightly harder to read. In practice, this is not too much more difficult to read: a Parquet reader first reads the end of the file, then makes reads for select columns.
 
 ### Column oriented
 
 The bytes of each _column_ are contiguous, instead of each _row_. This means that it's easy to filter on columns — fetching _all rows of a single column_ — but not possible to filter on individual rows.
 
+### Column filtering
+
+Because Parquet is column oriented, a Parquet reader can fetch only specific columns that the user is interested in.
+
+### Row group filtering
+
+Because Parquet is internally chunked, Parquet can fetch only specific row groups that meet a specific filtering condition.
+
+Note that row group filtering on a specific column tends to only work well if the Parquet file was sorted on that column when saved. Non-sorted columns tend to have random values, and so the column statistics won't tend to filter out many row groups.
+
 ### Internal compression by default
+
+Parquet is internally compressed _by default_. Additionally, Parquet compression tends to be very efficient, leading to much smaller file sizes than comparable formats.
+
+Compression algorithms are more effective when nearby bytes are more similar to each other. Data within a column tends to be much more similar than data across a row. Since Parquet is column oriented, compression algorithms work better and result in smaller file sizes than on a comparable row-based format.
 
 It's possible to have random access to one of the internal chunks inside the file at large, even though that chunk is compressed. Note that it isn't possible to fetch partial data _inside one chunk_ without loading and decompressing the entire chunk.
 
-### Geometries encoded as WKB
+### Geometries encoded as Well-Known Binary
 
-For maximum compatibility with existing systems, geometries are stored as [ISO WKB](https://github.com/opengeospatial/geoparquet/blob/main/format-specs/geoparquet.md#encoding).
+For maximum compatibility with existing systems, geometries are stored as [ISO-standard WKB](https://github.com/opengeospatial/geoparquet/blob/main/format-specs/geoparquet.md#encoding). Most geospatial programs are able to read and write WKB.
 
 ### No spatial index (yet!)
 
-GeoParquet is a young specification, and spatial indices are not yet part of the standard. Some ways around this are to store data by some region as multiple files and catalog each file with STAC.
+GeoParquet is a young specification, and spatial indices are not yet part of the standard. Future revisions of GeoParquet are expected to add support for spatial indexes.
+
+One way around this is to store multiple GeoParquet files according to some region identifier, cataloging each file with STAC.
 
 ### Multi-file support
 
@@ -53,8 +75,12 @@ Instead, we can replicate something similar to streaming by first fetching only 
 
 ### Files are immutable
 
-Appends are not possible in Parquet. If you wish to modify a file, you must create a new file.
+Once written, a Parquet file is immutable. No modification or appending can happen to that Parquet file. Instead, create a new Parquet file.
 
 ### Extensive type system
 
-Parquet supports a very extensive type system, including nested types such as lists and maps (dictionaries). This means that you can store a key-value mapping or a multi-dimensional array _within an attribute column_ of a GeoParquet dataset.
+Parquet supports a very extensive type system, including nested types such as lists and maps (i.e. like a Python `dict`). This means that you can store a key-value mapping or a multi-dimensional array _within an attribute column_ of a GeoParquet dataset.
+
+## References
+
+- [Demystifying the Parquet File Format](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
