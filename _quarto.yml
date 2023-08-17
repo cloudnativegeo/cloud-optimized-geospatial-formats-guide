@@ -43,8 +43,9 @@ website:
         - section: GeoParquet
           contents:
             - geoparquet/index.qmd
-        - section: flatgeobuf/index.qmd
+        - section: FlatGeobuf
           contents:
+            - flatgeobuf/index.qmd
             - flatgeobuf/hilbert-r-tree.qmd
 
 format:
