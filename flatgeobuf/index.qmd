@@ -5,7 +5,7 @@ subtitle: Guidelines for FlatGeobuf
 
 # FlatGeobuf
 
-Flatgeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
+FlatGeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
 
 Unlike some formats like Cloud-Optimized GeoTIFF, which builds on the previous success of TIFF and GeoTIFF, FlatGeobuf is a new format, designed from the ground up to be faster for geospatial data.
 
