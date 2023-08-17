@@ -3,7 +3,7 @@ title: FlatGeobuf Spatial Index
 subtitle: Breaking down the Hilbert Packed R-Tree
 ---
 
-FlatGeobuf supports optionally including a spatial index that enables random access for each geometry in the file.
+FlatGeobuf optionally supports including a spatial index that enables random access for each geometry in the file.
 
 ## When to use
 
@@ -13,13 +13,13 @@ A spatial index can enable much more efficient reading from FlatGeobuf, by allow
 
 ## Technical details
 
-In this section we'll get into some gory technical details of how FlatGeobuf's spatial index works. Understanding the below isn't necessary for using FlatGeobuf, but can provide some extra context.
+In this section we'll get into some gory technical details of how FlatGeobuf's spatial index works. Understanding the below isn't necessary for using FlatGeobuf, but it may add context for understanding how to create and work with FlatGeobuf files, and why FlatGeobuf is performant.
 
 FlatGeobuf's spatial index is a [_static packed Hilbert R-tree index_](https://flatgeobuf.org/#specification). That's a mouthful, so let's break it down:
 
 ### R-tree index
 
-An R-Tree is a hierarchical collection of bounding boxes. From the bottom up, at the lowest level of the tree is a bounding box of every geometry. Then one level above the bottom holds a collection of bounding boxes, each of which is formed as the union of all child boxes. This means that each box encompasses every child box. There are fewer boxes at this level, because each box contains many child boxes, each of which represents one original geometry. This process continues repeatedly until there's only one bounding box that indirectly contains the entire dataset.
+An R-Tree is a hierarchical collection of bounding boxes. At the lowest level of the tree is a bounding box of every geometry. Then one level above the lowest level exists a collection of bounding boxes, each of which is formed as the union of all child boxes. This means that each box encompasses every child box. There are fewer boxes at this level, because each box contains many child boxes, each of which represents one original geometry. This process continues repeatedly until there's only one bounding box that indirectly contains the entire dataset.
 
 This index allows you to quickly search for features that intersect a given bounding box query. At the top level, compare the bounding box of each node to your query region. If those two don't intersect, you can discard that node _and all of its child nodes_ from the search, because you know that none of them could possibly fall within your search region.
 
