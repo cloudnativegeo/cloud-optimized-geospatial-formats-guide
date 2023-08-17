@@ -93,7 +93,7 @@ image credit: Ryan Abernathey
 | Cloud-Optimized GeoTIFF (COG)                                 | Raster                   | OGC standard for comment               |
 | Zarr, Kerchunk                                                | Multi-dimensional raster | ESDIS and OGC standards in development |
 | Cloud-Optimized Point Cloud (COPC), Entwine Point Tiles (EPT) | Point Clouds*            | no known ESDIS or OGC standard         |
-| Flatgeobuf, GeoParquet,                                       | Vector                   | no known ESDIS, draft OGC standard     |
+| FlatGeobuf, GeoParquet,                                       | Vector                   | no known ESDIS, draft OGC standard     |
 
 # Formats by Adoption
 
@@ -131,7 +131,7 @@ image source: https://www.kitware.com/deciphering-cloud-optimized-geotiffs/
 ::: {.column width="50%"}
 * COGs have internal file directories (IFDs) which are used to tell clients where to find different overview levels and data within the file.
 * Clients can use this metadata to read only the data they need to visualize or calculate.
-* This internal organization is friendly for consumption by clients issuing HTTP GET range request ("bytes: start_offset-end_offset" HTTP header) 
+* This internal organization is friendly for consumption by clients issuing HTTP GET range request ("bytes: start_offset-end_offset" HTTP header)
 :::
 
 ::: {.column width="50%"}
@@ -210,7 +210,7 @@ image source: https://copc.io/
 
 ::: {.column width="40%"}
 * Vector data is traditionally stored as rows representing points, lines, or polygons with an attribute table.
-* Flatgeobuf is a binary encoding format for geographic data. Flatbuffers that hold a collection of Simple Features. Single-File.
+* FlatGeobuf is a binary encoding format for geographic data. Flatbuffers that hold a collection of Simple Features. Single-File.
 * A row-based streamable-spatial index optimizes for remote reading.
 * Developed with OGR compatibility in mind. Works with existing OGR APIs, e.g. python and R.
 * Works with HTTP range requests, and has CDN compatibility.
@@ -282,6 +282,6 @@ Format Homepages and Explainers
 * [HDF in the Cloud challenges and solutions for scientific data](https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud) - Matthew Rocklin’s discussion about HDF in the cloud
 * [https://copc.io/](https://copc.io/) - Cloud-Optimized Point Cloud home page + explainer
 * [Cloud Native Geospatial Lidar with the Cloud Optimized Point Cloud - LIDAR Magazine](https://lidarmag.com/2021/12/27/cloud-native-geospatial-lidar-with-the-cloud-optimized-point-cloud/) - Howard Butler explains COPC in lidarmag
-* [Kicking the Tires: Flatgeobuf](https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/) - Flatgeobuff Blog by Horace Williams
+* [Kicking the Tires: Flatgeobuf](https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/) - Flatgeobuf Blog by Horace Williams
 
 :::
