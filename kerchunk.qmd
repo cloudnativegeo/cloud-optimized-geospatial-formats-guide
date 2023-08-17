@@ -1,0 +1,38 @@
+---
+title: "Kerchunk"
+subtitle: References for Chunked (maybe), Compressed (maybe) N-Dimensional Arrays
+---
+
+# What is Kerchunk?
+
+Kerchunk's name does not represent its utility to the geospatial data community. Kerchunk is a library for creating Zarr metadata for non-Zarr data and thus provides a unified way to access chunked, compressed n-dimensionsional data.
+
+The Kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF.
+
+Learn more about Kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).
+
+# How to Kerchunk 
+
+Kerchunk could be called a `ReferenceFileSystemGenerator`. The powerful `fsspec` library provides a uniform file system interface to many different storage backends and protocols. Kerchunk generates data that the `fsspec.ReferenceFileSystem` can use to read data.
+
+Kerchunk genereates a "reference set" which is a set of references to data or URLs under a key value store that matches the Zarr spec. For example, a simple reference file for a NetCDF file might look like:
+
+```json
+{
+  ".zgroup": "{\n    \"zarr_format\": 2\n}",
+  ".zattrs": "{\n    \"Conventions\": \"UGRID-0.9.0\n\"}",
+  "x/.zattrs": "{\n    \"_ARRAY_DIMENSIONS\": [\n        \"node\"\n ...",
+  "x/.zarray": "{\n    \"chunks\": [\n        9228245\n    ],\n    \"compressor\": null,\n    \"dtype\": \"<f8\",\n  ...",
+  "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
+}
+```
+
+# Why Kerchunk?
+
+It is burdensome to create and maintain copies of data, which would be required for many data providers which are not already creating data in the other formats discussed in this guide. Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
+
+::: {.callout-warning}
+A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format. If the underlying data only stores very large chunks.
+:::
+
+
