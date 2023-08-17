@@ -40,7 +40,7 @@ website:
           - zarr-in-practice.ipynb
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
-        - section: geoparquet/index.qmd
+        - section: GeoParquet
           contents:
             - geoparquet/index.qmd
         - section: flatgeobuf/index.qmd
