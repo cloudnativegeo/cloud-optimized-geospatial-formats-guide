@@ -13,7 +13,7 @@ Learn more about Kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthed
 
 ## How to Kerchunk 
 
-Kerchunk is a `ReferenceFileSystem` generator. The powerful `fsspec` library provides a uniform file system interface to many different storage backends and protocols. Kerchunk generates data the `fsspec.ReferenceFileSystem` can use to read data.
+The powerful [`fsspec` library](https://filesystem-spec.readthedocs.io/en/latest/) provides a uniform file system interface to many different storage backends and protocols. In addition to abstracting over existing protocols, its [`ReferenceFileSystem`](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.implementations.reference.ReferenceFileSystem) class lets you view byte ranges of some other file as a file system. Kerchunk helps in easily generating these `ReferenceFileSystem` objects.
 
 Kerchunk generates a "reference set" which is a set of references to data or URLs under a key value store that matches the Zarr spec. For example, a simple reference file for a NetCDF file might look like:
 
