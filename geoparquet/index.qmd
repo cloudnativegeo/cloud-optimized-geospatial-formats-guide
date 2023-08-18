@@ -15,7 +15,7 @@ GeoParquet is a relatively young format, and the specification has not yet reach
 
 ::: {.callout-warning}
 
-In GeoPandas use [`read_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_parquet.html) and [`to_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_parquet.html) to read and write GeoParquet, not `read_file` and `to_file` as one usually uses with GDAL.
+In GeoPandas use [`read_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_parquet.html) and [`to_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_parquet.html) to read and write GeoParquet, not `read_file` and `to_file` as one would use with most other formats.
 
 :::
 
