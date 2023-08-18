@@ -1,0 +1,7 @@
+---
+title: Cloud-Optimized Point Clouds (COPC)
+subtitle: An Introduction to Cloud-Optimized Point Clouds (COPC)
+---
+
+The LAS(er) file format is designed to store 3-dimension point cloud data typically collected from [LiDAR](https://en.wikipedia.org/wiki/Lidar).
+A COPC file is a valid LAZ file. An LAZ file is a compressed LAS file. The LAS file format stores 3-dimension (x,y,z) point cloud data, typically collected from LiDAR.
