@@ -19,7 +19,7 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
 
 ## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
 
-The diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional formats and some are entirely new formats.
+The diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.
 
 Not depicted is how GeoTIFF, FlatGeobuf, and GeoParquet are geospatial versions of the non-geospatial file formats TIFF, binary and parquet, respectively.
 
