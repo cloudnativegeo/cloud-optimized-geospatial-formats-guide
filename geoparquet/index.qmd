@@ -39,13 +39,13 @@ The Parquet metadata also includes _column statistics_ (the minimum and maximum 
 
 In Parquet, the metadata is located at the _end_ of the file rather than at the beginning. This makes it much easier to write, as you don't need to know how many total rows you have at the beginning, but makes it slightly harder to read. In practice, this is not too much more difficult to read: a Parquet reader first reads the end of the file, then makes reads for select columns.
 
-### Column oriented
+### Column-oriented
 
 The bytes of each _column_ are contiguous, instead of each _row_. This means that it's easy to filter on columns — fetching _all rows of a single column_ — but not possible to filter on individual rows.
 
 ### Column filtering
 
-Because Parquet is column oriented, a Parquet reader can fetch only specific columns that the user is interested in.
+Because Parquet is column-oriented, a Parquet reader can fetch only specific columns that the user is interested in.
 
 ### Row group filtering
 
@@ -57,7 +57,7 @@ Note that row group filtering on a specific column tends to only work well if th
 
 Parquet is internally compressed _by default_. Additionally, Parquet compression tends to be very efficient, leading to much smaller file sizes than comparable formats.
 
-Compression algorithms are more effective when nearby bytes are more similar to each other. Data within a column tends to be much more similar than data across a row. Since Parquet is column oriented, compression algorithms work better and result in smaller file sizes than on a comparable row-based format.
+Compression algorithms are more effective when nearby bytes are more similar to each other. Data within a column tends to be much more similar than data across a row. Since Parquet is column-oriented, compression algorithms work better and result in smaller file sizes than on a comparable row-based format.
 
 It's possible to have random access to one of the internal chunks inside the file at large, even though that chunk is compressed. Note that it isn't possible to fetch partial data _inside one chunk_ without loading and decompressing the entire chunk.
 
