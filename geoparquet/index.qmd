@@ -13,6 +13,14 @@ The two main things that GeoParquet defines on top of Parquet are how to encode 
 
 GeoParquet is a relatively young format, and the specification has not yet reached a 1.0 release (as of August 2023, it's at [1.0.0-rc.1](https://github.com/opengeospatial/geoparquet/releases/tag/v1.0.0-rc.1)). However, reading and writing GeoParquet has been [supported in GDAL since version 3.5](https://gdal.org/drivers/vector/parquet.html), and thus can be used in programs like GeoPandas and QGIS.
 
+::: {.callout-warning}
+
+In GeoPandas use [`read_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_parquet.html) and [`to_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_parquet.html) to read and write GeoParquet, not `read_file` and `to_file` as one usually uses with GDAL.
+
+:::
+
+
+
 Because GeoParquet stores geometries in standard [Well-Known Binary](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) (WKB), it supports any vector geometry type defined in the OGC Simple Features specification. This includes the standard building blocks of Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. A best practice is to store only geometries with the same type, as that allows readers to know which geometry type is stored without scanning the entire file.
 
 Some of the sections below will discuss strengths of Parquet in general. Keep in mind that because GeoParquet is built on top of Parquet, GeoParquet inherits all of these strengths.
