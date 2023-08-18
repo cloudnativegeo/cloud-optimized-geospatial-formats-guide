@@ -53,6 +53,12 @@ Because Parquet is internally chunked, Parquet can fetch only specific row group
 
 Note that row group filtering on a specific column tends to only work well if the Parquet file was sorted on that column when saved. Non-sorted columns tend to have random values, and so the column statistics won't tend to filter out many row groups.
 
+::: {.callout-note}
+
+In general it's only possible to optimize filtering row groups by **one column**. This is the biggest difference between file formats and databases. Databases can have multiple indexes on whatever columns you want, and then when you run a query, and it will use all of the indexes. But that's why it's hard to make databases work as cloud-native files, because if you have high latency, you don't want to make lots of tiny fetches.
+
+:::
+
 ### Internal compression by default
 
 Parquet is internally compressed _by default_ and Parquet compression is more efficient compared to other formats.
@@ -71,10 +77,6 @@ GeoParquet is a young specification, and spatial indices are not yet part of the
 
 One way around this is to store multiple GeoParquet files according to some region identifier, cataloging each file with the [SpatioTemporal Asset Catalog (STAC) specification](https://stacspec.org).
 
-### Multi-file support
-
-While at medium data sizes GeoParquet is most easily distributed as a single file, at large data sizes a single dataset is often split into multiple files. Sometimes multiple files can be easier to write, such as if the data is output from a distributed system.
-
 ### Multithreading support but no streaming
 
 In a streaming download, you read bytes starting at the beginning of the file, progressing towards the end. In Parquet, this is not helpful because the metadata is in the _footer_ of the file instead of the header.
@@ -84,6 +86,16 @@ Instead, we can replicate something similar to streaming by first fetching only 
 ### Files are immutable
 
 Once written, a Parquet file is immutable. No modification or appending can happen to that Parquet file. Instead, create a new Parquet file.
+
+### Multi-file support
+
+While at medium data sizes GeoParquet is most easily distributed as a single file, at large data sizes a single dataset is often split into multiple files. Sometimes multiple files can be easier to write, such as if the data is output from a distributed system.
+
+A best practice when writing multiple files is to store a top-level metadata file, often named `_metadata`, with the metadata of all Parquet files in the directory. Without a top-level metadata file, a reader must read the Parquet footer of _every individual file_ in the directory before reading any data. With a metadata file, a Parquet reader can read _just that one metadata file_, and then read the relevant chunks in the directory. For more information on this, read the ["Partitioned Datasets"](https://arrow.apache.org/docs/python/parquet.html#partitioned-datasets-multiple-files) and ["Writing `_metadata` and `_common_metadata` files"](https://arrow.apache.org/docs/python/parquet.html#writing-metadata-and-common-metadata-files) of the pyarrow documentation. As of August 2023, GeoPandas has no way to write multiple GeoParquet files out of the box, though you may be able to pass a `*` glob with multiple paths into `geopandas.read_parquet`.
+
+Storing Parquet data in multiple files makes it possible to _in effect_ append to the dataset by adding a new file to the directory, but you must be careful to ensure that the new file has the exact same data schema as the existing files, and if a top-level metadata file exists, it must be rewritten to reflect the new file.
+
+Some elements of how to store GeoParquet-specific metadata in a multi-file layout have [not yet been standardized](https://github.com/opengeospatial/geoparquet/issues/79).
 
 ### Extensive type system
 
