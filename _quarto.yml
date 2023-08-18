@@ -36,12 +36,20 @@ website:
           contents:
           - cloud-optimized-geotiffs/intro.ipynb
           - cloud-optimized-geotiffs/cogs-examples.ipynb
-        - section: Zarr and Kerchunk
+        - section: Zarr
+          contents:
+          - zarr/intro.qmd
+          - zarr/zarr-in-practice.ipynb
+        - section: Kerchunk
+          contents:
+          - kerchunk/intro.qmd
+          - kerchunk/kerchunk-in-practice.ipynb          
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
         - section: geoparquet.md
-        - section: flatgeobuf/index.qmd
+        - section: FlatGeobuf
           contents:
+            - flatgeobuf/index.qmd
             - flatgeobuf/hilbert-r-tree.qmd
 
 format:
@@ -54,7 +62,7 @@ format:
     css: styles.css
     toc: true
     grid:
-      sidebar-width: 350px
+      sidebar-width: 400px
 
 
 filters:
