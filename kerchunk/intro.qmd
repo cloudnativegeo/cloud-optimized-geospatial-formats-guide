@@ -3,7 +3,7 @@ title: "Kerchunk"
 subtitle: References for Chunked (maybe), Compressed (maybe) N-Dimensional Arrays
 ---
 
-# What is Kerchunk?
+## What is Kerchunk?
 
 Kerchunk's potential utility to the geospatial data community cannot be overstated. Kerchunk enables cloud-optimized access to traditional geospatial file formats, like NetCDF, potentially negating the need to create and store copies of data for cloud-optimized access.
 
@@ -11,7 +11,7 @@ Kerchunk creates Zarr metadata, stored in a "reference file", for non-Zarr data.
 
 Learn more about Kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).
 
-# How to Kerchunk 
+## How to Kerchunk 
 
 Kerchunk is a `ReferenceFileSystem` generator. The powerful `fsspec` library provides a uniform file system interface to many different storage backends and protocols. Kerchunk generates data the `fsspec.ReferenceFileSystem` can use to read data.
 
@@ -27,7 +27,7 @@ Kerchunk generates a "reference set" which is a set of references to data or URL
 }
 ```
 
-# Why Kerchunk?
+## Why Kerchunk?
 
 It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products which is essentially a copy of existing data requres time, resources, and $$ (specifically for storage but also for processing). Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
 
