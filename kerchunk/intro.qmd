@@ -13,7 +13,7 @@ Learn more about Kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthed
 
 ## How to Kerchunk 
 
-Kerchunk is a `ReferenceFileSystem` generator. The powerful `fsspec` library provides a uniform file system interface to many different storage backends and protocols. Kerchunk generates data the `fsspec.ReferenceFileSystem` can use to read data.
+The powerful [`fsspec` library](https://filesystem-spec.readthedocs.io/en/latest/) provides a uniform file system interface to many different storage backends and protocols. In addition to abstracting over existing protocols, its [`ReferenceFileSystem`](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.implementations.reference.ReferenceFileSystem) class lets you view byte ranges of some other file as a file system. Kerchunk helps in easily generating these `ReferenceFileSystem` objects.
 
 Kerchunk generates a "reference set" which is a set of references to data or URLs under a key value store that matches the Zarr spec. For example, a simple reference file for a NetCDF file might look like:
 
@@ -26,7 +26,7 @@ Kerchunk generates a "reference set" which is a set of references to data or URL
   "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
 }
 ```
-
+The `["s3://bucket/path/file.nc", 294094376, 73825960]` is the key part, which says that to load the first chunk in the `x` dimension, the Zarr reader needs to fetch a byte range starting at `294094376` with a length of `73825960` bytes. This allows for efficient cloud-native data access without using the standard NetCDF driver.
 ## Why Kerchunk?
 
 It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products which is essentially a copy of existing data requres time, resources, and $$ (specifically for storage but also for processing). Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
