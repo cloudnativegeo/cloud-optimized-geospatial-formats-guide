@@ -26,7 +26,7 @@ Kerchunk generates a "reference set" which is a set of references to data or URL
   "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
 }
 ```
-
+The `["s3://bucket/path/file.nc", 294094376, 73825960]` is the key part, which says that to load the first chunk in the `x` dimension, the Zarr reader needs to fetch a byte range starting at `294094376` with a length of `73825960` bytes. This allows for efficient cloud-native data access without using the standard NetCDF driver.
 ## Why Kerchunk?
 
 It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products which is essentially a copy of existing data requres time, resources, and $$ (specifically for storage but also for processing). Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
