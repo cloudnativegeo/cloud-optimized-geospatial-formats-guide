@@ -55,9 +55,9 @@ Note that row group filtering on a specific column tends to only work well if th
 
 ### Internal compression by default
 
-Parquet is internally compressed _by default_. Additionally, Parquet compression tends to be very efficient, leading to much smaller file sizes than comparable formats.
+Parquet is internally compressed _by default_ and Parquet compression is more efficient compared to other formats.
 
-Compression algorithms are more effective when nearby bytes are more similar to each other. Data within a column tends to be much more similar than data across a row. Since Parquet is column-oriented, compression algorithms work better and result in smaller file sizes than on a comparable row-based format.
+Compression algorithms are more effective when nearby bytes are more similar to each other. Data within a column tends to be much more similar than data across a row. Since Parquet is column-oriented, compression algorithms work better and result in smaller file sizes than a comparable row-based format.
 
 It's possible to have random access to one of the internal chunks inside the file at large, even though that chunk is compressed. Note that it isn't possible to fetch partial data _inside one chunk_ without loading and decompressing the entire chunk.
 
