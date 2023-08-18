@@ -22,7 +22,8 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
 1. [Overview of Formats (slideshow)](./overview.qmd)
 2. Formats
    a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs.ipynb)
-   b. Zarr and Kerchunk - COMING SOON
+   b. Zarr
+   c. [Kerchunk](./kerchunk/intro.qmd)
    c. Cloud-Optimized HDF5 - COMING SOON
    d. [GeoParquet](./geoparquet.md)
    e. [Flatgeobuf](./flatgeobuf.qmd)

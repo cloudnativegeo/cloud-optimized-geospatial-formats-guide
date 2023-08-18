@@ -1,0 +1,40 @@
+---
+title: "Kerchunk"
+subtitle: References for Chunked (maybe), Compressed (maybe) N-Dimensional Arrays
+---
+
+# What is Kerchunk?
+
+Kerchunk's potential utility to the geospatial data community cannot be understated. Kerchunk enables cloud-optimized access to traditional geospatial file formats, like NetCDF, potentially negating the need to create and store copies of data for cloud-optimized access.
+
+Kerchunk creates Zarr metadata, stored in a "reference file", for non-Zarr data. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The Kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF.
+
+Learn more about Kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).
+
+# How to Kerchunk 
+
+Kerchunk is a `ReferenceFileSystem` generator. The powerful `fsspec` library provides a uniform file system interface to many different storage backends and protocols. Kerchunk generates data the `fsspec.ReferenceFileSystem` can use to read data.
+
+Kerchunk genereates a "reference set" which is a set of references to data or URLs under a key value store that matches the Zarr spec. For example, a simple reference file for a NetCDF file might look like:
+
+```json
+{
+  ".zgroup": "{\n    \"zarr_format\": 2\n}",
+  ".zattrs": "{\n    \"Conventions\": \"UGRID-0.9.0\n\"}",
+  "x/.zattrs": "{\n    \"_ARRAY_DIMENSIONS\": [\n        \"node\"\n ...",
+  "x/.zarray": "{\n    \"chunks\": [\n        9228245\n    ],\n    \"compressor\": null,\n    \"dtype\": \"<f8\",\n  ...",
+  "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
+}
+```
+
+# Why Kerchunk?
+
+It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products which are copies of data that already exists can be burdensome and costly for data providers. Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
+
+::: {.callout-warning}
+A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format. If the underlying data only stores very large chunks.
+:::
+
+Learn more about how to read and write kerchunk reference files in the [kerchunk-in-practice](./kerchunk-in-practice.ipynb) notebook.
+
+

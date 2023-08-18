@@ -32,9 +32,10 @@ website:
         text: Overview Slides
       - section: Formats
         contents:
-        - section: cloud-optimized-geotiffs.ipynb
+        - section: Cloud Optimized GeoTIFFs
           contents:
-          - cogs-examples.ipynb
+          - cloud-optimized-geotiffs/intro.ipynb
+          - cloud-optimized-geotiffs/cogs-examples.ipynb
         - section: Zarr and Kerchunk
         - section: Cloud-Optimized HDF5 and NetCDF
         - section: Cloud-Optimized Point Clouds (COPC)
