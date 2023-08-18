@@ -7,7 +7,7 @@ subtitle: Guidelines for GeoParquet
 
 GeoParquet is an encoding for how to store geospatial vector data (point, lines, polygons) in [Apache Parquet](https://parquet.apache.org/), a popular columnar storage format for tabular data.
 
-Parquet has a wide ecosystem of tools and support; GeoParquet builds on this existing success by defining how to store geometries in the Parquet format. Because GeoParquet is not a separate format, any program that can read Parquet is able to load GeoParquet as well, even if it can't make sense of the geometry information. This is very similar to how GeoTIFF layers geospatial information on top of the existing TIFF image standard.
+Parquet has a wide ecosystem of tools and support; GeoParquet builds on this success by defining how to store geometries in the Parquet format. Because GeoParquet is not a separate format, any program that can read Parquet is able to load GeoParquet as well, even if it can't make sense of the geometry information. This is very similar to how GeoTIFF layers geospatial information on top of the existing TIFF image standard.
 
 The two main things that GeoParquet defines on top of Parquet are how to encode geometries in the geometry column and how to include metadata like the geometries' [Coordinate Reference System](https://en.wikipedia.org/wiki/Spatial_reference_system) (CRS).
 
