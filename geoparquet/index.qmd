@@ -69,7 +69,7 @@ For maximum compatibility with existing systems, geometries are stored as [ISO-s
 
 GeoParquet is a young specification, and spatial indices are not yet part of the standard. Future revisions of GeoParquet are expected to add support for spatial indexes.
 
-One way around this is to store multiple GeoParquet files according to some region identifier, cataloging each file with STAC.
+One way around this is to store multiple GeoParquet files according to some region identifier, cataloging each file with the [SpatioTemporal Asset Catalog (STAC) specification](https://stacspec.org).
 
 ### Multi-file support
 
