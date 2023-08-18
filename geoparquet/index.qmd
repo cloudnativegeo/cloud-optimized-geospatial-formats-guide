@@ -9,7 +9,7 @@ GeoParquet is an encoding for how to store geospatial vector data (point, lines,
 
 Parquet has a wide ecosystem of tools and support; GeoParquet builds on this existing success by defining how to store geometries in the Parquet format. Because GeoParquet is not a separate format, any program that can read Parquet is able to load GeoParquet as well, even if it can't make sense of the geometry information. This is very similar to how GeoTIFF layers geospatial information on top of the existing TIFF image standard.
 
-The two main things that GeoParquet defines on top of Parquet are how to encode geometries in the geometry column and how to include metadata like the geometries' CRS.
+The two main things that GeoParquet defines on top of Parquet are how to encode geometries in the geometry column and how to include metadata like the geometries' [Coordinate Reference System](https://en.wikipedia.org/wiki/Spatial_reference_system) (CRS).
 
 GeoParquet is a relatively young format, and the specification has not yet reached a 1.0 release (as of August 2023, it's at [1.0.0-rc.1](https://github.com/opengeospatial/geoparquet/releases/tag/v1.0.0-rc.1)). However, reading and writing GeoParquet has been [supported in GDAL since version 3.5](https://gdal.org/drivers/vector/parquet.html), and thus can be used in programs like GeoPandas and QGIS.
 
@@ -17,7 +17,7 @@ Because GeoParquet stores geometries in standard [Well-Known Binary](https://en.
 
 Some of the sections below will discuss strengths of Parquet in general. Keep in mind that because GeoParquet is built on top of Parquet, GeoParquet inherits all of these strengths.
 
-### File layout
+## File layout
 
 Parquet files are laid out differently than other tabular formats like CSV or FlatGeobuf, so it's helpful to see a diagram:
 
