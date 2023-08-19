@@ -24,6 +24,7 @@ The diagram below depicts how some of the cloud-optimized formats discussed in t
 ![Cloud-Optimized Geospatial Formats](./images/cogeo-formats-table.png)
 
 Notes:
+
 * Some data formats cover multiple data types, specifically:
     * GeoJSON can be used for both vector and point data.
     * HDF5 can be used for point data or data cubes (or both via groups).
