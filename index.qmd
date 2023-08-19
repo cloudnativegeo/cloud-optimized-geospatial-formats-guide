@@ -23,8 +23,8 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
    b. [Zarr](./zarr/intro.qmd)
    c. [Kerchunk](./kerchunk/intro.qmd)
    c. Cloud-Optimized HDF5 - COMING SOON
-   d. [GeoParquet](./geoparquet.md)
-   e. [FlatGeobuf](./flatgeobuf/intro.qmd)
+   d. [GeoParquet](./geoparquet/index.qmd)
+   e. [FlatGeobuf](./flatgeobuf/index.qmd)
 3. Cookbooks
    a. [Zarr Visualization Cookbook - IN DEVELOPMENT](https://nasa-impact.github.io/zarr-visualization-cookbook/)
 
