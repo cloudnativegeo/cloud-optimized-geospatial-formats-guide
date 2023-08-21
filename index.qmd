@@ -17,6 +17,22 @@ With this guide, we provide the landscape of cloud-optimized geospatial formats 
 
 Just putting data on the cloud does not solve the big geospatial data problem. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
 
+## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
+
+The diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.
+
+![Cloud-Optimized Geospatial Formats](./images/cogeo-formats-table.png)
+
+Notes:
+
+* Some data formats cover multiple data types, specifically:
+    * GeoJSON can be used for both vector and point data.
+    * HDF5 can be used for point data or data cubes (or both via groups).
+    * GeoParquet and FlatGeobuf can be used for vector data or point data.
+* LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, same goes for COPC files).
+* [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but not explicitly represented in the diagram.
+* GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
+
 ## Table of Contents
 
 1. [Overview of Formats (slideshow)](./overview.qmd)
