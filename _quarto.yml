@@ -38,8 +38,12 @@ website:
         - section: zarr.qmd
           contents:
           - zarr-in-practice.ipynb
-        - section: Cloud-Optimized HDF5 and NetCDF
+        - section: Cloud-Optimized NetCDF4/HDF5
+          contents:
+            - cloud-optimized-netcdf4-hdf5/index.qmd
         - section: Cloud-Optimized Point Clouds (COPC)
+          contents:
+            - copc/index.qmd
         - section: GeoParquet
           contents:
             - geoparquet/index.qmd
