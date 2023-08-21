@@ -47,6 +47,10 @@ website:
           contents:
             - flatgeobuf/index.qmd
             - flatgeobuf/hilbert-r-tree.qmd
+      - href: cookbooks/index.qmd
+        text: Cookbooks        
+      - href: contributing.qmd
+        text: Get Involved
 
 format:
   html:

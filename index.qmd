@@ -26,8 +26,6 @@ Just putting data on the cloud does not solve the big geospatial data problem. M
    c. Cloud-Optimized HDF5 - COMING SOON
    d. [GeoParquet](./geoparquet/index.qmd)
    e. [FlatGeobuf](./flatgeobuf/index.qmd)
-3. Cookbooks
-   a. [Zarr Visualization Cookbook - IN DEVELOPMENT](https://nasa-impact.github.io/zarr-visualization-cookbook/)
 
 ## Questions to ask when generating cloud-optimized geospatial data in any format
 

@@ -1,0 +1,13 @@
+---
+title: Cloud-Optimized Cookbooks
+format:
+  html:
+    link-external-icon: true
+    link-external-newwindow: true
+---
+
+Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. 
+
+Cookbooks:
+
+* [Zarr Visualization Cookbook (in development)](https://nasa-impact.github.io/zarr-visualization-cookbook/)
