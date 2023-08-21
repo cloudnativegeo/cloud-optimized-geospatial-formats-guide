@@ -5,7 +5,6 @@
 
 /.quarto/
 *_cache/
-_site/
 test_data/
 *.zarr
 
