@@ -52,3 +52,5 @@ Cookbooks should address common questions and present solutions for cloud-optimi
 * How do I provide subsetted/query/analytical access this data?
 
 To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
+
+## 4. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
