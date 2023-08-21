@@ -4,6 +4,10 @@ title: Get Involved
 
 We encourage contributions to this guide. 
 
+## Pre-requisites
+
+If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
+
 ## Core principles
 
 1. This guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.
@@ -11,9 +15,15 @@ We encourage contributions to this guide.
 
 ## Additional criteria
 
-* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials.
+* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is open to anyone).
 * Landing pages with no code should be use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
 * Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html)
+
+## Code of Conduct
+
+* Be inclusive, respectful and understanding of others' backgrounds and contexts.
+* Look for and foster diverse perspectives.
+* If you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org.
 
 ## How to contribute
 
