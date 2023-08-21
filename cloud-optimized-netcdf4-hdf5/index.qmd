@@ -1,0 +1,19 @@
+---
+title: Cloud-Optimized NetCDF4/HDF5
+---
+
+Cloud-optimized access to NetCDF4/HDF5 files is possible. However, there are no standards for the metadata, chunking and compression for cloud-optimized access for these file types.
+
+::: {.callout-note}
+Note: NetCDF4 are valid HDF5 files, see [Reading and Editing NetCDF-4 Files with HDF5](https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html).
+:::
+
+NetCDF4/HDF5 were designed for disk access and thus moving them to the cloud is bearing little fruit. Matt Rocklin describes the issue in [HDF in the Cloud: Challenges and Solutions for Scientific Data](https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud):
+
+>The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data. The only pragmatic way to read a chunk of data from an HDF file today is to use the existing HDF C library, which expects to receive a C FILE object, pointing to a normal file system (not a cloud object store) (this is not entirely true, as we’ll see below).
+>
+>So organizations like NASA are dumping large amounts of HDF onto Amazon’s S3 that no one can actually read, except by downloading the entire file to their local hard drive, and then pulling out the particular bits that they need with the HDF library. This is inefficient. It misses out on the potential that cloud-hosted public data can offer to our society.
+
+To provide cloud-optimized access to these files without an intermediate service, like [Hyrax](https://hdfeos.org/software/hdf5_handler.php) or the [Highly Scalable Data Service (HSDS)](https://www.hdfgroup.org/solutions/highly-scalable-data-service-hsds/), it is recommended to determine if the NetCDF4/HDF5 data you wish to provide can be used with kerchunk. Rich Signell provided some promising results and instructions on how to create a kerchunk reference file (aka `fsspec.ReferenceFileSystem`) for NetCDF4/HDF5 and the things to be aware of [Cloud-Performant NetCDF4/HDF5 with Zarr, Fsspec, and Intake](https://medium.com/pangeo/cloud-performant-netcdf4-hdf5-with-zarr-fsspec-and-intake-3d3a3e7cb935). Note, the post is from 2020, so it's possible details have changed, however the approach of using kerchunk for NetCDF4/HDF5 is still recommended.
+
+Stay tuned for more information on cloud-optimized NetCDF4/HDF5 in future releases of this guide.
