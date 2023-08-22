@@ -55,7 +55,7 @@ website:
             - geoparquet/index.qmd
         - section: FlatGeobuf
           contents:
-            - flatgeobuf/index.qmd
+            - flatgeobuf/intro.qmd
             - flatgeobuf/hilbert-r-tree.qmd
       - href: cookbooks/index.qmd
         text: Cookbooks        
