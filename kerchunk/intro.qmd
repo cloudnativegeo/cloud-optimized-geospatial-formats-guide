@@ -7,12 +7,12 @@ subtitle: References for (optionally) chunked, compressed n-dimensional arrays
 
 Kerchunk is a python library for creating reference files (see next paragraph for an explanation) to support cloud-optimized access to traditional geospatial file formats, like NetCDF. Kerchunk negates the need to create and store copies of data for cloud-optimized access. Given the challenge of creating and maintaining copies of data, Kerchunk is a great tool.
 
-Reference files can be used to instantiate an [`fsspec.FileSystemReference`](https://filesystem-spec.readthedocs.io/) instance. Kerchunk reference files are json files with key/values for reading the underlying data as a zarr data store. The keys are zarr metadata paths or paths to zarr data chunks. The values for each key will either be raw data values or a list of the file URL, starting byte, and byte length where the data can be read.
+Reference files can be used to instantiate an [`fsspec.FileSystemReference`](https://filesystem-spec.readthedocs.io/) instance. Kerchunk reference files are json files with key value pairs for reading the underlying data as a Zarr data store. The keys are Zarr metadata paths or paths to zarr data chunks. The values for each key will either be raw data values or a list of the file URL, starting byte, and byte length where the data can be read.
 
-As Kerchunk creates [zarr](../zarr/intro.qmd) metadata for non-zarr data, Kerchunk is 100% compatible with tools that can use Zarr. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF. Check the [File format backends](https://fsspec.github.io/kerchunk/reference.html#file-format-backends) section of the kerchunk documentation for updates to supported formats.
+As Kerchunk creates [Zarr](../zarr/intro.qmd) metadata for non-Zarr data, Kerchunk is compatible with Zarr tools that can use Zarr. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF. Check the [File format backends](https://fsspec.github.io/kerchunk/reference.html#file-format-backends) section of the kerchunk documentation for updates to supported formats.
 
 ::: {.callout-warning}
-A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format.
+A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format. Read about zarr chunks on the [Zarr](../zarr/intro.qmd) page.
 :::
 
 Learn more about kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).

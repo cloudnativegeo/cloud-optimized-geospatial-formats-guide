@@ -45,6 +45,7 @@ website:
           - kerchunk/intro.qmd
           - kerchunk/kerchunk-in-practice.ipynb          
         - section: Cloud-Optimized HDF5 and NetCDF
+          contents:
             - cloud-optimized-netcdf4-hdf5/index.qmd
         - section: Cloud-Optimized Point Clouds (COPC)
           contents:

@@ -9,6 +9,8 @@ subtitle: Chunked, Compressed N-Dimensional Arrays
 
 The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
+A Zarr chunk is Zarr's unit of data storage. Each chunk of a Zarr array is an equally-sized block of the array within a larger Zarr store comprised of one or more arrays and array groups. These blocks or chunks of data are stored separately to make reading and updating small chunks more efficient.
+
 Read more in the official tutorial: [Zarr Tutorial](https://zarr.readthedocs.io/en/stable/tutorial.html)
 
 ## Zarr Version 2 and Version 3
