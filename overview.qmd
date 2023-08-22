@@ -1,6 +1,8 @@
 ---
 title: Cloud-Optimized Geospatial Formats Overview
-author: "Aimee Barciauskas, Alex Mandel, Brianna Pagán\nCredits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
+subtitle: These slides are a summarization of [Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/) to support presentations.
+author:
+  - "Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
 format:
   revealjs:
     incremental: true

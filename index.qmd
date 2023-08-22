@@ -13,7 +13,20 @@ With this guide, we provide the landscape of cloud-optimized geospatial formats 
 
 ## The opportunity
 
-Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
+Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.
+
+While it is possible to provide subsetting as a service, this requires maintanence of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without the introduction of an additional server.
+
+Regardless, users will be accessing data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces latency and the number of requests must considered.
+
+As a community, we have arrived at the following **cloud-optimized format pattern:**
+
+1. Metadata includes addresses for data blocks.
+2. Metadata is stored in a consistent format and location.
+3. Metadata can be read once.
+3. Metadata can be used to read the underlying file format which supports subsetted access via adressable chunks, internal tiling or both.
+
+These characteristics allow for parallelized and partial reading.
 
 ## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
 
