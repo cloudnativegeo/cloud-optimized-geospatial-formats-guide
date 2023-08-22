@@ -13,7 +13,7 @@ With this guide, we provide the landscape of cloud-optimized geospatial formats 
 
 ## The opportunity
 
-Just putting data on the cloud does not solve the big geospatial data problem. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
+Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
 
 ## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
 
