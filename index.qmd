@@ -41,15 +41,20 @@ Notes:
    c. Cloud-Optimized HDF5 - COMING SOON
    d. [GeoParquet](./geoparquet/index.qmd)
    e. [FlatGeobuf](./flatgeobuf/index.qmd)
-3. Cookbooks
-   a. [Zarr Visualization Cookbook - IN DEVELOPMENT](https://nasa-impact.github.io/zarr-visualization-cookbook/)
+
+## Authors
+
+* Aimee Barciauskas
+* Alex Mandel
+* Kyle Barron
+* [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
 ## Questions to ask when generating cloud-optimized geospatial data in any format
 
-1. What variable(s) should be included in the new data foramt
+1. What variable(s) should be included in the new data format?
 2. Will you create copies to optimize for different needs?
 3. What is the intended use case or usage profile? Will this product be used for visualization, analysis or both?
 4. What is the expected access method?
-5. How much of your data is typically rendered or selected at once? All to very select subsets?
+5. How much of your data is typically rendered or selected at once?
 
 
