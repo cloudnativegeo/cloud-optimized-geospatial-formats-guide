@@ -4,7 +4,7 @@ from rasterio.enums import Resampling as ResamplingEnums
 import click
 from rasterio.vrt import WarpedVRT
     
-def create_overvews_from_gtiff(geotiff, tilesize=256, overview_resampling = "nearest"):
+def create_overviews_from_gtiff(geotiff, tilesize=256, overview_resampling = "nearest"):
     overview_level = get_maximum_overview_level(
         geotiff.width, geotiff.height, minsize=tilesize
     )
