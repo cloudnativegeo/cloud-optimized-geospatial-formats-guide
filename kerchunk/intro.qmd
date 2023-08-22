@@ -1,0 +1,69 @@
+---
+title: "Kerchunk"
+subtitle: References for (optionally) chunked, compressed n-dimensional arrays
+---
+
+## What is Kerchunk?
+
+Kerchunk is a python library for creating reference files (see next paragraph for an explanation) to support cloud-optimized access to traditional geospatial file formats, like NetCDF. Kerchunk negates the need to create and store copies of data for cloud-optimized access. Given the challenge of creating and maintaining copies of data, Kerchunk is a great tool.
+
+Reference files can be used to instantiate an [`fsspec.FileSystemReference`](https://filesystem-spec.readthedocs.io/) instance. Kerchunk reference files are json files with key value pairs for reading the underlying data as a Zarr data store. The keys are Zarr metadata paths or paths to zarr data chunks. The values for each key will either be raw data values or a list of the file URL, starting byte, and byte length where the data can be read.
+
+As Kerchunk creates [Zarr](../zarr/intro.qmd) metadata for non-Zarr data, Kerchunk is compatible with Zarr tools that can use Zarr. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF. Check the [File format backends](https://fsspec.github.io/kerchunk/reference.html#file-format-backends) section of the kerchunk documentation for updates to supported formats.
+
+::: {.callout-warning}
+A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format. Read about zarr chunks on the [Zarr](../zarr/intro.qmd) page.
+:::
+
+Learn more about kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).
+
+## Why Kerchunk?
+
+It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products, which are essentially copies of existing data, requires time and money. Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
+
+## How to kerchunk 
+
+As noted above, [`kerchunk`](https://fsspec.github.io/kerchunk) is a python library you can use to create a reference file from any of the file formats it supports. The reference file is used by the `fsspec.ReferenceFileSystem` to read data from local or remote storage.
+
+Here's an example:
+
+```python
+import fsspec
+import json
+from kerchunk.hdf import SingleHdf5ToZarr
+
+local_file = 'some_data.nc'
+out_file = 'some_references.json'
+
+# Instantiate the local file system with fsspec to save kerchunk's reference data as json.
+fs = fsspec.filesystem('')
+in_file = fs.open(local_file)
+
+# The inline threshold adjusts the size below which binary blocks are included directly in the output.
+# A higher inline threshold can result in a larger json file but faster loading time overally, since fewer requests are made.
+h5chunks = SingleHdf5ToZarr(in_file, local_file, inline_threshold=300)
+with fs.open(out_file, 'wb') as f:
+    f.write(json.dumps(h5chunks.translate()).encode())
+```
+
+::: {.callout-note}
+The powerful [`fsspec` library](https://filesystem-spec.readthedocs.io/en/latest/) provides a uniform file system interface to many different storage backends and protocols. In addition to abstracting existing protocols, its [`ReferenceFileSystem`](https://filesystem-spec.readthedocs.io/en/latest/api.html#fsspec.implementations.reference.ReferenceFileSystem) class lets you view byte ranges of some other file as a file system. Kerchunk generates these `ReferenceFileSystem` objects.
+:::
+
+
+Kerchunk generates a "reference set" which is a set of references to data or URLs under a key value store that matches the Zarr spec. For example, a simple reference file for a NetCDF file might look like:
+
+```json
+{
+  ".zgroup": "{\n    \"zarr_format\": 2\n}",
+  ".zattrs": "{\n    \"Conventions\": \"UGRID-0.9.0\n\"}",
+  "x/.zattrs": "{\n    \"_ARRAY_DIMENSIONS\": [\n        \"node\"\n ...",
+  "x/.zarray": "{\n    \"chunks\": [\n        9228245\n    ],\n    \"compressor\": null,\n    \"dtype\": \"<f8\",\n  ...",
+  "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
+}
+```
+The `["s3://bucket/path/file.nc", 294094376, 73825960]` is the key part, which says that to load the first chunk in the `x` dimension, the Zarr reader needs to fetch a byte range starting at `294094376` with a length of `73825960` bytes. This allows for efficient cloud-native data access without using the standard NetCDF driver.
+
+Learn more about how to read and write kerchunk reference files in the [Kerchunk in Practice](./kerchunk-in-practice.ipynb) notebook.
+
+

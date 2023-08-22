@@ -1,10 +1,58 @@
 ---
-title: Contributing
-subtitle: Guidelines for contributing
+title: Get Involved
 ---
 
-We welcome contributions to this guide. If you wish to contribute, please consider the following tenets:
+We encourage contributions to this guide. 
 
-* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials.
+## Pre-requisites
+
+If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
+
+## Core principles
+
+1. This guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.
+2. This guide should provide best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate.
+
+## Additional criteria
+
+* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is open to anyone).
 * Landing pages with no code should be use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
 * Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html)
+
+## Code of Conduct
+
+* Be inclusive, respectful and understanding of others' backgrounds and contexts.
+* Look for and foster diverse perspectives.
+* If you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org.
+
+## How to contribute
+
+### 0. General
+
+Fork the repository, make changes, use `quarto preview` to make sure the changes look good and open a pull request.
+
+Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
+
+### 1. Adding a new format
+
+1. Create a folder with the formats name and, within that folder, an `intro.qmd`. The `intro.qmd` file should describe the basics about that format.
+2. Link to the `intro.qmd` page in the `index.qmd` (the **Welcome** page) file and `_quarto.yml` table of contents.
+3. Optionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format.
+
+### 2. Modify or add to an existing format
+
+Feel free to modify or add to existing content if you think it could be improved.
+
+### 3. Adding a cookbook
+
+Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:
+
+* How do I chose the chunk shape for my Zarr?
+* How do I determine and preview the resampling algorithm for my COG overview?
+* How do I create STAC metadata for my cloud-optimized data?
+* How do I provide visualizations fo this data?
+* How do I provide subsetted/query/analytical access this data?
+
+To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
+
+## 4. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
