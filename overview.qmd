@@ -1,6 +1,6 @@
 ---
 title: Cloud-Optimized Geospatial Formats Overview
-author: "Aimee Barciauskas, Alex Mandel, Brianna Pagán, Aimee Barciauskas, Alex Mandel, Credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
+author: "Aimee Barciauskas, Alex Mandel, Brianna Pagán\nCredits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
 format:
   revealjs:
     incremental: true
