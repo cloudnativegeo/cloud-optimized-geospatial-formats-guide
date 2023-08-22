@@ -51,6 +51,7 @@ website:
           contents:
             - flatgeobuf/index.qmd
             - flatgeobuf/hilbert-r-tree.qmd
+            - flatgeobuf/flatgeobuf.ipynb
 
 format:
   html:
