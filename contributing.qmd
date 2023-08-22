@@ -56,3 +56,5 @@ Cookbooks should address common questions and present solutions for cloud-optimi
 To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
 
 ## 4. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
+
+## 5. Once your PR is approved, merge away.
