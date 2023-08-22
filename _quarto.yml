@@ -43,7 +43,7 @@ website:
         - section: Kerchunk
           contents:
           - kerchunk/intro.qmd
-          - kerchunk/kerchunk-in-practice.ipynb          
+          - kerchunk/kerchunk-in-practice.ipynb
         - section: Cloud-Optimized HDF5 and NetCDF
           contents:
             - cloud-optimized-netcdf4-hdf5/index.qmd
@@ -57,8 +57,9 @@ website:
           contents:
             - flatgeobuf/intro.qmd
             - flatgeobuf/hilbert-r-tree.qmd
+            - flatgeobuf/flatgeobuf.ipynb
       - href: cookbooks/index.qmd
-        text: Cookbooks        
+        text: Cookbooks
       - href: contributing.qmd
         text: Get Involved
 
