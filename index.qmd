@@ -3,8 +3,6 @@ title: "Cloud-Optimized Geospatial Formats Guide"
 subtitle: "Methods for Generating and Testing Cloud-Optimized Geospatial Formats"
 ---
 
-# Who this guide is for
-
 If you wish to provide optimized access to geospatial data, this guide is for you. Given the large and growing size of geospatial data, users can no longer rely solely on file download to achieve their science goals.
 
 ## Built for the community, by the community.
@@ -13,9 +11,9 @@ There is no one-size-fits-all approach to cloud-optimized data, but the communit
 
 With this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions.
 
-## The Opportunity
+## The opportunity
 
-Just putting data on the cloud does not solve the big geospatial data problem. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
+Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. Massive archives of data must be available via subsetting services in order for users to work with the data in-memory. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces  latency and the number of requests must considered. The file format must support subsetted access via adressable chunks, internal tiling or both. These characteristics allow for parallelized and partial reading.
 
 ## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
 
@@ -37,11 +35,13 @@ Notes:
 
 1. [Overview of Formats (slideshow)](./overview.qmd)
 2. Formats
-   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs.ipynb)
-   b. Zarr and Kerchunk - COMING SOON
-   c. Cloud-Optimized HDF5 - COMING SOON
+   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.ipynb)
+   b. [Zarr](./zarr/intro.qmd)
+   c. [Kerchunk](./kerchunk/intro.qmd)
+   c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
    d. [GeoParquet](./geoparquet/index.qmd)
    e. [FlatGeobuf](./flatgeobuf/index.qmd)
+3. [Cookbooks](./cookbooks/index.qmd)
 
 ## Authors
 

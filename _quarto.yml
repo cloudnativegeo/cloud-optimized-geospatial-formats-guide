@@ -32,13 +32,19 @@ website:
         text: Overview Slides
       - section: Formats
         contents:
-        - section: cloud-optimized-geotiffs.ipynb
+        - section: Cloud Optimized GeoTIFFs
           contents:
-          - cogs-examples.ipynb
-        - section: zarr.qmd
+          - cloud-optimized-geotiffs/intro.ipynb
+          - cloud-optimized-geotiffs/cogs-examples.ipynb
+        - section: Zarr
           contents:
-          - zarr-in-practice.ipynb
-        - section: Cloud-Optimized NetCDF4/HDF5
+          - zarr/intro.qmd
+          - zarr/zarr-in-practice.ipynb
+        - section: Kerchunk
+          contents:
+          - kerchunk/intro.qmd
+          - kerchunk/kerchunk-in-practice.ipynb          
+        - section: Cloud-Optimized HDF5 and NetCDF
           contents:
             - cloud-optimized-netcdf4-hdf5/index.qmd
         - section: Cloud-Optimized Point Clouds (COPC)
@@ -49,7 +55,7 @@ website:
             - geoparquet/index.qmd
         - section: FlatGeobuf
           contents:
-            - flatgeobuf/index.qmd
+            - flatgeobuf/intro.qmd
             - flatgeobuf/hilbert-r-tree.qmd
       - href: cookbooks/index.qmd
         text: Cookbooks        
@@ -66,7 +72,7 @@ format:
     css: styles.css
     toc: true
     grid:
-      sidebar-width: 350px
+      sidebar-width: 400px
 
 
 filters:
