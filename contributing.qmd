@@ -55,6 +55,10 @@ Cookbooks should address common questions and present solutions for cloud-optimi
 
 To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
 
-## 4. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
+## 4. (Optional) Update slides
 
-## 5. Once your PR is approved, merge away.
+If you have made substantive changes, consider if the [Overview Slides](./overview.qmd) should be updated. These slides are generated using [Quarto and Reveal.js](https://quarto.org/docs/presentations/revealjs/) so can be updated with markdown syntax.
+
+## 5. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
+
+## 6. Once your PR is approved, merge away.
