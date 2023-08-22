@@ -5,23 +5,27 @@ subtitle: References for (optionally) chunked, compressed n-dimensional arrays
 
 ## What is Kerchunk?
 
-Kerchunk is a python library for creating reference files to support cloud-optimized access to traditional geospatial file formats, like NetCDF. Kerchunk negates the need to create and store copies of data for cloud-optimized access. Given the challenge of creating and maintaining copies of data, Kerchunk is a great tool.
+Kerchunk is a python library for creating reference files (see next paragraph for an explanation) to support cloud-optimized access to traditional geospatial file formats, like NetCDF. Kerchunk negates the need to create and store copies of data for cloud-optimized access. Given the challenge of creating and maintaining copies of data, Kerchunk is a great tool.
+
+Reference files can be used to instantiate an [`fsspec.FileSystemReference`](https://filesystem-spec.readthedocs.io/) instance. Kerchunk reference files are json files with key/values for reading the underlying data as a zarr data store. The keys are zarr metadata paths or paths to zarr data chunks. The values for each key will either be raw data values or a list of the file URL, starting byte, and byte length where the data can be read.
+
+As Kerchunk creates [zarr](../zarr/intro.qmd) metadata for non-zarr data, Kerchunk is 100% compatible with tools that can use Zarr. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF. Check the [File format backends](https://fsspec.github.io/kerchunk/reference.html#file-format-backends) section of the kerchunk documentation for updates to supported formats.
 
 ::: {.callout-warning}
 A major limitation of kerchunk is the chunking of data will always be constrained to the chunk structure of the underlying data format.
 :::
 
-Kerchunk creates [zarr](../zarr/intro.qmd) metadata, stored in a "reference file", for non-zarr data. Kerchunk enables a unified way to access chunked, compressed n-dimensionsional data across a variety of conventional data formats. The kerchunk library now supports NetCDF/HDF5, GRIB2, TIFF.
-
 Learn more about kerchunk at [kerchunk.readthedocs.io](https://kerchunk.readthedocs.io/en/latest/).
+
+## Why Kerchunk?
+
+It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products, which are essentially copies of existing data, requires time and money. Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
 
 ## How to kerchunk 
 
-[`kerchunk`](https://fsspec.github.io/kerchunk) is a python library you can use to create a reference file from any of the file formats it supports. At time of writing, Kerchunk can create reference files for NetCDF4/HDF5, GRIB2, FITS, TIFF and NetCDF3. Check the [File format backends](https://fsspec.github.io/kerchunk/reference.html#file-format-backends) section of the kerchunk documentation for updates to supported formats.
+As noted above, [`kerchunk`](https://fsspec.github.io/kerchunk) is a python library you can use to create a reference file from any of the file formats it supports. The reference file is used by the `fsspec.ReferenceFileSystem` to read data from local or remote storage.
 
-The reference file is used by the `fsspec.ReferenceFileSystem` to read data from local or remote storage.
-
-Here's a simple example:
+Here's an example:
 
 ```python
 import fsspec
@@ -36,7 +40,7 @@ fs = fsspec.filesystem('')
 in_file = fs.open(local_file)
 
 # The inline threshold adjusts the size below which binary blocks are included directly in the output.
-# A higher inline threshold can result in a larger json file but faster loading time.
+# A higher inline threshold can result in a larger json file but faster loading time overally, since fewer requests are made.
 h5chunks = SingleHdf5ToZarr(in_file, local_file, inline_threshold=300)
 with fs.open(out_file, 'wb') as f:
     f.write(json.dumps(h5chunks.translate()).encode())
@@ -59,10 +63,6 @@ Kerchunk generates a "reference set" which is a set of references to data or URL
 }
 ```
 The `["s3://bucket/path/file.nc", 294094376, 73825960]` is the key part, which says that to load the first chunk in the `x` dimension, the Zarr reader needs to fetch a byte range starting at `294094376` with a length of `73825960` bytes. This allows for efficient cloud-native data access without using the standard NetCDF driver.
-
-## Why Kerchunk?
-
-It is burdensome to create and maintain copies of data. The other pages in this guide introduce data formats which require processing and creating new data products. This process of creating and maintaining new data products, which are essentially copies of existing data, requires time and money. Kerchunk provides a method of providing cloud-optimized access to data that is more traditional archival formats.
 
 Learn more about how to read and write kerchunk reference files in the [Kerchunk in Practice](./kerchunk-in-practice.ipynb) notebook.
 
