@@ -59,6 +59,9 @@ website:
             - flatgeobuf/intro.qmd
             - flatgeobuf/hilbert-r-tree.qmd
             - flatgeobuf/flatgeobuf.ipynb
+        - section: PMTiles
+          contents:
+            - pmtiles/intro.qmd
       - href: cookbooks/index.qmd
         text: Cookbooks
       - href: contributing.qmd
