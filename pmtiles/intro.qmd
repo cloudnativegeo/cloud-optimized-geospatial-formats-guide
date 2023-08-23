@@ -7,6 +7,8 @@ subtitle: Guidelines for PMTiles
 
 PMTiles is a single-file archive format for tiled data, usually used for visualization.
 
+PMTiles can be used for any format of tiled data. It's used most often with vector data, where each tile is encoded as a Mapbox Vector Tile (MVT), but can also be used with e.g. raster data or terrain mesh data.
+
 ## Analytical vs tiled data formats
 
 To understand PMTiles, it's important to understand the difference between "analytical" data and "tiled" data. Analytical data refers to data in its original form, without any modifications to geometry. Tiled data formats apply a variety of modifications to geometries, including clipping and simplification, to save space and make it faster to visualize.
@@ -29,14 +31,6 @@ Thus analytical and visualization formats strive for different goals.
 ## Cloud-native
 
 PMTiles is designed to be a cloud-native file format: used directly from a client over a network via HTTP range requests, without having a server in the middle.
-
-PMTiles is
-
-To understand the benefit of PMTiles, it's necessary to understand some background.
-
-Mapbox was the first open source tool to heavily rely on tiled vector data.
-
-PMTiles can be used for any format of data, as long as it's tiled. It's used most often with vector data, but can also be used with e.g. raster data or terrain mesh data.
 
 ## Internal format
 
