@@ -94,4 +94,4 @@ The most common alternative for PMTiles is [MBTiles](https://github.com/mapbox/m
 
 It's also possible to upload the bare tiled data directly to cloud storage as individual files.
 
-This has significant downsides of needing to manage many millions of tiny individual files. This is also much slower to manage, as uploading millions of files to a cloud storage provider such as S3 can take hours. And on S3 it costs $5 per million files added to an S3 bucket. So if a PMTiles archive included 10 million files, it would cost $50 just to upload those files, compared to 5-millionths of a cent to upload the PMTiles file.
+This has significant downsides of needing to manage many millions of tiny individual files. Uploading millions of files to a cloud storage provider such as S3 takes time and money. For example, AWS charges $5 per million files added to an S3 bucket. So a 10 million PMTiles archive would cost $50, compared to 5-millionths of a cent to upload the PMTiles file.
