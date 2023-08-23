@@ -46,7 +46,7 @@ The full specification is defined [here](https://github.com/protomaps/PMTiles/bl
 
 ### Hilbert-oriented tiles
 
-Interally, tiles are oriented along a Hilbert Curve. This means that tiles that are spatially near each other are also located near each other in the file structure.
+Interally, tiles are oriented along a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve). This means that tiles that are spatially near each other are also located near each other in the file structure.
 
 This is especially appropriate for PMTiles because visualization purposes most often request data within a specific geographic area. Because spatially-nearby tiles are likely to be nearby in the file as well, this allows the PMTiles client to merge multiple requests for tiles into one larger request, rather than needing to fetch a different area of the file for each tile.
 
