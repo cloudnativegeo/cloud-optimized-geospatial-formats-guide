@@ -86,7 +86,7 @@ PMTiles has a [Python package](https://github.com/protomaps/PMTiles/tree/main/py
 
 ## Alternatives
 
-### PMTiles
+### MBTiles
 
 The most common alternative for PMTiles is [MBTiles](https://github.com/mapbox/mbtiles-spec), which was in many ways the precursor to PMTiles. MBTiles stores the included vector tiles in a table in a SQLite database. MBTiles has the benefit of being much easier to use than manually managing millions of tiny, individual files, but MBTiles is not serverless. In general, it's impossible to read from a SQLite database without fetching the entire file's content. This means that frontend clients like a web browser couldn't fetch tiles directly using range requests, but rather a server has to be running to fetch tiles from the MBTiles file.
 
