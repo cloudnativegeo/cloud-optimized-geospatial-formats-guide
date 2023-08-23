@@ -53,6 +53,7 @@ website:
         - section: GeoParquet
           contents:
             - geoparquet/index.qmd
+            - geoparquet/geoparquet-example.ipynb
         - section: FlatGeobuf
           contents:
             - flatgeobuf/intro.qmd
