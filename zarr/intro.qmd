@@ -16,7 +16,7 @@ Read more in the official tutorial: [Zarr Tutorial](https://zarr.readthedocs.io/
 ## Zarr Version 2 and Version 3
 
 ::: {.callout-important}
-Zarr Version 3 is in active development, so all the examples in this guide are for Zarr Version 2 data. The concepts in this page are consistent across both Zarr Version 2 and Zarr Version 3, however some metadata field names and organization are changing from Version 2 to version 3. 
+Zarr Version 3 is underway but not released yet, so all the examples in this guide are for Zarr Version 2 data. The concepts in this page are consistent across both Zarr Version 2 and Zarr Version 3, however some metadata field names and organization are changing from Version 2 to version 3. 
 :::
 
 Version 3 changes from Version 2:
@@ -28,6 +28,7 @@ Version 3 changes from Version 2:
 * the separate `filters` and `compressor` fields been combined into the single `codecs` field.
 
 Read more:
+
 * [Zarr specification version 2](https://zarr.readthedocs.io/en/stable/spec/v2.html)
 * [Zarr specification version 3.0](https://zarr.readthedocs.io/en/stable/spec/v3.html)
 
@@ -35,7 +36,7 @@ Read more:
 
 ### Arrays
 
-Zarr arrays are similar to numpy arrays, but chunked and compressed. More details about chunking and compression are to follow.
+Zarr arrays are similar to numpy arrays, but chunked and compressed. We will add details about chunking and compression to this guide soon.
 
 ### Hierarchy via Groups
 
@@ -50,10 +51,10 @@ A Zarr array has zero or more dimensions. A Zarr array's shape is the tuple of t
 Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
 
 ::: {.callout-note}
-The Zarr format is language agnostic, but this indexing reference is specific to Python.
+The Zarr format is language-agnostic, but this indexing reference is specific to Python.
 :::
 
-The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, usually include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
+The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, often include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
 
 ### Consolidated Metadata
 
@@ -65,7 +66,7 @@ Read more on [consolidating metadata](https://zarr.readthedocs.io/en/stable/tuto
 
 ### Storage
 
-Zarr can be stored in-memory, on-disk, in Zip files and in object storage like S3.
+Zarr can be stored in memory, on disk, in Zip files, and in object storage like S3.
 
 ::: {.callout-note}
 Any backend that implements `MutableMapping` interface from the Python `collections` module can be used to store Zarr. Learn more and see all the options on the [`Storage (zarr.storage)`](https://zarr.readthedocs.io/en/stable/api/storage.html) documentation page.
