@@ -11,6 +11,12 @@ There is no one-size-fits-all approach to cloud-optimized data, but the communit
 
 With this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions.
 
+## How to get involved
+
+If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
+
+If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
+
 ## The opportunity
 
 Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.
