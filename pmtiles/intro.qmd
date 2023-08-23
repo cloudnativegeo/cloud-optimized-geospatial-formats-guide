@@ -66,7 +66,29 @@ PMTiles allows tiles to be stored in the file with compression.
 
 ## Generating PMTiles
 
+### From vector data
+
 The easiest way to generate PMTiles for vector data is through the [tippecanoe](https://github.com/felt/tippecanoe) tool. This will generate vector tiles that are ideal for visualization, removing small features at low zoom levels to keep tiles a manageable size.
+
+### From existing tiles or MBTiles
+
+PMTiles has a [command-line program](https://github.com/protomaps/go-pmtiles) for creating PMTiles if you already have an MBTiles file or a directory of tiles.
+
+## Using PMTiles
+
+### PMTiles viewer
+
+If you have an existing PMTiles archive, either as a local file or hosted on cloud storage, you can use the [PMTiles Viewer](https://protomaps.github.io/PMTiles/) to inspect the tiles hosted within the file.
+
+### JavaScript
+
+PMTiles doesn't have a standalone JavaScript library, but rather is designed to be used in conjunction with a JavaScript map rendering library.
+
+See the docs on viewing PMTiles in [Leaflet](https://protomaps.com/docs/frontends/leaflet), [MapLibre GL JS](https://protomaps.com/docs/frontends/maplibre) and [OpenLayers](https://protomaps.com/docs/frontends/openlayers).
+
+### Python
+
+PMTiles has a [Python package](https://github.com/protomaps/PMTiles/tree/main/python), which allows reading and writing PMTiles archives from Python.
 
 ## Alternatives
 
