@@ -53,7 +53,7 @@ Notes:
    c. [Kerchunk](./kerchunk/intro.qmd)
    c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
    d. [GeoParquet](./geoparquet/index.qmd)
-   e. [FlatGeobuf](./flatgeobuf/index.qmd)
+   e. [FlatGeobuf](./flatgeobuf/intro.qmd)
 3. [Cookbooks](./cookbooks/index.qmd)
 
 ## Authors
