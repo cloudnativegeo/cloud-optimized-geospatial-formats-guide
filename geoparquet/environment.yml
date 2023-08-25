@@ -1,0 +1,14 @@
+name: coguide-geoparquet
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - geopandas==0.13.2
+  - ipykernel
+  - jupyterlab
+  - pyarrow
+  - libgdal-arrow-parquet
+  # TODO: how to define "fsspec[http]", so we don't have to manually install aiohttp
+  - fsspec
+  - requests
+  - aiohttp
