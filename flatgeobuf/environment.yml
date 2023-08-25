@@ -1,0 +1,10 @@
+name: coguide-flatgeobuf
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - geopandas==0.13.2
+  - pyogrio==0.6.0
+  - ipykernel
+  - jupyterlab
+  - pyarrow
