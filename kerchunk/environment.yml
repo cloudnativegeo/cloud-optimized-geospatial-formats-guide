@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.11
   - cftime
+  - dask
   - fsspec
   - h5py
   - imagecodecs
