@@ -1,0 +1,99 @@
+---
+title: PMTiles
+subtitle: Guidelines for PMTiles
+---
+
+# PMTiles
+
+PMTiles is a single-file archive format for tiled data, usually used for visualization.
+
+As an "archive format", PMTiles is similar to a ZIP file: it contains the contents of many individual files inside of one PMTiles file. A single file is often much easier to use and keep track of than many very small files.
+
+PMTiles is designed for _tiled_ data. That is, data where one inner file represents a small square somewhere on a map, usually representing [the Web Mercator grid](https://en.wikipedia.org/wiki/Tiled_web_map). PMTiles can be used for any format of tiled data. PMTiles is used most often with vector data, where each tile data contained within the archive is encoded as a Mapbox Vector Tile (MVT), but can also be used with e.g. raster data or terrain mesh data.
+
+## Analytical vs tiled data formats
+
+To understand PMTiles, it's important to understand the difference between "analytical" data and "tiled" data. Analytical data refers to data in its original form, without any modifications to geometry. Tiled data formats apply a variety of modifications to geometries, including clipping and simplification, to save space and make it faster to visualize.
+
+![](../images/analytical_vs_tiled_geoms.png)
+
+Consider the above diagram. In an analytical format, every coordinate of the complex polygon would be included in one single file. In a tiled format, there are predefined tile sets (or grids) and the geometry would be split into one or more files, where each file represents one cell of the grid. This is more difficult to
+
+The analytical format is more useful for operations like a spatial join, because the entire geometry is available. It's harder to perform such analyses on tiled data because given any one tile, it's impossible to know whether the data contained in that tile represents the full geometry or not.
+
+- Know which other tiles contain part of this polygon (This is hard! It requires some other pre-generated attribute other than the geometry itself.)
+- Fetch each of those neighboring tiles
+- Assemble the dissected geometries back into a single geometry
+- Apply the desired operation
+
+The tiled format is more useful for visualization because a user who wants to visualize a small area only needs to download a few tiles. Additionally loading the data is faster because of simplification. It's slower to visualize analytical data because the entire shape with all coordinates must be loaded, even if visualizing only a small area.
+
+Thus analytical and visualization formats strive for different goals.
+
+## Cloud-native
+
+PMTiles is designed to be a cloud-native file format: used directly from a client over a network via HTTP range requests, without having a server in the middle.
+
+## Internal format
+
+PMTiles has a file header, one or more metadata regions, and a region of tile data.
+
+The header is fixed length, located at the beginning of the file, and includes necessary information to decode the rest of the file accurately.
+
+PMTiles includes _directories_, or regions of bytes with metadata about tiles. It's important for each directory to remain small, so while there will always be at least one directory, larger PMTiles archives with many tiles may include more than one directory.
+
+At the end of the file is the tile data. This includes all data for all the tiles in the archive.
+
+The full specification is defined [here](https://github.com/protomaps/PMTiles/blob/main/spec/v3/spec.md).
+
+### Hilbert-oriented tiles
+
+Interally, tiles are oriented along a [Hilbert Curve](https://en.wikipedia.org/wiki/Hilbert_curve). This means that tiles that are spatially near each other are also located near each other in the file structure.
+
+This is especially appropriate for PMTiles because visualization purposes most often request data within a specific geographic area. Because spatially-nearby tiles are likely to be nearby in the file as well, this allows the PMTiles client to merge multiple requests for tiles into one larger request, rather than needing to fetch a different area of the file for each tile.
+
+## Multiple resolution
+
+PMTiles archives support storing a full XYZ pyramid of tile data. This means that you can store multiple zoom levels of data inside a single file.
+
+## Internal compression
+
+PMTiles allows tiles to be stored in the file with compression.
+
+## Generating PMTiles
+
+### From vector data
+
+The easiest way to generate PMTiles for vector data is through the [tippecanoe](https://github.com/felt/tippecanoe) tool. This will generate vector tiles that are ideal for visualization, removing small features at low zoom levels to keep tiles a manageable size.
+
+### From existing tiles or MBTiles
+
+PMTiles has a [command-line program](https://github.com/protomaps/go-pmtiles) for creating PMTiles if you already have an MBTiles file or a directory of tiles.
+
+## Using PMTiles
+
+### PMTiles viewer
+
+If you have an existing PMTiles archive, either as a local file or hosted on cloud storage, you can use the [PMTiles Viewer](https://protomaps.github.io/PMTiles/) to inspect the tiles hosted within the file.
+
+### JavaScript
+
+PMTiles doesn't have a standalone JavaScript library, but rather is designed to be used in conjunction with a JavaScript map rendering library.
+
+See the docs on viewing PMTiles in [Leaflet](https://protomaps.com/docs/frontends/leaflet), [MapLibre GL JS](https://protomaps.com/docs/frontends/maplibre) and [OpenLayers](https://protomaps.com/docs/frontends/openlayers).
+
+### Python
+
+PMTiles has a [Python package](https://github.com/protomaps/PMTiles/tree/main/python), which allows reading and writing PMTiles archives from Python.
+
+## Alternatives
+
+### MBTiles
+
+The most common alternative for PMTiles is [MBTiles](https://github.com/mapbox/mbtiles-spec), which was in many ways the precursor to PMTiles. MBTiles stores the included vector tiles in a table in a SQLite database. MBTiles has the benefit of being much easier to use than manually managing millions of tiny, individual files, but MBTiles is not serverless. In general, it's impossible to read from a SQLite database without fetching the entire file's content. This means that frontend clients like a web browser couldn't fetch tiles directly using range requests, but rather a server has to be running to fetch tiles from the MBTiles file.
+
+### Saving individual files to cloud storage
+
+It's also possible to upload the bare tiled data directly to cloud storage as individual files.
+
+This has significant downsides of needing to manage many millions of tiny individual files. Uploading millions of files to a cloud storage provider such as S3 takes time and money. For example, AWS charges $5 per million files added to an S3 bucket. So a 10 million PMTiles archive would cost $50, compared to 5-millionths of a cent to upload the PMTiles file.
