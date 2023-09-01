@@ -117,8 +117,9 @@ Parquet supports a very extensive type system, including nested types such as li
     It's also necessary to note that the Python wheels distributed by pyogrio do
     not include the Arrow and Parquet drivers by default. In order to use the
     `pyogrio` driver for a GeoParquet file, you need to compile from source when
-    installing. You'll need to have GDAL on your computer already, and then you
-    can install `pyogrio` via:
+    installing. You'll need to have a GDAL installation (built with Arrow and
+    Parquet support) on your computer already, and then you can build `pyogrio`
+    from source with:
 
     ```bash
     pip install pyogrio --no-binary pyogrio
