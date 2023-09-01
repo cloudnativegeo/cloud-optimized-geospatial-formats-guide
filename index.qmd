@@ -59,8 +59,13 @@ Notes:
    c. [Kerchunk](./kerchunk/intro.qmd)
    c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
    d. [GeoParquet](./geoparquet/index.qmd)
-   e. [FlatGeobuf](./flatgeobuf/index.qmd)
+   e. [FlatGeobuf](./flatgeobuf/intro.qmd)
 3. [Cookbooks](./cookbooks/index.qmd)
+
+
+## Running examples
+
+Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of how to read and write the given format. At the top of each notebook is a link to an `environment.yml` file that describes what libraries need to be installed for the notebook to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
 
 ## Authors
 

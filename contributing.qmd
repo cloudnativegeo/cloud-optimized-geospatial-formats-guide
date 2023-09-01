@@ -2,7 +2,7 @@
 title: Get Involved
 ---
 
-We encourage contributions to this guide. 
+We encourage contributions to this guide.
 
 ## Pre-requisites
 
@@ -37,7 +37,7 @@ Once the pull request is opened, and the github `preview.yml` workflow runs ("De
 
 1. Create a folder with the formats name and, within that folder, an `intro.qmd`. The `intro.qmd` file should describe the basics about that format.
 2. Link to the `intro.qmd` page in the `index.qmd` (the **Welcome** page) file and `_quarto.yml` table of contents.
-3. Optionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format.
+3. Optionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an [`environment.yml` file](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually) that defines the Conda packages necessary for the given notebook.
 
 ### 2. Modify or add to an existing format
 
