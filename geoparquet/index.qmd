@@ -15,7 +15,7 @@ GeoParquet is a relatively young format, and the specification has not yet reach
 
 ::: {.callout-warning}
 
-In GeoPandas use [`read_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_parquet.html) and [`to_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_parquet.html) to read and write GeoParquet, not `read_file` and `to_file` as one would use with most other formats.
+In GeoPandas use [`read_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.read_parquet.html) and [`to_parquet`](https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_parquet.html) to read and write GeoParquet, not `read_file` and `to_file` as one would use with most other formats. [^parquet-via-gdal]
 
 :::
 
@@ -104,3 +104,22 @@ Parquet supports a very extensive type system, including nested types such as li
 ## References
 
 - [Demystifying the Parquet File Format](https://towardsdatascience.com/demystifying-the-parquet-file-format-13adb0206705)
+
+<!-- Footnotes: -->
+
+[^parquet-via-gdal]: As [pointed out by GDAL developer Even Rouault](https://github.com/rocker-org/rocker-versioned2/pull/692#issuecomment-1703201670), reading GeoParquet through GDAL is just as fast as reading through the `geopandas.read_parquet` function **_if_** you're using GDAL's Arrow API. As of September 2023, this is not the default, so you need to opt into the `pyogrio` engine and opt into the Arrow API:
+
+    ```py
+    import geopandas as gpd
+    gpd.read_file("file.parquet", engine="pyogrio", use_arrow=True)
+    ```
+
+    It's also necessary to note that the Python wheels distributed by pyogrio do
+    not include the Arrow and Parquet drivers by default. In order to use the
+    `pyogrio` driver for a GeoParquet file, you need to compile from source when
+    installing. You'll need to have GDAL on your computer already, and then you
+    can install `pyogrio` via:
+
+    ```bash
+    pip install pyogrio --no-binary pyogrio
+    ```
