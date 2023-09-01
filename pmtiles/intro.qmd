@@ -17,7 +17,7 @@ To understand PMTiles, it's important to understand the difference between "anal
 
 ![](../images/analytical_vs_tiled_geoms.png)
 
-Consider the above diagram. In an analytical format, every coordinate of the complex polygon would be included in one single file. In a tiled format, there are predefined tile sets (or grids) and the geometry would be split into one or more files, where each file represents one cell of the grid. This is more difficult to
+Consider the above diagram. In an analytical format, every coordinate of the complex polygon would be included in one single file. In a tiled format, there are predefined tile sets (or grids) and the geometry would be split into one or more files, where each file represents one cell of the grid.
 
 The analytical format is more useful for operations like a spatial join, because the entire geometry is available. It's harder to perform such analyses on tiled data because given any one tile, it's impossible to know whether the data contained in that tile represents the full geometry or not.
 
