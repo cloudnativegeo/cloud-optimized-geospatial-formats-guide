@@ -1,21 +1,18 @@
 # Cloud-Optimized Geospatial Formats Guide
 
-## Introduction
+---
 
-This guide aims to provide comprehensive documentation on cloud-optimized geospatial formats. Geospatial data is growing in volume and complexity, and this guide serves to highlight best practices for handling such data, especially in a cloud environment.
+**Guide**: <a href="https://tinyurl.com/cogeo-guide" target="_blank">tinyurl.com/cogeo-guide</a>
+
+**Source Code**: <a href="https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide" target="_blank">https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide</a>
+
+---
 
 ## Why This Guide Exists
 
-Traditional methods of downloading and processing geospatial data are becoming increasingly impractical due to the sheer size of datasets. This guide is designed to help data providers offer optimized access to such data. It covers community-developed tools and answers common questions about cloud-optimized geospatial formats.
+This guide aims to provide comprehensive documentation on cloud-optimized geospatial formats. Geospatial data is growing in volume and complexity, and this guide serves to highlight best practices for handling such data, especially in a cloud environment.
 
 For more details, visit the official site: [Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/).
-
-## Features
-
-- Overview of cloud-optimized geospatial formats.
-- Guidelines for generating and testing these formats.
-- Community-contributed cookbooks for common tasks.
-- Examples are built with open data and Jupyter Notebooks.
 
 ## How to Get Involved
 
@@ -33,13 +30,6 @@ This site is built using [Quarto](https://quarto.org/docs/get-started/). To prev
     ```sh
     quarto preview
     ```
-
-## Authors
-
-- Aimee Barciauskas
-- Alex Mandel
-- Kyle Barron
-- Zac Deziel
 
 ## License
 
