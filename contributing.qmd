@@ -8,7 +8,7 @@ We encourage contributions to this guide. The guide's goal on cloud-optimized ge
 
 ## Pre-requisites
 
-If you wish to preview the site locally, install quarto. You will also need to be familiar with quarto markdown.
+If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
 
 ## Communication Channels
 
@@ -23,7 +23,7 @@ Discussions can occur in [GitHub Discussions](https://github.com/developmentseed
 
 - All examples should use open data. If an example uses Earthdata, it must include an example of providing credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is available to anyone).
 - Landing pages with no code should use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
-- Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html).
+- Pages with executable code should be [Jupyter Notebooks (`.ipynb`)](https://ipython.org/notebook.html).
 
 ## Code of Conduct
 
@@ -31,15 +31,9 @@ Discussions can occur in [GitHub Discussions](https://github.com/developmentseed
 - Look for and foster diverse perspectives.
 - If you experience any harmful behavior, please get in touch with [Aimee](mailto:aimee@developmentseed.org) or [Alex](mailto:alex@developmentseed.org).
 
-## Bug Reporting
+## Bug Reporting & Feature Requests
 
-For bug reports, please submit an issue on the GitHub repository.
-
-## Feature Requests
-
-For feature requests, please submit an issue on the GitHub repository.
-
-## How to Contribute
+Before submitting a bug report or a feature request, please start a [GitHub Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) to see if the issue has already been addressed or if it can be resolved through discussion.
 
 ### General Steps
 
@@ -82,9 +76,7 @@ Once your PR is approved and all checks have passed, a project maintainer will m
 
 ## Licensing
 
-Contributions to this project are accepted under the Creative Commons Attribution 4.0 International license.
-
-For more information, see the full [License](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/blob/main/LICENSE).
+This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit [http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/). For attribution requirements, please look at the [license terms](http://creativecommons.org/licenses/by/4.0/).
 
 ## Contact
 
