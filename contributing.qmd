@@ -4,32 +4,32 @@ title: Get Involved
 
 ## Introduction
 
-We encourage contributions to this guide. The goal of the guide on cloud-optimized geospatial formats is to provide documentation on the best practices for the current state of the art cloud-optimized formats. These formats are evolving, and so will the guide.
+We encourage contributions to this guide. The guide's goal on cloud-optimized geospatial formats is to provide documentation on the best practices for the current state-of-the-art cloud-optimized formats. These formats are evolving, and so will the guide.
 
 ## Pre-requisites
 
-If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
+If you wish to preview the site locally, install quarto. You will also need to be familiar with quarto markdown.
 
 ## Communication Channels
 
-Discussions can take place in GitHub Discussions: [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/issues).
+Discussions can occur in [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/issues).
 
 ## Core Principles
 
-1. This guide is intended to be opinionated, but acknowledges there is no one-size-fits-all solution.
-2. This guide should provide the best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate.
+1. This guide intends to be opinionated but acknowledges no one-size-fits-all solution.
+2. This guide should provide the best information and guidance available but acknowledge that experts develop many existing resources. Those resources should be linked as appropriate.
 
 ## Additional Criteria
 
-* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is open to anyone).
-* Landing pages with no code should use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
-* Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html).
+- All examples should use open data. If an example uses Earthdata, it must include an example of providing credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is available to anyone).
+- Landing pages with no code should use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
+- Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html).
 
 ## Code of Conduct
 
-* Be inclusive, respectful and understanding of others' backgrounds and contexts.
-* Look for and foster diverse perspectives.
-* If you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org.
+- Be inclusive, respectful, and understanding of others' backgrounds and contexts.
+- Look for and foster diverse perspectives.
+- If you experience any harmful behavior, please get in touch with [Aimee](mailto:aimee@developmentseed.org) or [Alex](mailto:alex@developmentseed.org).
 
 ## Bug Reporting
 
@@ -84,7 +84,9 @@ Once your PR is approved and all checks have passed, a project maintainer will m
 
 Contributions to this project are accepted under the Creative Commons Attribution 4.0 International license.
 
+For more information, see the full [License](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/blob/main/LICENSE).
+
 ## Contact
 
-For questions on how to contribute, start a discussion in the GitHub Discussions section.
+For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) section.
 
