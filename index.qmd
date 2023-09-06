@@ -72,6 +72,7 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 * Aimee Barciauskas
 * Alex Mandel
 * Kyle Barron
+* Zac Deziel
 * [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
 ## Questions to ask when generating cloud-optimized geospatial data in any format
