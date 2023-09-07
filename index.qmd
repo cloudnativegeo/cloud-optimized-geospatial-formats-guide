@@ -12,7 +12,7 @@ Cloud optimization enables efficient, on-the-fly access to geospatial data, offe
 1. **Reduced Latency**: Data can be fetched and processed much faster compared to downloading entire files.
 2. **Scalability**: Cloud-optimized formats are designed to scale, making it easier to work with large datasets.
 3. **Flexibility**: Users can access only the necessary data portions, making the process more efficient.
-4. **Cost-Effective**: Reduced data transfer and storage needs can lower costs.
+4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs.
 
 If you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats.
 
@@ -30,9 +30,9 @@ If you have a question or idea for this guide, please start a [Github Discussion
 
 ## The opportunity
 
-Putting data in the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
+Storing data in the cloud does not on its own solve geospatial's data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
 
-While it is possible to provide subsetting as a service, this requires maintenance of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without introducing an additional server.
+While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and as well as extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user's machine without introducing an additional server.
 
 Regardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.
 
