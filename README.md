@@ -35,6 +35,8 @@ This site is built using [Quarto](https://quarto.org/docs/get-started/). To prev
 
 This project is licensed under the Creative Commons Attribution 4.0 International license.
 
+Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0`.
+
 ## Questions?
 
 If you have any questions or ideas for this guide, please start a [GitHub Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions/new/choose).

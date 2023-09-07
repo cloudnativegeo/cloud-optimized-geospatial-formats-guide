@@ -83,6 +83,8 @@ Once your PR is approved and all checks have passed, a project maintainer will m
 
 This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit [http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/). For attribution requirements, please look at the [license terms](http://creativecommons.org/licenses/by/4.0/).
 
+Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0`.
+
 ## Contact
 
 For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) section.
