@@ -3,6 +3,8 @@ title: FlatGeobuf
 subtitle: Guidelines for FlatGeobuf
 ---
 
+<!-- note to self, add to downsides: FlatGeobuf indexes _every single object_, which leads to very large spatial indexes as the number of the rows in the file grows large. -->
+
 # FlatGeobuf
 
 FlatGeobuf is a binary file format for geographic vector data, such as points, lines, and polygons.
