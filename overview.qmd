@@ -19,7 +19,7 @@ Source: https://github.com/developmentseed/cloud-optimized-geospatial-formats-gu
 Google Slides version of this content: [Cloud-Optimized Geospatial Formats](https://docs.google.com/presentation/d/1F89kcrtX9LNQPTOuwyL5FRex_8--Vlg-DA8GJNzWqGk/edit?usp=sharing).
 
 ::: {.incremental}
-# What makes cloud-optimized challenging?
+# What Makes Cloud-Optimized Challenging?
 
 * No one size fits all approach
 * Earth observation data may be processed into raster, vector and point cloud data types and stored in a long list of data formats and structures.
@@ -28,13 +28,13 @@ Google Slides version of this content: [Cloud-Optimized Geospatial Formats](http
 * ... hopefully only a few new methods and concepts are necessary.
 :::
 
-# What makes cloud-optimized challenging?
+# What Makes Cloud-optimized Challenging?
 
 ![](./images/2019-points-lines-polygons.png)
 
 image source: <a href="https://ui.josiahparry.com/spatial-analysis.html#types-of-spatial-data">ui.josiahparry.com/spatial-analysis.html</a>
 
-# What makes cloud-optimized challenging?
+# What Makes Cloud-optimized Challenging?
 
 :::: {.columns}
 
@@ -52,21 +52,21 @@ Authors: Chris Durbin, Patrick Quinn, Dana Shum
 
 ::::
 
-# What does cloud-optimized mean?
+# What Does Cloud-Optimized Mean?
 
 File formats are read-oriented to support:
 
 * Partial reads
 * Parallel reads
 
-## What does cloud-optimized mean?
+## What Does Cloud-Optimized Mean?
 
 * File metadata in one read
 * When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads.
 * An easy win is metadata in one read, which can be used to read a cloud-native dataset.
 * A cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.
 
-## What does cloud-optimized mean?
+## What Does Cloud-Optimized Mean?
 
 
 :::: {.columns}
@@ -178,7 +178,7 @@ image source: https://xarray.dev/
 image source: https://fsspec.github.io/kerchunk/detail.html
 :::
 
-## Zarr specs in development
+## Zarr Specs in Development
 
 * V2 and older specs exist, however,
 * A cross-organization working group has just formed to establish a GeoZarr standards working group, organized by Brianna Pagán (NASA) and includes representatives from many other orgs in the industry.
@@ -258,7 +258,7 @@ image source: https://www.wherobots.ai/post/spatial-data-parquet-and-apache-sedo
 
 [Return to Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/) or ...
 
-## Not quite
+## Not Quite
 
 * These formats and their tooling are in active development
 * Some formats were not mentioned, such as EPT, geopkg, tiledb, Cloud-Optimized HDF5. This presentation was scoped to those known best by the authors.

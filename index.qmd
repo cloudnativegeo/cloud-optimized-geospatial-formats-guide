@@ -9,26 +9,26 @@ Geospatial data is experiencing exponential growth in both size and complexity. 
 
 Cloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:
 
-1. **Reduced Latency**: Data can be fetched and processed much faster compared to downloading entire files.
-2. **Scalability**: Cloud-optimized formats are designed to scale, making it easier to work with large datasets.
-3. **Flexibility**: Users can access only the necessary data portions, making the process more efficient.
-4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs.
+1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files. 
+2. **Scalability**: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.
+3. **Flexibility**: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.
+4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.
 
 If you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats.
 
-## Built for the community, by the community.
+## Built for the Community, by the Community.
 
 There is no one-size-fits-all approach to cloud-optimized data. Still, the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
 
 This guide provides the landscape of cloud-optimized geospatial formats and the best-known answers to common questions.
 
-## How to get involved
+## How to Get Involved
 
 If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
 
 If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
-## The opportunity
+## The Opportunity
 
 Storing data in the cloud does not on its own solve geospatial's data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
 
@@ -74,7 +74,7 @@ Notes:
 3. [Cookbooks](./cookbooks/index.qmd)
 
 
-## Running examples
+## Running Examples
 
 Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries need to be installed to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
 
@@ -86,7 +86,7 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 * Zac Deziel
 * [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
-## Questions to ask when generating cloud-optimized geospatial data in any format
+## Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format
 
 1. What variable(s) should be included in the new data format?
 2. Will you create copies to optimize for different needs?
