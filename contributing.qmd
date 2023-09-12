@@ -31,7 +31,7 @@ If you wish to preview the site locally, install [quarto](https://quarto.org/). 
 
 Fork the repository, make changes, use `quarto preview` to make sure the changes look good and open a pull request.
 
-Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
+Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
 
 ### 1. Adding a new format
 
