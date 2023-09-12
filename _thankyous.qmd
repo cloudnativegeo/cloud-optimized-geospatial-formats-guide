@@ -1,0 +1,13 @@
+---
+title: Our supporters
+---
+
+## Thank you to our supporters
+
+This guide has been made possible through the support of:
+
+::: {layout="[20,-30,50]" layout-valign="bottom"}
+[![NASA Impact](./images/thankyous-impact-logo.png){fig-alt="NASA Impact Logo" fig-align="left" width=40%}](https://impact.earthdata.nasa.gov)
+
+[![Development Seed](./images/thankyous-devseed-logo.png){fig-alt="Development Seed Logo" fig-align="left" width=40%}](https://developmentseed.org)
+:::
