@@ -217,25 +217,11 @@
     "text": "How to contribute\n\n0. General\nFork the repository, make changes, use quarto preview to make sure the changes look good and open a pull request.\nOnce the pull request is opened, and the github preview.yml workflow runs (“Deploy PR previews”), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-.\n\n\n1. Adding a new format\n\nCreate a folder with the formats name and, within that folder, an intro.qmd. The intro.qmd file should describe the basics about that format.\nLink to the intro.qmd page in the index.qmd (the Welcome page) file and _quarto.yml table of contents.\nOptionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an environment.yml file that defines the Conda packages necessary for the given notebook.\n\n\n\n2. Modify or add to an existing format\nFeel free to modify or add to existing content if you think it could be improved.\n\n\n3. Adding a cookbook\nCookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:\n\nHow do I chose the chunk shape for my Zarr?\nHow do I determine and preview the resampling algorithm for my COG overview?\nHow do I create STAC metadata for my cloud-optimized data?\nHow do I provide visualizations fo this data?\nHow do I provide subsetted/query/analytical access this data?\n\nTo create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.\n\n\n4. (Optional) Update slides\nIf you have made substantive changes, consider if the Overview Slides should be updated. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax.\n\n\n5. Add yourself to the list of authors on the Welcome page!\n\n\n6. Once your PR is approved, merge away."
   },
   {
-    "objectID": "contributing.html#optional-update-slides",
-    "href": "contributing.html#optional-update-slides",
-    "title": "Get Involved",
-    "section": "4. (Optional) Update slides",
-    "text": "4. (Optional) Update slides\nIf you have made substantive changes, consider if the Overview Slides should be updated. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax."
-  },
-  {
-    "objectID": "contributing.html#add-yourself-to-the-list-of-authors-on-the-welcome-page",
-    "href": "contributing.html#add-yourself-to-the-list-of-authors-on-the-welcome-page",
-    "title": "Get Involved",
-    "section": "5. Add yourself to the list of authors on the Welcome page!",
-    "text": "5. Add yourself to the list of authors on the Welcome page!"
-  },
-  {
-    "objectID": "contributing.html#once-your-pr-is-approved-merge-away.",
-    "href": "contributing.html#once-your-pr-is-approved-merge-away.",
-    "title": "Get Involved",
-    "section": "6. Once your PR is approved, merge away.",
-    "text": "6. Once your PR is approved, merge away."
+    "objectID": "contributing.html#thank-you-to-our-supporters",
+    "href": "contributing.html#thank-you-to-our-supporters",
+    "title": "Our supporters",
+    "section": "Thank you to our supporters",
+    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:"
   },
   {
     "objectID": "cloud-optimized-geotiffs/intro.html",
@@ -623,6 +609,13 @@
     "text": "Questions to ask when generating cloud-optimized geospatial data in any format\n\nWhat variable(s) should be included in the new data format?\nWill you create copies to optimize for different needs?\nWhat is the intended use case or usage profile? Will this product be used for visualization, analysis or both?\nWhat is the expected access method?\nHow much of your data is typically rendered or selected at once?"
   },
   {
+    "objectID": "index.html#thank-you-to-our-supporters",
+    "href": "index.html#thank-you-to-our-supporters",
+    "title": "Our supporters",
+    "section": "Thank you to our supporters",
+    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:"
+  },
+  {
     "objectID": "kerchunk/intro.html",
     "href": "kerchunk/intro.html",
     "title": "Kerchunk",
@@ -726,19 +719,5 @@
     "title": "GeoParquet",
     "section": "Footnotes",
     "text": "Footnotes\n\n\nAs pointed out by GDAL developer Even Rouault, reading GeoParquet through GDAL is just as fast as reading through the geopandas.read_parquet function if you’re using GDAL’s Arrow API. As of September 2023, this is not the default, so you need to opt into the pyogrio engine and opt into the Arrow API:\nimport geopandas as gpd\ngpd.read_file(\"file.parquet\", engine=\"pyogrio\", use_arrow=True)\nIt’s also necessary to note that the Python wheels distributed by pyogrio do not include the Arrow and Parquet drivers by default. In order to use the pyogrio driver for a GeoParquet file, you need to compile from source when installing. You’ll need to have a GDAL installation version 3.6 or later (and built with Arrow and Parquet support, as seen by ogrinfo --formats) on your computer already, and then you can build pyogrio from source with:\npip install pyogrio --no-binary pyogrio\n↩︎"
-  },
-  {
-    "objectID": "index.html#thank-you-to-our-supporters",
-    "href": "index.html#thank-you-to-our-supporters",
-    "title": "Our supporters",
-    "section": "Thank you to our supporters",
-    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:\n\n\n\n\n\nNASA Impact\n\n\n\n \n\n\n\n\nDevelopment Seed"
-  },
-  {
-    "objectID": "contributing.html#thank-you-to-our-supporters",
-    "href": "contributing.html#thank-you-to-our-supporters",
-    "title": "Our supporters",
-    "section": "Thank you to our supporters",
-    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:\n\n\n\n\n\nNASA Impact\n\n\n\n \n\n\n\n\nDevelopment Seed"
   }
 ]
