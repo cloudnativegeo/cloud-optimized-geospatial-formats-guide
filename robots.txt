@@ -1,0 +1,1 @@
+Sitemap: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/sitemap.xml
