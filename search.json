@@ -303,128 +303,121 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "",
     "text": "If you wish to provide optimized access to geospatial data, this guide is for you. Given the large and growing size of geospatial data, users can no longer rely solely on file download to achieve their science goals."
   },
   {
     "objectID": "index.html#built-for-the-community-by-the-community.",
     "href": "index.html#built-for-the-community-by-the-community.",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Built for the community, by the community.",
     "text": "Built for the community, by the community.\nThere is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.\nWith this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions."
   },
   {
     "objectID": "index.html#how-to-get-involved",
     "href": "index.html#how-to-get-involved",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "How to get involved",
     "text": "How to get involved\nIf you want to contribute or modify content, read the Get Involved page.\nIf you have a question or idea for this guide, please start a Github Discussion."
   },
   {
     "objectID": "index.html#the-opportunity",
     "href": "index.html#the-opportunity",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "The opportunity",
     "text": "The opportunity\nJust putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.\nWhile it is possible to provide subsetting as a service, this requires maintanence of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without the introduction of an additional server.\nRegardless, users will be accessing data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces latency and the number of requests must considered.\nAs a community, we have arrived at the following cloud-optimized format pattern:\n\nMetadata includes addresses for data blocks.\nMetadata is stored in a consistent format and location.\nMetadata can be read once.\nMetadata can be used to read the underlying file format which supports subsetted access via adressable chunks, internal tiling or both.\n\nThese characteristics allow for parallelized and partial reading."
   },
   {
     "objectID": "index.html#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table",
     "href": "index.html#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Data Type to Traditional to Cloud-Optimized Geospatial File Format Table",
     "text": "Data Type to Traditional to Cloud-Optimized Geospatial File Format Table\nThe diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.\n\n\n\nCloud-Optimized Geospatial Formats\n\n\nNotes:\n\nSome data formats cover multiple data types, specifically:\n\nGeoJSON can be used for both vector and point data.\nHDF5 can be used for point data or data cubes (or both via groups).\nGeoParquet and FlatGeobuf can be used for vector data or point data.\n\nLAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, same goes for COPC files).\nTopoJSON (an extension of GeoJSON that encodes topology) and newline-delimited GeoJSON are types of GeoJSON worth mentioning but not explicitly represented in the diagram.\nGeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial flatbuffers serialization library (though flatbuffers is not a standalone file format)"
   },
   {
     "objectID": "index.html#table-of-contents",
     "href": "index.html#table-of-contents",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Table of Contents",
     "text": "Table of Contents\n\nOverview of Formats (slideshow)\nFormats\n\nCloud-Optimized GeoTIFFs\nZarr\nKerchunk\nCloud-Optimized NetCDF4/HDF5\nGeoParquet\nFlatGeobuf\n\nCookbooks"
   },
   {
     "objectID": "index.html#running-examples",
     "href": "index.html#running-examples",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Running examples",
     "text": "Running examples\nMost of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of how to read and write the given format. At the top of each notebook is a link to an environment.yml file that describes what libraries need to be installed for the notebook to run correctly. You can use Conda or Mamba (a successor to Conda with faster package installs) to install the environment needed to run the notebook."
   },
   {
     "objectID": "index.html#authors",
     "href": "index.html#authors",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Authors",
     "text": "Authors\n\nAimee Barciauskas\nAlex Mandel\nKyle Barron\nOverview Slide credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
   },
   {
     "objectID": "index.html#questions-to-ask-when-generating-cloud-optimized-geospatial-data-in-any-format",
     "href": "index.html#questions-to-ask-when-generating-cloud-optimized-geospatial-data-in-any-format",
-    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "title": "Our supporters",
     "section": "Questions to ask when generating cloud-optimized geospatial data in any format",
     "text": "Questions to ask when generating cloud-optimized geospatial data in any format\n\nWhat variable(s) should be included in the new data format?\nWill you create copies to optimize for different needs?\nWhat is the intended use case or usage profile? Will this product be used for visualization, analysis or both?\nWhat is the expected access method?\nHow much of your data is typically rendered or selected at once?"
   },
   {
+    "objectID": "index.html#thank-you-to-our-supporters",
+    "href": "index.html#thank-you-to-our-supporters",
+    "title": "Our supporters",
+    "section": "Thank you to our supporters",
+    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:"
+  },
+  {
     "objectID": "contributing.html",
     "href": "contributing.html",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "",
     "text": "We encourage contributions to this guide."
   },
   {
     "objectID": "contributing.html#pre-requisites",
     "href": "contributing.html#pre-requisites",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "Pre-requisites",
     "text": "Pre-requisites\nIf you wish to preview the site locally, install quarto. You will also need to be familiar with quarto markdown."
   },
   {
     "objectID": "contributing.html#core-principles",
     "href": "contributing.html#core-principles",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "Core principles",
     "text": "Core principles\n\nThis guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.\nThis guide should provide best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate."
   },
   {
     "objectID": "contributing.html#additional-criteria",
     "href": "contributing.html#additional-criteria",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "Additional criteria",
     "text": "Additional criteria\n\nAll examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials (Earthdata registration is open to anyone).\nLanding pages with no code should be use quarto markdown (.qmd).\nPages with executable code should be iPython Notebooks (.ipynb)"
   },
   {
     "objectID": "contributing.html#code-of-conduct",
     "href": "contributing.html#code-of-conduct",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "Code of Conduct",
     "text": "Code of Conduct\n\nBe inclusive, respectful and understanding of others’ backgrounds and contexts.\nLook for and foster diverse perspectives.\nIf you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org."
   },
   {
     "objectID": "contributing.html#how-to-contribute",
     "href": "contributing.html#how-to-contribute",
-    "title": "Get Involved",
+    "title": "Our supporters",
     "section": "How to contribute",
-    "text": "How to contribute\n\n0. General\nFork the repository, make changes, use quarto preview to make sure the changes look good and open a pull request.\nOnce the pull request is opened, and the github preview.yml workflow runs (“Deploy PR previews”), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-.\n\n\n1. Adding a new format\n\nCreate a folder with the formats name and, within that folder, an intro.qmd. The intro.qmd file should describe the basics about that format.\nLink to the intro.qmd page in the index.qmd (the Welcome page) file and _quarto.yml table of contents.\nOptionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an environment.yml file that defines the Conda packages necessary for the given notebook.\n\n\n\n2. Modify or add to an existing format\nFeel free to modify or add to existing content if you think it could be improved.\n\n\n3. Adding a cookbook\nCookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:\n\nHow do I chose the chunk shape for my Zarr?\nHow do I determine and preview the resampling algorithm for my COG overview?\nHow do I create STAC metadata for my cloud-optimized data?\nHow do I provide visualizations fo this data?\nHow do I provide subsetted/query/analytical access this data?\n\nTo create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd."
+    "text": "How to contribute\n\n0. General\nFork the repository, make changes, use quarto preview to make sure the changes look good and open a pull request.\nOnce the pull request is opened, and the github preview.yml workflow runs (“Deploy PR previews”), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-.\n\n\n1. Adding a new format\n\nCreate a folder with the formats name and, within that folder, an intro.qmd. The intro.qmd file should describe the basics about that format.\nLink to the intro.qmd page in the index.qmd (the Welcome page) file and _quarto.yml table of contents.\nOptionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an environment.yml file that defines the Conda packages necessary for the given notebook.\n\n\n\n2. Modify or add to an existing format\nFeel free to modify or add to existing content if you think it could be improved.\n\n\n3. Adding a cookbook\nCookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:\n\nHow do I chose the chunk shape for my Zarr?\nHow do I determine and preview the resampling algorithm for my COG overview?\nHow do I create STAC metadata for my cloud-optimized data?\nHow do I provide visualizations fo this data?\nHow do I provide subsetted/query/analytical access this data?\n\nTo create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.\n\n\n4. (Optional) Update slides\nIf you have made substantive changes, consider if the Overview Slides should be updated. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax.\n\n\n5. Add yourself to the list of authors on the Welcome page!\n\n\n6. Once your PR is approved, merge away."
   },
   {
-    "objectID": "contributing.html#optional-update-slides",
-    "href": "contributing.html#optional-update-slides",
-    "title": "Get Involved",
-    "section": "4. (Optional) Update slides",
-    "text": "4. (Optional) Update slides\nIf you have made substantive changes, consider if the Overview Slides should be updated. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax."
-  },
-  {
-    "objectID": "contributing.html#add-yourself-to-the-list-of-authors-on-the-welcome-page",
-    "href": "contributing.html#add-yourself-to-the-list-of-authors-on-the-welcome-page",
-    "title": "Get Involved",
-    "section": "5. Add yourself to the list of authors on the Welcome page!",
-    "text": "5. Add yourself to the list of authors on the Welcome page!"
-  },
-  {
-    "objectID": "contributing.html#once-your-pr-is-approved-merge-away.",
-    "href": "contributing.html#once-your-pr-is-approved-merge-away.",
-    "title": "Get Involved",
-    "section": "6. Once your PR is approved, merge away.",
-    "text": "6. Once your PR is approved, merge away."
+    "objectID": "contributing.html#thank-you-to-our-supporters",
+    "href": "contributing.html#thank-you-to-our-supporters",
+    "title": "Our supporters",
+    "section": "Thank you to our supporters",
+    "text": "Thank you to our supporters\nThis guide has been made possible through the support of:"
   },
   {
     "objectID": "geoparquet/geoparquet-example.html",

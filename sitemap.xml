@@ -2,86 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/index.html</loc>
-    <lastmod>2023-09-18T15:33:49.238Z</lastmod>
+    <lastmod>2023-09-18T15:38:54.712Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/kerchunk/kerchunk-in-practice.html</loc>
-    <lastmod>2023-09-18T15:33:48.262Z</lastmod>
+    <lastmod>2023-09-18T15:38:53.820Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/transition-from-rmarkdown.html</loc>
-    <lastmod>2023-09-18T15:33:45.750Z</lastmod>
+    <lastmod>2023-09-18T15:38:51.384Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/flatgeobuf/flatgeobuf.html</loc>
-    <lastmod>2023-09-18T15:33:44.434Z</lastmod>
+    <lastmod>2023-09-18T15:38:50.180Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/template.html</loc>
-    <lastmod>2023-09-18T15:33:43.122Z</lastmod>
+    <lastmod>2023-09-18T15:38:48.888Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/pmtiles/intro.html</loc>
-    <lastmod>2023-09-18T15:33:42.270Z</lastmod>
+    <lastmod>2023-09-18T15:38:48.156Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/cookbooks/index.html</loc>
-    <lastmod>2023-09-18T15:33:41.002Z</lastmod>
+    <lastmod>2023-09-18T15:38:47.012Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/zarr/zarr-in-practice.html</loc>
-    <lastmod>2023-09-18T15:33:40.038Z</lastmod>
+    <lastmod>2023-09-18T15:38:46.096Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html</loc>
-    <lastmod>2023-09-18T15:33:37.202Z</lastmod>
+    <lastmod>2023-09-18T15:38:43.384Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/geoparquet/index.html</loc>
-    <lastmod>2023-09-18T15:33:35.758Z</lastmod>
+    <lastmod>2023-09-18T15:38:42.012Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/index.html</loc>
-    <lastmod>2023-09-18T15:33:32.538Z</lastmod>
+    <lastmod>2023-09-18T15:38:39.792Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/contributing.html</loc>
-    <lastmod>2023-09-18T15:33:34.782Z</lastmod>
+    <lastmod>2023-09-18T15:38:41.128Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/geoparquet/geoparquet-example.html</loc>
-    <lastmod>2023-09-18T15:33:36.710Z</lastmod>
+    <lastmod>2023-09-18T15:38:42.892Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-examples.html</loc>
-    <lastmod>2023-09-18T15:33:37.954Z</lastmod>
+    <lastmod>2023-09-18T15:38:44.108Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/zarr/intro.html</loc>
-    <lastmod>2023-09-18T15:33:40.594Z</lastmod>
+    <lastmod>2023-09-18T15:38:46.644Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/pmtiles/pmtiles-example.html</loc>
-    <lastmod>2023-09-18T15:33:41.630Z</lastmod>
+    <lastmod>2023-09-18T15:38:47.580Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/copc/index.html</loc>
-    <lastmod>2023-09-18T15:33:42.738Z</lastmod>
+    <lastmod>2023-09-18T15:38:48.536Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/flatgeobuf/hilbert-r-tree.html</loc>
-    <lastmod>2023-09-18T15:33:43.634Z</lastmod>
+    <lastmod>2023-09-18T15:38:49.404Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/flatgeobuf/intro.html</loc>
-    <lastmod>2023-09-18T15:33:45.066Z</lastmod>
+    <lastmod>2023-09-18T15:38:50.736Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/overview.html</loc>
-    <lastmod>2023-09-18T15:33:46.614Z</lastmod>
+    <lastmod>2023-09-18T15:38:52.212Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/kerchunk/intro.html</loc>
-    <lastmod>2023-09-18T15:33:48.790Z</lastmod>
+    <lastmod>2023-09-18T15:38:54.296Z</lastmod>
   </url>
 </urlset>
