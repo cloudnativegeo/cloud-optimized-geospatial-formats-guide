@@ -84,3 +84,6 @@ format:
 filters:
   - include-files.lua
   - quarto
+
+resources:
+  - CNAME
