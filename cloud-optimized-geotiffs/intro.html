@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cloud-Optimized Geospatial Formats Guide – intro</title>
+<title>Cloud-Optimized Geospatial Formats Guide - Cloud-Optimized GeoTIFFs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,7 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../cloud-optimized-geotiffs/cogs-examples.html" rel="next">
+<link href="../cloud-optimized-geotiffs/cogs-details.html" rel="next">
 <link href="../overview.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud-Optimized GeoTIFFs</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud-Optimized GeoTIFFs</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Cloud Optimized GeoTIFFs</span></a>
+ <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -139,6 +139,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Make better GeoTIFFs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -322,17 +328,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#cloud-optimized-geotiffs" id="toc-cloud-optimized-geotiffs" class="nav-link active" data-scroll-target="#cloud-optimized-geotiffs">Cloud-Optimized GeoTIFFs</a>
-  <ul class="collapse">
-  <li><a href="#what-is-a-cloud-optimized-geotiff" id="toc-what-is-a-cloud-optimized-geotiff" class="nav-link" data-scroll-target="#what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</a>
+  <li><a href="#what-is-a-cloud-optimized-geotiff" id="toc-what-is-a-cloud-optimized-geotiff" class="nav-link active" data-scroll-target="#what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</a>
   <ul class="collapse">
   <li><a href="#dimensions" id="toc-dimensions" class="nav-link" data-scroll-target="#dimensions">Dimensions</a></li>
   <li><a href="#internal-blocks" id="toc-internal-blocks" class="nav-link" data-scroll-target="#internal-blocks">Internal Blocks</a></li>
   <li><a href="#overviews" id="toc-overviews" class="nav-link" data-scroll-target="#overviews">Overviews</a></li>
-  </ul></li>
-  <li><a href="#how-to-create-and-validate-cogs" id="toc-how-to-create-and-validate-cogs" class="nav-link" data-scroll-target="#how-to-create-and-validate-cogs">How to create and validate COGs</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  <li><a href="#how-to-visualize-cogs" id="toc-how-to-visualize-cogs" class="nav-link" data-scroll-target="#how-to-visualize-cogs">How to visualize COGs</a></li>
+  <li><a href="#see-more" id="toc-see-more" class="nav-link" data-scroll-target="#see-more">See more</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cloud-optimized-geotiffs/intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -340,53 +341,51 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Cloud-Optimized GeoTIFFs</h1>
+</div>
 
 
-<section id="cloud-optimized-geotiffs" class="level1">
-<h1>Cloud-Optimized GeoTIFFs</h1>
-<section id="what-is-a-cloud-optimized-geotiff" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</h2>
-<p>Cloud-Optimized GeoTIFF (the COG) is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.</p>
-<p>For more details see https://www.cogeo.org/</p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="what-is-a-cloud-optimized-geotiff" class="level1">
+<h1>What is a Cloud-Optimized GeoTIFF?</h1>
+<p>Cloud-Optimized GeoTIFF (the COG), a raster format, is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.</p>
+<p>For more details see <a href="https://www.cogeo.org/">https://www.cogeo.org/</a></p>
 <p><img alt="COG Diagram" src="../images/cog-diagram-1.png" width="300/"></p>
-<section id="dimensions" class="level3">
-<h3 class="anchored" data-anchor-id="dimensions">Dimensions</h3>
-<p>This attribute is also sometimes called <strong>chunks</strong> or <strong>internal tiles</strong>.</p>
+<section id="dimensions" class="level2">
+<h2 class="anchored" data-anchor-id="dimensions">Dimensions</h2>
 <p>Dimensions are the number of bands, rows and columns stored in a GeoTIFF. There is a tradeoff between storing lots of data in one GeoTIFF and storing less data in many GeoTIFFs. The larger a single file, the larger the GeoTIFF header and the multiple requests may be required just to read the spatial index before data retrieval. The opposite problem occurs if you make too many small files, then it takes many reads to retrieve data, and when rendering a combined visualization can greatly impact load time.</p>
 <p>If you plan to pan and zoom a large amount of data through a tiling service in a web browser, there is a tradeoff between 1 large file, or many smaller files. The current recommendation is to meet somewhere in the middle, a moderate amount of medium files.</p>
 </section>
-<section id="internal-blocks" class="level3">
-<h3 class="anchored" data-anchor-id="internal-blocks">Internal Blocks</h3>
+<section id="internal-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="internal-blocks">Internal Blocks</h2>
+<blockquote class="blockquote">
+<p>This attribute is also sometimes called <strong>chunks</strong> or <strong>internal tiles</strong>.</p>
+</blockquote>
 <p>Internal blocks are required if the dimensions of data are over 512x512. However you can control the size of the internal blocks. 256x256 or 512x512 are recommended. When displaying data at full resolution, or doing partial reading of data this size will impact the number of reads required. A size of 256 will take less time to read, and read less data outside the desired bounding box, however for reading large parts of a file, it may take more total read requests. Some clients will aggregate neighboring block reads to reduce the total number of requests.</p>
 </section>
-<section id="overviews" class="level3">
-<h3 class="anchored" data-anchor-id="overviews">Overviews</h3>
+<section id="overviews" class="level2">
+<h2 class="anchored" data-anchor-id="overviews">Overviews</h2>
 <p>Overviews are downsampled (aggregated) data intended for visualization. The best resampling algorithm depends on the range, type, and distribution of the data.</p>
 <p>The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. The COG driver in GDAL, or rio cogeo tools should do this.</p>
-<p>There are many resampling algorithms for generating overviews. When creating overviews several options should be compared before deciding which resampling method to apply.</p>
+<p>There are many <a href="https://gdal.org/programs/gdal_translate.html#cmdoption-gdal_translate-r">resampling algorithms</a> for generating overviews. When creating overviews several options should be compared before deciding which resampling method to apply.</p>
 </section>
-</section>
-<section id="how-to-create-and-validate-cogs" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-create-and-validate-cogs">How to create and validate COGs</h2>
-<ol type="1">
-<li><a href="https://github.com/cogeotiff/rio-cogeo">Rio-cogeo: GitHub - cogeotiff/rio-cogeo: Cloud Optimized GeoTIFF creation and validation plugin for rasterio</a></li>
-<li><a href="https://gdal.org/drivers/raster/cog.html">Gdal: COG – Cloud Optimized GeoTIFF generator — GDAL documentation</a></li>
-</ol>
-</section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
+<section id="see-more" class="level2">
+<h2 class="anchored" data-anchor-id="see-more">See more</h2>
 <ul>
-<li><a href="https://developers.planet.com/docs/planetschool/an-introduction-to-cloud-optimized-geotiffs-cogs-part-1-overview/">Planet Blog: An Introduction to Cloud Optimized GeoTIFFS (COGs) Part 1: Overview</a></li>
-<li><a href="https://medium.com/devseed/cog-talk-part-1-whats-new-941facbcd3d1">COG Talk — Part 1: What’s new?</a></li>
-<li><a href="https://medium.com/@_VincentS_/do-you-really-want-people-using-your-data-ec94cd94dc3f">Development Seed Blog: Do you really want people using your data?</a></li>
-</ul>
-</section>
-<section id="how-to-visualize-cogs" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-visualize-cogs">How to visualize COGs</h2>
-<ul>
-<li>GDAL vis* drivers (vsicurl, vsis3, vsiaz,)</li>
-<li>Titiler https://github.com/developmentseed/titiler</li>
-<li>Rio-viz https://github.com/developmentseed/rio-viz</li>
+<li>Additional <a href="../cloud-optimized-geotiffs/cogs-details.html">GeoTIFF details</a> that can be helpful.</li>
+<li>Making and using <a href="../cloud-optimized-geotiffs/cogs-examples.html">COG examples</a>.</li>
 </ul>
 
 
@@ -749,8 +748,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../cloud-optimized-geotiffs/cogs-examples.html" class="pagination-link">
-        <span class="nav-page-text">Examples of Working with COGs</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../cloud-optimized-geotiffs/cogs-details.html" class="pagination-link">
+        <span class="nav-page-text">Make better GeoTIFFs</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

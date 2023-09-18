@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../zarr/intro.html" rel="next">
-<link href="../cloud-optimized-geotiffs/intro.html" rel="prev">
+<link href="../cloud-optimized-geotiffs/cogs-details.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/cogs-examples.html">Examples of Working with COGs</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/cogs-examples.html">Examples of Working with COGs</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Cloud Optimized GeoTIFFs</span></a>
+ <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -173,6 +173,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Make better GeoTIFFs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -361,19 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#download-a-geotiff-from-earthdata" id="toc-download-a-geotiff-from-earthdata" class="nav-link" data-scroll-target="#download-a-geotiff-from-earthdata">Download a GeoTIFF from EarthData</a></li>
   <li><a href="#is-it-a-valid-cog" id="toc-is-it-a-valid-cog" class="nav-link" data-scroll-target="#is-it-a-valid-cog">Is it a valid COG?</a></li>
   <li><a href="#converting-a-geotiff-to-cog" id="toc-converting-a-geotiff-to-cog" class="nav-link" data-scroll-target="#converting-a-geotiff-to-cog">Converting a GeoTIFF to COG</a></li>
-  <li><a href="#dimensions" id="toc-dimensions" class="nav-link" data-scroll-target="#dimensions">Dimensions</a>
-  <ul class="collapse">
-  <li><a href="#internal-blocks" id="toc-internal-blocks" class="nav-link" data-scroll-target="#internal-blocks">Internal Blocks</a></li>
-  </ul></li>
+  <li><a href="#data-structure" id="toc-data-structure" class="nav-link" data-scroll-target="#data-structure">Data Structure</a></li>
   <li><a href="#overviews" id="toc-overviews" class="nav-link" data-scroll-target="#overviews">Overviews</a></li>
-  <li><a href="#data-type" id="toc-data-type" class="nav-link" data-scroll-target="#data-type">Data Type</a></li>
-  <li><a href="#compression-aka-file-size" id="toc-compression-aka-file-size" class="nav-link" data-scroll-target="#compression-aka-file-size">Compression (aka File Size)</a></li>
-  <li><a href="#no-data" id="toc-no-data" class="nav-link" data-scroll-target="#no-data">No Data</a></li>
-  <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection">Projection</a>
-  <ul class="collapse">
-  <li><a href="#what-we-dont-know-areas-of-research" id="toc-what-we-dont-know-areas-of-research" class="nav-link" data-scroll-target="#what-we-dont-know-areas-of-research">What we don’t know (areas of research)</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/cogs-examples.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -463,6 +458,9 @@ PROCESSING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 1
 COLLECTING RESULTS | : 100%|██████████| 1/1 [00:00&lt;00:00, 29330.80it/s]</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p>To learn more about the example data see the <a href="https://lpdaac.usgs.gov/products/vcf5kyrv001/">Vegetation Continuous Fields (VCF) information page</a>.</p>
+</blockquote>
 </section>
 <section id="is-it-a-valid-cog" class="level2">
 <h2 class="anchored" data-anchor-id="is-it-a-valid-cog">Is it a valid COG?</h2>
@@ -512,14 +510,10 @@ Writing output to: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud
 </div>
 <p>This is a valid COG, so we will use it to compare with our GeoTIFF.</p>
 </section>
-<section id="dimensions" class="level2">
-<h2 class="anchored" data-anchor-id="dimensions">Dimensions</h2>
-<p>This attribute is also sometimes called <strong>chunks</strong> or <strong>internal tiles</strong>.</p>
-<p>Dimensions are the number of bands, rows and columns stored in a GeoTIFF. There is a tradeoff between storing lots of data in one GeoTIFF and storing less data in many GeoTIFFs. The larger a single file, the larger the GeoTIFF header and the multiple requests may be required just to read the spatial index before data retrieval. The opposite problem occurs if you make too many small files, then it takes many reads to retrieve data, and when rendering a combined visualization can greatly impact load time.</p>
-<p>If you plan to pan and zoom a large amount of data through a tiling service in a web browser, there is a tradeoff between 1 large file, or many smaller files. The current recommendation is to meet somewhere in the middle, a moderate amount of medium files.</p>
-<section id="internal-blocks" class="level3">
-<h3 class="anchored" data-anchor-id="internal-blocks">Internal Blocks</h3>
-<p>Internal blocks are required if the dimensions of data are over 512x512. However you can control the size of the internal blocks. 256x256 or 512x512 are recommended. When displaying data at full resolution, or doing partial reading of data this size will impact the number of reads required. A size of 256 will take less time to read, and read less data outside the desired bounding box, however for reading large parts of a file, it may take more total read requests. Some clients will aggregate neighboring block reads to reduce the total number of requests.</p>
+<section id="data-structure" class="level2">
+<h2 class="anchored" data-anchor-id="data-structure">Data Structure</h2>
+<p><strong>Dimensions</strong> Dimensions are the number of bands, rows and columns stored in a GeoTIFF. <a href="../cloud-optimized-geotiffs/intro.html#dimensions">More Info</a></p>
+<p><strong>Internal Blocks</strong> (aka chunks or internal tiles) Internal blocks are required if the dimensions of data are over 512x512. <a href="../cloud-optimized-geotiffs/intro.html#internal-blocks">More Info</a></p>
 <p>Let’s check out the dimensions and blocks of our GeoTIFF and Cloud-Optimized GeoTIFF.</p>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio <span class="op">=</span> rasterio.<span class="bu">open</span>(veg_gtiff_filename)</span>
@@ -554,14 +548,13 @@ Writing output to: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud
 </div>
 <p>Note for IFD Level 0, the regular GeoTIFF has a blocksize of <code>(1, 7200)</code> which implies each row of data is a separate block. So whenever reading in data, even if only a few columns are required, the full row must be read.</p>
 </section>
-</section>
 <section id="overviews" class="level2">
 <h2 class="anchored" data-anchor-id="overviews">Overviews</h2>
-<p>Overviews are downsampled (aggregated) data intended for visualization. The best resampling algorithm depends on the range, type, and distribution of the data.</p>
-<p>The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. The COG driver in GDAL, or rio cogeo tools should do this.</p>
-<p>There are many resampling algorithms for generating overviews. When creating overviews several options should be compared before deciding which resampling method to apply.</p>
+<p>Overviews are downsampled (aggregated) data intended for visualization.</p>
+<p>The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. &gt; The COG driver in GDAL, or rio cogeo tools should do this.</p>
+<p>There are many resampling algorithms for generating overviews. The best resampling algorithm depends on the range, type, and distribution of the data. When creating overviews several options should be compared before deciding which resampling method to apply.</p>
 <p>GDAL &gt;= 3.2 allows for the overview resampling method to be set directly.</p>
-<p>TODO: need to add hints on how to check which resampling method to use for overviews. Possibly provide code for comparing.</p>
+<!-- TODO: need to add hints on how to check which resampling method to use for overviews. Possibly provide code for comparing. Alex has a draft of this to add.-->
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio.overviews(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
@@ -662,41 +655,8 @@ out width: 450</code></pre>
 <p><img src="cogs-examples_files/figure-html/cell-19-output-5.png" class="img-fluid"></p>
 </div>
 </div>
-</section>
-<section id="data-type" class="level1">
-<h1>Data Type</h1>
-<p>The smallest possible data type, that still represents the data appropriately, should be used. It is not generally recommended to shift data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also Compression.</p>
-<p>Scenario: If the COG is intended only for visualization, conversion to 3 band byte will improve performance.</p>
-</section>
-<section id="compression-aka-file-size" class="level1">
-<h1>Compression (aka File Size)</h1>
-<p>The biggest benefit to compression is on the storage side. It’s always recommended to use a lossless compression method. Deflate or LZW are the most recommended compression algorithms, there are some choices that depend on the data type and distribution, and if the goal is maximum compression or not. Maximum compression does result in some performance loss.</p>
-</section>
-<section id="no-data" class="level1">
-<h1>No Data</h1>
-<p>Setting a no data value makes it clear to users and visualization tools what pixels are not actually data. For visualization this allows these pixels to be easily hidden (transparent). Historically many values have been used, 0, -9999, etc… The key is to make sure the GDAL flag for no data is set. It is also suggested that the smallest negative value be used instead of a random value. For byte and unsigned integers/floats this will be 0, if 0 has meaning in your data use a different value (like the max possible value). Having the right nodata flag set is important for overview generation.</p>
-</section>
-<section id="projection" class="level1">
-<h1>Projection</h1>
-<p>Read performance can be greatly impacted by the choice of projection and the particular applications used for dynamic tile serving. Using a known CRS defined in the PROJ database (typically EPSG code) is preferred over custom projections. Load times can be 5-20 times greater when using a custom projection. Whenever applying projections make sure to use WKT2 representation. If using a database of known projections this should be fine, there are known issues around manually setting proj-strings.</p>
-<section id="what-we-dont-know-areas-of-research" class="level2">
-<h2 class="anchored" data-anchor-id="what-we-dont-know-areas-of-research">What we don’t know (areas of research)</h2>
-<ul>
-<li>The optimum size of data at which splitting across files improves performance as a multi-file dataset instead of a single file.</li>
-<li>When to recommend particular internal tile sizes</li>
-<li>Compression impacts on http transfer rates.</li>
-<li>Support for COG creation in other common scientific platforms (e.g.&nbsp;R)</li>
-</ul>
-</section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional Resources</h2>
-<ul>
-<li><a href="https://developers.planet.com/docs/planetschool/an-introduction-to-cloud-optimized-geotiffs-cogs-part-1-overview/">An Introduction to Cloud Optimized GeoTIFFS (COGs) Part 1: Overview</a></li>
-<li><a href="https://medium.com/@_VincentS_/do-you-really-want-people-using-your-data-ec94cd94dc3f">Do you really want people using your data?</a></li>
-</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1050,8 +1010,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../cloud-optimized-geotiffs/intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud-Optimized GeoTIFFs</span>
+      <a href="../cloud-optimized-geotiffs/cogs-details.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Make better GeoTIFFs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
