@@ -54,7 +54,7 @@ Notes:
 
 1. [Overview of Formats (slideshow)](./overview.qmd)
 2. Formats
-   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.ipynb)
+   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.qmd)
    b. [Zarr](./zarr/intro.qmd)
    c. [Kerchunk](./kerchunk/intro.qmd)
    c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
@@ -82,4 +82,4 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 4. What is the expected access method?
 5. How much of your data is typically rendered or selected at once?
 
-{{< include _thankyous.qmd >}} 
+{{< include _thankyous.qmd >}}
