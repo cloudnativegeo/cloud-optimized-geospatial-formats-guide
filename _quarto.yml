@@ -35,6 +35,7 @@ website:
         - section: Cloud Optimized GeoTIFFs
           contents:
           - cloud-optimized-geotiffs/intro.qmd
+          - cloud-optimized-geotiffs/cogs-details.qmd
           - cloud-optimized-geotiffs/cogs-examples.ipynb
         - section: Zarr
           contents:

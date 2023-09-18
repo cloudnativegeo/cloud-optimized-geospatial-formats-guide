@@ -1,30 +1,85 @@
-# Cloud-Optimized GeoTIFFs
+---
+title: "Cloud-Optimized Geospatial Formats Guide"
+subtitle: "Methods for Generating and Testing Cloud-Optimized Geospatial Formats"
+---
 
-## What is a Cloud-Optimized GeoTIFF?
+If you wish to provide optimized access to geospatial data, this guide is for you. Given the large and growing size of geospatial data, users can no longer rely solely on file download to achieve their science goals.
 
-Cloud-Optimized GeoTIFF (the COG), a raster format, is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.
+## Built for the community, by the community.
 
-For more details see [https://www.cogeo.org/](https://www.cogeo.org/)
+There is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
 
-<img alt="COG Diagram" src="../images/cog-diagram-1.png" width=300/>
+With this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions.
 
-### Dimensions
+## How to get involved
 
-Dimensions are the number of bands, rows and columns stored in a GeoTIFF. There is a tradeoff between storing lots of data in one GeoTIFF and storing less data in many GeoTIFFs. The larger a single file, the larger the GeoTIFF header and the multiple requests may be required just to read the spatial index before data retrieval. The opposite problem occurs if you make too many small files, then it takes many reads to retrieve data, and when rendering a combined visualization can greatly impact load time.
+If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
 
-If you plan to pan and zoom a large amount of data through a tiling service in a web browser, there is a tradeoff between 1 large file, or many smaller files. The current recommendation is to meet somewhere in the middle, a moderate amount of medium files.
+If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
-### Internal Blocks
+## The opportunity
 
-> This attribute is also sometimes called **chunks** or **internal tiles**.
+Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.
 
-Internal blocks are required if the dimensions of data are over 512x512. However you can control the size of the internal blocks. 256x256 or 512x512 are recommended. When displaying data at full resolution, or doing partial reading of data this size will impact the number of reads required. A size of 256 will take less time to read, and read less data outside the desired bounding box, however for reading large parts of a file, it may take more total read requests. Some clients will aggregate neighboring block reads to reduce the total number of requests.
+While it is possible to provide subsetting as a service, this requires maintanence of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without the introduction of an additional server.
 
-### Overviews
+Regardless, users will be accessing data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces latency and the number of requests must considered.
 
-Overviews are downsampled (aggregated) data intended for visualization.
-The best resampling algorithm depends on the range, type, and distribution of the data.
+As a community, we have arrived at the following **cloud-optimized format pattern:**
 
-The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. The COG driver in GDAL, or rio cogeo tools should do this.
+1. Metadata includes addresses for data blocks.
+2. Metadata is stored in a consistent format and location.
+3. Metadata can be read once.
+3. Metadata can be used to read the underlying file format which supports subsetted access via adressable chunks, internal tiling or both.
 
-There are many [resampling algorithms](https://gdal.org/programs/gdal_translate.html#cmdoption-gdal_translate-r) for generating overviews. When creating overviews several options should be compared before deciding which resampling method to apply.
+These characteristics allow for parallelized and partial reading.
+
+## Data Type to Traditional to Cloud-Optimized Geospatial File Format Table
+
+The diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.
+
+![Cloud-Optimized Geospatial Formats](./images/cogeo-formats-table.png)
+
+Notes:
+
+* Some data formats cover multiple data types, specifically:
+    * GeoJSON can be used for both vector and point data.
+    * HDF5 can be used for point data or data cubes (or both via groups).
+    * GeoParquet and FlatGeobuf can be used for vector data or point data.
+* LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, same goes for COPC files).
+* [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but not explicitly represented in the diagram.
+* GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
+
+## Table of Contents
+
+1. [Overview of Formats (slideshow)](./overview.qmd)
+2. Formats
+   a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.qmd)
+   b. [Zarr](./zarr/intro.qmd)
+   c. [Kerchunk](./kerchunk/intro.qmd)
+   c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
+   d. [GeoParquet](./geoparquet/index.qmd)
+   e. [FlatGeobuf](./flatgeobuf/intro.qmd)
+3. [Cookbooks](./cookbooks/index.qmd)
+
+
+## Running examples
+
+Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of how to read and write the given format. At the top of each notebook is a link to an `environment.yml` file that describes what libraries need to be installed for the notebook to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
+
+## Authors
+
+* Aimee Barciauskas
+* Alex Mandel
+* Kyle Barron
+* [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
+
+## Questions to ask when generating cloud-optimized geospatial data in any format
+
+1. What variable(s) should be included in the new data format?
+2. Will you create copies to optimize for different needs?
+3. What is the intended use case or usage profile? Will this product be used for visualization, analysis or both?
+4. What is the expected access method?
+5. How much of your data is typically rendered or selected at once?
+
+{{< include _thankyous.qmd >}}
