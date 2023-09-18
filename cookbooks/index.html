@@ -696,7 +696,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/github\.com\/cloudnativegeo\/cloud-optimized-geospatial-formats-guide");
+      var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
