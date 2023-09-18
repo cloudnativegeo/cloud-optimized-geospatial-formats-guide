@@ -1,6 +1,6 @@
 # Cloud-Optimized Geospatial Formats Guide
 
----
+See the site [https://guide.cloudnativegeo.org/](https://guide.cloudnativegeo.org/)
 
 **Guide**: <a href="https://tinyurl.com/cogeo-guide" target="_blank">tinyurl.com/cogeo-guide</a>
 

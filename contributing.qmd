@@ -89,3 +89,4 @@ Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Form
 
 For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) section.
 
+{{< include _thankyous.qmd >}}

@@ -9,7 +9,7 @@ Geospatial data is experiencing exponential growth in both size and complexity. 
 
 Cloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:
 
-1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files. 
+1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.
 2. **Scalability**: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.
 3. **Flexibility**: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.
 4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.
@@ -26,7 +26,7 @@ This guide provides the landscape of cloud-optimized geospatial formats and the 
 
 If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
 
-If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
+If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
 ## The Opportunity
 
@@ -93,3 +93,5 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 3. What is the intended use case or usage profile? Will this product be used for visualization, analysis, or both?
 4. What is the expected access method?
 5. How much of your data is typically rendered or selected at once?
+
+{{< include _thankyous.qmd >}}

@@ -1,6 +1,6 @@
 ---
 title: Cloud-Optimized Geospatial Formats Overview
-subtitle: These slides are a summarization of [Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/) to support presentations.
+subtitle: These slides are a summarization of [Cloud-Optimized Geospatial Formats Guide](https://guide.cloudnativegeo.org/) to support presentations.
 author:
   - "Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
 format:
@@ -11,7 +11,7 @@ format:
 
 ::: {.notes}
 These slides were generated with https://quarto.org/docs/presentations/revealjs.
-Source: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide.
+Source: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide.
 :::
 
 # Cloud-Optimized Geospatial Formats Overview
@@ -256,7 +256,7 @@ image source: https://www.wherobots.ai/post/spatial-data-parquet-and-apache-sedo
 
 # The End?
 
-[Return to Cloud-Optimized Geospatial Formats Guide](https://developmentseed.org/cloud-optimized-geospatial-formats-guide/) or ...
+[Return to Cloud-Optimized Geospatial Formats Guide](https://guide.cloudnativegeo.org/) or ...
 
 ## Not Quite
 
