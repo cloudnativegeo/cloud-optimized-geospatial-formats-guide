@@ -31,7 +31,7 @@ If you wish to preview the site locally, install [quarto](https://quarto.org/). 
 
 Fork the repository, make changes, use `quarto preview` to make sure the changes look good and open a pull request.
 
-Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
+Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
 
 ### 1. Adding a new format
 
@@ -55,10 +55,12 @@ Cookbooks should address common questions and present solutions for cloud-optimi
 
 To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
 
-## 4. (Optional) Update slides
+### 4. (Optional) Update slides
 
 If you have made substantive changes, consider if the [Overview Slides](./overview.qmd) should be updated. These slides are generated using [Quarto and Reveal.js](https://quarto.org/docs/presentations/revealjs/) so can be updated with markdown syntax.
 
-## 5. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
+### 5. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
 
-## 6. Once your PR is approved, merge away.
+### 6. Once your PR is approved, merge away.
+
+{{< include _thankyous.qmd >}} 
