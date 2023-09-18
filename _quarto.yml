@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: docs
   preview:
     port: 4200
     browser: false
@@ -84,3 +83,6 @@ format:
 filters:
   - include-files.lua
   - quarto
+
+resources:
+  - CNAME
