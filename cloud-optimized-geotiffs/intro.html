@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cloud-Optimized Geospatial Formats Guide - Cloud-Optimized GeoTIFFs</title>
+<title>Cloud-Optimized Geospatial Formats Guide – intro</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -322,7 +322,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-a-cloud-optimized-geotiff" id="toc-what-is-a-cloud-optimized-geotiff" class="nav-link active" data-scroll-target="#what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</a>
+  <li><a href="#cloud-optimized-geotiffs" id="toc-cloud-optimized-geotiffs" class="nav-link active" data-scroll-target="#cloud-optimized-geotiffs">Cloud-Optimized GeoTIFFs</a>
+  <ul class="collapse">
+  <li><a href="#what-is-a-cloud-optimized-geotiff" id="toc-what-is-a-cloud-optimized-geotiff" class="nav-link" data-scroll-target="#what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</a>
   <ul class="collapse">
   <li><a href="#dimensions" id="toc-dimensions" class="nav-link" data-scroll-target="#dimensions">Dimensions</a></li>
   <li><a href="#internal-blocks" id="toc-internal-blocks" class="nav-link" data-scroll-target="#internal-blocks">Internal Blocks</a></li>
@@ -331,29 +333,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#how-to-create-and-validate-cogs" id="toc-how-to-create-and-validate-cogs" class="nav-link" data-scroll-target="#how-to-create-and-validate-cogs">How to create and validate COGs</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   <li><a href="#how-to-visualize-cogs" id="toc-how-to-visualize-cogs" class="nav-link" data-scroll-target="#how-to-visualize-cogs">How to visualize COGs</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/intro.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cloud-optimized-geotiffs/intro.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Cloud-Optimized GeoTIFFs</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
+<section id="cloud-optimized-geotiffs" class="level1">
+<h1>Cloud-Optimized GeoTIFFs</h1>
 <section id="what-is-a-cloud-optimized-geotiff" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-a-cloud-optimized-geotiff">What is a Cloud-Optimized GeoTIFF?</h2>
 <p>Cloud-Optimized GeoTIFF (the COG) is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.</p>
@@ -400,6 +390,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
