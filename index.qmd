@@ -82,4 +82,4 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 4. What is the expected access method?
 5. How much of your data is typically rendered or selected at once?
 
-
+{{< include _thankyous.qmd >}} 
