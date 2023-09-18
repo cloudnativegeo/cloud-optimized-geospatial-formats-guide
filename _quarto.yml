@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: _site
   preview:
     port: 4200
     browser: false
@@ -32,7 +33,7 @@ website:
         text: Overview Slides
       - section: Formats
         contents:
-        - section: Cloud Optimized GeoTIFFs
+        - section: Cloud Optimized GeoTIFFs (COG)
           contents:
           - cloud-optimized-geotiffs/intro.qmd
           - cloud-optimized-geotiffs/cogs-details.qmd

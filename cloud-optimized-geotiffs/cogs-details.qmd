@@ -1,6 +1,10 @@
-# COG Format Details
+---
+title: "Make better GeoTIFFs"
+---
 
-In the [COG Intro](intro.ipynb) you can see what makes a COG different from non-optimized GeoTIFFs. The rest of this page details additional GeoTIFF information that can be relevant to making your files as useful as possible but not a COG requirement.
+# Make better GeoTIFFs 
+
+In the [COG Intro](intro.qmd) you can see what makes a COG different from non-optimized GeoTIFFs. The rest of this page details additional GeoTIFF information that can be relevant to making your files as useful as possible but not a COG requirement.
 
 ## Data Type
 

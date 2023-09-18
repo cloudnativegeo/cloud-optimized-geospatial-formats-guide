@@ -1,6 +1,8 @@
-# Cloud-Optimized GeoTIFFs
+---
+title: "Cloud-Optimized GeoTIFFs"
+---
 
-## What is a Cloud-Optimized GeoTIFF?
+# What is a Cloud-Optimized GeoTIFF?
 
 Cloud-Optimized GeoTIFF (the COG), a raster format, is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.
 
@@ -8,19 +10,19 @@ For more details see [https://www.cogeo.org/](https://www.cogeo.org/)
 
 <img alt="COG Diagram" src="../images/cog-diagram-1.png" width=300/>
 
-### Dimensions
+## Dimensions
 
 Dimensions are the number of bands, rows and columns stored in a GeoTIFF. There is a tradeoff between storing lots of data in one GeoTIFF and storing less data in many GeoTIFFs. The larger a single file, the larger the GeoTIFF header and the multiple requests may be required just to read the spatial index before data retrieval. The opposite problem occurs if you make too many small files, then it takes many reads to retrieve data, and when rendering a combined visualization can greatly impact load time.
 
 If you plan to pan and zoom a large amount of data through a tiling service in a web browser, there is a tradeoff between 1 large file, or many smaller files. The current recommendation is to meet somewhere in the middle, a moderate amount of medium files.
 
-### Internal Blocks
+## Internal Blocks
 
 > This attribute is also sometimes called **chunks** or **internal tiles**.
 
 Internal blocks are required if the dimensions of data are over 512x512. However you can control the size of the internal blocks. 256x256 or 512x512 are recommended. When displaying data at full resolution, or doing partial reading of data this size will impact the number of reads required. A size of 256 will take less time to read, and read less data outside the desired bounding box, however for reading large parts of a file, it may take more total read requests. Some clients will aggregate neighboring block reads to reduce the total number of requests.
 
-### Overviews
+## Overviews
 
 Overviews are downsampled (aggregated) data intended for visualization.
 The best resampling algorithm depends on the range, type, and distribution of the data.
@@ -28,3 +30,8 @@ The best resampling algorithm depends on the range, type, and distribution of th
 The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. The COG driver in GDAL, or rio cogeo tools should do this.
 
 There are many [resampling algorithms](https://gdal.org/programs/gdal_translate.html#cmdoption-gdal_translate-r) for generating overviews. When creating overviews several options should be compared before deciding which resampling method to apply.
+
+## See more
+
+- Additional [GeoTIFF details](cogs-details.qmd) that can be helpful.
+- Making and using [COG examples](cogs-examples.ipynb).
