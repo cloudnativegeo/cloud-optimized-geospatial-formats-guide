@@ -1,0 +1,37 @@
+# COG Format Details
+
+In the [COG Intro](intro.ipynb) you can see what makes a COG different from non-optimized GeoTIFFs. The rest of this page details additional GeoTIFF information that can be relevant to making your files as useful as possible but not a COG requirement.
+
+## Data Type
+
+**Recommendation** The smallest possible data type, that still represents the data appropriately, should be used. It is not generally recommended to shift data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also [Compression](#compression).
+
+GeoTIFF format supports many data types. The key is that all bands must be of the same data type. Unlike some other formats you can not mix and match integers (whole numbers) and floats (decimal numbers) in the same file. If you have this use case consider splitting files by data type and using a catalog like STAC to keep track of them, or look at other formats like [Zarr](../zarr/intro.qmd).
+
+Scenario: If the COG is intended only for visualization, conversion to 3 band byte will improve performance. 
+
+> GDAL supported Data Types [list](https://gdal.org/drivers/raster/gtiff.html#gtiff-geotiff-file-format)
+
+
+## Compression (aka File Size)
+
+The biggest benefit to compression is on the storage side. It’s always recommended to use a lossless compression method. **Deflate** or **LZW** are the most recommended compression algorithms, there are some choices that depend on the data type and distribution, and if the goal is maximum compression or not. Maximum compression does result in some performance loss.
+
+## No Data
+Setting a no data value makes it clear to users and visualization tools what pixels are not actually data. For visualization this allows these pixels to be easily hidden (transparent). Historically many values have been used, 0, -9999, etc… The key is to make sure the GDAL flag for no data is set. It is also suggested that the smallest negative value be used instead of a random value. For byte and unsigned integers/floats this will be 0, if 0 has meaning in your data use a different value (like the max possible value). Having the right nodata flag set is important for overview generation.
+
+## Projection
+
+Read performance can be greatly impacted by the choice of projection and the particular applications used for dynamic tile serving. Using a known CRS defined in the PROJ database (typically EPSG code) is preferred over custom projections. Load times can be 5-20 times greater when using a custom projection. Whenever applying projections make sure to use WKT2 representation. If using a database of known projections, i.e. EPSG codes, this should be fine, there are known issues around manually setting proj-strings.
+
+## What we don’t know (areas of research)
+
+* The optimum size of data at which splitting across files improves performance as a multi-file dataset instead of a single file.
+* When to recommend particular internal tile sizes
+* Compression impacts on http transfer rates.
+* Support for COG creation in all common Geospatial tools varies.
+
+## Additional Resources
+
+* [An Introduction to Cloud Optimized GeoTIFFS (COGs) Part 1: Overview](https://developers.planet.com/docs/planetschool/an-introduction-to-cloud-optimized-geotiffs-cogs-part-1-overview/)
+* [Do you really want people using your data?](https://medium.com/@_VincentS_/do-you-really-want-people-using-your-data-ec94cd94dc3f)
