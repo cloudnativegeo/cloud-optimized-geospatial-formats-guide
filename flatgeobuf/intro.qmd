@@ -46,6 +46,12 @@ FlatGeobuf is a write-only format, and doesn't support appending, as that would 
 
 FlatGeobuf optionally supports a spatial index at the beginning of the file, which can speed up reading portions of a file based on a spatial query. For more information on how this spatial index works, refer to the [Hilbert R Tree](./hilbert-r-tree.qmd) page.
 
+::: {.callout-note}
+
+Note that because FlatGeobuf has no internal chunking, the spatial index references _every single object_ in the file. This means that for datasets with many small geometries, like points, the spatial index will be very large as a proportion of the file size.
+
+:::
+
 <!--
 TODO: Not sure whether this section makes sense to include
 
