@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: _site
   preview:
     port: 4200
     browser: false
@@ -7,7 +8,7 @@ project:
 website:
   page-navigation: true
   title: Cloud-Optimized Geospatial Formats Guide
-  repo-url: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide
+  repo-url: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide
   repo-actions: [edit, issue]
 
   page-footer:
@@ -19,7 +20,7 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide
+        href: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide
         text: "Cloud-Optimized Geospatial Formats Guide"
 
     style: "docked"
@@ -32,9 +33,10 @@ website:
         text: Overview Slides
       - section: Formats
         contents:
-        - section: Cloud Optimized GeoTIFFs
+        - section: Cloud Optimized GeoTIFFs (COG)
           contents:
-          - cloud-optimized-geotiffs/intro.ipynb
+          - cloud-optimized-geotiffs/intro.qmd
+          - cloud-optimized-geotiffs/cogs-details.qmd
           - cloud-optimized-geotiffs/cogs-examples.ipynb
         - section: Zarr
           contents:
@@ -84,3 +86,6 @@ format:
 filters:
   - include-files.lua
   - quarto
+
+resources:
+  - CNAME

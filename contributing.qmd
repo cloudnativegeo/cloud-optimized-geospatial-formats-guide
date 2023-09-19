@@ -2,63 +2,91 @@
 title: Get Involved
 ---
 
-We encourage contributions to this guide.
+## Introduction
+
+We encourage contributions to this guide. The guide's goal is to provide documentation on the best practices for the current state-of-the-art cloud-optimized formats. These formats are evolving, and so will the guide.
 
 ## Pre-requisites
 
 If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
 
-## Core principles
+## Communication Channels
 
-1. This guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.
-2. This guide should provide best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate.
+Discussions can occur in [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/issues).
 
-## Additional criteria
 
-* All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is open to anyone).
-* Landing pages with no code should be use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
-* Pages with executable code should be [iPython Notebooks (`.ipynb`)](https://ipython.org/notebook.html)
+- **GitHub Discussions**: Ideal for questions, feature requests, or general conversations about the project. Use this space for collaborative discussions or if you're unsure where to start.
+
+- **GitHub Issues**: Use this for reporting bugs, suggesting enhancements, or other tasks that require tracking and possibly code changes.
+
+## Core Principles
+
+1. This guide intends to be opinionated but acknowledges no one-size-fits-all solution.
+2. This guide should provide the best information and guidance available but acknowledge that experts develop many existing resources. Those resources should be linked as appropriate.
+
+## Additional Criteria
+
+- All examples should use open data. If an example uses data from NASA Earthdata, it must include an example of providing credentials ([Earthdata registration](https://urs.earthdata.nasa.gov/users/new) is available to anyone).
+- Landing pages with no code should use [quarto markdown (`.qmd`)](https://quarto.org/docs/authoring/markdown-basics.html).
+- Pages with executable code should be [Jupyter Notebooks (`.ipynb`)](https://ipython.org/notebook.html).
 
 ## Code of Conduct
 
-* Be inclusive, respectful and understanding of others' backgrounds and contexts.
-* Look for and foster diverse perspectives.
-* If you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org.
+- Be inclusive, respectful, and understanding of others' backgrounds and contexts.
+- Look for and foster diverse perspectives.
+- If you experience any harmful behavior, please get in touch with [Aimee](mailto:aimee@developmentseed.org) or [Alex](mailto:alex@developmentseed.org).
 
-## How to contribute
+## Bug Reporting & Feature Requests
 
-### 0. General
+Before submitting a bug report or a feature request, please start a [GitHub Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) to see if the issue has already been addressed or if it can be resolved through discussion.
 
-Fork the repository, make changes, use `quarto preview` to make sure the changes look good and open a pull request.
+### General Steps
 
-Once the pull request is opened, and the github `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>.
+1. Fork the repository.
+2. Clone your fork locally.
+3. Create a new branch for your changes.
+4. Make your changes and use `quarto preview` to make sure they look good.
+5. Open a pull request.
 
-### 1. Adding a new format
+Once the pull request is opened, and the GitHub `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at `https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>`. A bot will comment on your PR when the PR preview is ready.
 
-1. Create a folder with the formats name and, within that folder, an `intro.qmd`. The `intro.qmd` file should describe the basics about that format.
+### Specific Contributions
+
+#### 1. Adding a New Format
+
+Follow the steps outlined in the General Steps, then:
+
+1. Create a folder with the format's name and, within that folder, an `intro.qmd`.
 2. Link to the `intro.qmd` page in the `index.qmd` (the **Welcome** page) file and `_quarto.yml` table of contents.
-3. Optionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an [`environment.yml` file](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually) that defines the Conda packages necessary for the given notebook.
 
-### 2. Modify or add to an existing format
+#### 2. Modify or Add to an Existing Format
 
 Feel free to modify or add to existing content if you think it could be improved.
 
-### 3. Adding a cookbook
+#### 3. Adding a Cookbook
 
-Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:
+Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
 
-* How do I chose the chunk shape for my Zarr?
-* How do I determine and preview the resampling algorithm for my COG overview?
-* How do I create STAC metadata for my cloud-optimized data?
-* How do I provide visualizations fo this data?
-* How do I provide subsetted/query/analytical access this data?
+#### 4. (Optional) Update Slides
 
-To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.
+If you have made substantive changes, consider updating the [Overview Slides](./overview.qmd). These slides are generated using [Quarto and Reveal.js](https://quarto.org/docs/presentations/revealjs/) so can be updated with markdown syntax.
 
-## 4. (Optional) Update slides
+#### 5. Add Yourself to the List of Authors
 
-If you have made substantive changes, consider if the [Overview Slides](./overview.qmd) should be updated. These slides are generated using [Quarto and Reveal.js](https://quarto.org/docs/presentations/revealjs/) so can be updated with markdown syntax.
+Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page.
 
-## 5. Add yourself to the list of authors on the [Welcome](./index.qmd#authors) page!
+#### 6. Final Steps Before Merging
 
-## 6. Once your PR is approved, merge away.
+Once your PR is approved and all checks have passed, a project maintainer will merge your changes into the main repository.
+
+## Licensing
+
+This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit [http://creativecommons.org/licenses/by/4.0/](http://creativecommons.org/licenses/by/4.0/). For attribution requirements, please look at the [license terms](http://creativecommons.org/licenses/by/4.0/).
+
+Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0`.
+
+## Contact
+
+For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) section.
+
+{{< include _thankyous.qmd >}}

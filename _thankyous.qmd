@@ -1,0 +1,13 @@
+# Our Supporters
+
+## Thank you to our supporters
+
+This guide has been made possible through the support of:
+
+::: {layout="[15,-5,25,-3,20]" layout-valign="center"}
+[![](./images/thankyous-impact-logo.png){fig-alt="NASA Impact Logo" fig-align="left" width=40%}](https://impact.earthdata.nasa.gov)
+
+[![](./images/thankyous-devseed-logo.png){fig-alt="Development Seed Logo" fig-align="left" width=40%}](https://developmentseed.org)
+
+[![](./images/thankyous-cng-logo.png){fig-alt="Cloud-Native Geospatial Foundation" fig-align="left" width=40%}](https://cloudnativegeo.org)
+:::
