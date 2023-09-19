@@ -285,6 +285,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">FlatGeobuf example</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf in JavaScript</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -401,6 +407,19 @@ ul.task-list li input[type="checkbox"] {
 <section id="random-access-supported-via-spatial-index" class="level3">
 <h3 class="anchored" data-anchor-id="random-access-supported-via-spatial-index">Random access supported via spatial index</h3>
 <p>FlatGeobuf optionally supports a spatial index at the beginning of the file, which can speed up reading portions of a file based on a spatial query. For more information on how this spatial index works, refer to the <a href="../flatgeobuf/hilbert-r-tree.html">Hilbert R Tree</a> page.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that because FlatGeobuf has no internal chunking, the spatial index references <em>every single object</em> in the file. This means that for datasets with many small geometries, like points, the spatial index will be very large as a proportion of the file size.</p>
+</div>
+</div>
 <!--
 TODO: Not sure whether this section makes sense to include
 
