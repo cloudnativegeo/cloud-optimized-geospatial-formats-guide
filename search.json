@@ -347,7 +347,14 @@
     "href": "contributing.html",
     "title": "Get Involved",
     "section": "",
-    "text": "We encourage contributions to this guide."
+    "text": "We encourage contributions to this guide. The guide’s goal is to provide documentation on the best practices for the current state-of-the-art cloud-optimized formats. These formats are evolving, and so will the guide."
+  },
+  {
+    "objectID": "contributing.html#introduction",
+    "href": "contributing.html#introduction",
+    "title": "Get Involved",
+    "section": "",
+    "text": "We encourage contributions to this guide. The guide’s goal is to provide documentation on the best practices for the current state-of-the-art cloud-optimized formats. These formats are evolving, and so will the guide."
   },
   {
     "objectID": "contributing.html#pre-requisites",
@@ -357,32 +364,53 @@
     "text": "Pre-requisites\nIf you wish to preview the site locally, install quarto. You will also need to be familiar with quarto markdown."
   },
   {
+    "objectID": "contributing.html#communication-channels",
+    "href": "contributing.html#communication-channels",
+    "title": "Get Involved",
+    "section": "Communication Channels",
+    "text": "Communication Channels\nDiscussions can occur in GitHub Discussions and issues can be raised at GitHub Issues.\n\nGitHub Discussions: Ideal for questions, feature requests, or general conversations about the project. Use this space for collaborative discussions or if you’re unsure where to start.\nGitHub Issues: Use this for reporting bugs, suggesting enhancements, or other tasks that require tracking and possibly code changes."
+  },
+  {
     "objectID": "contributing.html#core-principles",
     "href": "contributing.html#core-principles",
     "title": "Get Involved",
-    "section": "Core principles",
-    "text": "Core principles\n\nThis guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.\nThis guide should provide best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate."
+    "section": "Core Principles",
+    "text": "Core Principles\n\nThis guide intends to be opinionated but acknowledges no one-size-fits-all solution.\nThis guide should provide the best information and guidance available but acknowledge that experts develop many existing resources. Those resources should be linked as appropriate."
   },
   {
     "objectID": "contributing.html#additional-criteria",
     "href": "contributing.html#additional-criteria",
     "title": "Get Involved",
-    "section": "Additional criteria",
-    "text": "Additional criteria\n\nAll examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials (Earthdata registration is open to anyone).\nLanding pages with no code should be use quarto markdown (.qmd).\nPages with executable code should be iPython Notebooks (.ipynb)"
+    "section": "Additional Criteria",
+    "text": "Additional Criteria\n\nAll examples should use open data. If an example uses data from NASA Earthdata, it must include an example of providing credentials (Earthdata registration is available to anyone).\nLanding pages with no code should use quarto markdown (.qmd).\nPages with executable code should be Jupyter Notebooks (.ipynb)."
   },
   {
     "objectID": "contributing.html#code-of-conduct",
     "href": "contributing.html#code-of-conduct",
     "title": "Get Involved",
     "section": "Code of Conduct",
-    "text": "Code of Conduct\n\nBe inclusive, respectful and understanding of others’ backgrounds and contexts.\nLook for and foster diverse perspectives.\nIf you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org."
+    "text": "Code of Conduct\n\nBe inclusive, respectful, and understanding of others’ backgrounds and contexts.\nLook for and foster diverse perspectives.\nIf you experience any harmful behavior, please get in touch with Aimee or Alex."
   },
   {
-    "objectID": "contributing.html#how-to-contribute",
-    "href": "contributing.html#how-to-contribute",
+    "objectID": "contributing.html#bug-reporting-feature-requests",
+    "href": "contributing.html#bug-reporting-feature-requests",
     "title": "Get Involved",
-    "section": "How to contribute",
-    "text": "How to contribute\n\n0. General\nFork the repository, make changes, use quarto preview to make sure the changes look good and open a pull request.\nOnce the pull request is opened, and the github preview.yml workflow runs (“Deploy PR previews”), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-.\n\n\n1. Adding a new format\n\nCreate a folder with the formats name and, within that folder, an intro.qmd. The intro.qmd file should describe the basics about that format.\nLink to the intro.qmd page in the index.qmd (the Welcome page) file and _quarto.yml table of contents.\nOptionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an environment.yml file that defines the Conda packages necessary for the given notebook.\n\n\n\n2. Modify or add to an existing format\nFeel free to modify or add to existing content if you think it could be improved.\n\n\n3. Adding a cookbook\nCookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:\n\nHow do I chose the chunk shape for my Zarr?\nHow do I determine and preview the resampling algorithm for my COG overview?\nHow do I create STAC metadata for my cloud-optimized data?\nHow do I provide visualizations fo this data?\nHow do I provide subsetted/query/analytical access this data?\n\nTo create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.\n\n\n4. (Optional) Update slides\nIf you have made substantive changes, consider if the Overview Slides should be updated. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax.\n\n\n5. Add yourself to the list of authors on the Welcome page!\n\n\n6. Once your PR is approved, merge away."
+    "section": "Bug Reporting & Feature Requests",
+    "text": "Bug Reporting & Feature Requests\nBefore submitting a bug report or a feature request, please start a GitHub Discussion to see if the issue has already been addressed or if it can be resolved through discussion.\n\nGeneral Steps\n\nFork the repository.\nClone your fork locally.\nCreate a new branch for your changes.\nMake your changes and use quarto preview to make sure they look good.\nOpen a pull request.\n\nOnce the pull request is opened, and the GitHub preview.yml workflow runs (“Deploy PR previews”), you should have a preview available for review at https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-&lt;YOUR-PR-NUMBER-HERE&gt;. A bot will comment on your PR when the PR preview is ready.\n\n\nSpecific Contributions\n\n1. Adding a New Format\nFollow the steps outlined in the General Steps, then:\n\nCreate a folder with the format’s name and, within that folder, an intro.qmd.\nLink to the intro.qmd page in the index.qmd (the Welcome page) file and _quarto.yml table of contents.\n\n\n\n2. Modify or Add to an Existing Format\nFeel free to modify or add to existing content if you think it could be improved.\n\n\n3. Adding a Cookbook\nCookbooks should address common questions and present solutions for cloud-optimized access and visualization. To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.\n\n\n4. (Optional) Update Slides\nIf you have made substantive changes, consider updating the Overview Slides. These slides are generated using Quarto and Reveal.js so can be updated with markdown syntax.\n\n\n5. Add Yourself to the List of Authors\nAdd yourself to the list of authors on the Welcome page.\n\n\n6. Final Steps Before Merging\nOnce your PR is approved and all checks have passed, a project maintainer will merge your changes into the main repository."
+  },
+  {
+    "objectID": "contributing.html#licensing",
+    "href": "contributing.html#licensing",
+    "title": "Get Involved",
+    "section": "Licensing",
+    "text": "Licensing\nThis work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/. For attribution requirements, please look at the license terms.\nPreferred citation: Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0."
+  },
+  {
+    "objectID": "contributing.html#contact",
+    "href": "contributing.html#contact",
+    "title": "Get Involved",
+    "section": "Contact",
+    "text": "Contact\nFor questions on how to contribute, start a discussion in the GitHub Discussions section."
   },
   {
     "objectID": "contributing.html#thank-you-to-our-supporters",
@@ -396,35 +424,42 @@
     "href": "index.html",
     "title": "Cloud-Optimized Geospatial Formats Guide",
     "section": "",
-    "text": "If you wish to provide optimized access to geospatial data, this guide is for you. Given the large and growing size of geospatial data, users can no longer rely solely on file download to achieve their science goals."
+    "text": "Geospatial data is experiencing exponential growth in both size and complexity. As a result, traditional data access methods, such as file downloads, have become increasingly impractical for achieving scientific objectives. With the limitations of these older methods becoming more apparent, cloud-optimized geospatial formats present a much-needed solution.\nCloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:\n\nReduced Latency: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.\nScalability: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.\nFlexibility: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.\nCost-Effectiveness: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.\n\nIf you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats."
+  },
+  {
+    "objectID": "index.html#why-cloud-optimize",
+    "href": "index.html#why-cloud-optimize",
+    "title": "Cloud-Optimized Geospatial Formats Guide",
+    "section": "",
+    "text": "Geospatial data is experiencing exponential growth in both size and complexity. As a result, traditional data access methods, such as file downloads, have become increasingly impractical for achieving scientific objectives. With the limitations of these older methods becoming more apparent, cloud-optimized geospatial formats present a much-needed solution.\nCloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:\n\nReduced Latency: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.\nScalability: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.\nFlexibility: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.\nCost-Effectiveness: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.\n\nIf you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats."
   },
   {
     "objectID": "index.html#built-for-the-community-by-the-community.",
     "href": "index.html#built-for-the-community-by-the-community.",
     "title": "Cloud-Optimized Geospatial Formats Guide",
-    "section": "Built for the community, by the community.",
-    "text": "Built for the community, by the community.\nThere is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.\nWith this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions."
+    "section": "Built for the Community, by the Community.",
+    "text": "Built for the Community, by the Community.\nThere is no one-size-fits-all approach to cloud-optimized data. Still, the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.\nThis guide provides the landscape of cloud-optimized geospatial formats and the best-known answers to common questions."
   },
   {
     "objectID": "index.html#how-to-get-involved",
     "href": "index.html#how-to-get-involved",
     "title": "Cloud-Optimized Geospatial Formats Guide",
-    "section": "How to get involved",
-    "text": "How to get involved\nIf you want to contribute or modify content, read the Get Involved page.\nIf you have a question or idea for this guide, please start a Github Discussion."
+    "section": "How to Get Involved",
+    "text": "How to Get Involved\nIf you want to contribute or modify content, read the Get Involved page.\nIf you have a question or idea for this guide, please start a Github Discussion."
   },
   {
     "objectID": "index.html#the-opportunity",
     "href": "index.html#the-opportunity",
     "title": "Cloud-Optimized Geospatial Formats Guide",
-    "section": "The opportunity",
-    "text": "The opportunity\nJust putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.\nWhile it is possible to provide subsetting as a service, this requires maintanence of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without the introduction of an additional server.\nRegardless, users will be accessing data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces latency and the number of requests must considered.\nAs a community, we have arrived at the following cloud-optimized format pattern:\n\nMetadata includes addresses for data blocks.\nMetadata is stored in a consistent format and location.\nMetadata can be read once.\nMetadata can be used to read the underlying file format which supports subsetted access via adressable chunks, internal tiling or both.\n\nThese characteristics allow for parallelized and partial reading."
+    "section": "The Opportunity",
+    "text": "The Opportunity\nStoring data in the cloud does not on its own solve geospatial’s data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.\nWhile it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and as well as extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user’s machine without introducing an additional server.\nRegardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.\nAs a community, we have arrived at the following cloud-optimized format pattern:\n\nMetadata includes addresses for data blocks.\nMetadata is stored in a consistent format and location.\nMetadata can be read once.\nMetadata can read the underlying file format, which supports subsetted access via addressable chunks, internal tiling, or both.\n\nThese characteristics allow for parallelized and partial reading."
   },
   {
     "objectID": "index.html#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table",
     "href": "index.html#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table",
     "title": "Cloud-Optimized Geospatial Formats Guide",
     "section": "Data Type to Traditional to Cloud-Optimized Geospatial File Format Table",
-    "text": "Data Type to Traditional to Cloud-Optimized Geospatial File Format Table\nThe diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.\n\n\n\nCloud-Optimized Geospatial Formats\n\n\nNotes:\n\nSome data formats cover multiple data types, specifically:\n\nGeoJSON can be used for both vector and point data.\nHDF5 can be used for point data or data cubes (or both via groups).\nGeoParquet and FlatGeobuf can be used for vector data or point data.\n\nLAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, same goes for COPC files).\nTopoJSON (an extension of GeoJSON that encodes topology) and newline-delimited GeoJSON are types of GeoJSON worth mentioning but not explicitly represented in the diagram.\nGeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial flatbuffers serialization library (though flatbuffers is not a standalone file format)"
+    "text": "Data Type to Traditional to Cloud-Optimized Geospatial File Format Table\nThe diagram below depicts how some of the cloud-optimized formats discussed in this guide are cloud-optimized formats of traditional geospatial file formats.\n\n\n\nCloud-Optimized Geospatial Formats\n\n\nNotes:\n\nSome data formats cover multiple data types, specifically:\n\nGeoJSON can be used for vector and point cloud data.\nHDF5 can be used for point cloud data or data cubes (or both via groups).\nGeoParquet and FlatGeobuf can be used for vector data or point cloud data.\n\nLAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, the same goes for COPC files).\nTopoJSON (an extension of GeoJSON that encodes topology) and newline-delimited GeoJSON are types of GeoJSON worth mentioning but have yet to be explicitly represented in the diagram.\nGeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial flatbuffers serialization library (though flatbuffers is not a standalone file format)"
   },
   {
     "objectID": "index.html#table-of-contents",
@@ -437,22 +472,22 @@
     "objectID": "index.html#running-examples",
     "href": "index.html#running-examples",
     "title": "Cloud-Optimized Geospatial Formats Guide",
-    "section": "Running examples",
-    "text": "Running examples\nMost of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of how to read and write the given format. At the top of each notebook is a link to an environment.yml file that describes what libraries need to be installed for the notebook to run correctly. You can use Conda or Mamba (a successor to Conda with faster package installs) to install the environment needed to run the notebook."
+    "section": "Running Examples",
+    "text": "Running Examples\nMost of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries need to be installed to run correctly. You can use Conda or Mamba (a successor to Conda with faster package installs) to install the environment needed to run the notebook."
   },
   {
     "objectID": "index.html#authors",
     "href": "index.html#authors",
     "title": "Cloud-Optimized Geospatial Formats Guide",
     "section": "Authors",
-    "text": "Authors\n\nAimee Barciauskas\nAlex Mandel\nKyle Barron\nOverview Slide credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
+    "text": "Authors\n\nAimee Barciauskas\nAlex Mandel\nKyle Barron\nZac Deziel\nOverview Slide credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey"
   },
   {
     "objectID": "index.html#questions-to-ask-when-generating-cloud-optimized-geospatial-data-in-any-format",
     "href": "index.html#questions-to-ask-when-generating-cloud-optimized-geospatial-data-in-any-format",
     "title": "Cloud-Optimized Geospatial Formats Guide",
-    "section": "Questions to ask when generating cloud-optimized geospatial data in any format",
-    "text": "Questions to ask when generating cloud-optimized geospatial data in any format\n\nWhat variable(s) should be included in the new data format?\nWill you create copies to optimize for different needs?\nWhat is the intended use case or usage profile? Will this product be used for visualization, analysis or both?\nWhat is the expected access method?\nHow much of your data is typically rendered or selected at once?"
+    "section": "Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format",
+    "text": "Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format\n\nWhat variable(s) should be included in the new data format?\nWill you create copies to optimize for different needs?\nWhat is the intended use case or usage profile? Will this product be used for visualization, analysis, or both?\nWhat is the expected access method?\nHow much of your data is typically rendered or selected at once?"
   },
   {
     "objectID": "index.html#thank-you-to-our-supporters",
@@ -689,15 +724,15 @@
     "objectID": "overview.html#what-does-cloud-optimized-mean-1",
     "href": "overview.html#what-does-cloud-optimized-mean-1",
     "title": "Cloud-Optimized Geospatial Formats Overview",
-    "section": "What does cloud-optimized mean?",
-    "text": "What does cloud-optimized mean?\n\nFile metadata in one read\nWhen accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads.\nAn easy win is metadata in one read, which can be used to read a cloud-native dataset.\nA cloud-native dataset is one with small addressable chunks via files, internal tiles, or both."
+    "section": "What Does Cloud-Optimized Mean?",
+    "text": "What Does Cloud-Optimized Mean?\n\nFile metadata in one read\nWhen accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads.\nAn easy win is metadata in one read, which can be used to read a cloud-native dataset.\nA cloud-native dataset is one with small addressable chunks via files, internal tiles, or both."
   },
   {
     "objectID": "overview.html#what-does-cloud-optimized-mean-2",
     "href": "overview.html#what-does-cloud-optimized-mean-2",
     "title": "Cloud-Optimized Geospatial Formats Overview",
-    "section": "What does cloud-optimized mean?",
-    "text": "What does cloud-optimized mean?\n\n\n\nAccessible over HTTP using range requests.\nThis makes it compatible with object storage (a file storage alternative to local disk) and thus accessible via HTTP, from many compute instances.\nSupports lazy access and intelligent subsetting.\nIntegrates with high-level analysis libraries and distributed frameworks.\n\n\n\n\n\n\n\nimage credit: Ryan Abernathey"
+    "section": "What Does Cloud-Optimized Mean?",
+    "text": "What Does Cloud-Optimized Mean?\n\n\n\nAccessible over HTTP using range requests.\nThis makes it compatible with object storage (a file storage alternative to local disk) and thus accessible via HTTP, from many compute instances.\nSupports lazy access and intelligent subsetting.\nIntegrates with high-level analysis libraries and distributed frameworks.\n\n\n\n\n\n\n\nimage credit: Ryan Abernathey"
   },
   {
     "objectID": "overview.html#what-are-cogs-1",
@@ -710,8 +745,8 @@
     "objectID": "overview.html#zarr-specs-in-development",
     "href": "overview.html#zarr-specs-in-development",
     "title": "Cloud-Optimized Geospatial Formats Overview",
-    "section": "Zarr specs in development",
-    "text": "Zarr specs in development\n\nV2 and older specs exist, however,\nA cross-organization working group has just formed to establish a GeoZarr standards working group, organized by Brianna Pagán (NASA) and includes representatives from many other orgs in the industry.\nThe GeoZarr spec defines conventions for how geospatial data should be organized in a Zarr store. The spec details how the Zarr DataArray and DataSet metadata, and subsequent organization of data, must be in order to be conformant as GeoZarr archive.\nThere is a proposal for Zarr v3 which will address challenges in language support, and storage organization to address the issues of high-latency reads and volume of reads for the many objects stored.\nThere is recent work on a parquet alternative to JSON for indexing."
+    "section": "Zarr Specs in Development",
+    "text": "Zarr Specs in Development\n\nV2 and older specs exist, however,\nA cross-organization working group has just formed to establish a GeoZarr standards working group, organized by Brianna Pagán (NASA) and includes representatives from many other orgs in the industry.\nThe GeoZarr spec defines conventions for how geospatial data should be organized in a Zarr store. The spec details how the Zarr DataArray and DataSet metadata, and subsequent organization of data, must be in order to be conformant as GeoZarr archive.\nThere is a proposal for Zarr v3 which will address challenges in language support, and storage organization to address the issues of high-latency reads and volume of reads for the many objects stored.\nThere is recent work on a parquet alternative to JSON for indexing."
   },
   {
     "objectID": "overview.html#copc-cloud-optimized-point-clouds",
@@ -724,8 +759,8 @@
     "objectID": "overview.html#not-quite",
     "href": "overview.html#not-quite",
     "title": "Cloud-Optimized Geospatial Formats Overview",
-    "section": "Not quite",
-    "text": "Not quite\n\nThese formats and their tooling are in active development\nSome formats were not mentioned, such as EPT, geopkg, tiledb, Cloud-Optimized HDF5. This presentation was scoped to those known best by the authors.\nThis site will continue to be updated with new content."
+    "section": "Not Quite",
+    "text": "Not Quite\n\nThese formats and their tooling are in active development\nSome formats were not mentioned, such as EPT, geopkg, tiledb, Cloud-Optimized HDF5. This presentation was scoped to those known best by the authors.\nThis site will continue to be updated with new content."
   },
   {
     "objectID": "kerchunk/intro.html",

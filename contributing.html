@@ -327,20 +327,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link active" data-scroll-target="#pre-requisites">Pre-requisites</a></li>
-  <li><a href="#core-principles" id="toc-core-principles" class="nav-link" data-scroll-target="#core-principles">Core principles</a></li>
-  <li><a href="#additional-criteria" id="toc-additional-criteria" class="nav-link" data-scroll-target="#additional-criteria">Additional criteria</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link" data-scroll-target="#pre-requisites">Pre-requisites</a></li>
+  <li><a href="#communication-channels" id="toc-communication-channels" class="nav-link" data-scroll-target="#communication-channels">Communication Channels</a></li>
+  <li><a href="#core-principles" id="toc-core-principles" class="nav-link" data-scroll-target="#core-principles">Core Principles</a></li>
+  <li><a href="#additional-criteria" id="toc-additional-criteria" class="nav-link" data-scroll-target="#additional-criteria">Additional Criteria</a></li>
   <li><a href="#code-of-conduct" id="toc-code-of-conduct" class="nav-link" data-scroll-target="#code-of-conduct">Code of Conduct</a></li>
-  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a>
+  <li><a href="#bug-reporting-feature-requests" id="toc-bug-reporting-feature-requests" class="nav-link" data-scroll-target="#bug-reporting-feature-requests">Bug Reporting &amp; Feature Requests</a>
   <ul class="collapse">
-  <li><a href="#general" id="toc-general" class="nav-link" data-scroll-target="#general">0. General</a></li>
-  <li><a href="#adding-a-new-format" id="toc-adding-a-new-format" class="nav-link" data-scroll-target="#adding-a-new-format">1. Adding a new format</a></li>
-  <li><a href="#modify-or-add-to-an-existing-format" id="toc-modify-or-add-to-an-existing-format" class="nav-link" data-scroll-target="#modify-or-add-to-an-existing-format">2. Modify or add to an existing format</a></li>
-  <li><a href="#adding-a-cookbook" id="toc-adding-a-cookbook" class="nav-link" data-scroll-target="#adding-a-cookbook">3. Adding a cookbook</a></li>
-  <li><a href="#optional-update-slides" id="toc-optional-update-slides" class="nav-link" data-scroll-target="#optional-update-slides">4. (Optional) Update slides</a></li>
-  <li><a href="#add-yourself-to-the-list-of-authors-on-the-welcome-page" id="toc-add-yourself-to-the-list-of-authors-on-the-welcome-page" class="nav-link" data-scroll-target="#add-yourself-to-the-list-of-authors-on-the-welcome-page">5. Add yourself to the list of authors on the Welcome page!</a></li>
-  <li><a href="#once-your-pr-is-approved-merge-away." id="toc-once-your-pr-is-approved-merge-away." class="nav-link" data-scroll-target="#once-your-pr-is-approved-merge-away.">6. Once your PR is approved, merge away.</a></li>
+  <li><a href="#general-steps" id="toc-general-steps" class="nav-link" data-scroll-target="#general-steps">General Steps</a></li>
+  <li><a href="#specific-contributions" id="toc-specific-contributions" class="nav-link" data-scroll-target="#specific-contributions">Specific Contributions</a></li>
   </ul></li>
+  <li><a href="#licensing" id="toc-licensing" class="nav-link" data-scroll-target="#licensing">Licensing</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
   <li><a href="#our-supporters" id="toc-our-supporters" class="nav-link" data-scroll-target="#our-supporters">Our Supporters</a>
   <ul class="collapse">
   <li><a href="#thank-you-to-our-supporters" id="toc-thank-you-to-our-supporters" class="nav-link" data-scroll-target="#thank-you-to-our-supporters">Thank you to our supporters</a></li>
@@ -368,75 +367,99 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>We encourage contributions to this guide.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>We encourage contributions to this guide. The guide’s goal is to provide documentation on the best practices for the current state-of-the-art cloud-optimized formats. These formats are evolving, and so will the guide.</p>
+</section>
 <section id="pre-requisites" class="level2">
 <h2 class="anchored" data-anchor-id="pre-requisites">Pre-requisites</h2>
 <p>If you wish to preview the site locally, install <a href="https://quarto.org/">quarto</a>. You will also need to be familiar with <a href="https://quarto.org/docs/authoring/markdown-basics.html">quarto markdown</a>.</p>
 </section>
+<section id="communication-channels" class="level2">
+<h2 class="anchored" data-anchor-id="communication-channels">Communication Channels</h2>
+<p>Discussions can occur in <a href="https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions">GitHub Discussions</a> and issues can be raised at <a href="https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/issues">GitHub Issues</a>.</p>
+<ul>
+<li><p><strong>GitHub Discussions</strong>: Ideal for questions, feature requests, or general conversations about the project. Use this space for collaborative discussions or if you’re unsure where to start.</p></li>
+<li><p><strong>GitHub Issues</strong>: Use this for reporting bugs, suggesting enhancements, or other tasks that require tracking and possibly code changes.</p></li>
+</ul>
+</section>
 <section id="core-principles" class="level2">
-<h2 class="anchored" data-anchor-id="core-principles">Core principles</h2>
+<h2 class="anchored" data-anchor-id="core-principles">Core Principles</h2>
 <ol type="1">
-<li>This guide is intended to be opinionated, but acknowledges there is no one-size-fits all solution.</li>
-<li>This guide should provide best information and guidance available, but acknowledge there are many existing resources out there developed by experts. Those resources should be linked as appropriate.</li>
+<li>This guide intends to be opinionated but acknowledges no one-size-fits-all solution.</li>
+<li>This guide should provide the best information and guidance available but acknowledge that experts develop many existing resources. Those resources should be linked as appropriate.</li>
 </ol>
 </section>
 <section id="additional-criteria" class="level2">
-<h2 class="anchored" data-anchor-id="additional-criteria">Additional criteria</h2>
+<h2 class="anchored" data-anchor-id="additional-criteria">Additional Criteria</h2>
 <ul>
-<li>All examples should use open data. If an example uses Earthdata, it must include an example of how to provide credentials (<a href="https://urs.earthdata.nasa.gov/users/new">Earthdata registration</a> is open to anyone).</li>
-<li>Landing pages with no code should be use <a href="https://quarto.org/docs/authoring/markdown-basics.html">quarto markdown (<code>.qmd</code>)</a>.</li>
-<li>Pages with executable code should be <a href="https://ipython.org/notebook.html">iPython Notebooks (<code>.ipynb</code>)</a></li>
+<li>All examples should use open data. If an example uses data from NASA Earthdata, it must include an example of providing credentials (<a href="https://urs.earthdata.nasa.gov/users/new">Earthdata registration</a> is available to anyone).</li>
+<li>Landing pages with no code should use <a href="https://quarto.org/docs/authoring/markdown-basics.html">quarto markdown (<code>.qmd</code>)</a>.</li>
+<li>Pages with executable code should be <a href="https://ipython.org/notebook.html">Jupyter Notebooks (<code>.ipynb</code>)</a>.</li>
 </ul>
 </section>
 <section id="code-of-conduct" class="level2">
 <h2 class="anchored" data-anchor-id="code-of-conduct">Code of Conduct</h2>
 <ul>
-<li>Be inclusive, respectful and understanding of others’ backgrounds and contexts.</li>
+<li>Be inclusive, respectful, and understanding of others’ backgrounds and contexts.</li>
 <li>Look for and foster diverse perspectives.</li>
-<li>If you experience any harmful behavior, please contact aimee@developmentseed.org or alex@developmentseed.org.</li>
+<li>If you experience any harmful behavior, please get in touch with <a href="mailto:aimee@developmentseed.org">Aimee</a> or <a href="mailto:alex@developmentseed.org">Alex</a>.</li>
 </ul>
 </section>
-<section id="how-to-contribute" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute</h2>
-<section id="general" class="level3">
-<h3 class="anchored" data-anchor-id="general">0. General</h3>
-<p>Fork the repository, make changes, use <code>quarto preview</code> to make sure the changes look good and open a pull request.</p>
-<p>Once the pull request is opened, and the github <code>preview.yml</code> workflow runs (“Deploy PR previews”), you should have a preview available for review at https://guide.cloudnativegeo.org/pr-preview/pr-<your-pr-number-here>.</your-pr-number-here></p>
-</section>
-<section id="adding-a-new-format" class="level3">
-<h3 class="anchored" data-anchor-id="adding-a-new-format">1. Adding a new format</h3>
+<section id="bug-reporting-feature-requests" class="level2">
+<h2 class="anchored" data-anchor-id="bug-reporting-feature-requests">Bug Reporting &amp; Feature Requests</h2>
+<p>Before submitting a bug report or a feature request, please start a <a href="https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions">GitHub Discussion</a> to see if the issue has already been addressed or if it can be resolved through discussion.</p>
+<section id="general-steps" class="level3">
+<h3 class="anchored" data-anchor-id="general-steps">General Steps</h3>
 <ol type="1">
-<li>Create a folder with the formats name and, within that folder, an <code>intro.qmd</code>. The <code>intro.qmd</code> file should describe the basics about that format.</li>
+<li>Fork the repository.</li>
+<li>Clone your fork locally.</li>
+<li>Create a new branch for your changes.</li>
+<li>Make your changes and use <code>quarto preview</code> to make sure they look good.</li>
+<li>Open a pull request.</li>
+</ol>
+<p>Once the pull request is opened, and the GitHub <code>preview.yml</code> workflow runs (“Deploy PR previews”), you should have a preview available for review at <code>https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-&lt;YOUR-PR-NUMBER-HERE&gt;</code>. A bot will comment on your PR when the PR preview is ready.</p>
+</section>
+<section id="specific-contributions" class="level3">
+<h3 class="anchored" data-anchor-id="specific-contributions">Specific Contributions</h3>
+<section id="adding-a-new-format" class="level4">
+<h4 class="anchored" data-anchor-id="adding-a-new-format">1. Adding a New Format</h4>
+<p>Follow the steps outlined in the General Steps, then:</p>
+<ol type="1">
+<li>Create a folder with the format’s name and, within that folder, an <code>intro.qmd</code>.</li>
 <li>Link to the <code>intro.qmd</code> page in the <code>index.qmd</code> (the <strong>Welcome</strong> page) file and <code>_quarto.yml</code> table of contents.</li>
-<li>Optionally, add a notebook with examples of creating and accessing (via the cloud) a file of that format. We suggest including an <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually"><code>environment.yml</code> file</a> that defines the Conda packages necessary for the given notebook.</li>
 </ol>
 </section>
-<section id="modify-or-add-to-an-existing-format" class="level3">
-<h3 class="anchored" data-anchor-id="modify-or-add-to-an-existing-format">2. Modify or add to an existing format</h3>
+<section id="modify-or-add-to-an-existing-format" class="level4">
+<h4 class="anchored" data-anchor-id="modify-or-add-to-an-existing-format">2. Modify or Add to an Existing Format</h4>
 <p>Feel free to modify or add to existing content if you think it could be improved.</p>
 </section>
-<section id="adding-a-cookbook" class="level3">
-<h3 class="anchored" data-anchor-id="adding-a-cookbook">3. Adding a cookbook</h3>
-<p>Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. For example:</p>
-<ul>
-<li>How do I chose the chunk shape for my Zarr?</li>
-<li>How do I determine and preview the resampling algorithm for my COG overview?</li>
-<li>How do I create STAC metadata for my cloud-optimized data?</li>
-<li>How do I provide visualizations fo this data?</li>
-<li>How do I provide subsetted/query/analytical access this data?</li>
-</ul>
-<p>To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.</p>
+<section id="adding-a-cookbook" class="level4">
+<h4 class="anchored" data-anchor-id="adding-a-cookbook">3. Adding a Cookbook</h4>
+<p>Cookbooks should address common questions and present solutions for cloud-optimized access and visualization. To create a cookbook, either add a notebook directly to this repository in the cookbooks directory OR use an external link and add it to cookbooks/index.qmd.</p>
 </section>
-<section id="optional-update-slides" class="level3">
-<h3 class="anchored" data-anchor-id="optional-update-slides">4. (Optional) Update slides</h3>
-<p>If you have made substantive changes, consider if the <a href="./overview.html">Overview Slides</a> should be updated. These slides are generated using <a href="https://quarto.org/docs/presentations/revealjs/">Quarto and Reveal.js</a> so can be updated with markdown syntax.</p>
+<section id="optional-update-slides" class="level4">
+<h4 class="anchored" data-anchor-id="optional-update-slides">4. (Optional) Update Slides</h4>
+<p>If you have made substantive changes, consider updating the <a href="./overview.html">Overview Slides</a>. These slides are generated using <a href="https://quarto.org/docs/presentations/revealjs/">Quarto and Reveal.js</a> so can be updated with markdown syntax.</p>
 </section>
-<section id="add-yourself-to-the-list-of-authors-on-the-welcome-page" class="level3">
-<h3 class="anchored" data-anchor-id="add-yourself-to-the-list-of-authors-on-the-welcome-page">5. Add yourself to the list of authors on the <a href="./index.html#authors">Welcome</a> page!</h3>
+<section id="add-yourself-to-the-list-of-authors" class="level4">
+<h4 class="anchored" data-anchor-id="add-yourself-to-the-list-of-authors">5. Add Yourself to the List of Authors</h4>
+<p>Add yourself to the list of authors on the <a href="./index.html#authors">Welcome</a> page.</p>
 </section>
-<section id="once-your-pr-is-approved-merge-away." class="level3">
-<h3 class="anchored" data-anchor-id="once-your-pr-is-approved-merge-away.">6. Once your PR is approved, merge away.</h3>
+<section id="final-steps-before-merging" class="level4">
+<h4 class="anchored" data-anchor-id="final-steps-before-merging">6. Final Steps Before Merging</h4>
+<p>Once your PR is approved and all checks have passed, a project maintainer will merge your changes into the main repository.</p>
 </section>
+</section>
+</section>
+<section id="licensing" class="level2">
+<h2 class="anchored" data-anchor-id="licensing">Licensing</h2>
+<p>This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit <a href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</a>. For attribution requirements, please look at the <a href="http://creativecommons.org/licenses/by/4.0/">license terms</a>.</p>
+<p>Preferred citation: <code>Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0</code>.</p>
+</section>
+<section id="contact" class="level2">
+<h2 class="anchored" data-anchor-id="contact">Contact</h2>
+<p>For questions on how to contribute, start a discussion in the <a href="https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions">GitHub Discussions</a> section.</p>
 </section>
 <section id="our-supporters" class="level1">
 <h1>Our Supporters</h1>
