@@ -61,6 +61,7 @@ website:
             - flatgeobuf/intro.qmd
             - flatgeobuf/hilbert-r-tree.qmd
             - flatgeobuf/flatgeobuf.ipynb
+            - flatgeobuf/flatgeobuf-in-js.qmd
         - section: PMTiles
           contents:
             - pmtiles/intro.qmd

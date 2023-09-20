@@ -3,34 +3,45 @@ title: "Cloud-Optimized Geospatial Formats Guide"
 subtitle: "Methods for Generating and Testing Cloud-Optimized Geospatial Formats"
 ---
 
-If you wish to provide optimized access to geospatial data, this guide is for you. Given the large and growing size of geospatial data, users can no longer rely solely on file download to achieve their science goals.
+## Why Cloud Optimize?
 
-## Built for the community, by the community.
+Geospatial data is experiencing exponential growth in both size and complexity. As a result, traditional data access methods, such as file downloads, have become increasingly impractical for achieving scientific objectives. With the limitations of these older methods becoming more apparent, cloud-optimized geospatial formats present a much-needed solution.
 
-There is no one-size-fits-all approach to cloud-optimized data, but the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
+Cloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:
 
-With this guide, we provide the landscape of cloud-optimized geospatial formats and provide the best-known answers to common questions.
+1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.
+2. **Scalability**: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.
+3. **Flexibility**: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.
+4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.
 
-## How to get involved
+If you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats.
+
+## Built for the Community, by the Community.
+
+There is no one-size-fits-all approach to cloud-optimized data. Still, the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
+
+This guide provides the landscape of cloud-optimized geospatial formats and the best-known answers to common questions.
+
+## How to Get Involved
 
 If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
 
 If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
-## The opportunity
+## The Opportunity
 
-Just putting data on the cloud does not solve the big geospatial data problem. Users cannot reasonably wait to download, store and work with large files on their machines. To have access to data in memory, large volumes of data must be available via subsetting methods.
+Storing data in the cloud does not on its own solve geospatial's data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
 
-While it is possible to provide subsetting as a service, this requires maintanence of additional servers and network latency (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed remotely without the introduction of an additional server.
+While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and as well as extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user's machine without introducing an additional server.
 
-Regardless, users will be accessing data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. The introduction of a network introduces latency and the number of requests must considered.
+Regardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.
 
 As a community, we have arrived at the following **cloud-optimized format pattern:**
 
 1. Metadata includes addresses for data blocks.
 2. Metadata is stored in a consistent format and location.
 3. Metadata can be read once.
-3. Metadata can be used to read the underlying file format which supports subsetted access via adressable chunks, internal tiling or both.
+4. Metadata can read the underlying file format, which supports subsetted access via addressable chunks, internal tiling, or both.
 
 These characteristics allow for parallelized and partial reading.
 
@@ -42,13 +53,13 @@ The diagram below depicts how some of the cloud-optimized formats discussed in t
 
 Notes:
 
-* Some data formats cover multiple data types, specifically:
-    * GeoJSON can be used for both vector and point data.
-    * HDF5 can be used for point data or data cubes (or both via groups).
-    * GeoParquet and FlatGeobuf can be used for vector data or point data.
-* LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, same goes for COPC files).
-* [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but not explicitly represented in the diagram.
-* GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
+- Some data formats cover multiple data types, specifically:
+    - GeoJSON can be used for vector and point cloud data.
+    - HDF5 can be used for point cloud data or data cubes (or both via groups).
+    - GeoParquet and FlatGeobuf can be used for vector data or point cloud data.
+- LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, the same goes for COPC files).
+- [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but have yet to be explicitly represented in the diagram.
+- GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
 
 ## Table of Contents
 
@@ -63,22 +74,23 @@ Notes:
 3. [Cookbooks](./cookbooks/index.qmd)
 
 
-## Running examples
+## Running Examples
 
-Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of how to read and write the given format. At the top of each notebook is a link to an `environment.yml` file that describes what libraries need to be installed for the notebook to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
+Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries need to be installed to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
 
 ## Authors
 
 * Aimee Barciauskas
 * Alex Mandel
 * Kyle Barron
+* Zac Deziel
 * [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
-## Questions to ask when generating cloud-optimized geospatial data in any format
+## Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format
 
 1. What variable(s) should be included in the new data format?
 2. Will you create copies to optimize for different needs?
-3. What is the intended use case or usage profile? Will this product be used for visualization, analysis or both?
+3. What is the intended use case or usage profile? Will this product be used for visualization, analysis, or both?
 4. What is the expected access method?
 5. How much of your data is typically rendered or selected at once?
 
