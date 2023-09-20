@@ -3,10 +3,65 @@ title: Cloud-Optimized Point Clouds (COPC)
 subtitle: An Introduction to Cloud-Optimized Point Clouds (COPC)
 ---
 
-The LASER (LAS) file format is designed to store 3-dimensional (x,y,z) point cloud data typically collected from [LiDAR](https://en.wikipedia.org/wiki/Lidar). An LAZ file is a compressed LAS file and a Cloud-Optimized Point Cloud (COPC) file is a valid LAZ file.
+# Cloud-Optimized Point Cloud (COPC)
 
-COPC files are similar to COGs for GeoTIFFs: Both are valid versions of the original file format but with additional requirements to support cloud-optimized data access. In the case of COGs, there are additional requirements for tiling and overviews. For COPC, data must be organized into a clustered octree with a variable-length record (VLR) describing the octree structure.
+Cloud-Optimized Point Cloud (COPC) is a binary file format for 3-dimensional (x,y,z) point cloud data typically collected from [LiDAR](https://en.wikipedia.org/wiki/Lidar). A COPC file is a specific type of LAZ file, which is a compressed [LAS file](https://en.wikipedia.org/wiki/LAS_file_format). Any program that can interpret LAS or LAZ files can also interpret COPC files. COPC-enabled readers are able to directly interpret and render large COPC files hosted on cloud storage without any intermediate processing.
+
+
+COPC files are to LAZ as Cloud-Optimized GeoTIFF (COG) files are to GeoTIFF files. Both COPC files and COGs are valid versions of the file format they descend from — GeoTIFF and LAZ respectively — but with additional requirements to support cloud-optimized data access. In the case of COGs, there are additional requirements for tiling and overviews. For COPC, point cloud data must be organized into a clustered octree with metadata describing the octree structure.
+
+## File Format
+
+LAS file format:
+
+- header block
+- Variable-Length Records (VLRs). These are sections of metadata
+- Point data records
+
+COPC extends the default LAS format by defining specific VLRs and specific ordering of those VLRs and of the sections of point data records.
+
+Specific point data record types. LAS currently defines 11 different point data types. COPC only supports specific point data types, representing AAA BBB CCC
+
+
+### Clustered Octree
+
+To be used efficiently from the cloud, COPC needs to be spatially partitioned, meaning that points that are close to each other in space should also be close to each other in the COPC file, and there needs to be metadata for the spatial partitioning.
+
+In two dimensions
+
+
+
+## Metadata hierarchy
+
+Metadata is similar to PMTiles in being hierarchical. Or at least, metadata can be split over multiple pages for larger files, while a single root file will always exist.
+
+
+
+
+
+
+
+
+
+
+
+
+a variable-length record (VLR)
+
+is a particular organization of
+
+The LASER (LAS) file format is designed to store . An LAZ file is a compressed LAS file and a Cloud-Optimized Point Cloud (COPC) file is a valid LAZ file.
+
+COPC files are similar to COGs for GeoTIFFs:
 
 Read more at [https://copc.io/](https://copc.io/).
 
 Stay tuned for more information on COPC in future releases of this guide.
+
+
+## References:
+
+- [LAS format specification (Library of Congress)](https://www.loc.gov/preservation/digital/formats/fdd/fdd000418.shtml)
+- https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/Lidar-Base-Specification-version-2-1.pdf
+- [COPC intro blog post](https://lidarmag.com/2021/12/27/cloud-native-geospatial-lidar-with-the-cloud-optimized-point-cloud/)
+- [LAS file format (Wikipedia)](https://en.wikipedia.org/wiki/LAS_file_format)
