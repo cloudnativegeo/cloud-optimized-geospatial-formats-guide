@@ -403,7 +403,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="internal-compression">Internal compression</h3>
 <p>GeoTIFFs have compression internal to the file, meaning that the internal blocks in a GeoTIFF are already compressed. This internal compression is especially useful for COGs, compared to external compression (such as saving a COG inside a ZIP file), since a COG reader can decompress only the specific portion of the file requested, instead of needing to decompress the entire file.</p>
 <p>The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.</p>
-<p>It is possible but not recommended to create GeoTIFFs with no internal compression.</p>
+<p>It is possible but not recommended to create COGs or GeoTIFFs with no internal compression.</p>
 </section>
 </section>
 <section id="no-data" class="level2">
