@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cloud-Optimized Geospatial Formats Guide - Advanced COG Details</title>
+<title>Cloud-Optimized Geospatial Formats Guide - Advanced COG/GeoTIFF Details</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/cogs-details.html">Advanced COG Details</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/cogs-details.html">Advanced COG/GeoTIFF Details</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -144,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Advanced COG Details</span></a>
+ <span class="menu-text">Advanced COG/GeoTIFF Details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,10 +334,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#advanced-cog-details" id="toc-advanced-cog-details" class="nav-link active" data-scroll-target="#advanced-cog-details">Advanced COG Details</a>
+  <li><a href="#advanced-coggeotiff-details" id="toc-advanced-coggeotiff-details" class="nav-link active" data-scroll-target="#advanced-coggeotiff-details">Advanced COG/GeoTIFF Details</a>
   <ul class="collapse">
   <li><a href="#data-type" id="toc-data-type" class="nav-link" data-scroll-target="#data-type">Data Type</a></li>
-  <li><a href="#compression-aka-file-size" id="toc-compression-aka-file-size" class="nav-link" data-scroll-target="#compression-aka-file-size">Compression (aka File Size)</a></li>
+  <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression">Compression</a>
+  <ul class="collapse">
+  <li><a href="#compression-codecs" id="toc-compression-codecs" class="nav-link" data-scroll-target="#compression-codecs">Compression codecs</a></li>
+  <li><a href="#internal-compression" id="toc-internal-compression" class="nav-link" data-scroll-target="#internal-compression">Internal compression</a></li>
+  </ul></li>
   <li><a href="#no-data" id="toc-no-data" class="nav-link" data-scroll-target="#no-data">No Data</a></li>
   <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection">Projection</a></li>
   <li><a href="#what-we-dont-know-areas-of-research" id="toc-what-we-dont-know-areas-of-research" class="nav-link" data-scroll-target="#what-we-dont-know-areas-of-research">What we don’t know (areas of research)</a></li>
@@ -351,7 +355,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Advanced COG Details</h1>
+<h1 class="title">Advanced COG/GeoTIFF Details</h1>
 </div>
 
 
@@ -366,11 +370,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="advanced-cog-details" class="level1">
-<h1>Advanced COG Details</h1>
-<p>In the <a href="../cloud-optimized-geotiffs/intro.html">COG Intro</a> you can see what makes a COG different from non-optimized GeoTIFFs. The rest of this page details additional GeoTIFF information that can be relevant to making your files as useful as possible but not a COG requirement.</p>
+<section id="advanced-coggeotiff-details" class="level1">
+<h1>Advanced COG/GeoTIFF Details</h1>
+<p>The <a href="../cloud-optimized-geotiffs/intro.html">COG Intro</a> page describes what makes a Cloud-Optimized GeoTIFF different from a plain, non-optimized GeoTIFF. The rest of this page details additional useful information (applicable to both COGs and plain GeoTIFF files) that can be relevant for making your files as useful and efficient as possible. Any reference to “GeoTIFF” below applies both to plain GeoTIFF files and to COG files.</p>
 <section id="data-type" class="level2">
 <h2 class="anchored" data-anchor-id="data-type">Data Type</h2>
+<p>The data type of a raster file refers to</p>
 <p><strong>Recommendation</strong> The smallest possible data type that still represents the data appropriately should be used. It is not generally recommended to shift or quantize data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also <a href="#compression">Compression</a>.</p>
 <p>The GeoTIFF format supports many data types. The key is that all bands must be of the same data type. Unlike some other formats, you cannot mix and match integer (whole number) and float (decimal number) data types in the same file. If you have this use case consider splitting files by data type and using a catalog like STAC to keep track of them, or look at other formats like <a href="../zarr/intro.html">Zarr</a>.</p>
 <p>Scenario: If the COG is intended only for visualization, conversion to 3 band byte will improve performance.</p>
@@ -378,9 +383,29 @@ ul.task-list li input[type="checkbox"] {
 <p>GDAL supported Data Types <a href="https://gdal.org/drivers/raster/gtiff.html#gtiff-geotiff-file-format">list</a></p>
 </blockquote>
 </section>
-<section id="compression-aka-file-size" class="level2">
-<h2 class="anchored" data-anchor-id="compression-aka-file-size">Compression (aka File Size)</h2>
-<p>The biggest benefit to compression is on the storage side. It’s always recommended to use a lossless compression method unless the COG is intended to be used only for visualization. <strong>Deflate</strong> or <strong>LZW</strong> are the recommended compression algorithms for general use. <strong>LERC</strong> (Limited Error Raster Compression) provides very efficient data compression for float data if you’re ok rounding to some precision you provide. (This could be useful, e.g.&nbsp;for elevation data where the source data is known to not have precision beyond a known value.) Some other compression algorithms may be preferred depending on the data type and distribution, and if the goal is maximum compression or not. Maximum compression does result in some performance loss.</p>
+<section id="compression" class="level2">
+<h2 class="anchored" data-anchor-id="compression">Compression</h2>
+<p>The compression used in a GeoTIFF is the greatest determinator of the file’s size. If storing a large amount of data, the right compression choice can lead to much smaller file sizes on disk, leading to lower costs.</p>
+<section id="compression-codecs" class="level3">
+<h3 class="anchored" data-anchor-id="compression-codecs">Compression codecs</h3>
+<p>There are a variety of compression codecs supported by GeoTIFF. Compression codecs tend to be split into two camps: <em>lossy</em> compression where the exact original values cannot be recovered or <em>lossless</em> compression which does not lose any information through the compression and decompression process. For most cases, a lossless compression is recommended, but in some cases a lossy compression can be useful and lead to smaller file sizes, such as if the COG is intended to be used only for visualization.</p>
+<p><strong>Deflate</strong> or <strong>LZW</strong> are both <strong>lossless</strong> compression codecs and are the recommended algorithms for general use.</p>
+<p><strong>JPEG</strong> is a <strong>lossy</strong> compression codec useful for true-color GeoTIFFs intended to be used only for visualization. Because it’s lossy, it tends to produce smaller file sizes than deflate or LZW. JPEG should only be used with RGB <code>Byte</code> data.</p>
+<p><strong>LERC</strong> (Limited Error Raster Compression) is a lossy but very efficient compression algorithm for floating point data. This compression rounds values to a precision provided by the user and tends to be useful e.g.&nbsp;for elevation data where the source data is known to not have precision beyond a known value. But note, this compression is <strong>not lossless</strong>. Additionally, LERC is a relatively new algorithm and may not be supported everywhere. GDAL needs to be compiled with the LERC driver in order to load a GeoTIFF with LERC compression.</p>
+<p>Some other compression algorithms may be preferred depending on the data type and distribution, and if the goal is maximum compression or not. Codecs that produce the smallest file sizes <em>tend</em> to take longer to read into memory. If the network bandwidth to load the file is slow, then a very efficient compression algorithm may be most efficient, even if it takes longer to decompress when loaded. Alternatively, if the network speed is very fast, or if reading from a local disk, a slightly less efficient compression codec that decompresses faster may be preferred.</p>
+<p>There are many posts on the internet exploring GeoTIFF compression and performance:</p>
+<ul>
+<li><a href="https://kokoalberti.com/articles/geotiff-compression-optimization-guide/">Guide to GeoTIFF compression and optimization with GDAL</a></li>
+<li><a href="http://blog.cleverelephant.ca/2015/02/geotiff-compression-for-dummies.html">GeoTiff Compression for Dummies</a></li>
+<li><a href="https://digital-geography.com/geotiff-compression-comparison/">GeoTiff compression comparison</a></li>
+</ul>
+</section>
+<section id="internal-compression" class="level3">
+<h3 class="anchored" data-anchor-id="internal-compression">Internal compression</h3>
+<p>GeoTIFFs have compression internal to the file, meaning that the internal blocks in a GeoTIFF are already compressed. This internal compression is especially useful for COGs, compared to external compression (such as saving a COG inside a ZIP file), since a COG reader can decompress only the specific portion of the file requested, instead of needing to decompress the entire file.</p>
+<p>The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.</p>
+<p>It is possible but not recommended to create GeoTIFFs with no internal compression.</p>
+</section>
 </section>
 <section id="no-data" class="level2">
 <h2 class="anchored" data-anchor-id="no-data">No Data</h2>
