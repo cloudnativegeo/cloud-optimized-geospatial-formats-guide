@@ -45,7 +45,7 @@ GeoTIFFs have compression internal to the file, meaning that the internal blocks
 
 The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.
 
-It is possible but not recommended to create GeoTIFFs with no internal compression.
+It is possible but not recommended to create COGs or GeoTIFFs with no internal compression.
 
 ## No Data
 
