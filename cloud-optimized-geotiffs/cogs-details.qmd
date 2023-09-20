@@ -8,8 +8,6 @@ The [COG Intro](intro.qmd) page describes what makes a Cloud-Optimized GeoTIFF d
 
 ## Data Type
 
-The data type of a raster file refers to
-
 **Recommendation** The smallest possible data type that still represents the data appropriately should be used. It is not generally recommended to shift or quantize data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also [Compression](#compression).
 
 The GeoTIFF format supports many data types. The key is that all bands must be of the same data type. Unlike some other formats, you cannot mix and match integer (whole number) and float (decimal number) data types in the same file. If you have this use case consider splitting files by data type and using a catalog like STAC to keep track of them, or look at other formats like [Zarr](../zarr/intro.qmd).
