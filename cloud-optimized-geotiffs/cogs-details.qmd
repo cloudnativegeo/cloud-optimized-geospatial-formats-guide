@@ -55,6 +55,14 @@ Setting a no data value makes it clear to users and visualization tools what pix
 
 Read performance can be greatly impacted by the choice of projection and the particular applications used for dynamic tile serving. Using a known CRS defined in the PROJ database (typically EPSG code) is preferred over custom projections. Load times can be 5-20 times greater when using a custom projection. Whenever applying projections make sure to use WKT2 representation. If using a database of known projections, i.e. EPSG codes, this should be fine, there are known issues around manually setting proj-strings.
 
+## Web-Optimized COG
+
+Up to this point, we've mentioned that a COG has internal tiling, but the exact layout of those internal tiles has been unspecified. A web-optimized COG exploits that internal tiling to enforce the same tiling as used in web maps. Additionally, overviews will also be aligned to the Web Mercator grid. Thus, a web-optimized COG is especially useful for relaying tiled image data to a browser. Because the internal tile layout exactly matches the tiling structure required in web mapping libraries, only one HTTP range request needs to be performed to access any tile.
+
+Downsides of web-optimized COGs include the fact that they must be in Web Mercator projection and that the file most likely will not line up exactly with the bounds of the original image data. This means that the COG will have a "collar" of invalid data around the edges of the file.
+
+Web-Optimized COGs can be created via GDAL by using the COG driver with the creation option [`TILING_SCHEME=GoogleMapsCompatible`](https://gdal.org/drivers/raster/cog.html#reprojection-related-creation-options) or with `rio-cogeo` with the [`--web-optimized` flag](https://cogeotiff.github.io/rio-cogeo/Advanced/#web-optimized-cog).
+
 ## What we don’t know (areas of research)
 
 * The optimum size of data at which splitting across files improves performance as a multi-file dataset instead of a single file.
