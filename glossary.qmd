@@ -1,0 +1,69 @@
+---
+title: Glossary
+format:
+  html:
+    toc: true
+    toc-depth: 5
+    toc-expand: true
+---
+
+#### Array Dimensions
+#### Asynchronous
+#### Bandwidth
+#### Chunk
+#### Chunk size
+#### Cloud
+#### Cloud-Optimized GeoTIFF (COG)
+#### Cloud-Optimized Point Cloud (COPC)
+#### Compression
+#### Content Delivery Network (CDN)
+#### Coordinate Reference System (CRS)
+#### Data Type
+#### Deflate
+#### Entwine Point Cloud
+#### EPSG code
+#### External compression
+#### fsspec
+#### GDAL
+#### GeoDataFrame
+#### GeoJSON
+#### GeoPackage
+#### GeoPandas
+#### GeoParquet
+#### GeoParquet
+#### GeoTIFF
+#### gzip
+#### Hilbert curve (point to space-filling curve)
+#### HTTP Range Request
+#### Internal compression
+#### JPEG
+#### Latency
+#### LERC
+#### Lossless compression
+#### Lossy compression
+#### LZW
+#### Mapbox Vector Tile
+#### Metadata
+#### Multi-dimensional raster data
+#### Multithreading
+#### Numpy
+#### Object storage (Cloud storage)
+#### OGR
+#### Overviews
+#### Parquet
+#### PDAL
+#### Point Cloud Data
+#### PROJJSON
+#### Raster data
+#### Shapefile
+#### Space-filling curve
+#### Spatial index
+#### Tagged Image File Format (TIFF)
+#### Vector data
+#### Web Mercator
+#### Well-Known Binary (WKB)
+#### WKT (Geometry encoding)
+#### WKT (Projection definition)
+#### Zarr
+#### Zarr
+#### ZIP File
