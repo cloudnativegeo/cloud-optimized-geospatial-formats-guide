@@ -21,6 +21,14 @@ Scenario: If the COG is intended only for visualization, conversion to 3 band by
 
 The compression used in a GeoTIFF is the greatest determinator of the file's size. If storing a large amount of data, the right compression choice can lead to much smaller file sizes on disk, leading to lower costs.
 
+### Internal compression
+
+GeoTIFFs have compression internal to the file, meaning that the internal blocks in a GeoTIFF are already compressed. This internal compression is especially useful for COGs, compared to external compression (such as saving a COG inside a ZIP file), since a COG reader can decompress only the specific portion of the file requested, instead of needing to decompress the entire file.
+
+The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.
+
+It is possible but not recommended to create COGs or GeoTIFFs with no internal compression.
+
 ### Compression codecs
 
 There are a variety of compression codecs supported by GeoTIFF. Compression codecs tend to be split into two camps: _lossy_ compression where the exact original values cannot be recovered or _lossless_ compression which does not lose any information through the compression and decompression process. For most cases, a lossless compression is recommended, but in some cases a lossy compression can be useful and lead to smaller file sizes, such as if the COG is intended to be used only for visualization.
@@ -38,14 +46,6 @@ There are many posts on the internet exploring GeoTIFF compression and performan
 - [Guide to GeoTIFF compression and optimization with GDAL](https://kokoalberti.com/articles/geotiff-compression-optimization-guide/)
 - [GeoTiff Compression for Dummies](http://blog.cleverelephant.ca/2015/02/geotiff-compression-for-dummies.html)
 - [GeoTiff compression comparison](https://digital-geography.com/geotiff-compression-comparison/)
-
-### Internal compression
-
-GeoTIFFs have compression internal to the file, meaning that the internal blocks in a GeoTIFF are already compressed. This internal compression is especially useful for COGs, compared to external compression (such as saving a COG inside a ZIP file), since a COG reader can decompress only the specific portion of the file requested, instead of needing to decompress the entire file.
-
-The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.
-
-It is possible but not recommended to create COGs or GeoTIFFs with no internal compression.
 
 ## No Data
 
