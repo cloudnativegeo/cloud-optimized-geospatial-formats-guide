@@ -1,0 +1,15 @@
+name: coguide-kerchunk
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - cftime
+  - dask
+  - fsspec
+  - h5py
+  - imagecodecs
+  - ipykernel
+  - jupyterlab
+  - kerchunk
+  - s3fs
+  - xarray
