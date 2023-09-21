@@ -4,7 +4,7 @@ title: "Cloud-Optimized GeoTIFFs"
 
 # What is a Cloud-Optimized GeoTIFF?
 
-Cloud-Optimized GeoTIFF (the COG), a raster format, is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. The key components are overviews, and internal tiling.
+Cloud-Optimized GeoTIFF (COG), a raster format, is a variant of the TIFF image format that specifies a particular layout of internal data in the GeoTIFF specification to allow for optimized (subsetted or aggregated) access over a network for display or data reading. All COG files are valid GeoTIFF files, but not all GeoTIFF files are valid COG files. The key components that differ between GeoTIFF and COG are overviews and internal tiling.
 
 For more details see [https://www.cogeo.org/](https://www.cogeo.org/)
 
@@ -33,5 +33,5 @@ There are many [resampling algorithms](https://gdal.org/programs/gdal_translate.
 
 ## See more
 
-- Additional [GeoTIFF details](cogs-details.qmd) that can be helpful.
+- Additional [COG details](cogs-details.qmd) that can be helpful.
 - Making and using [COG examples](cogs-examples.ipynb).

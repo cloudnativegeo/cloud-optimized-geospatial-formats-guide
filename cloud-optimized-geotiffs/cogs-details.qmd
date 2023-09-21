@@ -1,28 +1,55 @@
 ---
-title: "Make better GeoTIFFs"
+title: "Advanced COG/GeoTIFF Details"
 ---
 
-# Make better GeoTIFFs 
+# Advanced COG/GeoTIFF Details
 
-In the [COG Intro](intro.qmd) you can see what makes a COG different from non-optimized GeoTIFFs. The rest of this page details additional GeoTIFF information that can be relevant to making your files as useful as possible but not a COG requirement.
+The [COG Intro](intro.qmd) page describes what makes a Cloud-Optimized GeoTIFF different from a plain, non-optimized GeoTIFF. The rest of this page details additional useful information (applicable to both COGs and plain GeoTIFF files) that can be relevant for making your files as useful and efficient as possible. Any reference to "GeoTIFF" below applies both to plain GeoTIFF files and to COG files.
 
 ## Data Type
 
-**Recommendation** The smallest possible data type, that still represents the data appropriately, should be used. It is not generally recommended to shift data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also [Compression](#compression).
+**Recommendation** The smallest possible data type that still represents the data appropriately should be used. It is not generally recommended to shift or quantize data from float to integer by multiplying, a space saving technique, as end users then need to undo this step to use the data. Data compression is preferred, see also [Compression](#compression).
 
-GeoTIFF format supports many data types. The key is that all bands must be of the same data type. Unlike some other formats you can not mix and match integers (whole numbers) and floats (decimal numbers) in the same file. If you have this use case consider splitting files by data type and using a catalog like STAC to keep track of them, or look at other formats like [Zarr](../zarr/intro.qmd).
+The GeoTIFF format supports many data types. The key is that all bands must be of the same data type. Unlike some other formats, you cannot mix and match integer (whole number) and float (decimal number) data types in the same file. If you have this use case consider splitting files by data type and using a catalog like STAC to keep track of them, or look at other formats like [Zarr](../zarr/intro.qmd).
 
-Scenario: If the COG is intended only for visualization, conversion to 3 band byte will improve performance. 
+Scenario: If the COG is intended only for visualization, conversion to 3 band byte will improve performance.
 
 > GDAL supported Data Types [list](https://gdal.org/drivers/raster/gtiff.html#gtiff-geotiff-file-format)
 
 
-## Compression (aka File Size)
+## Compression
 
-The biggest benefit to compression is on the storage side. It’s always recommended to use a lossless compression method. **Deflate** or **LZW** are the most recommended compression algorithms, there are some choices that depend on the data type and distribution, and if the goal is maximum compression or not. Maximum compression does result in some performance loss.
+The compression used in a GeoTIFF is the greatest determinator of the file's size. If storing a large amount of data, the right compression choice can lead to much smaller file sizes on disk, leading to lower costs.
+
+### Internal compression
+
+GeoTIFFs have compression internal to the file, meaning that the internal blocks in a GeoTIFF are already compressed. This internal compression is especially useful for COGs, compared to external compression (such as saving a COG inside a ZIP file), since a COG reader can decompress only the specific portion of the file requested, instead of needing to decompress the entire file.
+
+The internal compression of a GeoTIFF also means that it does not need additional compression, and indeed that additional compression will decrease performance. Gzip or ZIP compression applied to a GeoTIFF with internal compression will not make the file smaller.
+
+It is possible but not recommended to create COGs or GeoTIFFs with no internal compression.
+
+### Compression codecs
+
+There are a variety of compression codecs supported by GeoTIFF. Compression codecs tend to be split into two camps: _lossy_ compression where the exact original values cannot be recovered or _lossless_ compression which does not lose any information through the compression and decompression process. For most cases, a lossless compression is recommended, but in some cases a lossy compression can be useful and lead to smaller file sizes, such as if the COG is intended to be used only for visualization.
+
+**Deflate** or **LZW** are both **lossless** compression codecs and are the recommended algorithms for general use.
+
+**JPEG** is a **lossy** compression codec useful for true-color GeoTIFFs intended to be used only for visualization. Because it's lossy, it tends to produce smaller file sizes than deflate or LZW. JPEG should only be used with RGB `Byte` data.
+
+**LERC** (Limited Error Raster Compression) is a lossy but very efficient compression algorithm for floating point data. This compression rounds values to a precision provided by the user and tends to be useful e.g. for elevation data where the source data is known to not have precision beyond a known value. But note, this compression is **not lossless**. Additionally, LERC is a relatively new algorithm and may not be supported everywhere. GDAL needs to be compiled with the LERC driver in order to load a GeoTIFF with LERC compression.
+
+Some other compression algorithms may be preferred depending on the data type and distribution, and if the goal is maximum compression or not. Codecs that produce the smallest file sizes _tend_ to take longer to read into memory. If the network bandwidth to load the file is slow, then a very efficient compression algorithm may be most efficient, even if it takes longer to decompress when loaded. Alternatively, if the network speed is very fast, or if reading from a local disk, a slightly less efficient compression codec that decompresses faster may be preferred.
+
+There are many posts on the internet exploring GeoTIFF compression and performance:
+
+- [Guide to GeoTIFF compression and optimization with GDAL](https://kokoalberti.com/articles/geotiff-compression-optimization-guide/)
+- [GeoTiff Compression for Dummies](http://blog.cleverelephant.ca/2015/02/geotiff-compression-for-dummies.html)
+- [GeoTiff compression comparison](https://digital-geography.com/geotiff-compression-comparison/)
 
 ## No Data
-Setting a no data value makes it clear to users and visualization tools what pixels are not actually data. For visualization this allows these pixels to be easily hidden (transparent). Historically many values have been used, 0, -9999, etc… The key is to make sure the GDAL flag for no data is set. It is also suggested that the smallest negative value be used instead of a random value. For byte and unsigned integers/floats this will be 0, if 0 has meaning in your data use a different value (like the max possible value). Having the right nodata flag set is important for overview generation.
+
+Setting a no data value makes it clear to users and visualization tools what pixels are not actually data. For visualization this allows these pixels to be easily hidden (transparent). Historically many values have been used, 0, -9999, etc… The key is to make sure the GDAL flag for no data is set. It is also suggested that the smallest negative value be used instead of a random value. For byte and unsigned integers data types this will be 0. For float data, setting NaN as the no data value is suggested. Make sure to use a no data value that does not have meaning in your data; otherwise use a different value (like the max possible value). Having the right nodata flag set is important for overview generation.
 
 ## Projection
 
@@ -33,7 +60,7 @@ Read performance can be greatly impacted by the choice of projection and the par
 * The optimum size of data at which splitting across files improves performance as a multi-file dataset instead of a single file.
 * When to recommend particular internal tile sizes
 * Compression impacts on http transfer rates.
-* Support for COG creation in all common Geospatial tools varies.
+* Support for COG creation in all common geospatial tools varies.
 
 ## Additional Resources
 
