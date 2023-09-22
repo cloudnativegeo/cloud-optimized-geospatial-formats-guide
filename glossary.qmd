@@ -84,6 +84,22 @@ A globally-distributed network of storage servers designed to cache HTTP request
 Also called a projection
 
 #### Data Type
+
+The data type refers to the specific encoding in which values are stored in binary. Data types can be numeric or non-numeric, including string, binary, or nested data structures. The usual numeric data types used most often for scientific data include:
+
+- `Byte` or `Int8`: signed integer with 8 bit capacity, which can hold values from -128 to 127 (inclusive).
+- `Unsigned byte` or `Uint8`: unsigned integer with 8 bit capacity, which can hold values from 0 to 255 (inclusive).
+- `Int` or `Int16`: signed integer with 16 bit capacity, which can hold values from -32,768 to 32,767 (inclusive).
+- `Unsigned int` or `Uint16`: unsigned integer with 16 bit capacity, which can hold values from 0 to 65,535 (inclusive).
+- `Short` or `Int32`: signed integer with 32 bit capacity, which can hold values from -2,147,483,648 to 2,147,483,647 (inclusive).
+- `Unsigned short` or `Uint32`: unsigned integer with 32 bit capacity, which can hold values from 0 to 4,294,967,295 (inclusive).
+- `Long` or `Int64`: signed integer with 64 bit capacity, which can hold values from -9223372036854775808 to 9223372036854775807 (inclusive).
+- `Unsigned long` or `Uint64`: unsigned integer with 64 bit capacity, which can hold values from 0 to 18446744073709551615 (inclusive).
+- `float`: 32 bit floating point number.
+- `double`: 64 bit floating point number.
+
+For a good explainer on how floating point numbers work, refer to [this blog post](https://ciechanow.ski/exposing-floating-point/).
+
 #### Deflate
 
 A [lossless](#lossless-compression) [compression](#compression) codec used as part of [ZIP archives](#zip-archive) and internally within [COG](#cloud-optimized-geotiff-cog) and [GeoTIFF](#geotiff) files.
@@ -115,6 +131,11 @@ The _Geospatial Data Abstraction Library_, a widely-used open-source library for
 Its common command-line tools include `gdalinfo` and `gdal_translate`. It can be used from Python with the `rasterio` library or from R with the `terra` library.
 
 #### GeoDataFrame
+
+A tabular data structure for storing geospatial [vector data](#vector-data), where each geometry is paired with one or more attributes in a given row.
+
+A GeoDataFrame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with _every_ geometry.
+
 #### GeoJSON
 
 A file format for [vector data](#vector-data), built on top of [JSON](https://en.wikipedia.org/wiki/JSON). GeoJSON is a common format for transferring vector data to web browsers, because it's easy for most programming languages to read and write, but tends to have a large size. It's not [cloud-optimized](#cloud-optimized) because it can't be partially parsed; the entire file needs to be downloaded in order to use.
@@ -214,6 +235,9 @@ Information _about_ the actual data, saved as part of the file format. This allo
 [Cloud computing](#cloud) services offered by Microsoft.
 
 #### Multi-dimensional raster data
+
+A type of gridded [raster data](#raster-data) where multiple dimensions help conceptualize various attribtes. For example, a data value may exist for every longitude, latitude, time, and elevation, in which case the raster data would have four dimensions.
+
 #### Multithreading
 
 A manner of scaling computing, to allow more operations to happen at the same time.
