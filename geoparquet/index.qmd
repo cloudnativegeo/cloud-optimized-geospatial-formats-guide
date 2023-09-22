@@ -11,7 +11,9 @@ Parquet has a wide ecosystem of tools and support; GeoParquet builds on this suc
 
 The two main things that GeoParquet defines on top of Parquet are how to encode geometries in the geometry column and how to include metadata like the geometries' [Coordinate Reference System](https://en.wikipedia.org/wiki/Spatial_reference_system) (CRS).
 
-GeoParquet is a relatively young format, and the specification has not yet reached a 1.0 release (as of August 2023, it's at [1.0.0-rc.1](https://github.com/opengeospatial/geoparquet/releases/tag/v1.0.0-rc.1)). However, reading and writing GeoParquet has been [supported in GDAL since version 3.5](https://gdal.org/drivers/vector/parquet.html), and thus can be used in programs like GeoPandas and QGIS.
+In September 2023, GeoParquet published a [1.0 release](https://geoparquet.org/releases/v1.0.0/), and now any changes to the specification are expected to be backwards compatible.
+
+Reading and writing GeoParquet has been [supported in GDAL since version 3.5](https://gdal.org/drivers/vector/parquet.html), and thus can be used in programs like GeoPandas and QGIS.
 
 ::: {.callout-warning}
 
