@@ -88,7 +88,7 @@ Also called a projection
 
 A [lossless](#lossless-compression) [compression](#compression) codec used as part of [ZIP archives](#zip-archive) and internally within [COG](#cloud-optimized-geotiff-cog) and [GeoTIFF](#geotiff) files.
 
-#### Entwine Point Cloud
+#### Entwine Point Cloud (EPT)
 
 A [cloud-optimized](#cloud-optimized) file format for [point cloud data](#point-cloud-data). Entwine has largely been superseded by [COPC](#cloud-optimized-point-cloud-copc) because COPC is backwards-compatible with previous point cloud data formats.
 
