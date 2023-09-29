@@ -12,7 +12,7 @@ If you wish to preview the site locally, install [quarto](https://quarto.org/). 
 
 ## Communication Channels
 
-Discussions can occur in [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/issues).
+Discussions can occur in [GitHub Discussions](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues).
 
 
 - **GitHub Discussions**: Ideal for questions, feature requests, or general conversations about the project. Use this space for collaborative discussions or if you're unsure where to start.
@@ -38,7 +38,7 @@ Discussions can occur in [GitHub Discussions](https://github.com/developmentseed
 
 ## Bug Reporting & Feature Requests
 
-Before submitting a bug report or a feature request, please start a [GitHub Discussion](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) to see if the issue has already been addressed or if it can be resolved through discussion.
+Before submitting a bug report or a feature request, please start a [GitHub Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions) to see if the issue has already been addressed or if it can be resolved through discussion.
 
 ### General Steps
 
@@ -48,7 +48,7 @@ Before submitting a bug report or a feature request, please start a [GitHub Disc
 4. Make your changes and use `quarto preview` to make sure they look good.
 5. Open a pull request.
 
-Once the pull request is opened, and the GitHub `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at `https://developmentseed.org/cloud-optimized-geospatial-formats-guide/pr-preview/pr-<YOUR-PR-NUMBER-HERE>`. A bot will comment on your PR when the PR preview is ready.
+Once the pull request is opened, and the GitHub `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at `https://guide.cloudnativegeo.org/pr-preview/pr-<YOUR-PR-NUMBER-HERE>`. A bot will comment on your PR when the PR preview is ready.
 
 ### Specific Contributions
 
@@ -87,6 +87,6 @@ Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Form
 
 ## Contact
 
-For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/developmentseed/cloud-optimized-geospatial-formats-guide/discussions) section.
+For questions on how to contribute, start a discussion in the [GitHub Discussions](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions) section.
 
 {{< include _thankyous.qmd >}}
