@@ -344,6 +344,7 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#no-data" id="toc-no-data" class="nav-link" data-scroll-target="#no-data">No Data</a></li>
   <li><a href="#projection" id="toc-projection" class="nav-link" data-scroll-target="#projection">Projection</a></li>
+  <li><a href="#web-optimized-cog" id="toc-web-optimized-cog" class="nav-link" data-scroll-target="#web-optimized-cog">Web-Optimized COG</a></li>
   <li><a href="#what-we-dont-know-areas-of-research" id="toc-what-we-dont-know-areas-of-research" class="nav-link" data-scroll-target="#what-we-dont-know-areas-of-research">What we don’t know (areas of research)</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   </ul></li>
@@ -413,6 +414,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="projection" class="level2">
 <h2 class="anchored" data-anchor-id="projection">Projection</h2>
 <p>Read performance can be greatly impacted by the choice of projection and the particular applications used for dynamic tile serving. Using a known CRS defined in the PROJ database (typically EPSG code) is preferred over custom projections. Load times can be 5-20 times greater when using a custom projection. Whenever applying projections make sure to use WKT2 representation. If using a database of known projections, i.e.&nbsp;EPSG codes, this should be fine, there are known issues around manually setting proj-strings.</p>
+</section>
+<section id="web-optimized-cog" class="level2">
+<h2 class="anchored" data-anchor-id="web-optimized-cog">Web-Optimized COG</h2>
+<p>Up to this point, we’ve mentioned that a COG has internal tiling, but the exact layout of those internal tiles has been unspecified. A web-optimized COG exploits that internal tiling to enforce the same tiling as used in web maps. Additionally, overviews will also be aligned to the Web Mercator grid. Thus, a web-optimized COG is especially useful for relaying tiled image data to a browser. Because the internal tile layout exactly matches the tiling structure required in web mapping libraries, only one HTTP range request needs to be performed to access any tile.</p>
+<p>Downsides of web-optimized COGs include the fact that they must be in Web Mercator projection and that the file most likely will not line up exactly with the bounds of the original image data. This means that the COG will have a “collar” of invalid data around the edges of the file.</p>
+<p>Web-Optimized COGs can be created via GDAL by using the COG driver with the creation option <a href="https://gdal.org/drivers/raster/cog.html#reprojection-related-creation-options"><code>TILING_SCHEME=GoogleMapsCompatible</code></a> or with <code>rio-cogeo</code> with the <a href="https://cogeotiff.github.io/rio-cogeo/Advanced/#web-optimized-cog"><code>--web-optimized</code> flag</a>.</p>
 </section>
 <section id="what-we-dont-know-areas-of-research" class="level2">
 <h2 class="anchored" data-anchor-id="what-we-dont-know-areas-of-research">What we don’t know (areas of research)</h2>
@@ -798,7 +805,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© CC-By <a href="https://developmentseed.org">Development Seed</a>, 2023</div>   
+    <div class="nav-footer-left">© CC-By <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Foundation</a>, 2023</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
