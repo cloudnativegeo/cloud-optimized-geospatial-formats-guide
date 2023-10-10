@@ -306,6 +306,8 @@ A [vector data](#vector-data) file format. There are [many reasons](http://switc
 
 An algorithm that translates two- or n- dimensional data into one-dimensional data. In practice, this is used as part of [spatial indexes](#spatial-index) to group [vector geometries](#vector-data) nearby within a file according to their two-dimensional location.
 
+[Read more at Wikipedia](https://en.wikipedia.org/wiki/Space-filling_curve).
+
 #### Spatial index
 
 A data structure used for searching through spatial data more efficiently.
