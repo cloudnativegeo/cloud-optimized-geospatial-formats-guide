@@ -302,7 +302,7 @@ The ability to perform efficient random access over a network is a core part of 
 
 #### Raster data
 
-A type of geospatial data that stores regularly-gridded data. This often comes from aerial or satellite imagery sensors.
+A type of geospatial data that stores regularly-gridded data with cells of known and constant size. This often comes from aerial or satellite imagery sensors.
 
 #### sf
 
