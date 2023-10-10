@@ -266,6 +266,8 @@ OGR is installed as part of [GDAL](#gdal).
 
 Downsampled (aggregated) data intended for visualization and stored as part of a file format. Overviews are part of the [COG](#cloud-optimized-geotiff-cog) specification, and allow reading "zoomed out" data without needing to read and downsample from "full resolution" data.
 
+Overviews are also known as _pyramids_.
+
 #### Parquet
 
 A file format for tabular data with [internal chunking](#chunk) and [internal compression](#internal-compression).
