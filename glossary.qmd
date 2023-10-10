@@ -130,11 +130,13 @@ The _Geospatial Data Abstraction Library_, a widely-used open-source library for
 
 Its common command-line tools include `gdalinfo` and `gdal_translate`. It can be used from Python with the `rasterio` library or from R with the `terra` library.
 
-#### GeoDataFrame
+#### Geospatial Data Frame
 
 A tabular data structure for storing geospatial [vector data](#vector-data), where each geometry is paired with one or more attributes in a given row.
 
-A GeoDataFrame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with _every_ geometry.
+A geospatial data frame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with _every_ geometry.
+
+[GeoPandas](#geopandas) in Python and [sf](#sf) in R are two common implementations of the geospatial data frame concept.
 
 #### GeoJSON
 
@@ -146,7 +148,7 @@ A file format for [vector data](#vector-data). GeoPackage supports multiple laye
 
 #### GeoPandas
 
-A Python library for using and managing [vector data](#vector-data), organized around [GeoDataFrames](#geodataframe).
+A Python library for using and managing [vector data](#vector-data), organized around [geospatial data frames](#geospatial-data-frame).
 
 #### GeoParquet
 
@@ -297,6 +299,10 @@ The ability to perform efficient random access over a network is a core part of 
 #### Raster data
 
 A type of geospatial data that stores regularly-gridded data. This often comes from aerial or satellite imagery sensors.
+
+#### sf
+
+An R library for using and managing [vector data](#vector-data), organized around [geospatial data frames](#geospatial-data-frame).
 
 #### Shapefile
 
