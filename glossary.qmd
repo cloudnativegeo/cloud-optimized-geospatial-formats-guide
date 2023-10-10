@@ -130,6 +130,8 @@ The _Geospatial Data Abstraction Library_, a widely-used open-source library for
 
 Its common command-line tools include `gdalinfo` and `gdal_translate`. It can be used from Python with the `rasterio` library or from R with the `terra` library.
 
+GDAL includes [OGR](#ogr) for processing vector data.
+
 #### Geospatial Data Frame
 
 A tabular data structure for storing geospatial [vector data](#vector-data), where each geometry is paired with one or more attributes in a given row.
