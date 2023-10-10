@@ -272,7 +272,7 @@ Overviews are also known as _pyramids_.
 
 #### Parquet
 
-A file format for tabular data with [internal chunking](#chunk) and [internal compression](#internal-compression).
+A file format for tabular data with [internal chunking](#chunk) and [internal compression](#internal-compression). Data are stored per _column_ instead of per _row_, making it very fast to select all data from a specific column.
 
 #### PDAL
 
