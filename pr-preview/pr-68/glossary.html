@@ -362,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#external-compression" id="toc-external-compression" class="nav-link" data-scroll-target="#external-compression">External compression</a></li>
   <li><a href="#fsspec" id="toc-fsspec" class="nav-link" data-scroll-target="#fsspec">fsspec</a></li>
   <li><a href="#gdal" id="toc-gdal" class="nav-link" data-scroll-target="#gdal">GDAL</a></li>
-  <li><a href="#geodataframe" id="toc-geodataframe" class="nav-link" data-scroll-target="#geodataframe">GeoDataFrame</a></li>
+  <li><a href="#geospatial-data-frame" id="toc-geospatial-data-frame" class="nav-link" data-scroll-target="#geospatial-data-frame">Geospatial Data Frame</a></li>
   <li><a href="#geojson" id="toc-geojson" class="nav-link" data-scroll-target="#geojson">GeoJSON</a></li>
   <li><a href="#geopackage" id="toc-geopackage" class="nav-link" data-scroll-target="#geopackage">GeoPackage</a></li>
   <li><a href="#geopandas" id="toc-geopandas" class="nav-link" data-scroll-target="#geopandas">GeoPandas</a></li>
@@ -396,6 +396,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#projjson" id="toc-projjson" class="nav-link" data-scroll-target="#projjson">PROJJSON</a></li>
   <li><a href="#random-access" id="toc-random-access" class="nav-link" data-scroll-target="#random-access">Random access</a></li>
   <li><a href="#raster-data" id="toc-raster-data" class="nav-link" data-scroll-target="#raster-data">Raster data</a></li>
+  <li><a href="#sf" id="toc-sf" class="nav-link" data-scroll-target="#sf">sf</a></li>
   <li><a href="#shapefile" id="toc-shapefile" class="nav-link" data-scroll-target="#shapefile">Shapefile</a></li>
   <li><a href="#space-filling-curve" id="toc-space-filling-curve" class="nav-link" data-scroll-target="#space-filling-curve">Space-filling curve</a></li>
   <li><a href="#spatial-index" id="toc-spatial-index" class="nav-link" data-scroll-target="#spatial-index">Spatial index</a></li>
@@ -543,10 +544,11 @@ ul.task-list li input[type="checkbox"] {
 <p>The <em>Geospatial Data Abstraction Library</em>, a widely-used open-source library for converting between different <a href="#raster-data">raster data</a> formats, as well as reprojecting between <a href="#coordinate-reference-system-crs">coordinate reference systems</a>.</p>
 <p>Its common command-line tools include <code>gdalinfo</code> and <code>gdal_translate</code>. It can be used from Python with the <code>rasterio</code> library or from R with the <code>terra</code> library.</p>
 </section>
-<section id="geodataframe" class="level4">
-<h4 class="anchored" data-anchor-id="geodataframe">GeoDataFrame</h4>
+<section id="geospatial-data-frame" class="level4">
+<h4 class="anchored" data-anchor-id="geospatial-data-frame">Geospatial Data Frame</h4>
 <p>A tabular data structure for storing geospatial <a href="#vector-data">vector data</a>, where each geometry is paired with one or more attributes in a given row.</p>
-<p>A GeoDataFrame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with <em>every</em> geometry.</p>
+<p>A geospatial data frame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with <em>every</em> geometry.</p>
+<p><a href="#geopandas">GeoPandas</a> in Python and <a href="#sf">sf</a> in R are two common implementations of the geospatial data frame concept.</p>
 </section>
 <section id="geojson" class="level4">
 <h4 class="anchored" data-anchor-id="geojson">GeoJSON</h4>
@@ -558,7 +560,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="geopandas" class="level4">
 <h4 class="anchored" data-anchor-id="geopandas">GeoPandas</h4>
-<p>A Python library for using and managing <a href="#vector-data">vector data</a>, organized around <a href="#geodataframe">GeoDataFrames</a>.</p>
+<p>A Python library for using and managing <a href="#vector-data">vector data</a>, organized around <a href="#geospatial-data-frame">geospatial data frames</a>.</p>
 </section>
 <section id="geoparquet" class="level4">
 <h4 class="anchored" data-anchor-id="geoparquet">GeoParquet</h4>
@@ -694,6 +696,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="raster-data" class="level4">
 <h4 class="anchored" data-anchor-id="raster-data">Raster data</h4>
 <p>A type of geospatial data that stores regularly-gridded data. This often comes from aerial or satellite imagery sensors.</p>
+</section>
+<section id="sf" class="level4">
+<h4 class="anchored" data-anchor-id="sf">sf</h4>
+<p>An R library for using and managing <a href="#vector-data">vector data</a>, organized around <a href="#geospatial-data-frame">geospatial data frames</a>.</p>
 </section>
 <section id="shapefile" class="level4">
 <h4 class="anchored" data-anchor-id="shapefile">Shapefile</h4>
