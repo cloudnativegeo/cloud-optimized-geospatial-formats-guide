@@ -122,7 +122,7 @@ This is in contrast to [internal compression](#internal-compression).
 
 #### fsspec
 
-A Python library for abstracting among several different [cloud storage](#object-storage-cloud-storage) providers. Allows uploading and downloading files to each provider with a consistent API.
+A Python library for abstracting across several different file storage solutions, including local file storage, [cloud storage](#object-storage-cloud-storage), and HTTP web urls. Allows uploading and downloading files to each backend with a consistent API.
 
 #### GDAL
 
