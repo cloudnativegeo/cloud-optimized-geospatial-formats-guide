@@ -55,7 +55,7 @@ The chunk size plays a large part in how efficient [random access](#random-acces
 
 Computing services hosted by an external provider, where the provider pays for the upfront cost of buying hardware, earning a profit by selling services. This allows users to scale workloads efficiently because users do not need to pay large upfront costs for computers. These rented services can include compute time or [object storage](#object-storage-cloud-storage).
 
-Usually refers to services hosted by [Amazon](#amazon-web-services-aws), [Google](#google-cloud), or [Microsoft](#microsoft-azure).
+Usually refers to services hosted by [Amazon](#amazon-web-services-aws), [Google](#google-cloud-gcp), or [Microsoft](#microsoft-azure).
 
 #### Cloud-Optimized
 
@@ -164,7 +164,7 @@ The geotransform describes the resolution and real-world location of each pixel.
 
 For more information (in a Python context) read [Python affine transforms](https://www.perrygeo.com/python-affine-transforms.html).
 
-#### Google Cloud
+#### Google Cloud (GCP)
 
 [Cloud computing](#cloud) services provided by Google.
 
