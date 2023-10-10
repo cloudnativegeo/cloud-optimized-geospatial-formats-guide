@@ -54,10 +54,8 @@ The diagram below depicts how some of the cloud-optimized formats discussed in t
 Notes:
 
 - Some data formats cover multiple data types, specifically:
-    - GeoJSON can be used for vector and point cloud data.
     - HDF5 can be used for point cloud data or data cubes (or both via groups).
-    - GeoParquet and FlatGeobuf can be used for vector data or point cloud data.
-- LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, the same goes for COPC files).
+- LAS files are intended for Point Clouds (3d points), not 2D points (since COPC files are compressed LAS files, the same goes for COPC files).
 - [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but have yet to be explicitly represented in the diagram.
 - GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
 
