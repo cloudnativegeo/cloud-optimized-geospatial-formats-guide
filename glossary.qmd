@@ -132,14 +132,6 @@ Its common command-line tools include `gdalinfo` and `gdal_translate`. It can be
 
 GDAL includes [OGR](#ogr) for processing vector data.
 
-#### Geospatial Data Frame
-
-A tabular data structure for storing geospatial [vector data](#vector-data), where each geometry is paired with one or more attributes in a given row.
-
-A geospatial data frame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with _every_ geometry.
-
-[GeoPandas](#geopandas) in Python and [sf](#sf) in R are two common implementations of the geospatial data frame concept.
-
 #### GeoJSON
 
 A file format for [vector data](#vector-data), built on top of [JSON](https://en.wikipedia.org/wiki/JSON). GeoJSON is a common format for transferring vector data to web browsers, because it's easy for most programming languages to read and write, but tends to have a large size. It's not [cloud-optimized](#cloud-optimized) because it can't be partially parsed; the entire file needs to be downloaded in order to use.
@@ -155,6 +147,14 @@ A Python library for using and managing [vector data](#vector-data), organized a
 #### GeoParquet
 
 An extension of the [Parquet](#parquet) file format to store geospatial [vector data](#vector-data). Can be read and written by tools including [GDAL](#gdal) and [GeoPandas](#geopandas).
+
+#### Geospatial Data Frame
+
+A tabular data structure for storing geospatial [vector data](#vector-data), where each geometry is paired with one or more attributes in a given row.
+
+A geospatial data frame structure works best when every feature has the same range of attributes, such as when there is a timestamp or other value associated with _every_ geometry.
+
+[GeoPandas](#geopandas) in Python and [sf](#sf) in R are two common implementations of the geospatial data frame concept.
 
 #### GeoTIFF
 
