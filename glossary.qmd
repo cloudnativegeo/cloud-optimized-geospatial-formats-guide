@@ -250,7 +250,7 @@ Think of a glass of water. Synchronous computing is akin to having one straw: wh
 
 #### Numpy
 
-The foundational Python library for managing n-dimensional array data.
+The foundational Python library for managing multi-dimensional array data.
 
 #### Object storage (Cloud storage)
 
