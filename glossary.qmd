@@ -154,7 +154,7 @@ An extension of the [Parquet](#parquet) file format to store geospatial [vector 
 
 #### GeoTIFF
 
-An extension of [TIFF](#tagged-image-file-format-tiff) to store geospatially-referenced image data. Includes extra information such as the [coordinate reference system](#coordinate-reference-system-crs) and [geotransform](#geotransform).
+An extension of [TIFF](#tagged-image-file-format-tiff) to store geospatially-referenced image and raster data. Includes extra information such as the [coordinate reference system](#coordinate-reference-system-crs) and [geotransform](#geotransform).
 
 #### Geotransform
 
@@ -314,7 +314,7 @@ For further reading: [A dive into spatial search algorithms](https://blog.mapbox
 
 #### Tagged Image File Format (TIFF)
 
-A file format for image data that supports [lossless compression](#lossless-compression).
+A file format for image and raster data that supports [lossless compression](#lossless-compression).
 
 #### Vector data
 
