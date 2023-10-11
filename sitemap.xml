@@ -2,94 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://guide.cloudnativegeo.org/pmtiles/intro.html</loc>
-    <lastmod>2023-10-03T20:03:31.094Z</lastmod>
+    <lastmod>2023-10-11T00:18:14.820Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/template.html</loc>
-    <lastmod>2023-10-03T20:03:29.882Z</lastmod>
+    <lastmod>2023-10-11T00:18:13.592Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/index.html</loc>
-    <lastmod>2023-10-03T20:03:29.126Z</lastmod>
+    <lastmod>2023-10-11T00:18:12.756Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/kerchunk/intro.html</loc>
-    <lastmod>2023-10-03T20:03:27.914Z</lastmod>
+    <lastmod>2023-10-11T00:18:11.476Z</lastmod>
   </url>
   <url>
-    <loc>https://guide.cloudnativegeo.org/transition-from-rmarkdown.html</loc>
-    <lastmod>2023-10-03T20:03:26.434Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/geoparquet/geoparquet-example.html</loc>
-    <lastmod>2023-10-03T20:03:24.821Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html</loc>
-    <lastmod>2023-10-03T20:03:23.289Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/overview.html</loc>
-    <lastmod>2023-10-03T20:03:21.501Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/copc/index.html</loc>
-    <lastmod>2023-10-03T20:03:20.169Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/zarr/zarr-in-practice.html</loc>
-    <lastmod>2023-10-03T20:03:19.169Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/flatgeobuf/flatgeobuf.html</loc>
-    <lastmod>2023-10-03T20:03:16.213Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/flatgeobuf/hilbert-r-tree.html</loc>
-    <lastmod>2023-10-03T20:03:13.057Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/flatgeobuf/intro.html</loc>
-    <lastmod>2023-10-03T20:03:15.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/flatgeobuf/flatgeobuf-in-js.html</loc>
-    <lastmod>2023-10-03T20:03:17.121Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/zarr/intro.html</loc>
-    <lastmod>2023-10-03T20:03:19.741Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/index.html</loc>
-    <lastmod>2023-10-03T20:03:20.641Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-examples.html</loc>
-    <lastmod>2023-10-03T20:03:22.825Z</lastmod>
-  </url>
-  <url>
-    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-details.html</loc>
-    <lastmod>2023-10-03T20:03:23.905Z</lastmod>
+    <loc>https://guide.cloudnativegeo.org/glossary.html</loc>
+    <lastmod>2023-10-11T00:18:09.912Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/geoparquet/index.html</loc>
-    <lastmod>2023-10-03T20:03:25.761Z</lastmod>
+    <lastmod>2023-10-11T00:18:08.108Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-details.html</loc>
+    <lastmod>2023-10-11T00:18:06.160Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-examples.html</loc>
+    <lastmod>2023-10-11T00:18:04.980Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/index.html</loc>
+    <lastmod>2023-10-11T00:18:02.620Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/zarr/intro.html</loc>
+    <lastmod>2023-10-11T00:18:01.720Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/flatgeobuf/flatgeobuf-in-js.html</loc>
+    <lastmod>2023-10-11T00:17:58.860Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/flatgeobuf/intro.html</loc>
+    <lastmod>2023-10-11T00:17:57.048Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/flatgeobuf/hilbert-r-tree.html</loc>
+    <lastmod>2023-10-11T00:17:54.644Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/flatgeobuf/flatgeobuf.html</loc>
+    <lastmod>2023-10-11T00:17:57.916Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/zarr/zarr-in-practice.html</loc>
+    <lastmod>2023-10-11T00:18:01.072Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/copc/index.html</loc>
+    <lastmod>2023-10-11T00:18:02.148Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/overview.html</loc>
+    <lastmod>2023-10-11T00:18:03.540Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html</loc>
+    <lastmod>2023-10-11T00:18:05.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/geoparquet/geoparquet-example.html</loc>
+    <lastmod>2023-10-11T00:18:07.136Z</lastmod>
+  </url>
+  <url>
+    <loc>https://guide.cloudnativegeo.org/transition-from-rmarkdown.html</loc>
+    <lastmod>2023-10-11T00:18:08.812Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/kerchunk/kerchunk-in-practice.html</loc>
-    <lastmod>2023-10-03T20:03:27.406Z</lastmod>
+    <lastmod>2023-10-11T00:18:10.948Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/contributing.html</loc>
-    <lastmod>2023-10-03T20:03:28.486Z</lastmod>
+    <lastmod>2023-10-11T00:18:12.060Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/cookbooks/index.html</loc>
-    <lastmod>2023-10-03T20:03:29.502Z</lastmod>
+    <lastmod>2023-10-11T00:18:13.176Z</lastmod>
   </url>
   <url>
     <loc>https://guide.cloudnativegeo.org/pmtiles/pmtiles-example.html</loc>
-    <lastmod>2023-10-03T20:03:30.486Z</lastmod>
+    <lastmod>2023-10-11T00:18:14.212Z</lastmod>
   </url>
 </urlset>
