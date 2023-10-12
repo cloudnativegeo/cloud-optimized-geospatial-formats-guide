@@ -381,7 +381,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Geospatial data is experiencing exponential growth in both size and complexity. As a result, traditional data access methods, such as file downloads, have become increasingly impractical for achieving scientific objectives. With the limitations of these older methods becoming more apparent, cloud-optimized geospatial formats present a much-needed solution.</p>
 <p>Cloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:</p>
 <ol type="1">
-<li><strong>Reduced Latency</strong>: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.</li>
+<li><strong>Reduced Latency</strong>: Subsets of the raw data can be fetched and processed much faster than downloading files.</li>
 <li><strong>Scalability</strong>: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.</li>
 <li><strong>Flexibility</strong>: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.</li>
 <li><strong>Cost-Effectiveness</strong>: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.</li>
@@ -395,13 +395,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="how-to-get-involved" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-get-involved">How to Get Involved</h2>
-<p>If you want to contribute or modify content, read the <a href="./contributing.html">Get Involved</a> page.</p>
+<p>Read the <a href="./contributing.html">Get Involved</a> page if you want to contribute or modify content.</p>
 <p>If you have a question or idea for this guide, please start a <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose">Github Discussion</a>.</p>
 </section>
 <section id="the-opportunity" class="level2">
 <h2 class="anchored" data-anchor-id="the-opportunity">The Opportunity</h2>
-<p>Storing data in the cloud does not on its own solve geospatial’s data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.</p>
-<p>While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and as well as extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user’s machine without introducing an additional server.</p>
+<p>Storing data in the cloud does not, on its own, solve geospatial’s data problems. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.</p>
+<p>While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user’s machine without introducing an additional server.</p>
 <p>Regardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.</p>
 <p>As a community, we have arrived at the following <strong>cloud-optimized format pattern:</strong></p>
 <ol type="1">
@@ -452,15 +452,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="running-examples" class="level2">
 <h2 class="anchored" data-anchor-id="running-examples">Running Examples</h2>
-<p>Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries need to be installed to run correctly. You can use <a href="https://www.anaconda.com/download">Conda</a> or <a href="https://mamba.readthedocs.io/en/latest/index.html">Mamba</a> (a successor to Conda with faster package installs) to install the environment needed to run the notebook.</p>
+<p>Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries must be installed to run correctly. You can use <a href="https://www.anaconda.com/download">Conda</a> or <a href="https://mamba.readthedocs.io/en/latest/index.html">Mamba</a> (a successor to Conda with faster package installs) to install the environment needed to run the notebook.</p>
 </section>
 <section id="authors" class="level2">
 <h2 class="anchored" data-anchor-id="authors">Authors</h2>
 <ul>
-<li>Aimee Barciauskas</li>
-<li>Alex Mandel</li>
-<li>Kyle Barron</li>
-<li>Zac Deziel</li>
+<li><a href="https://developmentseed.org/team/aimee-barciauskas">Aimee Barciauskas</a></li>
+<li><a href="https://developmentseed.org/team/alex-mandel">Alex Mandel</a></li>
+<li><a href="https://github.com/kylebarron">Kyle Barron</a></li>
+<li><a href="https://developmentseed.org/team/zac-deziel">Zac Deziel</a></li>
 <li><a href="./overview.html">Overview Slide</a> credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey</li>
 </ul>
 </section>
