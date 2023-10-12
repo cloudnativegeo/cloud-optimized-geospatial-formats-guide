@@ -9,7 +9,7 @@ Geospatial data is experiencing exponential growth in both size and complexity. 
 
 Cloud optimization enables efficient, on-the-fly access to geospatial data, offering several advantages:
 
-1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster compared to downloading entire files.
+1. **Reduced Latency**: Subsets of the raw data can be fetched and processed much faster than downloading files.
 2. **Scalability**: Cloud-optimized formats are usually stored on cloud object storage, which is infinitely scalable. Object storage supports many parallel read requests when combined with metadata about where different data bits are stored, making it easier to work with large datasets.
 3. **Flexibility**: Cloud-optimized formats allow for high levels of customization, enabling users to tailor data access to their specific needs. Additionally, advanced query capabilities provide the freedom to perform complex operations on the data without downloading and processing entire datasets.
 4. **Cost-Effectiveness**: Reduced data transfer and storage needs can lower costs. Many of these formats offer compression options, which reduce storage costs.
@@ -24,15 +24,15 @@ This guide provides the landscape of cloud-optimized geospatial formats and the 
 
 ## How to Get Involved
 
-If you want to contribute or modify content, read the [Get Involved](./contributing.qmd) page.
+Read the [Get Involved](./contributing.qmd) page if you want to contribute or modify content.
 
 If you have a question or idea for this guide, please start a [Github Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
 ## The Opportunity
 
-Storing data in the cloud does not on its own solve geospatial's data problem. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
+Storing data in the cloud does not, on its own, solve geospatial's data problems. Users cannot reasonably wait to download, store, and work with large files on their machines. Large volumes of data must be available via subsetting methods to access data in memory.
 
-While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and as well as extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user's machine without introducing an additional server.
+While it is possible to provide subsetting as a service, this requires ongoing maintenance of additional servers and extra network latency when accessing data (data has to go to the server where the subsetting service is running and then to the user). With cloud-optimized formats and the appropriate libraries, subsets of data can be accessed directly from an end user's machine without introducing an additional server.
 
 Regardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.
 
@@ -76,14 +76,14 @@ Notes:
 
 ## Running Examples
 
-Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries need to be installed to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
+Most of the data formats covered in this guide have a Jupyter Notebook example that covers the basics of reading and writing the given format. At the top of each notebook is a link to an environment.yml file describing what libraries must be installed to run correctly. You can use [Conda](https://www.anaconda.com/download) or [Mamba](https://mamba.readthedocs.io/en/latest/index.html) (a successor to Conda with faster package installs) to install the environment needed to run the notebook.
 
 ## Authors
 
-* Aimee Barciauskas
-* Alex Mandel
-* Kyle Barron
-* Zac Deziel
+* [Aimee Barciauskas](https://developmentseed.org/team/aimee-barciauskas)
+* [Alex Mandel](https://developmentseed.org/team/alex-mandel)
+* [Kyle Barron](https://github.com/kylebarron)
+* [Zac Deziel](https://developmentseed.org/team/zac-deziel)
 * [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
 ## Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format
