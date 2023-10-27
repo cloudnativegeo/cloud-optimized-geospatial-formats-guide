@@ -24,15 +24,6 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail if target is not staging (for PRs only)
-        if: github.event_name == 'pull_request'
-        run: |
-          if [[ "${{ github.event.pull_request.base.ref }}" != "main" || "${{ github.event.pull_request.head.ref }}" == "staging" ]]; then
-            echo "Target branch is acceptable."
-          else
-            echo "Only PRs from staging can target main."
-            exit 1
-          fi
 
       - name: Checkout code
         uses: actions/checkout@v2
