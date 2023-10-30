@@ -16,7 +16,7 @@ Cloud optimization enables efficient, on-the-fly access to geospatial data, offe
 
 If you want to provide optimized access to geospatial data, this guide is designed to help you understand the best practices and tools available for cloud-optimized geospatial formats.
 
-## Built for the Community, by the Community.
+## Built for the Community, by the Community
 
 There is no one-size-fits-all approach to cloud-optimized data. Still, the community has developed many tools for creating and assessing geospatial formats that should be organized and shared.
 
