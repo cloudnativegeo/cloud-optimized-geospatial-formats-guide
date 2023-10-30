@@ -59,7 +59,7 @@ Notes:
     - GeoParquet and FlatGeobuf can be used for vector data or point cloud data.
 - LAS files are intended for 3D points, not 2D points (since COPC files are compressed LAS files, the same goes for COPC files).
 - [TopoJSON](https://github.com/topojson/topojson) (an extension of GeoJSON that encodes topology) and [newline-delimited GeoJSON](https://stevage.github.io/ndgeojson/) are types of GeoJSON worth mentioning but have yet to be explicitly represented in the diagram.
-- GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format)
+- GeoTIFF and GeoParquet are geospatial versions of the non-geospatial file formats TIFF and Parquet, respectively. FlatGeobuf builds upon the non-geospatial [flatbuffers](https://github.com/google/flatbuffers) serialization library (though flatbuffers is not a standalone file format).
 
 ## Table of Contents
 
