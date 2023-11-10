@@ -10,4 +10,4 @@ Cookbooks should address common questions and present solutions for cloud-optimi
 
 Cookbooks:
 
-* [Zarr Visualization Cookbook (in development)](https://nasa-impact.github.io/zarr-visualization-cookbook/)
+* [Zarr Visualization Report (in development)](https://nasa-impact.github.io/zarr-visualization-report/)
