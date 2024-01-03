@@ -416,14 +416,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>then activate and select the kernel in the notebook (running in Jupyter)</p>
+<p>Finally, you may activate and select the kernel in the notebook (running in Jupyter)</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This notebook has been tested to work with the listed Conda environment.</p>
+<p>The notebook has been tested to work with the listed Conda environment.</p>
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>For demonstrating some COG concepts, we will download a regular GeoTIFF, create a Cloud-Optimized GeoTIFF and explore how they are different.</p>
-<p>First we use the <a href="https://github.com/nsidc/earthaccess">earthaccess</a> library to setup credentials to fetch data from NASA’s EarthData catalog.</p>
+<p>To demonstrate some COG concepts, we will download a regular GeoTIFF, create a Cloud-Optimized GeoTIFF, and explore their differences.</p>
+<p>To access and integrate NASA Earth data into your Jupyter Notebook, you can create an account by visiting <a href="https://urs.earthdata.nasa.gov/users/new">NASA’s Earthdata Login page</a>. This will enable you to register for an account and retrieve the datasets used in the notebook.</p>
+<p>First, we use the <a href="https://github.com/nsidc/earthaccess">earthaccess</a> library to set up credentials to fetch data from NASA’s EarthData catalog.</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
@@ -434,40 +435,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   from .autonotebook import tqdm as notebook_tqdm</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>EARTHDATA_USERNAME and EARTHDATA_PASSWORD are not set in the current environment, try setting them or use a different strategy (netrc, interactive)
-You're now authenticated with NASA Earthdata Login
-Using token with expiration date: 10/24/2023
-Using .netrc file for EDL</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>&lt;earthaccess.auth.Auth at 0x10427d390&gt;</code></pre>
-</div>
 </div>
 </section>
 <section id="download-a-geotiff-from-earthdata" class="level2">
 <h2 class="anchored" data-anchor-id="download-a-geotiff-from-earthdata">Download a GeoTIFF from EarthData</h2>
-<p>Note: The whole point of is that we <em>don’t</em> download data. So in future examples, we will demonstrate how to access just subsets of data using COG and compare that with a GeoTIFF.</p>
+<p>Note: The whole point is that we <em>don’t</em> download data. So, in future examples, we will demonstrate how to access just subsets of data using COG and compare that with a GeoTIFF.</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>short_name <span class="op">=</span> <span class="st">'VCF5KYR'</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>version <span class="op">=</span> <span class="st">'001'</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>veg_item_results <span class="op">=</span> earthaccess.search_data(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span>short_name,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span>version,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>short_name <span class="op">=</span> <span class="st">'VCF5KYR'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>version <span class="op">=</span> <span class="st">'001'</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>veg_item_results <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span>short_name,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span>version,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 33</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>test_data_dir <span class="op">=</span> <span class="st">"./test_data"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>veg_files <span class="op">=</span> earthaccess.download(veg_item_results, test_data_dir)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>veg_gtiff_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>test_data_dir<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>veg_files[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>test_data_dir <span class="op">=</span> <span class="st">"./test_data"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>veg_files <span class="op">=</span> earthaccess.download(veg_item_results, test_data_dir)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>veg_gtiff_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>test_data_dir<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>veg_files[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Getting 1 granules, approx download size: 0.07 GB
 File VCF5KYR_1982001_001_2018224204211.tif already downloaded</code></pre>
@@ -484,9 +476,9 @@ COLLECTING RESULTS | : 100%|██████████| 1/1 [00:00&lt;00:00,
 </section>
 <section id="is-it-a-valid-cog" class="level2">
 <h2 class="anchored" data-anchor-id="is-it-a-valid-cog">Is it a valid COG?</h2>
-<p>We can use <code>rio_cogeo.cog_validate</code> to check. It returns <code>is_valid</code>, <code>errors</code> and <code>warnings</code>.</p>
+<p>We can use <code>rio_cogeo.cog_validate</code> to check. It returns <code>is_valid</code>, <code>errors</code>, and <code>warnings</code>:</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cog_validate(veg_gtiff_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cog_validate(veg_gtiff_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>The following warnings were found:
 - The file is greater than 512xH or 512xW, it is recommended to include internal overviews
@@ -500,7 +492,7 @@ The following errors were found:
  ['The file is greater than 512xH or 512xW, it is recommended to include internal overviews'])</code></pre>
 </div>
 </div>
-<p>Return values:</p>
+<p>Here’s some more context on the output message:</p>
 <ol type="1">
 <li><code>is_valid</code> is <code>False</code>: this is not a valid COG.</li>
 <li><code>errors</code> are <code>'The file is greater than 512xH or 512xW, but is not tiled'</code>. To be a valid COG, the file should be tiled since it has a height and width both greater than 512.</li>
@@ -509,11 +501,11 @@ The following errors were found:
 </section>
 <section id="converting-a-geotiff-to-cog" class="level2">
 <h2 class="anchored" data-anchor-id="converting-a-geotiff-to-cog">Converting a GeoTIFF to COG</h2>
-<p>We can use <code>rio_cogeo.cog_create</code> to convert a GeoTIFF into a Cloud Optimized GeoTIFF</p>
+<p>We can use <code>rio_cogeo.cog_create</code> to convert a GeoTIFF into a Cloud Optimized GeoTIFF:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>veg_cog_filename <span class="op">=</span> veg_gtiff_filename.replace(<span class="st">".tif"</span>, <span class="st">"_cog.tif"</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo create {veg_gtiff_filename} {veg_cog_filename}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>veg_cog_filename <span class="op">=</span> veg_gtiff_filename.replace(<span class="st">".tif"</span>, <span class="st">"_cog.tif"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo create {veg_gtiff_filename} {veg_cog_filename}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading input: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud-optimized-geotiffs/test_data/VCF5KYR_1982001_001_2018224204211.tif
   [####################################]  100%
@@ -523,25 +515,25 @@ Writing output to: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud
 </div>
 </div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cog_validate(veg_cog_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cog_validate(veg_cog_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>(True, [], [])</code></pre>
 </div>
 </div>
-<p>This is a valid COG, so we will use it to compare with our GeoTIFF.</p>
+<p>The file is a valid COG, so we will use it to compare with our GeoTIFF.</p>
 </section>
 <section id="data-structure" class="level2">
 <h2 class="anchored" data-anchor-id="data-structure">Data Structure</h2>
-<p><strong>Dimensions</strong> Dimensions are the number of bands, rows and columns stored in a GeoTIFF. <a href="../cloud-optimized-geotiffs/intro.html#dimensions">More Info</a></p>
-<p><strong>Internal Blocks</strong> (aka chunks or internal tiles) Internal blocks are required if the dimensions of data are over 512x512. <a href="../cloud-optimized-geotiffs/intro.html#internal-blocks">More Info</a></p>
+<p><strong>Dimensions</strong>: the number of bands, rows, and columns stored in a GeoTIFF. <a href="../cloud-optimized-geotiffs/intro.html#dimensions">More Info</a></p>
+<p><strong>Internal Blocks (chunks or internal tiles)</strong>: Internal blocks are required if the data dimensions are over 512x512. <a href="../cloud-optimized-geotiffs/intro.html#internal-blocks">More Info</a></p>
 <p>Let’s check out the dimensions and blocks of our GeoTIFF and Cloud-Optimized GeoTIFF.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio <span class="op">=</span> rasterio.<span class="bu">open</span>(veg_gtiff_filename)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>veg_cog_rio <span class="op">=</span> rasterio.<span class="bu">open</span>(veg_cog_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio <span class="op">=</span> rasterio.<span class="bu">open</span>(veg_gtiff_filename)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>veg_cog_rio <span class="op">=</span> rasterio.<span class="bu">open</span>(veg_cog_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(veg_gtiff_rio.shape)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>veg_cog_rio.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(veg_gtiff_rio.shape)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>veg_cog_rio.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(3600, 7200)</code></pre>
 </div>
@@ -549,16 +541,16 @@ Writing output to: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud
 <pre><code>(3600, 7200)</code></pre>
 </div>
 </div>
-<p>They have the same dimensions which is what we expect, so that is good!</p>
-<p>We can also print information about the GeoTIFF’s IFD (Internal File Directory). Only one item is returned because the GeoTIFF doesn’t have overviews. When we print the IFD info for the COG, which has overviews, we see more items returned.</p>
+<p>They have the exact dimensions that we expected, which is good!</p>
+<p>We can also print information about the GeoTIFF’s IFD (Internal File Directory). Only one item is returned because the GeoTIFF needs overviews. We see more items returned when we print the IFD info for the COG, which has overviews.</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cog_info(veg_gtiff_filename).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cog_info(veg_gtiff_filename).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>[IFD(Level=0, Width=7200, Height=3600, Blocksize=(1, 7200), Decimation=0)]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cog_info(veg_cog_filename).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cog_info(veg_cog_filename).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>[IFD(Level=0, Width=7200, Height=3600, Blocksize=(512, 512), Decimation=0),
  IFD(Level=1, Width=3600, Height=1800, Blocksize=(128, 128), Decimation=2),
@@ -571,40 +563,40 @@ Writing output to: /Users/kyle/ds/cloud-optimized-geospatial-formats-guide/cloud
 <section id="overviews" class="level2">
 <h2 class="anchored" data-anchor-id="overviews">Overviews</h2>
 <p>Overviews are downsampled (aggregated) data intended for visualization.</p>
-<p>The smallest size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation just aim to have at least one dimension at or slightly less than 256. &gt; The COG driver in GDAL, or rio cogeo tools should do this.</p>
-<p>There are many resampling algorithms for generating overviews. The best resampling algorithm depends on the range, type, and distribution of the data. When creating overviews several options should be compared before deciding which resampling method to apply.</p>
+<p>The most miniature size overview should match the tiling components’ fetch size, typically 256x256. Due to aspect ratio variation, aim to have at least one dimension at or slightly less than 256. &gt; The COG driver in GDAL or rio cogeo tools should do this.</p>
+<p>There are many resampling algorithms for generating overviews. The best resampling algorithm depends on the data’s range, type, and distribution. When creating overviews, several options should be compared before deciding which resampling method to apply.</p>
 <p>GDAL &gt;= 3.2 allows for the overview resampling method to be set directly.</p>
-<!-- TODO: need to add hints on how to check which resampling method to use for overviews. Possibly provide code for comparing. Alex has a draft of this to add.-->
+<p>For more information on overviews, see the <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html">COG overview resampling notebook</a>.</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio.overviews(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>veg_gtiff_rio.overviews(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>[]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>veg_cog_rio.overviews(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>veg_cog_rio.overviews(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>[2, 4, 8]</code></pre>
 </div>
 </div>
 <p>By displaying each overview, we can see how the dimensions get coarser for each overview level.</p>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_overviews(geotiff):  </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> overview <span class="kw">in</span> geotiff.overviews(<span class="dv">1</span>):</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        out_height <span class="op">=</span> <span class="bu">int</span>(geotiff.height <span class="op">//</span> overview)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        out_width <span class="op">=</span> <span class="bu">int</span>(geotiff.width <span class="op">//</span> overview)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"out height: </span><span class="sc">{</span>out_height<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"out width: </span><span class="sc">{</span>out_width<span class="sc">}</span><span class="ss">"</span>)    </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># read first band of file and set shape of new output array</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        window_size_height <span class="op">=</span> <span class="bu">round</span>(out_height<span class="op">/</span><span class="dv">8</span>)</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>        window_size_width <span class="op">=</span> <span class="bu">round</span>(out_width<span class="op">/</span><span class="dv">8</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> veg_cog_rio.read(<span class="dv">1</span>, out_shape<span class="op">=</span>(<span class="dv">1</span>, out_height, out_width))[</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>            window_size_height:(window_size_height<span class="op">*</span><span class="dv">2</span>),</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>            window_size_width:(window_size_width<span class="op">*</span><span class="dv">2</span>),</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>        show(image)</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>show_overviews(veg_cog_rio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_overviews(geotiff):  </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> overview <span class="kw">in</span> geotiff.overviews(<span class="dv">1</span>):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        out_height <span class="op">=</span> <span class="bu">int</span>(geotiff.height <span class="op">//</span> overview)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        out_width <span class="op">=</span> <span class="bu">int</span>(geotiff.width <span class="op">//</span> overview)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"out height: </span><span class="sc">{</span>out_height<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"out width: </span><span class="sc">{</span>out_width<span class="sc">}</span><span class="ss">"</span>)    </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># read first band of file and set shape of new output array</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        window_size_height <span class="op">=</span> <span class="bu">round</span>(out_height<span class="op">/</span><span class="dv">8</span>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        window_size_width <span class="op">=</span> <span class="bu">round</span>(out_width<span class="op">/</span><span class="dv">8</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> veg_cog_rio.read(<span class="dv">1</span>, out_shape<span class="op">=</span>(<span class="dv">1</span>, out_height, out_width))[</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>            window_size_height:(window_size_height<span class="op">*</span><span class="dv">2</span>),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>            window_size_width:(window_size_width<span class="op">*</span><span class="dv">2</span>),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>        show(image)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>show_overviews(veg_cog_rio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>out height: 1800
 out width: 3600
@@ -625,12 +617,12 @@ out width: 900</code></pre>
 </div>
 <p>We can generate more and different overviews, through different tilesizes and resampling.</p>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gen_overviews</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gen_overviews</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tmp_dst <span class="op">=</span> gen_overviews.create_overviews_from_gtiff(veg_gtiff_rio)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>tmp_cog <span class="op">=</span> rasterio.<span class="bu">open</span>(tmp_dst)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>cog_info(tmp_dst).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tmp_dst <span class="op">=</span> gen_overviews.create_overviews_from_gtiff(veg_gtiff_rio)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>tmp_cog <span class="op">=</span> rasterio.<span class="bu">open</span>(tmp_dst)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>cog_info(tmp_dst).IFD</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code></code></pre>
 </div>
@@ -644,14 +636,14 @@ out width: 900</code></pre>
 </div>
 <p>Note: Now we have overviews but there are still no tiles on the Level 0 IFD.</p>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>overviews <span class="op">=</span> tmp_cog.overviews(<span class="dv">1</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>overviews</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>overviews <span class="op">=</span> tmp_cog.overviews(<span class="dv">1</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>overviews</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>[2, 4, 8, 16]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>show_overviews(tmp_cog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>show_overviews(tmp_cog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>out height: 1800
 out width: 3600

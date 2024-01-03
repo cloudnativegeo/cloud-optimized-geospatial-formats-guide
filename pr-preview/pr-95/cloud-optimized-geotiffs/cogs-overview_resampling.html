@@ -409,11 +409,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>When making Cloud-Optimized GeoTIFFs (COGs) you can select the resampling method used to generate the overviews. Different types of data can drastically change appearance when more zoomed out based on the method selected. This is most important when using software that renders from overviews (e.g QGIS, ArcGIS), particularly web tilers like <a href="https://developmentseed.org/titiler/">Titiler</a>.</p>
-<p>Also when using a tiling service on high resolution dataset you will often have many tiles of source data. The idea behind this notebook, is that before you generate all your final output data, as COGs, or if you need to rebuild your overviews, you should first test on some representative samples. After testing you’ll then know which method to use in your data pipeline.</p>
-<p>This notebook loops over the overview resampling methods available in <a href="https://gdal.org/">GDAL</a> applying it to the same sample tile so that we can compare how the dataset will appear when zoomed out from the full resolution.</p>
+<p>When making Cloud-Optimized GeoTIFFs (COGs), you can select the resampling method to generate the overviews. Different types of data (e.g., nominal, ordinal, discrete, continuous) can drastically change appearance when more zoomed out based on the chosen method. This is most important when using software that renders from overviews (e.g., QGIS, ArcGIS), particularly web tilers like <a href="https://developmentseed.org/titiler/">Titiler</a>.</p>
+<p>Also, when using a tiling service on a high-resolution dataset, you will often have many tiles of source data. The idea behind this notebook is that before you generate all your final output data, as COGs, or if you need to rebuild your overviews, you should first test on some representative samples. After testing, you’ll know which method to use in your data pipeline.</p>
+<p>This notebook loops over the overview resampling methods available in <a href="https://gdal.org/">GDAL</a> applying it to the same sample tile to compare how the dataset will appear when zoomed out from the full resolution.</p>
 <blockquote class="blockquote">
-<p>Note: GDAL 3.2 added the ability to specify the resampling method for the overviews specifically. GDAL 3.3 added a couple of new resampling methods.</p>
+<p>Note: GDAL 3.2 specifically added the ability to specify the resampling method for the overviews. GDAL 3.3 added a couple of new resampling ways.</p>
 </blockquote>
 <section id="setup-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setup-environment">Setup Environment</h2>
@@ -423,20 +423,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>The packages needed for this notebook can be installed with <code>conda</code> or <code>mamba</code>. Using the <a href="./environment.yml"><code>environment.yml</code> from this folder</a> run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or</p>
+<p>Or:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>or you can install the packages you need manually</p>
+<p>Or you can install the packages you need manually:</p>
 <pre><code>mamba create -q -y -n coguide-cog -c conda-forge 'gdal&gt;=3.3' 'rasterio&gt;=1.3.3' 'rio-cogeo=3.5.0' ipykernel matplotlib earthaccess</code></pre>
-<p>then activate and select the kernel in the notebook (running in Jupyter)</p>
+<p>Then, you may activate and select the kernel in the notebook (running in Jupyter):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This notebook has been tested to work with the listed Conda environment.</p>
-<p>Remember to switch your notebook kernel if you made a new env, you may need to activate the new env first.</p>
+<p>Remember to switch your notebook kernel if you made a new env; you may need to activate the new env first.</p>
 </section>
 <section id="setup-the-code" class="level2">
 <h2 class="anchored" data-anchor-id="setup-the-code">Setup the code</h2>
+<p>First, we should verify our GDAL version:</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the GDAL version</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>gdalinfo <span class="op">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>gdalinfo <span class="op">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GDAL 3.7.3, released 2023/10/30</code></pre>
 </div>
@@ -462,39 +462,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="boreal-biomass-tiled-data" class="level2">
 <h2 class="anchored" data-anchor-id="boreal-biomass-tiled-data">Boreal Biomass Tiled Data</h2>
 <p>The example data comes from the <a href="https://cmr.earthdata.nasa.gov/search/concepts/C2756302505-ORNL_CLOUD.html">Aboveground Biomass Density for High Latitude Forests from ICESat-2, 2020</a></p>
-<p>You can see the full mosaic of all the data on the <a href="https://www.earthdata.nasa.gov/maap-biomass/products/icesat2_boreal?map=-124.0135%2C63.1543%2C2.62&amp;layers=icesat2_boreal_biomass_reduced%2Cicesat2_boreal_biomass&amp;lState=">MAAP Biomass dashboard</a></p>
-<p>For this example we will pull a single 3000x3000 pixel tile that is part of the larger dataset of more than 3500 tiles.</p>
+<p>To access and integrate NASA Earth data into your Jupyter Notebook, you can create an account by visiting <a href="https://urs.earthdata.nasa.gov/users/new">NASA’s Earthdata Login page</a>. This will enable you to register for an account and retrieve the datasets used in the notebook.</p>
+<p>You can see the whole mosaic of all the data on the <a href="https://www.earthdata.nasa.gov/maap-biomass/products/icesat2_boreal?map=-124.0135%2C63.1543%2C2.62&amp;layers=icesat2_boreal_biomass_reduced%2Cicesat2_boreal_biomass&amp;lState=">MAAP Biomass dashboard</a></p>
+<p>For this example, we will pull a single 3000x3000 pixel tile that is part of the larger dataset of more than 3500 tiles.</p>
+<p>We must retrieve a NASA Earth data session for downloading data:</p>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a NASA Earth Data Session for downloading data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login(strategy<span class="op">=</span><span class="st">"interactive"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>&lt;earthaccess.auth.Auth at 0x7faa304b5e10&gt;</code></pre>
 </div>
 </div>
+<p>We can now query NASA CMR to retrieve a download URL:</p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we query NASA CMR to get the download url</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>short_name <span class="op">=</span> <span class="st">'Boreal_AGB_Density_ICESat2_2186'</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> <span class="st">'Boreal_AGB_Density_ICESat2.boreal_agb_202302061675666220_3741.tif'</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>item_results <span class="op">=</span> earthaccess.search_data(</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span>short_name,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    cloud_hosted<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    granule_name<span class="op">=</span>item</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>short_name <span class="op">=</span> <span class="st">'Boreal_AGB_Density_ICESat2_2186'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> <span class="st">'Boreal_AGB_Density_ICESat2.boreal_agb_202302061675666220_3741.tif'</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>item_results <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span>short_name,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    cloud_hosted<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    granule_name<span class="op">=</span>item</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Granules found: 1</code></pre>
 </div>
 </div>
+<p>Finally, we can download the COG for local use:</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And then download the Cloud-Optimized GeoTIFF for local use</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We downloaded the file because, it's small (less than 100 MB), and we're going to use the whole file several times</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>test_data_dir <span class="op">=</span> <span class="st">"./test_data"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>os.makedirs(test_data_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>test_data_dir <span class="op">=</span> <span class="st">"./test_data"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>os.makedirs(test_data_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>sample_files <span class="op">=</span> earthaccess.download(item_results, test_data_dir)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>sample_files[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sample_files <span class="op">=</span> earthaccess.download(item_results, test_data_dir)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tile <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>sample_files[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Getting 1 granules, approx download size: 0.09 GB
 File boreal_agb_202302061675666220_3741.tif already downloaded
@@ -506,10 +505,12 @@ PROCESSING TASKS | : 100%|██████████| 2/2 [00:00&lt;00:00, 1
 COLLECTING RESULTS | : 100%|██████████| 2/2 [00:00&lt;00:00, 34239.22it/s]</code></pre>
 </div>
 </div>
+<blockquote class="blockquote">
+<p>Note: We downloaded the file because, it’s small (less than 100 MB), and we’re going to use the whole file several times.</p>
+</blockquote>
+<p>Using rio cogeo, we can investigate if the file has tiles and what resampling was used:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using rio cogeo we can investigate if the file has tiles and what resampling was used.</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo info {tile}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo info {tile}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Driver: GTiff
 File: /home/ochotona/code/devseed/cloud-optimized-geospatial-formats-guide/cloud-optimized-geotiffs/test_data/boreal_agb_202302061675666220_3741.tif
@@ -578,7 +579,7 @@ IFD
 </section>
 <section id="generate-overviews" class="level2">
 <h2 class="anchored" data-anchor-id="generate-overviews">Generate Overviews</h2>
-<p>Now lets generate overviews with each of the resampling methods possible in GDAL.</p>
+<p>Now, let’s generate overviews with each resampling method possible in GDAL.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_overview(src_path: <span class="bu">str</span>, out_dir: <span class="bu">str</span>, resample_method: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">''' </span></span>
@@ -613,7 +614,7 @@ IFD
 <span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dst_path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now lets make a list of the Resampling methods offered by GDAL. Some resampling methods aren’t appropriate for the data, so we are doing to drop those from the list. You can see descriptions at https://gdal.org/programs/gdalwarp.html#cmdoption-gdalwarp-r</p>
+<p>Now, we can make a list of the resampling methods offered by GDAL. Some resampling methods aren’t appropriate for the data, so we are doing to drop those from the list. You can see descriptions at https://gdal.org/programs/gdalwarp.html#cmdoption-gdalwarp-r</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a list of resampling methods that GDAL 3.4+ allows</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -634,9 +635,9 @@ IFD
 <pre><code>['nearest', 'bilinear', 'cubic', 'cubic_spline', 'lanczos', 'average', 'mode', 'gauss', 'sum', 'rms']</code></pre>
 </div>
 </div>
+<p>For each resampling method, we can create a copy of the data with it’s given overview method:</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For each resampling method create a copy of the data creating overviews with the method.</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [generate_overview(tile, test_data_dir, resample_method) <span class="cf">for</span> resample_method <span class="kw">in</span> resample_methods] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>files <span class="op">=</span> [generate_overview(tile, test_data_dir, resample_method) <span class="cf">for</span> resample_method <span class="kw">in</span> resample_methods] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Creating COG using 'nearest' method: ./test_data/boreal_agb_202302061675666220_3741_nearest.tif
 Creating COG using 'bilinear' method: ./test_data/boreal_agb_202302061675666220_3741_bilinear.tif
@@ -649,10 +650,9 @@ Creating COG using 'gauss' method: ./test_data/boreal_agb_202302061675666220_374
 Creating COG using 'rms' method: ./test_data/boreal_agb_202302061675666220_3741_rms.tif</code></pre>
 </div>
 </div>
+<p>We can validate that the overviews were created:</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the overviews were created</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!gdalinfo {files[0]} | grep Overviews</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo info {files[<span class="dv">0</span>]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rio cogeo info {files[<span class="dv">0</span>]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Driver: GTiff
 File: /home/ochotona/code/devseed/cloud-optimized-geospatial-formats-guide/cloud-optimized-geotiffs/test_data/boreal_agb_202302061675666220_3741_nearest.tif
@@ -759,15 +759,13 @@ IFD
 <span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>For each variat, we will add interpretation details below the plot. Notice we are using hard-coded values for the levels:</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot all the variants</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># interpretation details below the plot</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># hard coding levels for now</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>fig, ax_list <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">4</span>, nrows<span class="op">=</span><span class="bu">len</span>(files), figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">32</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    compare_overviews(<span class="bu">file</span>, fig, ax_list, row)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    row <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax_list <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">4</span>, nrows<span class="op">=</span><span class="bu">len</span>(files), figsize<span class="op">=</span>(<span class="dv">16</span>,<span class="dv">32</span>), constrained_layout<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    compare_overviews(<span class="bu">file</span>, fig, ax_list, row)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    row <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="cogs-overview_resampling_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
@@ -775,7 +773,7 @@ IFD
 </section>
 <section id="interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
-<p>With this particular example you can see the default method (CUBIC) over represents the amount of NoData cells as you zoom out (left to right). You can also see how some algorithms hide NoData when zoomed out, and that the different methods vary in their level of smoothness.</p>
+<p>With this particular example, you can see the default method (CUBIC) over-represents the amount of NoData cells as you zoom out (left to right). You can also see how some algorithms hide NoData when zoomed out, and the different methods vary in their level of smoothness.</p>
 <p>Depending on what impression you want viewers to get, comparing will help you choose which method to use.</p>
 
 
