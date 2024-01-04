@@ -38,6 +38,7 @@ website:
           - cloud-optimized-geotiffs/intro.qmd
           - cloud-optimized-geotiffs/cogs-details.qmd
           - cloud-optimized-geotiffs/cogs-examples.ipynb
+          - cloud-optimized-geotiffs/cogs-overview_resampling.ipynb
         - section: Zarr
           contents:
           - zarr/intro.qmd
