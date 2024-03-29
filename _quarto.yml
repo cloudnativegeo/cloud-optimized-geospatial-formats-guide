@@ -53,6 +53,7 @@ website:
         - section: Cloud-Optimized Point Clouds (COPC)
           contents:
             - copc/index.qmd
+            - copc/lidar-las-to-copc.ipynb
         - section: GeoParquet
           contents:
             - geoparquet/index.qmd
