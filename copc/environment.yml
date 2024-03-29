@@ -8,5 +8,5 @@ dependencies:
   - jupyterlab
   - matplotlib
   - libgdal>=3.5
-  - python-pdal
-  - pdal
+  - python-pdal=3.3.0
+  - pdal=2.6.3
