@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cloud-Optimized Geospatial Formats Guide - Writing Cloud Optimized Geotiffs (COGs) with Python</title>
+<title>Cloud-Optimized Geospatial Formats Guide - Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,8 +63,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../zarr/intro.html" rel="next">
-<link href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" rel="prev">
+<link href="../geoparquet/index.html" rel="next">
+<link href="../copc/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html">Writing Cloud Optimized Geotiffs (COGs) with Python</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../copc/index.html">Cloud-Optimized Point Clouds (COPC)</a></li><li class="breadcrumb-item"><a href="../copc/lidar-las-to-copc.html">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -169,13 +169,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
@@ -202,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link active">
+  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
   </div>
 </li>
@@ -273,13 +273,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
@@ -288,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
   </div>
 </li>
@@ -404,21 +404,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#about-the-dataset" id="toc-about-the-dataset" class="nav-link" data-scroll-target="#about-the-dataset">About the Dataset</a></li>
   <li><a href="#creating-a-data-directory-for-this-tutorial" id="toc-creating-a-data-directory-for-this-tutorial" class="nav-link" data-scroll-target="#creating-a-data-directory-for-this-tutorial">Creating a Data Directory for this Tutorial</a></li>
   <li><a href="#downloading-the-dataset-from-earthdata" id="toc-downloading-the-dataset-from-earthdata" class="nav-link" data-scroll-target="#downloading-the-dataset-from-earthdata">Downloading the Dataset from EarthData</a></li>
-  <li><a href="#loading-the-downloaded-file" id="toc-loading-the-downloaded-file" class="nav-link" data-scroll-target="#loading-the-downloaded-file">Loading the Downloaded file</a></li>
-  <li><a href="#converting-to-cloud-optimized-geotiff-cog" id="toc-converting-to-cloud-optimized-geotiff-cog" class="nav-link" data-scroll-target="#converting-to-cloud-optimized-geotiff-cog">Converting to Cloud-Optimized GeoTIFF (COG)</a></li>
-  <li><a href="#validating-the-generated-cog" id="toc-validating-the-generated-cog" class="nav-link" data-scroll-target="#validating-the-generated-cog">Validating the Generated COG</a></li>
-  <li><a href="#run-validation-tests" id="toc-run-validation-tests" class="nav-link" data-scroll-target="#run-validation-tests">Run validation tests</a></li>
-  <li><a href="#generating-overviews-and-setting-nodata-values" id="toc-generating-overviews-and-setting-nodata-values" class="nav-link" data-scroll-target="#generating-overviews-and-setting-nodata-values">Generating Overviews and Setting NoData Values</a></li>
-  <li><a href="#see-more" id="toc-see-more" class="nav-link" data-scroll-target="#see-more">See More</a></li>
+  <li><a href="#a-brief-introduction-to-pdal" id="toc-a-brief-introduction-to-pdal" class="nav-link" data-scroll-target="#a-brief-introduction-to-pdal">A Brief Introduction to PDAL</a></li>
+  <li><a href="#las-to-copc-conversion" id="toc-las-to-copc-conversion" class="nav-link" data-scroll-target="#las-to-copc-conversion">LAS to COPC Conversion</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation">Validation</a></li>
+  <li><a href="#accessing-data" id="toc-accessing-data" class="nav-link" data-scroll-target="#accessing-data">Accessing Data</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/writing-cogs-in-python.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/copc/lidar-las-to-copc.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html">Writing Cloud Optimized Geotiffs (COGs) with Python</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../copc/index.html">Cloud-Optimized Point Clouds (COPC)</a></li><li class="breadcrumb-item"><a href="../copc/lidar-las-to-copc.html">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Writing Cloud Optimized Geotiffs (COGs) with Python</h1>
+<h1 class="title">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</h1>
 </div>
 
 
@@ -442,44 +440,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>or</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, you may activate and select the kernel in the notebook (running in Jupyter)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-copc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The notebook has been tested to work with the listed Conda environment.</p>
 </section>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>This tutorial will explore accessing a regular GeoTIFF (Non-COG), converting it to Cloud-Optimized GeoTIFF (COG) format with Python and validate the data inside the COG and Non-COG.</p>
+<p>This tutorial will explore how to-</p>
+<ol type="1">
+<li>Read a LiDAR LAS file using PDAL in Python</li>
+<li>Convert the LiDAR LAS file to Cloud-Optimized Point Cloud (COPC) format</li>
+<li>Validate the generated COPC file</li>
+</ol>
 </section>
 <section id="about-the-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-dataset">About the Dataset</h2>
-<p>We will be using the <a href="https://doi.org/10.5067/MEASURES/NASADEM/NASADEM_HGT.001">NASADEM Merged DEM Global 1 arc second V001</a> from the NASA EarthData. To access NASA EarthData into Jupyter Notebook, you can create an account by visiting <a href="https://urs.earthdata.nasa.gov/users/new">NASA’s Earthdata Login page</a>. This will enable you to register for an account and retrieve the datasets used in the notebook.</p>
+<p>We will be using the <a href="http://doi.org/10.5067/Community/GLIHT/GLLIDARPC.001">G-LiHT Lidar Point Cloud V001</a> from the NASA EarthData. To access NASA EarthData in Jupyter you need to register for an <a href="https://urs.earthdata.nasa.gov/users/new">Earthdata account</a>.</p>
 <p>We will use <a href="https://github.com/nsidc/earthaccess">earthaccess</a> library to set up credentials to fetch data from NASA’s EarthData catalog.</p>
 <div id="cell-4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> earthaccess</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.io <span class="im">import</span> MemoryFile</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.shutil <span class="im">import</span> copy</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rio_cogeo <span class="im">import</span> cog_validate, cog_info</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rio_cogeo.cogeo <span class="im">import</span> cog_translate</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rio_cogeo.profiles <span class="im">import</span> cog_profiles</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pdal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/opt/homebrew/anaconda3/envs/coguide-cog/lib/python3.11/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+<pre><code>/opt/homebrew/anaconda3/envs/coguide-copc/lib/python3.11/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
   from .autonotebook import tqdm as notebook_tqdm</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>earthaccess.login()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;earthaccess.auth.Auth at 0x105269c10&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>&lt;earthaccess.auth.Auth at 0x10bfc7d90&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="creating-a-data-directory-for-this-tutorial" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-data-directory-for-this-tutorial">Creating a Data Directory for this Tutorial</h2>
 <p>We are creating a data directory for downloading all the required files locally.</p>
-<div id="cell-7" class="cell" data-execution_count="5">
+<div id="cell-7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set data directory path</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_dir <span class="op">=</span> <span class="st">'./data'</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -490,219 +486,530 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="downloading-the-dataset-from-earthdata" class="level2">
 <h2 class="anchored" data-anchor-id="downloading-the-dataset-from-earthdata">Downloading the Dataset from EarthData</h2>
-<p>We are using <code>search_data</code> method from the <code>earthaccess</code> module for searching the Granules from the selected collection.</p>
-<div id="cell-9" class="cell" data-execution_count="6">
+<p>We are using <code>search_data</code> method from the <code>earthaccess</code> module for searching the Granules from the selected collection. The <code>temporal</code> argument defines the temporal range for</p>
+<div id="cell-9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search Granules</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>short_name <span class="op">=</span> <span class="st">'NASADEM_HGT'</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>version <span class="op">=</span> <span class="st">'001'</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dem_item_results <span class="op">=</span> earthaccess.search_data(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span>short_name,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span>version,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span><span class="dv">2</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>las_item_results <span class="op">=</span> earthaccess.search_data(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    short_name<span class="op">=</span><span class="st">"GLLIDARPC"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    version<span class="op">=</span><span class="st">"001"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    temporal <span class="op">=</span> (<span class="st">"2020"</span>), </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    count<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Granules found: 14520</code></pre>
+<pre><code>Granules found: 72</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Data - Selecting the 2nd file from the `dem_item_results` list</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>nasa_dem_files <span class="op">=</span> earthaccess.download(dem_item_results[<span class="dv">1</span>], data_dir)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>nasa_dem_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>nasa_dem_files[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nasa_dem_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-10" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>las_item_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>[Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+ Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -81.03452828650298, 'Latitude': 25.50220025425373}, {'Longitude': -81.01391715300757, 'Latitude': 25.50220365895999}, {'Longitude': -81.01391819492625, 'Latitude': 25.5112430715201}, {'Longitude': -81.03453087148995, 'Latitude': 25.511239665437053}, {'Longitude': -81.03452828650298, 'Latitude': 25.50220025425373}]}}]}}}
+ Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+ Size(MB): 238.623
+ Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s47.las'],
+ Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+ Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -81.02242648723991, 'Latitude': 25.493163090615468}, {'Longitude': -80.99410838333016, 'Latitude': 25.49316468678571}, {'Longitude': -80.99410794242846, 'Latitude': 25.502204110708817}, {'Longitude': -81.02242816553566, 'Latitude': 25.50220251389295}, {'Longitude': -81.02242648723991, 'Latitude': 25.493163090615468}]}}]}}}
+ Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+ Size(MB): 248.383
+ Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s46.las'],
+ Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+ Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -80.94099075054905, 'Latitude': 25.276201329530473}, {'Longitude': -80.9355627247816, 'Latitude': 25.276199059361314}, {'Longitude': -80.9355579494582, 'Latitude': 25.285238744206318}, {'Longitude': -80.94098637748567, 'Latitude': 25.285241015299494}, {'Longitude': -80.94099075054905, 'Latitude': 25.276201329530473}]}}]}}}
+ Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+ Size(MB): 91.0422
+ Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s22.las']]</code></pre>
+</div>
+</div>
+<p>Let’s use the file with size 91.04 MB and convert it to a COPC format.</p>
+<div id="cell-12" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download Data - Selecting the 3rd file from the `las_item_results` list</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>gliht_las_file <span class="op">=</span> earthaccess.download(las_item_results[<span class="dv">2</span>], data_dir)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>las_filename <span class="op">=</span> gliht_las_file[<span class="dv">0</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(las_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> Getting 1 granules, approx download size: 0.01 GB
-File NASADEM_HGT_n57e105.zip already downloaded
-data/NASADEM_HGT_n57e105.zip</code></pre>
+<pre><code> Getting 1 granules, approx download size: 0.09 GB
+File GLLIDARPC_FL_20200311_FIA8_l0s22.las already downloaded
+data/GLLIDARPC_FL_20200311_FIA8_l0s22.las</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>QUEUEING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 871.09it/s]
-PROCESSING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 11214.72it/s]
-COLLECTING RESULTS | : 100%|██████████| 1/1 [00:00&lt;00:00, 34379.54it/s]</code></pre>
+<pre><code>QUEUEING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 1869.12it/s]
+PROCESSING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 16131.94it/s]
+COLLECTING RESULTS | : 100%|██████████| 1/1 [00:00&lt;00:00, 33554.43it/s]</code></pre>
 </div>
 </div>
 </section>
-<section id="loading-the-downloaded-file" class="level2">
-<h2 class="anchored" data-anchor-id="loading-the-downloaded-file">Loading the Downloaded file</h2>
-<p>We will use <code>rasterio</code> to read the downloaded zip file. The <code>rasterio.open</code> uses GDAL’s <a href="https://gdal.org/user/virtual_file_systems.html">virtual filesystem interface</a> to access local ZIP datasets. This requires prepending <code>zip</code> to the local zip file URI and adding the internal location to the dataset file after the <code>!</code> character. For more details, refer <a href="https://rasterio.readthedocs.io/en/latest/topics/vsi.html">here</a>.</p>
-<p>It is required to prepend <code>zip://</code> for accessing the HGT file using a relative path. However, if we want to use an absolute path, then <code>zip:///</code> should be preprended. Readers are encouraged to follow <a href="https://gdal.org/user/virtual_file_systems.html#vsizip-zip-archives">GDAL virtual file systems read capabilities</a> for more details.</p>
-<p>Additionally, we will be using <code>rasterio.open</code> in a <code>rasterio.Env</code> so as to define the <code>GDAL_DRIVER_NAME</code> for opening the <code>SRTM</code> files. GDAL has an in-built SRTMHGT <a href="https://gdal.org/drivers/raster/srtmhgt.html">driver</a> for opening the SRTM HGT file formats. The SRTM zip files consists of HGT files named like <code>nXXeYYY.hgt</code>. For eg, the downloaded file <code>NASADEM_HGT_n57e105.zip</code> consists of <code>n57e105.hgt</code>. The readers are recommended to follow the <a href="http://dds.cr.usgs.gov/srtm/version2_1/Documentation">SRTM documentation</a> for more details.</p>
-<div id="cell-12" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting current working directory</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> os.getcwd()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extracting nXXXeXXX information from the filename</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>zip_filename <span class="op">=</span> nasa_dem_filename.split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>].split(<span class="st">'_'</span>)[<span class="op">-</span><span class="dv">1</span>] <span class="co"># n57e105.hgt</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>hgt_filename <span class="op">=</span> zip_filename.replace(<span class="st">'zip'</span>, <span class="st">'hgt'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># "zip://data/NASADEM_HGT_n57e105.zip!n57e105.hgt"</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>hgt_file_path <span class="op">=</span> <span class="st">"zip://"</span> <span class="op">+</span> nasa_dem_filename <span class="op">+</span> <span class="ss">f"!</span><span class="sc">{</span>hgt_filename<span class="sc">}</span><span class="ss">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-13" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading the HGT file using `SRTMHGT` GDAL driver</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(GDAL_DRIVER_NAME<span class="op">=</span><span class="st">'SRTMHGT'</span>):</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(hgt_file_path) <span class="im">as</span> src:</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        arr <span class="op">=</span> src.read()</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        kwargs <span class="op">=</span> src.meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s explore the dataset by printing the metadata and plotting it. Some of the parameter values from this metadata will be used later in this notebook while creating COGs, for eg. <code>nodata</code> value.</p>
-<div id="cell-15" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Metadata"</span>, kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="a-brief-introduction-to-pdal" class="level2">
+<h2 class="anchored" data-anchor-id="a-brief-introduction-to-pdal">A Brief Introduction to PDAL</h2>
+<p><a href="https://pdal.io/">PDAL</a> (Point Data Abstraction Library) is a C/C++ based open-source library for processing point cloud data. Additionally, it also has a PDAL-Python wrapper to work in a Pythonic environment.</p>
+<section id="accessing-and-getting-metadata-information" class="level4">
+<h4 class="anchored" data-anchor-id="accessing-and-getting-metadata-information">Accessing and Getting Metadata Information</h4>
+<p>PDAL CLI provides multiple <a href="https://pdal.io/en/2.7.0/apps/index.html">applications</a> for processing point clouds. Also, it allows chaining of these applications for processing point clouds. Similar to <code>gdal info</code> for TIFFs, we can run <code>pdal info &lt;filename&gt;</code> on the command line for getting metadata from a point cloud file without reading it in memory.</p>
+<div id="cell-14" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pdal info {las_filename}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Metadata {'driver': 'SRTMHGT', 'dtype': 'int16', 'nodata': -32768.0, 'width': 3601, 'height': 3601, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.0002777777777777778, 0.0, 104.99986111111112,
-       0.0, -0.0002777777777777778, 58.00013888888889)}</code></pre>
-</div>
-</div>
-<div id="cell-16" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>show(arr[<span class="dv">0</span>], cmap <span class="op">=</span> <span class="st">'terrain'</span>, title<span class="op">=</span><span class="st">"NASADEM_HGT plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="writing-cogs-in-python_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<pre><code>{
+  "file_size": 95464691,
+  "filename": "data/GLLIDARPC_FL_20200311_FIA8_l0s22.las",
+  "now": "2024-03-20T12:30:57-0500",
+  "pdal_version": "2.6.3 (git-version: Release)",
+  "reader": "readers.las",
+  "stats":
+  {
+    "bbox":
+    {
+      "EPSG:4326":
+      {
+        "bbox":
+        {
+          "maxx": -80.93555795,
+          "maxy": 25.28524102,
+          "maxz": 69.99,
+          "minx": -80.94099075,
+          "miny": 25.27619906,
+          "minz": -12.54
+        },
+        "boundary": { "type": "Polygon", "coordinates": [ [ [ -80.940990750549048, 25.276201329530473, -12.54 ], [ -80.940986377485672, 25.285241015299494, -12.54 ], [ -80.9355579494582, 25.285238744206318, 69.99 ], [ -80.935562724781605, 25.276199059361314, 69.99 ], [ -80.940990750549048, 25.276201329530473, -12.54 ] ] ] }
+      },
+      "native":
+      {
+        "bbox":
+        {
+          "maxx": 506487.7363,
+          "maxy": 2796533.993,
+          "maxz": 69.99,
+          "minx": 505941.2263,
+          "miny": 2795533.003,
+          "minz": -12.54
+        },
+        "boundary": { "type": "Polygon", "coordinates": [ [ [ 505941.226302567636594, 2795533.003240843303502, -12.54 ], [ 505941.226302567636594, 2796533.993240843061358, -12.54 ], [ 506487.736302567645907, 2796533.993240843061358, 69.99 ], [ 506487.736302567645907, 2795533.003240843303502, 69.99 ], [ 505941.226302567636594, 2795533.003240843303502, -12.54 ] ] ] }
+      }
+    },
+    "statistic":
+    [
+      {
+        "average": 506237.8598,
+        "count": 3409439,
+        "maximum": 506487.7363,
+        "minimum": 505941.2263,
+        "name": "X",
+        "position": 0,
+        "stddev": 101.3857552,
+        "variance": 10279.07135
+      },
+      {
+        "average": 2795977.637,
+        "count": 3409439,
+        "maximum": 2796533.993,
+        "minimum": 2795533.003,
+        "name": "Y",
+        "position": 1,
+        "stddev": 274.313888,
+        "variance": 75248.10912
+      },
+      {
+        "average": 2.192797205,
+        "count": 3409439,
+        "maximum": 69.99,
+        "minimum": -12.54,
+        "name": "Z",
+        "position": 2,
+        "stddev": 1.788122887,
+        "variance": 3.197383461
+      },
+      {
+        "average": 30205.96606,
+        "count": 3409439,
+        "maximum": 65535,
+        "minimum": 14789,
+        "name": "Intensity",
+        "position": 3,
+        "stddev": 5497.346879,
+        "variance": 30220822.71
+      },
+      {
+        "average": 1.200336478,
+        "count": 3409439,
+        "maximum": 5,
+        "minimum": 1,
+        "name": "ReturnNumber",
+        "position": 4,
+        "stddev": 0.4267302243,
+        "variance": 0.1820986843
+      },
+      {
+        "average": 1.400683808,
+        "count": 3409439,
+        "maximum": 5,
+        "minimum": 1,
+        "name": "NumberOfReturns",
+        "position": 5,
+        "stddev": 0.5529822902,
+        "variance": 0.3057894133
+      },
+      {
+        "average": 0.5248757933,
+        "count": 3409439,
+        "maximum": 1,
+        "minimum": 0,
+        "name": "ScanDirectionFlag",
+        "position": 6,
+        "stddev": 0.4993808847,
+        "variance": 0.249381268
+      },
+      {
+        "average": 0.002420339534,
+        "count": 3409439,
+        "maximum": 1,
+        "minimum": 0,
+        "name": "EdgeOfFlightLine",
+        "position": 7,
+        "stddev": 0.04913738087,
+        "variance": 0.002414482199
+      },
+      {
+        "average": 1.239596602,
+        "count": 3409439,
+        "maximum": 2,
+        "minimum": 1,
+        "name": "Classification",
+        "position": 8,
+        "stddev": 0.4268373506,
+        "variance": 0.1821901239
+      },
+      {
+        "average": 2.569738893,
+        "count": 3409439,
+        "maximum": 33,
+        "minimum": -31,
+        "name": "ScanAngleRank",
+        "position": 9,
+        "stddev": 16.33805559,
+        "variance": 266.9320603
+      },
+      {
+        "average": 1.475124207,
+        "count": 3409439,
+        "maximum": 2,
+        "minimum": 1,
+        "name": "UserData",
+        "position": 10,
+        "stddev": 0.4993808847,
+        "variance": 0.249381268
+      },
+      {
+        "average": 192.5227238,
+        "count": 3409439,
+        "maximum": 65535,
+        "minimum": 0,
+        "name": "PointSourceId",
+        "position": 11,
+        "stddev": 680.5012031,
+        "variance": 463081.8874
+      },
+      {
+        "average": 310476.1839,
+        "count": 3409439,
+        "maximum": 310485.0477,
+        "minimum": 310469.0825,
+        "name": "GpsTime",
+        "position": 12,
+        "stddev": 4.240892261,
+        "variance": 17.98516717
+      },
+      {
+        "average": 0,
+        "count": 3409439,
+        "maximum": 0,
+        "minimum": 0,
+        "name": "Synthetic",
+        "position": 13,
+        "stddev": 0,
+        "variance": 0
+      },
+      {
+        "average": 0,
+        "count": 3409439,
+        "maximum": 0,
+        "minimum": 0,
+        "name": "KeyPoint",
+        "position": 14,
+        "stddev": 0,
+        "variance": 0
+      },
+      {
+        "average": 0,
+        "count": 3409439,
+        "maximum": 0,
+        "minimum": 0,
+        "name": "Withheld",
+        "position": 15,
+        "stddev": 0,
+        "variance": 0
+      },
+      {
+        "average": 0,
+        "count": 3409439,
+        "maximum": 0,
+        "minimum": 0,
+        "name": "Overlap",
+        "position": 16,
+        "stddev": 0,
+        "variance": 0
+      }
+    ]
+  }
+}</code></pre>
 </div>
 </div>
 </section>
-<section id="converting-to-cloud-optimized-geotiff-cog" class="level2">
-<h2 class="anchored" data-anchor-id="converting-to-cloud-optimized-geotiff-cog">Converting to Cloud-Optimized GeoTIFF (COG)</h2>
-<p>There are multiple ways to write a COG in Python. We are presenting the recommended approach based on <code>rio_cogeo.cog_translate</code> method using the Memoryfile. This approach is found to be efficient for writing big GeoTIFF files in cloud-optimized format along with copying the overviews and input dataset metadata. Also, we use the default “deflate” COG profile for writing the COGs. This can be defined to any of the existing <a href="https://cogeotiff.github.io/rio-cogeo/profile/">COG profiles</a>.</p>
-<p>Some of the <a href="https://medium.com/@_VincentS_/do-you-really-want-people-using-your-data-ec94cd94dc3f">recommendations</a> while generating COGs are noted below -</p>
-<ol type="1">
-<li>Using <code>WEBP</code> compression for RGB or RGBA dataset (there is a lossless option). Although, this is considered as a best option if you are looking for space saving, JPEG compression might be considered a safer choice.</li>
-<li>Using <code>Deflate</code> compression with <code>PREDICTOR=2</code> and <code>ZLEVEL=9</code> options for non-Byte or non RGB datasets. The <code>PREDICTOR</code> value is set for <code>LZW</code>, <code>DEFLATE</code> and <code>ZSTD</code> compression. <code>PREDICTOR=2</code> or standard predictor is used for integer data type and <code>PREDICTOR=3</code> or floating-point predictor is used for floating point data type.</li>
-<li>Using internal overviews.</li>
-<li>Using a internal block size of <code>256</code> or <code>512</code></li>
-</ol>
-<div id="cell-18" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the output COG filename</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># path = data/NASADEM_HGT_n57e105_COG.tif</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cog_filename <span class="op">=</span> nasa_dem_filename.replace(<span class="st">".zip"</span>, <span class="st">"_COG.tif"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting to default GTiff driver as we will be using `rio-cogeo.cog_translate()`</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># predictor=2/standard predictor implies horizontal differencing</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>kwargs.update(driver<span class="op">=</span><span class="st">"GTiff"</span>, predictor<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> MemoryFile() <span class="im">as</span> memfile:</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Opening an empty MemoryFile for in memory operation - faster</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> memfile.<span class="bu">open</span>(<span class="op">**</span>kwargs) <span class="im">as</span> mem:</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Writing the array values to MemoryFile using the rasterio.io module</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        mem.write(arr)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        dst_profile <span class="op">=</span> cog_profiles.get(<span class="st">"deflate"</span>)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Creating destination COG</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        cog_translate(</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            mem,</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            cog_filename,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            dst_profile,</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>            use_cog_driver<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>            in_memory<span class="op">=</span><span class="va">False</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/h7/l61pvww15kz03l7fxjhts_wr0000gp/T/ipykernel_40851/4074752627.py:18: RasterioDeprecationWarning: Source dataset should be opened in read-only mode. Use of datasets opened in modes other than 'r' will be disallowed in a future version.
-  cog_translate(
-Reading input: &lt;open DatasetWriter name='/vsimem/ae8e0898-8d08-4394-a034-817d492e0e04/ae8e0898-8d08-4394-a034-817d492e0e04.tif' mode='w+'&gt;
-
-Adding overviews...
-Updating dataset tags...
-Writing output to: data/NASADEM_HGT_n57e105_COG.tif</code></pre>
+<section id="pdal-pipelines" class="level4">
+<h4 class="anchored" data-anchor-id="pdal-pipelines">PDAL Pipelines</h4>
+<p>For converting the LiDAR LAS file to COPC format, we will define a <a href="https://pdal.io/en/latest/pipeline.html">pdal pipeline</a>. A pipeline defines data processing within pdal for reading (using <a href="https://pdal.io/en/latest/stages/readers.html">pdal readers</a>), processing (using <a href="https://pdal.io/en/latest/stages/filters.html">pdal filters</a>) and writing operations (using <a href="https://pdal.io/en/latest/stages/writers.html">pdal writers</a>). The pipelines can also represent sequential operations and can be executed as <a href="https://pdal.io/en/latest/pipeline.html#stage-object"><em>stages</em></a>.</p>
+<p>A pdal pipeline is defined in a JSON format either as a JSON object or a JSON array. Below is an example of a pdal pipeline taking a <code>.las</code> file as input, generating <code>stats</code> and writing it to a COPC format.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"pipeline"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"filename"</span><span class="fu">:</span><span class="er">las_filename</span><span class="fu">,</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"type"</span><span class="fu">:</span><span class="st">"readers.las"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"type"</span><span class="fu">:</span><span class="st">"filters.stats"</span><span class="fu">,</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"type"</span><span class="fu">:</span><span class="st">"writers.copc"</span><span class="fu">,</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"filename"</span><span class="fu">:</span><span class="er">copc_filename</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This pipeline can be executed using the <code>pdal pipeline &lt;path_to_json_file&gt;</code> from the command line for a pipeline saved as a local <code>JSON</code> file.</p>
+</section>
+<section id="programmatic-pipeline-construction" class="level4">
+<h4 class="anchored" data-anchor-id="programmatic-pipeline-construction">Programmatic Pipeline Construction</h4>
+<p>However, here we will explore a comparatively easier and Pythonic approach to define a pipeline and execute it. This is based on the <a href="https://pypi.org/project/pdal/">PDAL Python extension</a> which provides a programmatic pipeline construction approach in addition to the simple pipeline construction approach discussed above.</p>
+<p>This approach utilizes the <code>|</code> operator to pipe various stages together representing a pipeline. For eg., the above pipeline can be represented as -</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> pdal.Reader.las(filename<span class="op">=</span>las_filename) <span class="op">|</span> pdal.Writer.copc(filename<span class="op">=</span>copc_filename) <span class="op">|</span> pdal.Filter.stats()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This pipeline can be executed using <code>pipeline.execute</code>.</p>
+</section>
+</section>
+<section id="las-to-copc-conversion" class="level2">
+<h2 class="anchored" data-anchor-id="las-to-copc-conversion">LAS to COPC Conversion</h2>
+<p>Now, let’s dive into converting the LAS file to a COPC format based on the programmatic pipeline construction.</p>
+<div id="cell-17" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining output filename. Usually, COPC files are saved as .copc.laz</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>copc_filename <span class="op">=</span> las_filename.replace(<span class="st">'.las'</span>, <span class="st">'.copc.laz'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>copc_filename</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="64">
+<pre><code>'data/GLLIDARPC_FL_20200311_FIA8_l0s22.copc.laz'</code></pre>
+</div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pipe = stage 1 | stage 2 | stage 3</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, pipeline = pipeline 1 | stage 2</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Once the pipeline is executed successfully, it prints the count of number of points</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> pdal.Reader.las(filename<span class="op">=</span>las_filename) <span class="op">|</span> pdal.Writer.copc(filename<span class="op">=</span>copc_filename)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>pipe.execute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
+<pre><code>3409439</code></pre>
 </div>
 </div>
 </section>
-<section id="validating-the-generated-cog" class="level2">
-<h2 class="anchored" data-anchor-id="validating-the-generated-cog">Validating the Generated COG</h2>
-<p>We can validate the generated COG using the <code>rio_cogeo.cog_validate</code>. The <code>cog_validate</code> method returns following outputs: * <code>is_valid</code>: <code>bool</code><br>
-True if ‘src_path’ is a valid COG. * errors: <code>list</code><br>
-List of validation errors if <code>is_valid</code> returns False. * warnings: <code>list</code><br>
-List of validation warnings if <code>is_valid</code> returns False.</p>
-<div id="cell-20" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cog_validate(cog_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>(True, [], [])</code></pre>
+<section id="validation" class="level2">
+<h2 class="anchored" data-anchor-id="validation">Validation</h2>
+<p>As we can see from output of the below cell, the <code>.copc.laz</code> file is created in the destination directory.</p>
+<div id="cell-20" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using -go for removing user details and h for getting memory size in MBs</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="op">-</span>goh .<span class="op">/</span>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total 239888
+-rw-r--r--  1     26M Mar 20 11:55 GLLIDARPC_FL_20200311_FIA8_l0s22.copc.laz
+-rw-r--r--  1     91M Feb 29 11:27 GLLIDARPC_FL_20200311_FIA8_l0s22.las</code></pre>
 </div>
 </div>
-<p>As we can see, the generated COG is a valid COG.</p>
-</section>
-<section id="run-validation-tests" class="level2">
-<h2 class="anchored" data-anchor-id="run-validation-tests">Run validation tests</h2>
-<p>The <code>cog_validate</code> method runs on the COG file. Let’s try to run a validation test on the arrays representing the COG and Non-COG file using Numpy’s <code>assert_array_equal</code> <a href="https://numpy.org/doc/stable/reference/generated/numpy.testing.assert_array_equal.html">method</a>.</p>
-<div id="cell-22" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the generated COG file</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_filename) <span class="im">as</span> src:</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>   arr_cog <span class="op">=</span> src.read()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-23" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Would not output anything if both the COG and non-COG files have equal values</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>numpy.testing.assert_array_equal(arr, arr_cog)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="generating-overviews-and-setting-nodata-values" class="level2">
-<h2 class="anchored" data-anchor-id="generating-overviews-and-setting-nodata-values">Generating Overviews and Setting NoData Values</h2>
-<p>It is recommended to generate COGs with overviews and define <code>nodata</code> values in the COGs. The <a href="https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/cogs-overview_resampling.html">Cloud Optimized Geotiff (COG) Overview Resampling</a> notebook provides in-depth explanation for generating and visualizing overviews. Here, we will see how to -</p>
-<ol type="1">
-<li>Generate COGs with overviews in Python.</li>
-</ol>
-<p>Overviews are decimated views created for visualization. By default, <code>rio-cogeo</code> calculates optimal overview levels based on dataset size and internal tile size, since overviews should not be smaller than internal tile size.</p>
-<ol start="2" type="1">
-<li>Set <code>nodata</code> values while generating COGs.</li>
-</ol>
-<p>Typically, while creating a COG from a Non-COG TIFF, the <code>nodata</code> value can be set to the value defined in the source GeoTIFF metadata (in this case <code>-32768.0</code>). Otherwise, the <code>nodata</code> value can be set based on the datatype used for storing the data. For <code>int</code> type, the largest negative value or <code>-9999</code> is used. Similarly, <code>float</code> type has a <code>nodata</code> option and <code>Byte</code> has a mask band to define the <code>nodata</code> value.</p>
-<div id="cell-25" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining the output COG filename</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># path = data/NASADEM_HGT_n57e105_COG.tif</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>cog_ovr_filename <span class="op">=</span> nasa_dem_filename.replace(<span class="st">".zip"</span>, <span class="st">"_ovr_COG.tif"</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting to default GTiff driver as we will be using `rio-cogeo.cog_translate()`</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># predictor=2 for INT type</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>kwargs.update(driver<span class="op">=</span><span class="st">"GTiff"</span>, predictor<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting the recommended blocksize for internal tiling to 512 per recommendations</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>kwargs.update({<span class="st">"blockxsize"</span>: <span class="st">"512"</span>, <span class="st">"blockysize"</span>: <span class="st">"512"</span>})</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting the overview level, by default it is inferred from the data size</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment below to generate overviews on 2 levels</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># kwargs.update({"overview_level": 2})</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> MemoryFile() <span class="im">as</span> memfile:</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Opening an empty MemoryFile for in memory operation - faster</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> memfile.<span class="bu">open</span>(<span class="op">**</span>kwargs) <span class="im">as</span> mem:</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Writing the array values to MemoryFile using the rasterio.io module</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        mem.write(arr)</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        dst_profile <span class="op">=</span> cog_profiles.get(<span class="st">"deflate"</span>)</span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Creating destination COG</span></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>        cog_translate(</span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>            mem,</span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>            cog_ovr_filename,</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>            dst_profile,</span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>            nodata<span class="op">=-</span><span class="fl">32768.0</span>,    <span class="co">#Set NoData= -32768.0 from the metadata</span></span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>            use_cog_driver<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>            in_memory<span class="op">=</span><span class="va">False</span></span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/h7/l61pvww15kz03l7fxjhts_wr0000gp/T/ipykernel_40851/3228781361.py:26: RasterioDeprecationWarning: Source dataset should be opened in read-only mode. Use of datasets opened in modes other than 'r' will be disallowed in a future version.
-  cog_translate(
-Reading input: &lt;open DatasetWriter name='/vsimem/4fa25e3f-7741-4f4b-849a-fa1b295b6527/4fa25e3f-7741-4f4b-849a-fa1b295b6527.tif' mode='w+'&gt;
-
-Adding overviews...
-Updating dataset tags...
-Writing output to: data/NASADEM_HGT_n57e105_ovr_COG.tif</code></pre>
+<p>Let’s read the created COPC file again and check the value of <code>copc</code> flag from the <a href="https://pdal.io/en/latest/development/metadata.html">metadata</a>. If the generated LiDAR file is a valid COPC file, then this flag should be set to <code>True</code>.</p>
+<div id="cell-22" class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>valid_pipe <span class="op">=</span> pdal.Reader.copc(filename<span class="op">=</span>copc_filename) <span class="op">|</span> pdal.Filter.stats()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>valid_pipe.execute()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting value for the "copc" key under the metadata</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Output is True for a valid COPC</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>value <span class="op">=</span> valid_pipe.metadata[<span class="st">"metadata"</span>][<span class="st">"readers.copc"</span>].get(<span class="st">"copc"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>True</code></pre>
 </div>
 </div>
 </section>
-<section id="see-more" class="level2">
-<h2 class="anchored" data-anchor-id="see-more">See More</h2>
-<ol type="1">
-<li><a href="https://medium.com/@_VincentS_/do-you-really-want-people-using-your-data-ec94cd94dc3f">Do you really want people using your data?</a></li>
-<li><a href="https://github.com/cogeotiff/cog-spec/blob/master/spec.md">COG Specification</a></li>
-<li><a href="https://cogeotiff.github.io/rio-cogeo/API/">rio-cogeo</a></li>
-</ol>
+<section id="accessing-data" class="level2">
+<h2 class="anchored" data-anchor-id="accessing-data">Accessing Data</h2>
+<p>The data values can be accessed from the executed pipeline using <code>valid_pipe.arrays</code>. The values in the arrays represent the LiDAR point cloud attributes such as <code>X</code>, <code>Y</code>, <code>Z</code>, and <code>Intensity</code>, etc.</p>
+<div id="cell-24" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>arr_values <span class="op">=</span> valid_pipe.arrays</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the array values as a dataframe</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(arr_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[array([(506245.56, 2796471.44, 0.24, 40740, 1, 1, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75227621, 0),
+       (506247.16, 2796471.58, 0.27, 35541, 2, 2, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75229014, 0),
+       (506247.95, 2796471.65, 0.24, 17716, 2, 2, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75229699, 0),
+       ...,
+       (506066.58, 2796032.75, 2.34, 31587, 1, 1, 0, 0, 1, 0, 0, 0, 0, -24.   , 2, 203, 310477.36925451, 0),
+       (506067.37, 2796033.29, 2.52, 32876, 1, 1, 0, 0, 1, 0, 0, 0, 0, -22.998, 2, 216, 310477.37590641, 0),
+       (506062.6 , 2796033.27, 1.4 , 27393, 1, 1, 0, 0, 1, 0, 0, 0, 0, -24.   , 2, 108, 310477.38259945, 0)],
+      dtype=[('X', '&lt;f8'), ('Y', '&lt;f8'), ('Z', '&lt;f8'), ('Intensity', '&lt;u2'), ('ReturnNumber', 'u1'), ('NumberOfReturns', 'u1'), ('ScanDirectionFlag', 'u1'), ('EdgeOfFlightLine', 'u1'), ('Classification', 'u1'), ('Synthetic', 'u1'), ('KeyPoint', 'u1'), ('Withheld', 'u1'), ('Overlap', 'u1'), ('ScanAngleRank', '&lt;f4'), ('UserData', 'u1'), ('PointSourceId', '&lt;u2'), ('GpsTime', '&lt;f8'), ('ScanChannel', 'u1')])]</code></pre>
+</div>
+</div>
+<p>Similarly, we can get COPC file <code>statistic</code> and <code>log</code> from the executed pipeline using <code>valid_pipe.metadata["metadata"]["filters.stats"]["statistic"]</code> and <code>valid_pipe.log</code>. The readers are encouraged to explore the results of these operations on their own.</p>
+<div id="cell-26" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Getting statistic from the metadata</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>valid_pipe.metadata[<span class="st">"metadata"</span>][<span class="st">"filters.stats"</span>][<span class="st">"statistic"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+<pre><code>[{'average': 506237.8635,
+  'count': 3409439,
+  'maximum': 506487.74,
+  'minimum': 505941.23,
+  'name': 'X',
+  'position': 0,
+  'stddev': 101.3857552,
+  'variance': 10279.07135},
+ {'average': 2795977.634,
+  'count': 3409439,
+  'maximum': 2796533.99,
+  'minimum': 2795533,
+  'name': 'Y',
+  'position': 1,
+  'stddev': 274.313888,
+  'variance': 75248.10914},
+ {'average': 2.192797205,
+  'count': 3409439,
+  'maximum': 69.99,
+  'minimum': -12.54,
+  'name': 'Z',
+  'position': 2,
+  'stddev': 1.788122887,
+  'variance': 3.197383461},
+ {'average': 30205.96606,
+  'count': 3409439,
+  'maximum': 65535,
+  'minimum': 14789,
+  'name': 'Intensity',
+  'position': 3,
+  'stddev': 5497.346879,
+  'variance': 30220822.71},
+ {'average': 1.200336478,
+  'count': 3409439,
+  'maximum': 5,
+  'minimum': 1,
+  'name': 'ReturnNumber',
+  'position': 4,
+  'stddev': 0.4267302243,
+  'variance': 0.1820986843},
+ {'average': 1.400683808,
+  'count': 3409439,
+  'maximum': 5,
+  'minimum': 1,
+  'name': 'NumberOfReturns',
+  'position': 5,
+  'stddev': 0.5529822902,
+  'variance': 0.3057894133},
+ {'average': 0.5248757933,
+  'count': 3409439,
+  'maximum': 1,
+  'minimum': 0,
+  'name': 'ScanDirectionFlag',
+  'position': 6,
+  'stddev': 0.4993808847,
+  'variance': 0.249381268},
+ {'average': 0.002420339534,
+  'count': 3409439,
+  'maximum': 1,
+  'minimum': 0,
+  'name': 'EdgeOfFlightLine',
+  'position': 7,
+  'stddev': 0.04913738087,
+  'variance': 0.002414482199},
+ {'average': 1.239596602,
+  'count': 3409439,
+  'maximum': 2,
+  'minimum': 1,
+  'name': 'Classification',
+  'position': 8,
+  'stddev': 0.4268373506,
+  'variance': 0.1821901239},
+ {'average': 2.569735542,
+  'count': 3409439,
+  'maximum': 33,
+  'minimum': -31.00200081,
+  'name': 'ScanAngleRank',
+  'position': 9,
+  'stddev': 16.33805538,
+  'variance': 266.9320534},
+ {'average': 1.475124207,
+  'count': 3409439,
+  'maximum': 2,
+  'minimum': 1,
+  'name': 'UserData',
+  'position': 10,
+  'stddev': 0.4993808847,
+  'variance': 0.249381268},
+ {'average': 192.5227238,
+  'count': 3409439,
+  'maximum': 65535,
+  'minimum': 0,
+  'name': 'PointSourceId',
+  'position': 11,
+  'stddev': 680.5012031,
+  'variance': 463081.8874},
+ {'average': 310476.1839,
+  'count': 3409439,
+  'maximum': 310485.0477,
+  'minimum': 310469.0825,
+  'name': 'GpsTime',
+  'position': 12,
+  'stddev': 4.240892262,
+  'variance': 17.98516718},
+ {'average': 0,
+  'count': 3409439,
+  'maximum': 0,
+  'minimum': 0,
+  'name': 'ScanChannel',
+  'position': 13,
+  'stddev': 0,
+  'variance': 0},
+ {'average': 0,
+  'count': 3409439,
+  'maximum': 0,
+  'minimum': 0,
+  'name': 'Synthetic',
+  'position': 14,
+  'stddev': 0,
+  'variance': 0},
+ {'average': 0,
+  'count': 3409439,
+  'maximum': 0,
+  'minimum': 0,
+  'name': 'KeyPoint',
+  'position': 15,
+  'stddev': 0,
+  'variance': 0},
+ {'average': 0,
+  'count': 3409439,
+  'maximum': 0,
+  'minimum': 0,
+  'name': 'Withheld',
+  'position': 16,
+  'stddev': 0,
+  'variance': 0},
+ {'average': 0,
+  'count': 3409439,
+  'maximum': 0,
+  'minimum': 0,
+  'name': 'Overlap',
+  'position': 17,
+  'stddev': 0,
+  'variance': 0}]</code></pre>
+</div>
+</div>
 
 
 </section>
@@ -1263,13 +1570,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="pagination-link" aria-label="Cloud Optimized Geotiff (COG) Overview Resampling">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud Optimized Geotiff (COG) Overview Resampling</span>
+      <a href="../copc/index.html" class="pagination-link" aria-label="Cloud-Optimized Point Clouds (COPC)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cloud-Optimized Point Clouds (COPC)</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../zarr/intro.html" class="pagination-link" aria-label="Zarr">
-        <span class="nav-page-text">Zarr</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../geoparquet/index.html" class="pagination-link" aria-label="GeoParquet">
+        <span class="nav-page-text">GeoParquet</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1281,7 +1588,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/writing-cogs-in-python.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/copc/lidar-las-to-copc.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
