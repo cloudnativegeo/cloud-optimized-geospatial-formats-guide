@@ -39,6 +39,7 @@ website:
           - cloud-optimized-geotiffs/cogs-details.qmd
           - cloud-optimized-geotiffs/cogs-examples.ipynb
           - cloud-optimized-geotiffs/cogs-overview_resampling.ipynb
+          - cloud-optimized-geotiffs/writing-cogs-in-python.ipynb
         - section: Zarr
           contents:
           - zarr/intro.qmd
@@ -53,6 +54,7 @@ website:
         - section: Cloud-Optimized Point Clouds (COPC)
           contents:
             - copc/index.qmd
+            - copc/lidar-las-to-copc.ipynb
         - section: GeoParquet
           contents:
             - geoparquet/index.qmd
