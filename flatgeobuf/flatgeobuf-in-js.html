@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,6 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -109,12 +116,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../flatgeobuf/intro.html">FlatGeobuf</a></li><li class="breadcrumb-item"><a href="../flatgeobuf/flatgeobuf-in-js.html">FlatGeobuf in JavaScript</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../flatgeobuf/intro.html">FlatGeobuf</a></li><li class="breadcrumb-item"><a href="../flatgeobuf/flatgeobuf-in-js.html">FlatGeobuf in JavaScript</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -124,12 +131,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cloud-Optimized Geospatial Formats Guide</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" rel="" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -193,6 +200,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
   </div>
 </li>
       </ul>
@@ -273,6 +286,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
   </div>
 </li>
       </ul>
@@ -375,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -388,12 +407,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/flatgeobuf/flatgeobuf-in-js.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/flatgeobuf/flatgeobuf-in-js.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../flatgeobuf/intro.html">FlatGeobuf</a></li><li class="breadcrumb-item"><a href="../flatgeobuf/flatgeobuf-in-js.html">FlatGeobuf in JavaScript</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">FlatGeobuf in JavaScript</h1>
 <p class="subtitle lead">Example of using FlatGeobuf with Leaflet</p>
@@ -409,7 +428,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>FlatGeobuf is a cloud-native vector data format because it contains a built-in spatial index that allows reading a specific spatial region from within the file without downloading the entire file’s content.</p>
 <p>This is very useful for browser-based applications, because it allows them to make use of large files hosted on commodity cloud object storage without maintaining a server.</p>
@@ -624,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"flatgeobuf = require(\"flatgeobuf@3.26.2/dist/flatgeobuf-geojson.min.js\")\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"flatgeobuf\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"url = 'https://flatgeobuf.septima.dk/population_areas.fgb'\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"bbox = {\n    return {\n        minX: -74.003802,\n        minY: 40.725756,\n        maxX: -73.981481,\n        maxY: 40.744008,\n    }\n}\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"// leaflet uses lat-lon ordering\nbboxObjectToArray = (obj) => [\n  [obj.minY, obj.minX],\n  [obj.maxY, obj.maxX],\n];\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"features = {\n  const iter = flatgeobuf.deserialize(url, bbox);\n  const features = [];\n  for await (const feature of iter) {\n    features.push(feature);\n  }\n  return features;\n}\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"features\n"},{"methodName":"interpret","cellName":"ojs-cell-8","inline":false,"source":"colorScale = (d) => {\n  return d > 750\n    ? \"#800026\"\n    : d > 500\n    ? \"#BD0026\"\n    : d > 250\n    ? \"#E31A1C\"\n    : d > 100\n    ? \"#FC4E2A\"\n    : d > 50\n    ? \"#FD8D3C\"\n    : d > 25\n    ? \"#FEB24C\"\n    : d > 10\n    ? \"#FED976\"\n    : \"#FFEDA0\";\n};\n"},{"methodName":"interpret","cellName":"ojs-cell-9","inline":false,"source":"L = {\n  const L = await require(\"leaflet@1/dist/leaflet.js\");\n  if (!L._style) {\n    const href = await require.resolve(\"leaflet@1/dist/leaflet.css\");\n    document.head.appendChild(L._style = html`<link href=${href} rel=stylesheet>`);\n  }\n  return L;\n}\n"},{"methodName":"interpret","cellName":"ojs-cell-10","inline":false,"source":"map = {\n  const container = html`<div style=\"height:600px;\"></div>`;\n  yield container;\n  const map = L.map(container).setView([40.7299, -73.9923], 13);\n  L.tileLayer(\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\", {\n    attribution:\n      \"&copy; <a href=https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors\",\n  }).addTo(map);\n\n  // Render the bounding box rectangle\n  L.rectangle(bboxObjectToArray(bbox), {\n    interactive: false,\n    color: \"blue\",\n    fillOpacity: 0.0,\n    opacity: 1.0,\n  }).addTo(map);\n\n  const results = L.layerGroup().addTo(map);\n  for (const feature of features) {\n    // Leaflet styling\n    const defaultStyle = {\n      color: colorScale(feature.properties[\"population\"]),\n      weight: 1,\n      fillOpacity: 0.4,\n    };\n    L.geoJSON(feature, {\n      style: defaultStyle,\n    })\n      .on({\n        mouseover: function (e) {\n          const layer = e.target;\n          layer.setStyle({\n            weight: 4,\n            fillOpacity: 0.8,\n          });\n        },\n        mouseout: function (e) {\n          const layer = e.target;\n          layer.setStyle(defaultStyle);\n        },\n      })\n      .bindPopup(\n        `${feature.properties[\"population\"]} people live in this census block.</h1>`\n      )\n      .addTo(results);\n  }\n}\n"}]}
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZsYXRnZW9idWYgPSByZXF1aXJlKFwiZmxhdGdlb2J1ZkAzLjI2LjIvZGlzdC9mbGF0Z2VvYnVmLWdlb2pzb24ubWluLmpzXCIpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmbGF0Z2VvYnVmXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ1cmwgPSAnaHR0cHM6Ly9mbGF0Z2VvYnVmLnNlcHRpbWEuZGsvcG9wdWxhdGlvbl9hcmVhcy5mZ2InXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJiYm94ID0ge1xuICAgIHJldHVybiB7XG4gICAgICAgIG1pblg6IC03NC4wMDM4MDIsXG4gICAgICAgIG1pblk6IDQwLjcyNTc1NixcbiAgICAgICAgbWF4WDogLTczLjk4MTQ4MSxcbiAgICAgICAgbWF4WTogNDAuNzQ0MDA4LFxuICAgIH1cbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIGxlYWZsZXQgdXNlcyBsYXQtbG9uIG9yZGVyaW5nXG5iYm94T2JqZWN0VG9BcnJheSA9IChvYmopID0+IFtcbiAgW29iai5taW5ZLCBvYmoubWluWF0sXG4gIFtvYmoubWF4WSwgb2JqLm1heFhdLFxuXTtcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZlYXR1cmVzID0ge1xuICBjb25zdCBpdGVyID0gZmxhdGdlb2J1Zi5kZXNlcmlhbGl6ZSh1cmwsIGJib3gpO1xuICBjb25zdCBmZWF0dXJlcyA9IFtdO1xuICBmb3IgYXdhaXQgKGNvbnN0IGZlYXR1cmUgb2YgaXRlcikge1xuICAgIGZlYXR1cmVzLnB1c2goZmVhdHVyZSk7XG4gIH1cbiAgcmV0dXJuIGZlYXR1cmVzO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZmVhdHVyZXNcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImNvbG9yU2NhbGUgPSAoZCkgPT4ge1xuICByZXR1cm4gZCA+IDc1MFxuICAgID8gXCIjODAwMDI2XCJcbiAgICA6IGQgPiA1MDBcbiAgICA/IFwiI0JEMDAyNlwiXG4gICAgOiBkID4gMjUwXG4gICAgPyBcIiNFMzFBMUNcIlxuICAgIDogZCA+IDEwMFxuICAgID8gXCIjRkM0RTJBXCJcbiAgICA6IGQgPiA1MFxuICAgID8gXCIjRkQ4RDNDXCJcbiAgICA6IGQgPiAyNVxuICAgID8gXCIjRkVCMjRDXCJcbiAgICA6IGQgPiAxMFxuICAgID8gXCIjRkVEOTc2XCJcbiAgICA6IFwiI0ZGRURBMFwiO1xufTtcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IkwgPSB7XG4gIGNvbnN0IEwgPSBhd2FpdCByZXF1aXJlKFwibGVhZmxldEAxL2Rpc3QvbGVhZmxldC5qc1wiKTtcbiAgaWYgKCFMLl9zdHlsZSkge1xuICAgIGNvbnN0IGhyZWYgPSBhd2FpdCByZXF1aXJlLnJlc29sdmUoXCJsZWFmbGV0QDEvZGlzdC9sZWFmbGV0LmNzc1wiKTtcbiAgICBkb2N1bWVudC5oZWFkLmFwcGVuZENoaWxkKEwuX3N0eWxlID0gaHRtbGA8bGluayBocmVmPSR7aHJlZn0gcmVsPXN0eWxlc2hlZXQ+YCk7XG4gIH1cbiAgcmV0dXJuIEw7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibWFwID0ge1xuICBjb25zdCBjb250YWluZXIgPSBodG1sYDxkaXYgc3R5bGU9XCJoZWlnaHQ6NjAwcHg7XCI+PC9kaXY+YDtcbiAgeWllbGQgY29udGFpbmVyO1xuICBjb25zdCBtYXAgPSBMLm1hcChjb250YWluZXIpLnNldFZpZXcoWzQwLjcyOTksIC03My45OTIzXSwgMTMpO1xuICBMLnRpbGVMYXllcihcImh0dHBzOi8ve3N9LnRpbGUub3BlbnN0cmVldG1hcC5vcmcve3p9L3t4fS97eX0ucG5nXCIsIHtcbiAgICBhdHRyaWJ1dGlvbjpcbiAgICAgIFwiJmNvcHk7IDxhIGhyZWY9aHR0cHM6Ly93d3cub3BlbnN0cmVldG1hcC5vcmcvY29weXJpZ2h0Pk9wZW5TdHJlZXRNYXA8L2E+IGNvbnRyaWJ1dG9yc1wiLFxuICB9KS5hZGRUbyhtYXApO1xuXG4gIC8vIFJlbmRlciB0aGUgYm91bmRpbmcgYm94IHJlY3RhbmdsZVxuICBMLnJlY3RhbmdsZShiYm94T2JqZWN0VG9BcnJheShiYm94KSwge1xuICAgIGludGVyYWN0aXZlOiBmYWxzZSxcbiAgICBjb2xvcjogXCJibHVlXCIsXG4gICAgZmlsbE9wYWNpdHk6IDAuMCxcbiAgICBvcGFjaXR5OiAxLjAsXG4gIH0pLmFkZFRvKG1hcCk7XG5cbiAgY29uc3QgcmVzdWx0cyA9IEwubGF5ZXJHcm91cCgpLmFkZFRvKG1hcCk7XG4gIGZvciAoY29uc3QgZmVhdHVyZSBvZiBmZWF0dXJlcykge1xuICAgIC8vIExlYWZsZXQgc3R5bGluZ1xuICAgIGNvbnN0IGRlZmF1bHRTdHlsZSA9IHtcbiAgICAgIGNvbG9yOiBjb2xvclNjYWxlKGZlYXR1cmUucHJvcGVydGllc1tcInBvcHVsYXRpb25cIl0pLFxuICAgICAgd2VpZ2h0OiAxLFxuICAgICAgZmlsbE9wYWNpdHk6IDAuNCxcbiAgICB9O1xuICAgIEwuZ2VvSlNPTihmZWF0dXJlLCB7XG4gICAgICBzdHlsZTogZGVmYXVsdFN0eWxlLFxuICAgIH0pXG4gICAgICAub24oe1xuICAgICAgICBtb3VzZW92ZXI6IGZ1bmN0aW9uIChlKSB7XG4gICAgICAgICAgY29uc3QgbGF5ZXIgPSBlLnRhcmdldDtcbiAgICAgICAgICBsYXllci5zZXRTdHlsZSh7XG4gICAgICAgICAgICB3ZWlnaHQ6IDQsXG4gICAgICAgICAgICBmaWxsT3BhY2l0eTogMC44LFxuICAgICAgICAgIH0pO1xuICAgICAgICB9LFxuICAgICAgICBtb3VzZW91dDogZnVuY3Rpb24gKGUpIHtcbiAgICAgICAgICBjb25zdCBsYXllciA9IGUudGFyZ2V0O1xuICAgICAgICAgIGxheWVyLnNldFN0eWxlKGRlZmF1bHRTdHlsZSk7XG4gICAgICAgIH0sXG4gICAgICB9KVxuICAgICAgLmJpbmRQb3B1cChcbiAgICAgICAgYCR7ZmVhdHVyZS5wcm9wZXJ0aWVzW1wicG9wdWxhdGlvblwiXX0gcGVvcGxlIGxpdmUgaW4gdGhpcyBjZW5zdXMgYmxvY2suPC9oMT5gXG4gICAgICApXG4gICAgICAuYWRkVG8ocmVzdWx0cyk7XG4gIH1cbn1cbiJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -675,6 +696,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -743,13 +791,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -828,10 +878,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -841,8 +908,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -854,7 +930,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -898,6 +1097,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -923,6 +1123,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -984,12 +1210,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../flatgeobuf/flatgeobuf.html" class="pagination-link">
+      <a href="../flatgeobuf/flatgeobuf.html" class="pagination-link" aria-label="FlatGeobuf example">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">FlatGeobuf example</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pmtiles/intro.html" class="pagination-link">
+      <a href="../pmtiles/intro.html" class="pagination-link" aria-label="PMTiles">
         <span class="nav-page-text">PMTiles</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -997,11 +1223,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Foundation</a>, 2023</div>   
-    <div class="nav-footer-center"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></div>
-    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-left">
+<p>© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Foundation</a>, 2023</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/flatgeobuf/flatgeobuf-in-js.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

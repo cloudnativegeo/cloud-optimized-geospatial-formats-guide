@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -82,7 +82,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,13 +97,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
@@ -111,12 +118,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/zarr-in-practice.html">Zarr in Practice</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/zarr-in-practice.html">Zarr in Practice</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -126,12 +133,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cloud-Optimized Geospatial Formats Guide</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" rel="" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -195,6 +202,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
   </div>
 </li>
       </ul>
@@ -275,6 +288,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
   </div>
 </li>
       </ul>
@@ -377,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -395,12 +414,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-of-cloud-optimized-access-for-this-format" id="toc-example-of-cloud-optimized-access-for-this-format" class="nav-link" data-scroll-target="#example-of-cloud-optimized-access-for-this-format">Example of Cloud-Optimized Access for this Format</a></li>
   <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/zarr/zarr-in-practice.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/zarr/zarr-in-practice.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/zarr-in-practice.html">Zarr in Practice</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Zarr in Practice</h1>
 </div>
@@ -415,14 +434,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>This notebook demonstrates how to create, explore and modify a Zarr store.</p>
 <p>These concepts are explored in more detail in the official <a href="https://zarr.readthedocs.io/en/stable/tutorial.html">Zarr Tutorial</a>.</p>
 <p>It also shows the use of public Zarr stores for geospatial data.</p>
 <section id="how-to-create-a-zarr-store" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-create-a-zarr-store">How to create a Zarr store</h2>
-<div class="cell" data-tags="[]" data-execution_count="1">
+<div id="cell-3" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
@@ -432,11 +453,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>zstore <span class="op">=</span> zarr.array(np.arange(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is an in-memory Zarr store. To persist it to disk, we can use <code>.save</code>.</p>
-<div class="cell" data-tags="[]" data-execution_count="2">
+<div id="cell-5" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>zarr.save(<span class="st">"test.zarr"</span>, zstore)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can open the metadata about this dataset, which gives us some interesting information. The dataset has a shape of 10 chunks of 10, so we know all the data was stored in 1 chunk, and was compressed with the <code>blosc</code> compressor.</p>
-<div class="cell" data-tags="[]" data-execution_count="3">
+<div id="cell-7" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat test.zarr<span class="op">/</span>.zarray </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
@@ -465,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="how-to-create-a-group" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-create-a-group">How to create a group</h2>
-<div class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-9" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> zarr.group()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>group1 <span class="op">=</span> root.create_group(<span class="st">'group1'</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>group2 <span class="op">=</span> root.create_group(<span class="st">'group2'</span>)</span>
@@ -482,14 +503,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-to-examine-and-modify-the-chunk-shape" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-examine-and-modify-the-chunk-shape">How to Examine and Modify the Chunk Shape</h2>
 <p>If your data is sufficiently large, Zarr will chose a chunksize for you.</p>
-<div class="cell" data-tags="[]" data-execution_count="5">
+<div id="cell-11" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks <span class="op">=</span> zarr.array(np.arange(<span class="dv">100</span>), chunks<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.chunks, zarr_no_chunks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>((100,), (100,))</code></pre>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="6">
+<div id="cell-12" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks <span class="op">=</span> zarr.array(np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.chunks, zarr_with_chunks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -497,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>For <code>zarr_with_chunks</code> we see the chunks are smaller than the shape, so we know the data has been chunked. Other ways to examine the chunk structure are <code>zarr.info</code> and <code>zarr.cdata_shape</code>.</p>
-<div class="cell" data-tags="[]" data-execution_count="7">
+<div id="cell-14" class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>?zarr_no_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div class="ansi-escaped-output">
@@ -509,14 +530,14 @@ dimension of the array.</pre>
 </div>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="8">
+<div id="cell-15" class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.cdata_shape, zarr_with_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>((1,), (64,))</code></pre>
 </div>
 </div>
 <p>The zarr store with chunks has 64 chunks. The number of chunks multiplied by the chunk size equals the length of the whole array.</p>
-<div class="cell" data-execution_count="9">
+<div id="cell-17" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.cdata_shape[<span class="dv">0</span>] <span class="op">*</span> zarr_with_chunks.chunks[<span class="dv">0</span>] <span class="op">==</span> zarr_with_chunks.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>True</code></pre>
@@ -525,23 +546,23 @@ dimension of the array.</pre>
 <section id="whats-the-storage-size-of-these-chunks" class="level3">
 <h3 class="anchored" data-anchor-id="whats-the-storage-size-of-these-chunks">What’s the storage size of these chunks?</h3>
 <p>The default chunks are pretty small.</p>
-<div class="cell" data-execution_count="10">
+<div id="cell-19" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sys.getsizeof(zarr_with_chunks.chunk_store[<span class="st">'0'</span>]) <span class="co"># this is in bytes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>8049</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="11">
+<div id="cell-20" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks <span class="op">=</span> zarr.array(np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span>(<span class="dv">500000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="12">
+<div id="cell-21" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks.chunks, zarr_with_big_chunks.shape, zarr_with_big_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>((500000,), (10000000,), (20,))</code></pre>
 </div>
 </div>
 <p>This Zarr store has 10 million values, stored in 20 chunks of 500,000 data values.</p>
-<div class="cell" data-execution_count="13">
+<div id="cell-23" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sys.getsizeof(zarr_with_big_chunks.chunk_store[<span class="st">'0'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>24941</code></pre>
@@ -553,16 +574,17 @@ dimension of the array.</pre>
 <section id="exploring-and-modifying-data-compression" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-and-modifying-data-compression">Exploring and Modifying Data Compression</h2>
 <p>Continuing with data from the example above, we can tell that Zarr has also compressed the data for us using <code>zarr.info</code> or <code>zarr.compressor</code>.</p>
-<div class="cell" data-execution_count="26">
+<div id="cell-26" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.compressor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>Blosc(cname='lz4', clevel=5, shuffle=SHUFFLE, blocksize=0)</code></pre>
 </div>
 </div>
 <p>The <code>Blosc</code> compressor is actually a meta compressor so actually implements multiple different internal compressors. In this case, it has implemented <code>lz4</code> compression. We can also explore how much space was saved by using this compression method.</p>
-<div class="cell" data-execution_count="15">
+<div id="cell-28" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
+<div>
 <table class="zarr-info table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
 <tr class="odd">
@@ -617,15 +639,17 @@ dimension of the array.</pre>
 </table>
 </div>
 </div>
+</div>
 <p>We can see, from the storage ratio above, that compression has made our data 155 times smaller 😱 .</p>
 <p>You can set <code>compression=None</code> when creating a Zarr array to turn off this behavior, but I’m not sure why you would do that.</p>
 <p>Let’s see what happens when we use a different compression method. We can checkout a full list of numcodecs compressors here: <a href="https://numcodecs.readthedocs.io/">https://numcodecs.readthedocs.io/</a>.</p>
-<div class="cell" data-execution_count="16">
+<div id="cell-30" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numcodecs <span class="im">import</span> GZip</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>compressor <span class="op">=</span> GZip()</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>zstore_gzip_compressed <span class="op">=</span> zarr.array(np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span><span class="va">True</span>, compressor<span class="op">=</span>compressor)</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>zstore_gzip_compressed.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
+<div>
 <table class="zarr-info table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
 <tr class="odd">
@@ -680,13 +704,14 @@ dimension of the array.</pre>
 </table>
 </div>
 </div>
+</div>
 <p>In this case, the storage ratio is 5.3 - so not as good! How to chose a compression algorithm is a topic for future investigation.</p>
 </section>
 <section id="consolidating-metadata" class="level2">
 <h2 class="anchored" data-anchor-id="consolidating-metadata">Consolidating metadata</h2>
 <p>It’s important to consolidate metadata to minimize requests. Each group and array will have a metadata file, so in order to limit requests to read the whole tree of metadata files, Zarr provides the ability to consolidate metdata into a metadata file at the of the store.</p>
 <p>So far we have only been dealing in single array Zarr data stores. In this next example, we will create a zarr store with multiple arrays and then consolidate metadata. The speed up with local storage is insignificant, but becomes significant when dealing in remote storage options, which we will see in the following example on accessing cloud storage.</p>
-<div class="cell" data-execution_count="17">
+<div id="cell-34" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> zarr.group()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>zarr_store <span class="op">=</span> <span class="st">'example.zarr'</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's create many groups and many arrays</span></span>
@@ -699,26 +724,26 @@ dimension of the array.</pre>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.DirectoryStore(zarr_store)</span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>zarr.save(store, root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="1">
+<div id="cell-35" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We don't expect it to exist yet!</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {zarr_store}<span class="op">/</span>.zmetadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cat: {zarr_store}/.zmetadata: No such file or directory</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="19">
+<div id="cell-36" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>zarr.consolidate_metadata(zarr_store)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>&lt;zarr.core.Array (100,) &lt;U8&gt;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="20">
+<div id="cell-37" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>zarr.open_consolidated(zarr_store)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>&lt;zarr.core.Array (100,) &lt;U8&gt;</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="21">
+<div id="cell-38" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {zarr_store}<span class="op">/</span>.zmetadata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
@@ -761,14 +786,14 @@ dimension of the array.</pre>
 <li><a href="https://pangeo-forge.org/catalog">Pangeo-Forge Data Catalog</a></li>
 </ul>
 <p>The Pangeo-Forge Data Catalog provides handy examples of how to open each dataset, for example, from the <a href="https://pangeo-forge.org/dashboard/feedstock/42">Global Precipitation Climatology Project (GPCP)</a> page:</p>
-<div class="cell" data-execution_count="22">
+<div id="cell-40" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> <span class="st">'https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="23">
+<div id="cell-41" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(store, engine<span class="op">=</span><span class="st">'zarr'</span>, chunks<span class="op">=</span>{}, consolidated<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1194,10 +1219,15 @@ Attributes: (12/45)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iMTcwIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMjUiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjEyMCIgeDI9IjI1IiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjUiIHkxPSIwIiB4Mj0iMjUiIHkyPSIxMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAyNS45MjQxNjAwNTE5NjU3MTQsMC4wIDI1LjkyNDE2MDA1MTk2NTcxNCwxMjAuMCAwLjAsMTIwLjAiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iMTIuOTYyMDgwIiB5PSIxNDAuMDAwMDAwIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MjwvdGV4dD4KICA8dGV4dCB4PSI0NS45MjQxNjAiIHk9IjYwLjAwMDAwMCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCw0NS45MjQxNjAsNjAuMDAwMDAwKSI+MTgwPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="75" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="25" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="25" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="25" y1="0" x2="25" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 25.924160051965714,0.0 25.924160051965714,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="12.962080" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">2</text> <text x="45.924160" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,45.924160,60.000000)">180</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">latitude</span>
 </div>
@@ -1210,7 +1240,18 @@ float32
 <div class="xr-var-preview xr-preview">
 -90.0 -89.0 -88.0 ... 88.0 89.0
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" class="xr-var-data-in" type="checkbox">
+<label for="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>axis :</span></dt>
@@ -1253,6 +1294,8 @@ degrees_north
         78.,  79.,  80.,  81.,  82.,  83.,  84.,  85.,  86.,  87.,  88.,  89.],
       dtype=float32)</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>lon_bounds</span>
 </div>
@@ -1265,7 +1308,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-09d84b9c-8729-4334-98f4-50b956428e08" class="xr-var-data-in" type="checkbox">
+<label for="data-09d84b9c-8729-4334-98f4-50b956428e08" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>comment :</span></dt>
@@ -1311,11 +1365,15 @@ longitude values at the west and east bounds of each pixel.
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iMTcwIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMjUiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjEyMCIgeDI9IjI1IiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjUiIHkxPSIwIiB4Mj0iMjUiIHkyPSIxMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCAyNS40MTI2MTY1MTQ1ODI0ODUsMC4wIDI1LjQxMjYxNjUxNDU4MjQ4NSwxMjAuMCAwLjAsMTIwLjAiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iMTIuNzA2MzA4IiB5PSIxNDAuMDAwMDAwIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MjwvdGV4dD4KICA8dGV4dCB4PSI0NS40MTI2MTciIHk9IjYwLjAwMDAwMCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCw0NS40MTI2MTcsNjAuMDAwMDAwKSI+MzYwPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="75" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="25" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="25" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="25" y1="0" x2="25" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 25.412616514582485,0.0 25.412616514582485,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="12.706308" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">2</text> <text x="45.412617" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,45.412617,60.000000)">360</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">longitude</span>
 </div>
@@ -1328,7 +1386,18 @@ float32
 <div class="xr-var-preview xr-preview">
 0.0 1.0 2.0 ... 357.0 358.0 359.0
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" class="xr-var-data-in" type="checkbox">
+<label for="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>axis :</span></dt>
@@ -1356,6 +1425,8 @@ degrees_east
 <div class="xr-var-data">
 <pre><code>array([  0.,   1.,   2., ..., 357., 358., 359.], dtype=float32)</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">time</span>
 </div>
@@ -1368,7 +1439,18 @@ datetime64[ns]
 <div class="xr-var-preview xr-preview">
 1996-10-01 ... 2021-12-31
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" class="xr-var-data-in" type="checkbox">
+<label for="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>axis :</span></dt>
@@ -1391,6 +1473,8 @@ time
        '2021-12-30T00:00:00.000000000', '2021-12-31T00:00:00.000000000'],
       dtype='datetime64[ns]')</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>time_bounds</span>
 </div>
@@ -1403,7 +1487,18 @@ datetime64[ns]
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(200, 2), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-b9566218-6432-4360-b874-6cb3e2e85201" class="xr-var-data-in" type="checkbox">
+<label for="data-b9566218-6432-4360-b874-6cb3e2e85201" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>comment :</span></dt>
@@ -1449,16 +1544,26 @@ time bounds for each time value
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iMTcwIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMjUiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjUiIHgyPSIyNSIgeTI9IjUiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjEwIiB4Mj0iMjUiIHkyPSIxMCI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMTgiIHgyPSIyNSIgeTI9IjE4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyMyIgeDI9IjI1IiB5Mj0iMjMiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjMxIiB4Mj0iMjUiIHkyPSIzMSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMzYiIHgyPSIyNSIgeTI9IjM2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI0NCIgeDI9IjI1IiB5Mj0iNDQiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjQ5IiB4Mj0iMjUiIHkyPSI0OSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iNTciIHgyPSIyNSIgeTI9IjU3Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI2MiIgeDI9IjI1IiB5Mj0iNjIiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjcwIiB4Mj0iMjUiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iNzUiIHgyPSIyNSIgeTI9Ijc1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI4MyIgeDI9IjI1IiB5Mj0iODMiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9Ijg4IiB4Mj0iMjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iOTYiIHgyPSIyNSIgeTI9Ijk2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMDEiIHgyPSIyNSIgeTI9IjEwMSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMTA5IiB4Mj0iMjUiIHkyPSIxMDkiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjExNCIgeDI9IjI1IiB5Mj0iMTE0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMjAiIHgyPSIyNSIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjI1IiB5MT0iMCIgeDI9IjI1IiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgMjUuNDEyNjE2NTE0NTgyNDg1LDAuMCAyNS40MTI2MTY1MTQ1ODI0ODUsMTIwLjAgMC4wLDEyMC4wIiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjEyLjcwNjMwOCIgeT0iMTQwLjAwMDAwMCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjI8L3RleHQ+CiAgPHRleHQgeD0iNDUuNDEyNjE3IiB5PSI2MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsNDUuNDEyNjE3LDYwLjAwMDAwMCkiPjkyMjY8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="75" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="25" y2="0" style="stroke-width:2"></line> <line x1="0" y1="5" x2="25" y2="5"></line> <line x1="0" y1="10" x2="25" y2="10"></line> <line x1="0" y1="18" x2="25" y2="18"></line> <line x1="0" y1="23" x2="25" y2="23"></line> <line x1="0" y1="31" x2="25" y2="31"></line> <line x1="0" y1="36" x2="25" y2="36"></line> <line x1="0" y1="44" x2="25" y2="44"></line> <line x1="0" y1="49" x2="25" y2="49"></line> <line x1="0" y1="57" x2="25" y2="57"></line> <line x1="0" y1="62" x2="25" y2="62"></line> <line x1="0" y1="70" x2="25" y2="70"></line> <line x1="0" y1="75" x2="25" y2="75"></line> <line x1="0" y1="83" x2="25" y2="83"></line> <line x1="0" y1="88" x2="25" y2="88"></line> <line x1="0" y1="96" x2="25" y2="96"></line> <line x1="0" y1="101" x2="25" y2="101"></line> <line x1="0" y1="109" x2="25" y2="109"></line> <line x1="0" y1="114" x2="25" y2="114"></line> <line x1="0" y1="120" x2="25" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="25" y1="0" x2="25" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 25.412616514582485,0.0 25.412616514582485,120.0 0.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="12.706308" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">2</text> <text x="45.412617" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,45.412617,60.000000)">9226</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-Data variables: <span>(1)</span>
+</li>
+</ul>
+</div>
+</li>
+<li class="xr-section-item">
+<input id="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary-in" type="checkbox" checked="">
+<label for="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary">Data variables: <span>(1)</span></label>
 <div class="xr-section-inline-details">
 
 </div>
 <div class="xr-section-details">
+<ul class="xr-var-list">
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>precip</span>
 </div>
@@ -1471,7 +1576,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(200, 180, 360), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" class="xr-var-data-in" type="checkbox">
+<label for="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -1533,14 +1649,15 @@ mm/day
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYzIiBoZWlnaHQ9IjE0OSIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIyOCIgeDI9IjgwIiB5Mj0iOTkiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSIxMCIgeTI9IjI4IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTMiIHkxPSIzIiB4Mj0iMTMiIHkyPSIzMSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSIxNiIgeTI9IjM1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMTAiIHgyPSIyMCIgeTI9IjM5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMTMiIHgyPSIyMyIgeTI9IjQyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjI4IiB5MT0iMTgiIHgyPSIyOCIgeTI9IjQ3Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMxIiB5MT0iMjEiIHgyPSIzMSIgeTI9IjUwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjM2IiB5MT0iMjYiIHgyPSIzNiIgeTI9IjU0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjM5IiB5MT0iMjkiIHgyPSIzOSIgeTI9IjU3Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQzIiB5MT0iMzMiIHgyPSI0MyIgeTI9IjYyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjQ2IiB5MT0iMzYiIHgyPSI0NiIgeTI9IjY1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUxIiB5MT0iNDEiIHgyPSI1MSIgeTI9IjcwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjU0IiB5MT0iNDQiIHgyPSI1NCIgeTI9IjczIj48L2xpbmU+CiAgPGxpbmUgeDE9IjU4IiB5MT0iNDgiIHgyPSI1OCIgeTI9Ijc3Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYyIiB5MT0iNTIiIHgyPSI2MiIgeTI9IjgwIj48L2xpbmU+CiAgPGxpbmUgeDE9IjY2IiB5MT0iNTYiIHgyPSI2NiIgeTI9Ijg1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjY5IiB5MT0iNTkiIHgyPSI2OSIgeTI9Ijg4Ij48L2xpbmU+CiAgPGxpbmUgeDE9Ijc0IiB5MT0iNjQiIHgyPSI3NCIgeTI9IjkzIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc3IiB5MT0iNjciIHgyPSI3NyIgeTI9Ijk2Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9Ijk5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjEwLjAsMC4wIDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDk5LjQ3OTYyNDk3MTkzIDEwLjAsMjguODkxMzg5Njc3ODEyMzQiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjQyIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQ2IiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0OSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjUzIiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjU2IiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjgiIHkxPSIxOCIgeDI9IjYxIiB5Mj0iMTgiPjwvbGluZT4KICA8bGluZSB4MT0iMzEiIHkxPSIyMSIgeDI9IjY0IiB5Mj0iMjEiPjwvbGluZT4KICA8bGluZSB4MT0iMzYiIHkxPSIyNiIgeDI9IjY4IiB5Mj0iMjYiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjcyIiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDMiIHkxPSIzMyIgeDI9Ijc2IiB5Mj0iMzMiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc5IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNTEiIHkxPSI0MSIgeDI9Ijg0IiB5Mj0iNDEiPjwvbGluZT4KICA8bGluZSB4MT0iNTQiIHkxPSI0NCIgeDI9Ijg3IiB5Mj0iNDQiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9IjkxIiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjIiIHkxPSI1MiIgeDI9Ijk1IiB5Mj0iNTIiPjwvbGluZT4KICA8bGluZSB4MT0iNjYiIHkxPSI1NiIgeDI9Ijk5IiB5Mj0iNTYiPjwvbGluZT4KICA8bGluZSB4MT0iNjkiIHkxPSI1OSIgeDI9IjEwMiIgeTI9IjU5Ij48L2xpbmU+CiAgPGxpbmUgeDE9Ijc0IiB5MT0iNjQiIHgyPSIxMDciIHkyPSI2NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NyIgeTE9IjY3IiB4Mj0iMTEwIiB5Mj0iNjciPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjExMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iODAiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjQyIiB5MT0iMCIgeDI9IjExMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjEwLjAsMC4wIDQyLjk4MjI4Mzc2ODE2MjAxLDAuMCAxMTMuNTcwNTE5MDYyMjc5NjYsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSIxMTMiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iOTkiIHgyPSIxMTMiIHkyPSI5OSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9Ijk5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTEzIiB5MT0iNzAiIHgyPSIxMTMiIHkyPSI5OSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSAxMTMuNTcwNTE5MDYyMjc5NjYsNzAuNTg4MjM1Mjk0MTE3NjUgMTEzLjU3MDUxOTA2MjI3OTY2LDk5LjQ3OTYyNDk3MTkzIDgwLjU4ODIzNTI5NDExNzY1LDk5LjQ3OTYyNDk3MTkzIiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9Ijk3LjA3OTM3NyIgeT0iMTE5LjQ3OTYyNSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjM2MDwvdGV4dD4KICA8dGV4dCB4PSIxMzMuNTcwNTE5IiB5PSI4NS4wMzM5MzAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsMTMzLjU3MDUxOSw4NS4wMzM5MzApIj4xODA8L3RleHQ+CiAgPHRleHQgeD0iMzUuMjk0MTE4IiB5PSI4NC4xODU1MDciIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSwzNS4yOTQxMTgsODQuMTg1NTA3KSI+OTIyNjwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="163" height="149" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="28" x2="80" y2="99" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="28" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="31"></line> <line x1="16" y1="6" x2="16" y2="35"></line> <line x1="20" y1="10" x2="20" y2="39"></line> <line x1="23" y1="13" x2="23" y2="42"></line> <line x1="28" y1="18" x2="28" y2="47"></line> <line x1="31" y1="21" x2="31" y2="50"></line> <line x1="36" y1="26" x2="36" y2="54"></line> <line x1="39" y1="29" x2="39" y2="57"></line> <line x1="43" y1="33" x2="43" y2="62"></line> <line x1="46" y1="36" x2="46" y2="65"></line> <line x1="51" y1="41" x2="51" y2="70"></line> <line x1="54" y1="44" x2="54" y2="73"></line> <line x1="58" y1="48" x2="58" y2="77"></line> <line x1="62" y1="52" x2="62" y2="80"></line> <line x1="66" y1="56" x2="66" y2="85"></line> <line x1="69" y1="59" x2="69" y2="88"></line> <line x1="74" y1="64" x2="74" y2="93"></line> <line x1="77" y1="67" x2="77" y2="96"></line> <line x1="80" y1="70" x2="80" y2="99" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,99.47962497193 10.0,28.89138967781234" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="42" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="46" y2="3"></line> <line x1="16" y1="6" x2="49" y2="6"></line> <line x1="20" y1="10" x2="53" y2="10"></line> <line x1="23" y1="13" x2="56" y2="13"></line> <line x1="28" y1="18" x2="61" y2="18"></line> <line x1="31" y1="21" x2="64" y2="21"></line> <line x1="36" y1="26" x2="68" y2="26"></line> <line x1="39" y1="29" x2="72" y2="29"></line> <line x1="43" y1="33" x2="76" y2="33"></line> <line x1="46" y1="36" x2="79" y2="36"></line> <line x1="51" y1="41" x2="84" y2="41"></line> <line x1="54" y1="44" x2="87" y2="44"></line> <line x1="58" y1="48" x2="91" y2="48"></line> <line x1="62" y1="52" x2="95" y2="52"></line> <line x1="66" y1="56" x2="99" y2="56"></line> <line x1="69" y1="59" x2="102" y2="59"></line> <line x1="74" y1="64" x2="107" y2="64"></line> <line x1="77" y1="67" x2="110" y2="67"></line> <line x1="80" y1="70" x2="113" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="42" y1="0" x2="113" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 42.98228376816201,0.0 113.57051906227966,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="113" y2="70" style="stroke-width:2"></line> <line x1="80" y1="99" x2="113" y2="99" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="99" style="stroke-width:2"></line> <line x1="113" y1="70" x2="113" y2="99" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 113.57051906227966,70.58823529411765 113.57051906227966,99.47962497193 80.58823529411765,99.47962497193" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="97.079377" y="119.479625" font-size="1.0rem" font-weight="100" text-anchor="middle">360</text> <text x="133.570519" y="85.033930" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,133.570519,85.033930)">180</text> <text x="35.294118" y="84.185507" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,84.185507)">9226</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary-in" type="checkbox"><label for="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>latitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" class="xr-index-data-in" type="checkbox"><label for="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.0, -88.0, -87.0, -86.0, -85.0, -84.0, -83.0, -82.0, -81.0,
+</li></ul></div>
+</li></ul></div></div><li class="xr-section-item"><input id="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary-in" type="checkbox"><label for="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>latitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" class="xr-index-data-in" type="checkbox"><label for="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.0, -88.0, -87.0, -86.0, -85.0, -84.0, -83.0, -82.0, -81.0,
        ...
         80.0,  81.0,  82.0,  83.0,  84.0,  85.0,  86.0,  87.0,  88.0,  89.0],
       dtype='float32', name='latitude', length=180))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>longitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-b0e613b3-6501-4e1e-baa9-6fa14d6a72f2" class="xr-index-data-in" type="checkbox"><label for="index-b0e613b3-6501-4e1e-baa9-6fa14d6a72f2" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.0,   1.0,   2.0,   3.0,   4.0,   5.0,   6.0,   7.0,   8.0,   9.0,
@@ -1553,12 +1670,13 @@ mm/day
                '2021-12-22', '2021-12-23', '2021-12-24', '2021-12-25',
                '2021-12-26', '2021-12-27', '2021-12-28', '2021-12-29',
                '2021-12-30', '2021-12-31'],
-              dtype='datetime64[ns]', name='time', length=9226, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary-in" type="checkbox"><label for="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary">Attributes: <span>(45)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD 1.3</dd><dt><span>Metadata_Conventions :</span></dt><dd>CF-1.6, Unidata Dataset Discovery v1.0, NOAA CDR v1.0, GDS v2.0</dd><dt><span>acknowledgment :</span></dt><dd>This project was supported in part by a grant from the NOAA Climate Data Record (CDR) Program for satellites.</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>cdr_program :</span></dt><dd>NOAA Climate Data Record Program for satellites, FY 2011.</dd><dt><span>cdr_variable :</span></dt><dd>precipitation</dd><dt><span>comment :</span></dt><dd>Processing computer: eagle2.umd.edu</dd><dt><span>contributor_name :</span></dt><dd>Robert Adler, Jian-Jian Wang</dd><dt><span>contributor_role :</span></dt><dd>principalInvestigator, processor and custodian</dd><dt><span>creator_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>creator_name :</span></dt><dd>Dr. Jian-Jian Wang</dd><dt><span>date_created :</span></dt><dd>2017-05-30T16:52:42Z</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>360.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>1) 2017-05-30T16:52:42Z, Dr. Jian-Jian Wang, U of Maryland, Created beta (B1) file</dd><dt><span>id :</span></dt><dd>199610/gpcp_v01r03_daily_d19961001_c20170530.nc</dd><dt><span>institution :</span></dt><dd>ACADEMIC &gt; UMD/ESSIC &gt; Earth System Science Interdisciplinary Center, University of Maryland</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE &gt; ATMOSPHERE &gt; PRECIPITATION &gt; PRECIPITATION AMOUNT</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Earth Science Keywords, Version 7.0</dd><dt><span>license :</span></dt><dd>No constraints on data access or use.</dd><dt><span>metadata_link :</span></dt><dd>gov.noaa.ncdc:XXXXX</dd><dt><span>naming_authority :</span></dt><dd>gov.noaa.ncdc</dd><dt><span>platform :</span></dt><dd>GOES (Geostationary Operational Environmental Satellite), GMS (Japan Geostationary Meteorological Satellite), METEOSAT, TIROS &gt; Television Infrared Observation Satellite, DMSP (Defense Meteorological Satellite Program)</dd><dt><span>processing_level :</span></dt><dd>NASA Level 3</dd><dt><span>product_version :</span></dt><dd>v01r03</dd><dt><span>project :</span></dt><dd>GPCP &gt; Global Precipitation Climatology Project</dd><dt><span>publisher_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>publisher_name :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>publisher_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>references :</span></dt><dd>Huffman et al. 1997, http://dx.doi.org/10.1175/1520-0477(1997)078&lt;0005:TGPCPG&gt;2.0.CO;2; Adler et al. 2003, http://dx.doi.org/10.1175/1525-7541(2003)004&lt;1147:TVGPCP&gt;2.0.CO;2; Huffman et al. 2009, http://dx.doi.org/10.1029/2009GL040000; Adler et al. 2017, Global Precipitation Climatology Project (GPCP) Daily Analysis: Climate Algorithm Theoretical Basis Document (C-ATBD)</dd><dt><span>sensor :</span></dt><dd>Imager, TOVS &gt; TIROS Operational Vertical Sounder, SSMI &gt; Special Sensor Microwave/Imager</dd><dt><span>source :</span></dt><dd>/data1/GPCP_CDR/GPCP_Output/1DD//bin/199610/stfsg3.19961001.s</dd><dt><span>spatial_resolution :</span></dt><dd>1 degree</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table (v41, 22 February 2017)</dd><dt><span>summary :</span></dt><dd>Global Precipitation Climatology Project (GPCP) Daily Version 1.3 gridded, merged satellite/gauge precipitation Climate data Record (CDR) from 1996 to present.</dd><dt><span>time_coverage_duration :</span></dt><dd>P1D</dd><dt><span>time_coverage_end :</span></dt><dd>1996-10-01T23:59:59Z</dd><dt><span>time_coverage_start :</span></dt><dd>1996-10-01T00:00:00Z</dd><dt><span>title :</span></dt><dd>Global Precipitation Climatatology Project (GPCP) Climate Data Record (CDR), Daily V1.3</dd></dl></div></li></ul></div></div>
+              dtype='datetime64[ns]', name='time', length=9226, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary-in" type="checkbox"><label for="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary">Attributes: <span>(45)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD 1.3</dd><dt><span>Metadata_Conventions :</span></dt><dd>CF-1.6, Unidata Dataset Discovery v1.0, NOAA CDR v1.0, GDS v2.0</dd><dt><span>acknowledgment :</span></dt><dd>This project was supported in part by a grant from the NOAA Climate Data Record (CDR) Program for satellites.</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>cdr_program :</span></dt><dd>NOAA Climate Data Record Program for satellites, FY 2011.</dd><dt><span>cdr_variable :</span></dt><dd>precipitation</dd><dt><span>comment :</span></dt><dd>Processing computer: eagle2.umd.edu</dd><dt><span>contributor_name :</span></dt><dd>Robert Adler, Jian-Jian Wang</dd><dt><span>contributor_role :</span></dt><dd>principalInvestigator, processor and custodian</dd><dt><span>creator_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>creator_name :</span></dt><dd>Dr. Jian-Jian Wang</dd><dt><span>date_created :</span></dt><dd>2017-05-30T16:52:42Z</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>360.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>1) 2017-05-30T16:52:42Z, Dr. Jian-Jian Wang, U of Maryland, Created beta (B1) file</dd><dt><span>id :</span></dt><dd>199610/gpcp_v01r03_daily_d19961001_c20170530.nc</dd><dt><span>institution :</span></dt><dd>ACADEMIC &gt; UMD/ESSIC &gt; Earth System Science Interdisciplinary Center, University of Maryland</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE &gt; ATMOSPHERE &gt; PRECIPITATION &gt; PRECIPITATION AMOUNT</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Earth Science Keywords, Version 7.0</dd><dt><span>license :</span></dt><dd>No constraints on data access or use.</dd><dt><span>metadata_link :</span></dt><dd>gov.noaa.ncdc:XXXXX</dd><dt><span>naming_authority :</span></dt><dd>gov.noaa.ncdc</dd><dt><span>platform :</span></dt><dd>GOES (Geostationary Operational Environmental Satellite), GMS (Japan Geostationary Meteorological Satellite), METEOSAT, TIROS &gt; Television Infrared Observation Satellite, DMSP (Defense Meteorological Satellite Program)</dd><dt><span>processing_level :</span></dt><dd>NASA Level 3</dd><dt><span>product_version :</span></dt><dd>v01r03</dd><dt><span>project :</span></dt><dd>GPCP &gt; Global Precipitation Climatology Project</dd><dt><span>publisher_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>publisher_name :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>publisher_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>references :</span></dt><dd>Huffman et al. 1997, http://dx.doi.org/10.1175/1520-0477(1997)078&lt;0005:TGPCPG&gt;2.0.CO;2; Adler et al. 2003, http://dx.doi.org/10.1175/1525-7541(2003)004&lt;1147:TVGPCP&gt;2.0.CO;2; Huffman et al. 2009, http://dx.doi.org/10.1029/2009GL040000; Adler et al. 2017, Global Precipitation Climatology Project (GPCP) Daily Analysis: Climate Algorithm Theoretical Basis Document (C-ATBD)</dd><dt><span>sensor :</span></dt><dd>Imager, TOVS &gt; TIROS Operational Vertical Sounder, SSMI &gt; Special Sensor Microwave/Imager</dd><dt><span>source :</span></dt><dd>/data1/GPCP_CDR/GPCP_Output/1DD//bin/199610/stfsg3.19961001.s</dd><dt><span>spatial_resolution :</span></dt><dd>1 degree</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table (v41, 22 February 2017)</dd><dt><span>summary :</span></dt><dd>Global Precipitation Climatology Project (GPCP) Daily Version 1.3 gridded, merged satellite/gauge precipitation Climate data Record (CDR) from 1996 to present.</dd><dt><span>time_coverage_duration :</span></dt><dd>P1D</dd><dt><span>time_coverage_end :</span></dt><dd>1996-10-01T23:59:59Z</dd><dt><span>time_coverage_start :</span></dt><dd>1996-10-01T00:00:00Z</dd><dt><span>title :</span></dt><dd>Global Precipitation Climatatology Project (GPCP) Climate Data Record (CDR), Daily V1.3</dd></dl></div></li></div></div>
 </div>
-</div>
+</section></main></div>
+
 <p>Microsoft’s Planetary Computer goes above and beyond, providing tutorials alongside each dataset. We recommend exploring these on your own to get an idea of what you can do with Zarr and Xarray. See all tutorials here: <a href="https://github.com/microsoft/PlanetaryComputerExamples/tree/main/tutorials">microsoft/PlanetaryComputerExamples</a>. Note, this repo contains ALL tutorials, not just Zarr tutorials, so you may want to filter for Zarr.</p>
 <p>For example, here is some code from the <a href="https://planetarycomputer.microsoft.com/dataset/daymet-daily-pr#Example-Notebook">Daymet Puerto Rico Dataset on MS Planetary Computer</a>:</p>
-<div class="cell" data-execution_count="1">
+<div id="cell-43" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.crs <span class="im">as</span> ccrs</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -1568,7 +1686,7 @@ mm/day
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">"ignore"</span>, <span class="pp">RuntimeWarning</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="2">
+<div id="cell-44" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://planetarycomputer.microsoft.com/api/stac/v1/collections/daymet-daily-hi"</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.read_file(url)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>asset <span class="op">=</span> collection.assets[<span class="st">"zarr-https"</span>]</span>
@@ -1576,7 +1694,7 @@ mm/day
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(store, <span class="op">**</span>asset.extra_fields[<span class="st">"xarray:open_kwargs"</span>])</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2004,10 +2122,15 @@ Attributes:
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE3MCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjU4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMjAiIHgyPSI1OCIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjU4IiB5MT0iMCIgeDI9IjU4IiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgNTguMzU2MTY0MzgzNTYxNjUsMC4wIDU4LjM1NjE2NDM4MzU2MTY1LDEyMC4wIDAuMCwxMjAuMCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIyOS4xNzgwODIiIHk9IjE0MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yODQ8L3RleHQ+CiAgPHRleHQgeD0iNzguMzU2MTY0IiB5PSI2MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsNzguMzU2MTY0LDYwLjAwMDAwMCkiPjU4NDwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="108" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="58" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="58" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="58" y1="0" x2="58" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 58.35616438356165,0.0 58.35616438356165,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="29.178082" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="78.356164" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,78.356164,60.000000)">584</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>lon</span>
 </div>
@@ -2020,7 +2143,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-2cd94214-519a-44ba-a725-43e75436c480" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-2cd94214-519a-44ba-a725-43e75436c480" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-6d38d838-3466-416c-b6dd-220a75c3c961" class="xr-var-data-in" type="checkbox">
+<label for="data-6d38d838-3466-416c-b6dd-220a75c3c961" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2074,11 +2208,15 @@ degrees_east
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE3MCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjU4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMjAiIHgyPSI1OCIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjU4IiB5MT0iMCIgeDI9IjU4IiB5Mj0iMTIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgNTguMzU2MTY0MzgzNTYxNjUsMC4wIDU4LjM1NjE2NDM4MzU2MTY1LDEyMC4wIDAuMCwxMjAuMCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIyOS4xNzgwODIiIHk9IjE0MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yODQ8L3RleHQ+CiAgPHRleHQgeD0iNzguMzU2MTY0IiB5PSI2MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAsNzguMzU2MTY0LDYwLjAwMDAwMCkiPjU4NDwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="108" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="58" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="58" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="58" y1="0" x2="58" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 58.35616438356165,0.0 58.35616438356165,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="29.178082" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="78.356164" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,78.356164,60.000000)">584</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">time</span>
 </div>
@@ -2091,7 +2229,18 @@ datetime64[ns]
 <div class="xr-var-preview xr-preview">
 1980-01-01T12:00:00 ... 2020-12-...
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-bc473913-ad24-4efc-b03e-6228ec5c6868" class="xr-var-data-in" type="checkbox">
+<label for="data-bc473913-ad24-4efc-b03e-6228ec5c6868" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>bounds :</span></dt>
@@ -2114,6 +2263,8 @@ time
        '2020-12-29T12:00:00.000000000', '2020-12-30T12:00:00.000000000'],
       dtype='datetime64[ns]')</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">x</span>
 </div>
@@ -2126,7 +2277,18 @@ float32
 <div class="xr-var-preview xr-preview">
 -5.802e+06 ... -5.519e+06
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-58bb849b-1e8f-461b-be7a-c962b31c4194" class="xr-var-data-in" type="checkbox">
+<label for="data-58bb849b-1e8f-461b-be7a-c962b31c4194" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2147,6 +2309,8 @@ m
 <pre><code>array([-5802250., -5801250., -5800250., ..., -5521250., -5520250., -5519250.],
       dtype=float32)</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span class="xr-has-index">y</span>
 </div>
@@ -2159,7 +2323,18 @@ float32
 <div class="xr-var-preview xr-preview">
 -3.9e+04 -4e+04 ... -6.22e+05
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" class="xr-var-data-in" type="checkbox">
+<label for="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2180,11 +2355,19 @@ m
 <pre><code>array([ -39000.,  -40000.,  -41000., ..., -620000., -621000., -622000.],
       dtype=float32)</code></pre>
 </div>
-Data variables: <span>(10)</span>
+</li>
+</ul>
+</div>
+</li>
+<li class="xr-section-item">
+<input id="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary-in" type="checkbox" checked="">
+<label for="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary">Data variables: <span>(10)</span></label>
 <div class="xr-section-inline-details">
 
 </div>
 <div class="xr-section-details">
+<ul class="xr-var-list">
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>dayl</span>
 </div>
@@ -2197,7 +2380,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-d96ec99e-8523-448a-9523-3df8249963e9" class="xr-var-data-in" type="checkbox">
+<label for="data-d96ec99e-8523-448a-9523-3df8249963e9" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2255,11 +2449,15 @@ s
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>lambert_conformal_conic</span>
 </div>
@@ -2272,7 +2470,18 @@ int16
 <div class="xr-var-preview xr-preview">
 ...
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-569f2272-9a4a-4736-a91a-58f38335eb7b" class="xr-var-data-in" type="checkbox">
+<label for="data-569f2272-9a4a-4736-a91a-58f38335eb7b" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>false_easting :</span></dt>
@@ -2312,6 +2521,8 @@ lambert_conformal_conic
 <div class="xr-var-data">
 <pre><code>[1 values with dtype=int16]</code></pre>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>prcp</span>
 </div>
@@ -2324,7 +2535,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" class="xr-var-data-in" type="checkbox">
+<label for="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2382,11 +2604,15 @@ mm/day
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>srad</span>
 </div>
@@ -2399,7 +2625,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-42884eac-d1f2-4ac5-9d45-699c21810d90" class="xr-var-data-in" type="checkbox">
+<label for="data-42884eac-d1f2-4ac5-9d45-699c21810d90" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2457,11 +2694,15 @@ W/m2
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>swe</span>
 </div>
@@ -2474,7 +2715,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" class="xr-var-data-in" type="checkbox">
+<label for="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2532,11 +2784,15 @@ kg/m2
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>time_bnds</span>
 </div>
@@ -2549,7 +2805,18 @@ datetime64[ns]
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" class="xr-var-attrs-in" type="checkbox" disabled="">
+<label for="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-55293e97-724b-46da-954e-b7325a37ec3b" class="xr-var-data-in" type="checkbox">
+<label for="data-55293e97-724b-46da-954e-b7325a37ec3b" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 </dl>
@@ -2591,11 +2858,15 @@ dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzUiIGhlaWdodD0iMTcwIiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMjUiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjUiIHgyPSIyNSIgeTI9IjUiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjExIiB4Mj0iMjUiIHkyPSIxMSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMTciIHgyPSIyNSIgeTI9IjE3Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyMyIgeDI9IjI1IiB5Mj0iMjMiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjI5IiB4Mj0iMjUiIHkyPSIyOSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMzUiIHgyPSIyNSIgeTI9IjM1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI0MyIgeDI9IjI1IiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjQ5IiB4Mj0iMjUiIHkyPSI0OSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iNTUiIHgyPSIyNSIgeTI9IjU1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI2MSIgeDI9IjI1IiB5Mj0iNjEiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjY3IiB4Mj0iMjUiIHkyPSI2NyI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iNzMiIHgyPSIyNSIgeTI9IjczIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI4MSIgeDI9IjI1IiB5Mj0iODEiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9Ijg3IiB4Mj0iMjUiIHkyPSI4NyI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iOTMiIHgyPSIyNSIgeTI9IjkzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSI5OSIgeDI9IjI1IiB5Mj0iOTkiPjwvbGluZT4KICA8bGluZSB4MT0iMCIgeTE9IjEwNSIgeDI9IjI1IiB5Mj0iMTA1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMTEiIHgyPSIyNSIgeTI9IjExMSI+PC9saW5lPgogIDxsaW5lIHgxPSIwIiB5MT0iMTIwIiB4Mj0iMjUiIHkyPSIxMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxMjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNSIgeTE9IjAiIHgyPSIyNSIgeTI9IjEyMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIwLjAsMC4wIDI1LjQxMjYxNjUxNDU4MjQ4NSwwLjAgMjUuNDEyNjE2NTE0NTgyNDg1LDEyMC4wIDAuMCwxMjAuMCIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIxMi43MDYzMDgiIHk9IjE0MC4wMDAwMDAiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yPC90ZXh0PgogIDx0ZXh0IHg9IjQ1LjQxMjYxNyIgeT0iNjAuMDAwMDAwIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLDQ1LjQxMjYxNyw2MC4wMDAwMDApIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="75" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="25" y2="0" style="stroke-width:2"></line> <line x1="0" y1="5" x2="25" y2="5"></line> <line x1="0" y1="11" x2="25" y2="11"></line> <line x1="0" y1="17" x2="25" y2="17"></line> <line x1="0" y1="23" x2="25" y2="23"></line> <line x1="0" y1="29" x2="25" y2="29"></line> <line x1="0" y1="35" x2="25" y2="35"></line> <line x1="0" y1="43" x2="25" y2="43"></line> <line x1="0" y1="49" x2="25" y2="49"></line> <line x1="0" y1="55" x2="25" y2="55"></line> <line x1="0" y1="61" x2="25" y2="61"></line> <line x1="0" y1="67" x2="25" y2="67"></line> <line x1="0" y1="73" x2="25" y2="73"></line> <line x1="0" y1="81" x2="25" y2="81"></line> <line x1="0" y1="87" x2="25" y2="87"></line> <line x1="0" y1="93" x2="25" y2="93"></line> <line x1="0" y1="99" x2="25" y2="99"></line> <line x1="0" y1="105" x2="25" y2="105"></line> <line x1="0" y1="111" x2="25" y2="111"></line> <line x1="0" y1="120" x2="25" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="25" y1="0" x2="25" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 25.412616514582485,0.0 25.412616514582485,120.0 0.0,120.0" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="12.706308" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">2</text> <text x="45.412617" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,45.412617,60.000000)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>tmax</span>
 </div>
@@ -2608,7 +2879,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" class="xr-var-data-in" type="checkbox">
+<label for="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2666,11 +2948,15 @@ degrees C
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>tmin</span>
 </div>
@@ -2683,7 +2969,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-ea2184aa-f543-4793-a873-546fe7c1042b" class="xr-var-data-in" type="checkbox">
+<label for="data-ea2184aa-f543-4793-a873-546fe7c1042b" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2741,11 +3038,15 @@ degrees C
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>vp</span>
 </div>
@@ -2758,7 +3059,18 @@ float32
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" class="xr-var-data-in" type="checkbox">
+<label for="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>cell_methods :</span></dt>
@@ -2816,11 +3128,15 @@ Pa
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTU5IiBoZWlnaHQ9IjE1MyIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMiIgeDI9IjgwIiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iMTAiIHkyPSIzMiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjEzIiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iMTYiIHkxPSI2IiB4Mj0iMTYiIHkyPSIzOSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjEwIiB4Mj0iMjAiIHkyPSI0MyI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjEzIiB4Mj0iMjMiIHkyPSI0NiI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjE3IiB4Mj0iMjciIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMCIgeTE9IjIwIiB4Mj0iMzAiIHkyPSI1MyI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI1OCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjI5IiB4Mj0iMzkiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI0MiIgeTE9IjMyIiB4Mj0iNDIiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI2OSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI3MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1MyIgeTE9IjQzIiB4Mj0iNTMiIHkyPSI3NiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjUxIiB4Mj0iNjEiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2NSIgeTE9IjU1IiB4Mj0iNjUiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OCIgeTE9IjU4IiB4Mj0iNjgiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MSIgeTE9IjYxIiB4Mj0iNzEiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI3NSIgeTE9IjY1IiB4Mj0iNzUiIHkyPSI5OCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iODAiIHkyPSIxMDMiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgODAuNTg4MjM1Mjk0MTE3NjUsMTAzLjU3MTE4MTI4MDgxOTc0IDEwLjAsMzIuOTgyOTQ1OTg2NzAyMDkiIHN0eWxlPSJmaWxsOiM4QjQ5MDNBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjM4IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMyIgeDI9IjQyIiB5Mj0iMyI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjYiIHgyPSI0NSIgeTI9IjYiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIxMCIgeDI9IjQ5IiB5Mj0iMTAiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIxMyIgeDI9IjUyIiB5Mj0iMTMiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIxNyIgeDI9IjU1IiB5Mj0iMTciPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIyMCIgeDI9IjU5IiB5Mj0iMjAiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9IjY0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIyOSIgeDI9IjY4IiB5Mj0iMjkiPjwvbGluZT4KICA8bGluZSB4MT0iNDIiIHkxPSIzMiIgeDI9IjcxIiB5Mj0iMzIiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijc0IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9Ijc4IiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTMiIHkxPSI0MyIgeDI9IjgxIiB5Mj0iNDMiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9Ijg2IiB5Mj0iNDgiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSI1MSIgeDI9IjkwIiB5Mj0iNTEiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSI1NSIgeDI9IjkzIiB5Mj0iNTUiPjwvbGluZT4KICA8bGluZSB4MT0iNjgiIHkxPSI1OCIgeDI9Ijk3IiB5Mj0iNTgiPjwvbGluZT4KICA8bGluZSB4MT0iNzEiIHkxPSI2MSIgeDI9IjEwMCIgeTI9IjYxIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijc1IiB5MT0iNjUiIHgyPSIxMDQiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMTAuMCwwLjAgMzguNzM2ODIxMzg5MTk1MTQsMC4wIDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI4MCIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iNzAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwMyIgeDI9IjEwOSIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjEwMyIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEwOSIgeTE9IjcwIiB4Mj0iMTA5IiB5Mj0iMTAzIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjgwLjU4ODIzNTI5NDExNzY1LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDcwLjU4ODIzNTI5NDExNzY1IDEwOS4zMjUwNTY2ODMzMTI4LDEwMy41NzExODEyODA4MTk3NCA4MC41ODgyMzUyOTQxMTc2NSwxMDMuNTcxMTgxMjgwODE5NzQiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIFRleHQgLS0+CiAgPHRleHQgeD0iOTQuOTU2NjQ2IiB5PSIxMjMuNTcxMTgxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Mjg0PC90ZXh0PgogIDx0ZXh0IHg9IjEyOS4zMjUwNTciIHk9Ijg3LjA3OTcwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwxMjkuMzI1MDU3LDg3LjA3OTcwOCkiPjU4NDwvdGV4dD4KICA8dGV4dCB4PSIzNS4yOTQxMTgiIHk9Ijg4LjI3NzA2NCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDM1LjI5NDExOCw4OC4yNzcwNjQpIj4xNDk2NTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="159" height="153" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="32" x2="80" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="32" style="stroke-width:2"></line> <line x1="13" y1="3" x2="13" y2="36"></line> <line x1="16" y1="6" x2="16" y2="39"></line> <line x1="20" y1="10" x2="20" y2="43"></line> <line x1="23" y1="13" x2="23" y2="46"></line> <line x1="27" y1="17" x2="27" y2="50"></line> <line x1="30" y1="20" x2="30" y2="53"></line> <line x1="35" y1="25" x2="35" y2="58"></line> <line x1="39" y1="29" x2="39" y2="62"></line> <line x1="42" y1="32" x2="42" y2="65"></line> <line x1="46" y1="36" x2="46" y2="69"></line> <line x1="49" y1="39" x2="49" y2="72"></line> <line x1="53" y1="43" x2="53" y2="76"></line> <line x1="58" y1="48" x2="58" y2="81"></line> <line x1="61" y1="51" x2="61" y2="84"></line> <line x1="65" y1="55" x2="65" y2="88"></line> <line x1="68" y1="58" x2="68" y2="91"></line> <line x1="71" y1="61" x2="71" y2="94"></line> <line x1="75" y1="65" x2="75" y2="98"></line> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,103.57118128081974 10.0,32.98294598670209" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="38" y2="0" style="stroke-width:2"></line> <line x1="13" y1="3" x2="42" y2="3"></line> <line x1="16" y1="6" x2="45" y2="6"></line> <line x1="20" y1="10" x2="49" y2="10"></line> <line x1="23" y1="13" x2="52" y2="13"></line> <line x1="27" y1="17" x2="55" y2="17"></line> <line x1="30" y1="20" x2="59" y2="20"></line> <line x1="35" y1="25" x2="64" y2="25"></line> <line x1="39" y1="29" x2="68" y2="29"></line> <line x1="42" y1="32" x2="71" y2="32"></line> <line x1="46" y1="36" x2="74" y2="36"></line> <line x1="49" y1="39" x2="78" y2="39"></line> <line x1="53" y1="43" x2="81" y2="43"></line> <line x1="58" y1="48" x2="86" y2="48"></line> <line x1="61" y1="51" x2="90" y2="51"></line> <line x1="65" y1="55" x2="93" y2="55"></line> <line x1="68" y1="58" x2="97" y2="58"></line> <line x1="71" y1="61" x2="100" y2="61"></line> <line x1="75" y1="65" x2="104" y2="65"></line> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="38" y1="0" x2="109" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 38.73682138919514,0.0 109.3250566833128,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="109" y2="70" style="stroke-width:2"></line> <line x1="80" y1="103" x2="109" y2="103" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="103" style="stroke-width:2"></line> <line x1="109" y1="70" x2="109" y2="103" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 109.3250566833128,70.58823529411765 109.3250566833128,103.57118128081974 80.58823529411765,103.57118128081974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="94.956646" y="123.571181" font-size="1.0rem" font-weight="100" text-anchor="middle">284</text> <text x="129.325057" y="87.079708" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.325057,87.079708)">584</text> <text x="35.294118" y="88.277064" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,88.277064)">14965</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>yearday</span>
 </div>
@@ -2833,7 +3149,18 @@ int16
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(365,), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-1b960db4-ea74-4f8d-a111-900c84528485" class="xr-var-data-in" type="checkbox">
+<label for="data-1b960db4-ea74-4f8d-a111-900c84528485" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -2879,13 +3206,15 @@ day of year (DOY) starting with day 1 on Januaray 1st
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcwIiBoZWlnaHQ9Ijc1IiBzdHlsZT0ic3Ryb2tlOnJnYigwLDAsMCk7c3Ryb2tlLXdpZHRoOjEiPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMTIwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjEyMCIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1IiB5MT0iMCIgeDI9IjUiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxMSIgeTE9IjAiIHgyPSIxMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMCIgeDI9IjE3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIwIiB4Mj0iMjMiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjAiIHgyPSIyOSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjM1IiB5MT0iMCIgeDI9IjM1IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNDMiIHkxPSIwIiB4Mj0iNDMiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjAiIHgyPSI0OSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjU1IiB5MT0iMCIgeDI9IjU1IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNjEiIHkxPSIwIiB4Mj0iNjEiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI2NyIgeTE9IjAiIHgyPSI2NyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjczIiB5MT0iMCIgeDI9IjczIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iODEiIHkxPSIwIiB4Mj0iODEiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI4NyIgeTE9IjAiIHgyPSI4NyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjkzIiB5MT0iMCIgeDI9IjkzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iOTkiIHkxPSIwIiB4Mj0iOTkiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxMDUiIHkxPSIwIiB4Mj0iMTA1IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTExIiB5MT0iMCIgeDI9IjExMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEyMCIgeTE9IjAiIHgyPSIxMjAiIHkyPSIyNSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIwLjAsMC4wIDEyMC4wLDAuMCAxMjAuMCwyNS40MTI2MTY1MTQ1ODI0ODUgMC4wLDI1LjQxMjYxNjUxNDU4MjQ4NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSI2MC4wMDAwMDAiIHk9IjQ1LjQxMjYxNyIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjE0OTY1PC90ZXh0PgogIDx0ZXh0IHg9IjE0MC4wMDAwMDAiIHk9IjEyLjcwNjMwOCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMTQwLjAwMDAwMCwxMi43MDYzMDgpIj4xPC90ZXh0Pgo8L3N2Zz4=" class="img-fluid"></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="11" y1="0" x2="11" y2="25"></line> <line x1="17" y1="0" x2="17" y2="25"></line> <line x1="23" y1="0" x2="23" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="35" y1="0" x2="35" y2="25"></line> <line x1="43" y1="0" x2="43" y2="25"></line> <line x1="49" y1="0" x2="49" y2="25"></line> <line x1="55" y1="0" x2="55" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="67" y1="0" x2="67" y2="25"></line> <line x1="73" y1="0" x2="73" y2="25"></line> <line x1="81" y1="0" x2="81" y2="25"></line> <line x1="87" y1="0" x2="87" y2="25"></line> <line x1="93" y1="0" x2="93" y2="25"></line> <line x1="99" y1="0" x2="99" y2="25"></line> <line x1="105" y1="0" x2="105" y2="25"></line> <line x1="111" y1="0" x2="111" y2="25"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">14965</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary-in" type="checkbox"><label for="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-5304668e-d87a-4656-ad09-000b11bb09d9" class="xr-index-data-in" type="checkbox"><label for="index-5304668e-d87a-4656-ad09-000b11bb09d9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1980-01-01 12:00:00', '1980-01-02 12:00:00',
+</li></ul></div>
+</li></ul></div></div><li class="xr-section-item"><input id="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary-in" type="checkbox"><label for="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-5304668e-d87a-4656-ad09-000b11bb09d9" class="xr-index-data-in" type="checkbox"><label for="index-5304668e-d87a-4656-ad09-000b11bb09d9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1980-01-01 12:00:00', '1980-01-02 12:00:00',
                '1980-01-03 12:00:00', '1980-01-04 12:00:00',
                '1980-01-05 12:00:00', '1980-01-06 12:00:00',
                '1980-01-07 12:00:00', '1980-01-08 12:00:00',
@@ -2906,10 +3235,11 @@ day of year (DOY) starting with day 1 on Januaray 1st
        ...
        -613000.0, -614000.0, -615000.0, -616000.0, -617000.0, -618000.0,
        -619000.0, -620000.0, -621000.0, -622000.0],
-      dtype='float32', name='y', length=584))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6</dd><dt><span>Version_data :</span></dt><dd>Daymet Data Version 4.0</dd><dt><span>Version_software :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>citation :</span></dt><dd>Please see http://daymet.ornl.gov/ for current Daymet data citation information</dd><dt><span>references :</span></dt><dd>Please see http://daymet.ornl.gov/ for current information on Daymet references</dd><dt><span>source :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>start_year :</span></dt><dd>1980</dd></dl></div></li></ul></div></div>
+      dtype='float32', name='y', length=584))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6</dd><dt><span>Version_data :</span></dt><dd>Daymet Data Version 4.0</dd><dt><span>Version_software :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>citation :</span></dt><dd>Please see http://daymet.ornl.gov/ for current Daymet data citation information</dd><dt><span>references :</span></dt><dd>Please see http://daymet.ornl.gov/ for current information on Daymet references</dd><dt><span>source :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>start_year :</span></dt><dd>1980</dd></dl></div></li></div></div>
 </div>
-</div>
-</section>
+
+
+
 <section id="additional-resources" class="level1">
 <h1>Additional Resources</h1>
 <ul>
@@ -2919,7 +3249,7 @@ day of year (DOY) starting with day 1 on Januaray 1st
 
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2961,6 +3291,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -3029,13 +3386,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -3114,10 +3473,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -3127,8 +3503,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -3140,7 +3525,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -3184,6 +3692,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -3209,6 +3718,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -3270,24 +3805,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../zarr/intro.html" class="pagination-link">
+      <a href="../zarr/intro.html" class="pagination-link" aria-label="Zarr">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Zarr</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../kerchunk/intro.html" class="pagination-link">
+      <a href="../kerchunk/intro.html" class="pagination-link" aria-label="Kerchunk">
         <span class="nav-page-text">Kerchunk</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Foundation</a>, 2023</div>   
-    <div class="nav-footer-center"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></div>
-    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="nav-footer-left">
+<p>© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Foundation</a>, 2023</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/zarr/zarr-in-practice.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 
