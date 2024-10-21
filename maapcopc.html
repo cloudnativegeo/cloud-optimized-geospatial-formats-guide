@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud-Optimized Geospatial Formats Guide</title>
+    <style>
+        /* Global font and line-height styles */
+        body {
+            font-size: 16px;
+            line-height: 1.75;
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        p, ul, ol {
+            margin-bottom: 1.5em;
+            text-indent: 30px;
+        }
+
+        ul {
+            padding-left: 1.5em;
+        }
+
+        pre {
+            font-family: "Arial", sans-serif;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 0;
+            overflow-x: auto;
+        }
+
+        /* Index styling */
+        .index {
+            position: fixed;
+            right: 10px;
+            top: 20px;
+            width: 200px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .index ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .index ul li {
+            margin-bottom: 10px;
+        }
+
+        .index ul li a {
+            text-decoration: none;
+            color: #2a5db0;
+        }
+
+        /* Code block styling */
+        .code {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        /* Main content styling */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Cloud-Optimized Geospatial Formats Guide</h1>
+        <div class="author">
+            <strong>Author:</strong> Rajat Shinde (UAH), Alex Mandel (DevSeed), Jamison French (DevSeed), Brian Freitag(NASA), Sheyenne Kirkland (UAH), Harshini Girish(UAH)
+        </div>
+        <div class="date">
+            <strong>Date:</strong> September 21, 2024
+        </div>
+        <br>
+        <div class="description">
+            <strong>Description</strong> The LASER (LAS) file format is designed to store 3-dimensional (x,y,z) point cloud data typically collected from LiDAR. An LAZ file is a compressed LAS file and a Cloud-Optimized Point Cloud (COPC) file is a valid LAZ file.
+    
+            COPC files are similar to COGs for GeoTIFFs: Both are valid versions of the original file format but with additional requirements to support cloud-optimized data access. In the case of COGs, there are additional requirements for tiling and overviews. For COPC, data must be organized into a clustered octree with a variable-length record (VLR) describing the octree structure. <span class="code">H5py</span>, <span class="code">h5Glance</span>, and <span class="code">xarray</span>. Finally, we’ll visualize some of the data using <span class="code">xarray</span>.
+        </div>
+        <h2>Environment</h2>
+        <p>It is possible for to download data which is not cataloged by the MAAP’s CMR, using the NASA MAAP ADE. This data is hosted externally from the MAAP but can be accessed using the NASA MAAP ADE’s authentication systems.</p>
+
+           <p>In order to do this, we start by creating a Jupyter workspace within the NASA MAAP ADE. Using the left-hand navigation, select “+ Get Started” and then select the “Jupyter - MAAP Basic Stable” workspace.</p>
+            
+               The packages needed for this notebook can be installed with The following example uses several packages. If you do not have the following packages, uncomment the code below: </p>
+            <code style="background-color: #f9f9f9; padding: 2px 4px; border-radius: 3px;"># !pip install -q h5py h5glance requests fsspec s3fs h5netcdf</code> 
+            or 
+            <code style="background-color: #f9f9f9; padding: 2px 4px; border-radius: 3px;">mamba</code>. 
+            <p>Using the
+            <a href="https://guide.cloudnativegeo.org/copc/environment.yml" style="color: rgb(175, 175, 242); text-decoration: none;">environment.yml</a> 
+            from this folder, run:
+        </p>
+    
+        <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd; font-family: monospace;">
+            <pre>conda env create -f environment.yml</pre>
+        </div>
+    
+        <p>or</p>
+    
+        <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd; font-family: monospace;">
+            <pre>mamba env create -f environment.yml</pre>
+        </div>
+    
+        <p>
+            Finally, you may activate and select the kernel in the notebook (running in Jupyter):
+        </p>
+    
+        <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd; font-family: monospace;">
+            <pre>conda activate coguide-copc</pre>
+        </div>
+    
+        <p>
+            The notebook has been tested to work with the listed Conda environment.
+        </p>
+    <H2>Run This Notebook</H2>
+    <p>To access and run this tutorial within MAAP’s Algorithm Development Environment (ADE), please refer to the “Getting started with the MAAP” section of our documentation.</p>
+    <h2>Accessing data</h2>
+    <p>We will be using the <a href=https://lpdaac.usgs.gov/products/gllidarpcv001/style="color: rgb(175, 175, 242); text-decoration: none;">G-LiHT Lidar Point Cloud V001</a> from the NASA EarthData. To access NASA EarthData in Jupyter you need to register for an Earthdata account.
+
+        We will use earthaccess library to set up credentials to fetch data from NASA’s EarthData catalog.</p>
+        <pre>
+            import earthaccess
+            import os
+            import pdal</pre>
+       <br>
+        <pre>earthaccess.login()</pre>
+        <h2>Creating data directory </h2>
+        <p>We are going to use NASA host which is NASA’s Common Metadata Repository (CMR) to search for and download  data. We are creating a data directory for downloading all the required files locally.</p>
+        <p>With all this information in hand, we are ready to make a query to earthdata.nasa.gov using maap-py</p>
+        <pre># set data directory path
+             data_dir = './data'
+            
+            # check if directory exists -> if directory doesn't exist, directory is created
+            if not os.path.exists(data_dir):
+                os.mkdir(data_dir)</pre>
+        
+        <h2>Download data</h2>
+        <p>We are using search_data method from the earthaccess module for searching the Granules from the selected collection. The temporal argument defines the temporal range for</p>
+        <pre> # Search Granules
+                las_item_results = earthaccess.search_data(
+                short_name="GLLIDARPC",
+                version="001",
+                temporal = ("2020"), 
+                count=3 )
+        </pre>  
+        <P>Granules found: 72 </P>
+        <PRE>las_item_result</PRE>
+        <P>[Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+            Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -81.03452828650298, 'Latitude': 25.50220025425373}, {'Longitude': -81.01391715300757, 'Latitude': 25.50220365895999}, {'Longitude': -81.01391819492625, 'Latitude': 25.5112430715201}, {'Longitude': -81.03453087148995, 'Latitude': 25.511239665437053}, {'Longitude': -81.03452828650298, 'Latitude': 25.50220025425373}]}}]}}}
+            Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+            Size(MB): 238.623
+            Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s47.las'],
+            Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+            Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -81.02242648723991, 'Latitude': 25.493163090615468}, {'Longitude': -80.99410838333016, 'Latitude': 25.49316468678571}, {'Longitude': -80.99410794242846, 'Latitude': 25.502204110708817}, {'Longitude': -81.02242816553566, 'Latitude': 25.50220251389295}, {'Longitude': -81.02242648723991, 'Latitude': 25.493163090615468}]}}]}}}
+            Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+            Size(MB): 248.383
+            Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s46.las'],
+            Collection: {'EntryTitle': 'G-LiHT Lidar Point Cloud V001'}
+            Spatial coverage: {'HorizontalSpatialDomain': {'Geometry': {'GPolygons': [{'Boundary': {'Points': [{'Longitude': -80.94099075054905, 'Latitude': 25.276201329530473}, {'Longitude': -80.9355627247816, 'Latitude': 25.276199059361314}, {'Longitude': -80.9355579494582, 'Latitude': 25.285238744206318}, {'Longitude': -80.94098637748567, 'Latitude': 25.285241015299494}, {'Longitude': -80.94099075054905, 'Latitude': 25.276201329530473}]}}]}}}
+            Temporal coverage: {'RangeDateTime': {'BeginningDateTime': '2020-03-11T04:00:00.000Z', 'EndingDateTime': '2020-03-12T03:59:59.000Z'}}
+            Size(MB): 91.0422
+            Data: ['https://e4ftl01.cr.usgs.gov//GWELD1/COMMUNITY/GLLIDARPC.001/2020.03.11/GLLIDARPC_FL_20200311_FIA8_l0s22.las']]<br>
+           Let’s use the file with size 91.04 MB and convert it to a COPC format.</P>
+           <br>
+           <PRE># Download Data - Selecting the 3rd file from the `las_item_results` list
+            gliht_las_file = earthaccess.download(las_item_results[2], data_dir)
+            las_filename = gliht_las_file[0]
+            print(las_filename)
+           </PRE>
+            <br>
+            <pre>
+                Getting 1 granules, approx download size: 0.09 GB
+                File GLLIDARPC_FL_20200311_FIA8_l0s22.las already downloaded
+                data/GLLIDARPC_FL_20200311_FIA8_l0s22.las
+                QUEUEING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 1869.12it/s]
+                PROCESSING TASKS | : 100%|██████████| 1/1 [00:00&lt;00:00, 16131.94it/s]
+                COLLECTING RESULTS | : 100%|██████████| 1/1 [00:00&lt;00:00, 33554.43it/s]
+            </pre>
+     <h2>Sampling the data </h2>
+    <p> A decimation filter is used in signal processing to reduce the sampling rate of a signal by an integer factor, typically referred to as the decimation factor (M). It helps in reducing the amount of data while preserving the essential information in the signal.</p>
+    <p>You can refer the <a href=https://pdal.io/en/latest/stages/filters.decimation.html/style="color: rgb(175, 175, 242); text-decoration: none;">Filter Decimation</a> to sample the data.</p>
+    <h2>LAS to COPC Conversion</h2>
+    <p>Converting the LAS file to a COPC format based on the programmatic pipeline construction.</p>
+    <p>Demo Notebook</p>
+<pre>import pdal 
+        import glob
+        import os
+        
+        # Replace this by path to las files
+        path = "./data/ALS_ground_copc/outputs/norm/*.las"
+        
+        list_files = glob.glob(path)
+        list_files = sorted(list_files)
+        
+        for f in list_files:
+            # print(f)
+            
+            copc_filename = f.replace('.las', '.copc.laz')
+            try:
+                if os.path.exists(copc_filename):
+                    # print("already present - {}".format(copc_filename))
+                    pass
+        
+                else:
+        
+                    pipeline = pdal.Reader.las(filename=f) | pdal.Writer.copc(filename=copc_filename)
+                    pipeline.execute()
+            except:
+                print(f)
+        </pre>
+
+        <p>Define output file</p>
+         <pre># Defining output filename. Usually, COPC files are saved as .copc.laz
+            copc_filename = las_filename.replace('.las', '.copc.laz')
+            copc_filename
+            </pre>
+            <br>
+         <p>'data/GLLIDARPC_FL_20200311_FIA8_l0s22.copc.laz'</p>
+       
+         <pre> pipe = stage 1 | stage 2 | stage 3
+              # Or, pipeline = pipeline 1 | stage 2
+
+             # Once the pipeline is executed successfully, it prints the count of number of points
+
+            pipe = pdal.Reader.las(filename=las_filename) | pdal.Writer.copc(filename=copc_filename)
+            pipe.execute()
+        </pre>
+<h2>Validation</h2>
+<p>As we can see from output of the below cell, the .copc.laz file is created in the destination directory</p>
+<pre># using -go for removing user details and h for getting memory size in MBs
+    !ls -goh ./data
+</pre>
+<br>
+<p>
+Total 239888
+-rw-r--r--  1     26M Mar 20 11:55 GLLIDARPC_FL_20200311_FIA8_l0s22.copc.laz<br>
+-rw-r--r--  1     91M Feb 29 11:27 GLLIDARPC_FL_20200311_FIA8_l0s22.las<br>
+</p>
+<p>Let’s read the created COPC file again and check the value of copc flag from the metadata. If the generated LiDAR file is a valid COPC file, then this flag should be set to</p>
+
+<pre>
+valid_pipe = pdal.Reader.copc(filename=copc_filename) | pdal.Filter.stats()
+valid_pipe.execute()
+# Getting value for the "copc" key under the metadata
+# Output is True for a valid COPC
+value = valid_pipe.metadata["metadata"]["readers.copc"].get("copc")
+print(value)
+</pre>
+
+<p>
+True
+<br>
+</p>
+<H2>Accessing Data</H2>
+<p>The data values can be accessed from the executed pipeline using valid_pipe.arrays. The values in the arrays represent the LiDAR point cloud attributes such as X, Y, Z, and Intensity, etc.
+</p>
+
+<pre>
+arr_values = valid_pipe.arrays
+
+# Print the array values as a dataframe
+print(arr_values)
+</pre>
+
+<p>
+    [array([(506245.56, 2796471.44, 0.24, 40740, 1, 1, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75227621, 0),
+    (506247.16, 2796471.58, 0.27, 35541, 2, 2, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75229014, 0),
+    (506247.95, 2796471.65, 0.24, 17716, 2, 2, 1, 0, 2, 0, 0, 0, 0,  16.998, 1,   0, 310483.75229699, 0),
+    ...,
+    (506066.58, 2796032.75, 2.34, 31587, 1, 1, 0, 0, 1, 0, 0, 0, 0, -24.   , 2, 203, 310477.36925451, 0),
+    (506067.37, 2796033.29, 2.52, 32876, 1, 1, 0, 0, 1, 0, 0, 0, 0, -22.998, 2, 216, 310477.37590641, 0),
+    (506062.6 , 2796033.27, 1.4 , 27393, 1, 1, 0, 0, 1, 0, 0, 0, 0, -24.   , 2, 108, 310477.38259945, 0)],<br>
+    dtype=[('X', '&lt;f8'), ('Y', '&lt;f8'), ('Z', '&lt;f8'), ('Intensity', '&lt;u2'), ('ReturnNumber', 'u1'), ('NumberOfReturns', 'u1'), ('ScanDirectionFlag', 'u1'), ('EdgeOfFlightLine', 'u1'), ('Classification', 'u1'), ('Synthetic', 'u1'), ('KeyPoint', 'u1'), ('Withheld', 'u1'), ('Overlap', 'u1'), ('ScanAngleRank', '&lt;f4'), ('UserData', 'u1'), ('PointSourceId', '&lt;u2'), ('GpsTime', '&lt;f8'), ('ScanChannel', 'u1')]
+</p>
+
+
