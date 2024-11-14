@@ -1337,7 +1337,7 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html",
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "",
-    "text": "Note\n\n\n\nIf you want to jump to cloud-optimized HDF/NetCDF solutions, you can skip the background and jump to the checklist.\n\n\nNetCDF and HDF were designed for disk access. As Matt Rocklin describes in HDF in the Cloud: Challenges and Solutions for Scientific Data: “The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data.”\nWhen accessing data on disk, small chunks were preferred since access was fast and accessing any part of a chunk required reading the entire chunk (H5py Developers n.d.). This same data, when stored on the cloud, does deliver good performance as well as many requests must be made for metadata and raw data. With the introduction of a network, fewer requests is preferred.\nHowever, there has been a lot of progress in establishing best practices for optimizing HDF5 and NetCDF-4 for the cloud.\n\n\n\n\n\n\nNote\n\n\n\nNote: NetCDF4 are valid HDF5 files, see Reading and Editing NetCDF-4 Files with HDF5.",
+    "text": "Note\n\n\n\nYou can skip the background and details by jumping to the checklist.",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1345,23 +1345,11 @@
     ]
   },
   {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#background",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#background",
+    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#format",
+    "href": "cloud-optimized-netcdf4-hdf5/index.html#format",
     "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "",
-    "text": "Note\n\n\n\nIf you want to jump to cloud-optimized HDF/NetCDF solutions, you can skip the background and jump to the checklist.\n\n\nNetCDF and HDF were designed for disk access. As Matt Rocklin describes in HDF in the Cloud: Challenges and Solutions for Scientific Data: “The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data.”\nWhen accessing data on disk, small chunks were preferred since access was fast and accessing any part of a chunk required reading the entire chunk (H5py Developers n.d.). This same data, when stored on the cloud, does deliver good performance as well as many requests must be made for metadata and raw data. With the introduction of a network, fewer requests is preferred.\nHowever, there has been a lot of progress in establishing best practices for optimizing HDF5 and NetCDF-4 for the cloud.\n\n\n\n\n\n\nNote\n\n\n\nNote: NetCDF4 are valid HDF5 files, see Reading and Editing NetCDF-4 Files with HDF5.",
-    "crumbs": [
-      "Formats",
-      "Cloud-Optimized HDF5 and NetCDF",
-      "Cloud-Optimized NetCDF/HDF"
-    ]
-  },
-  {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#details",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#details",
-    "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "Details",
-    "text": "Details\n\nFormat\nTo be considered cloud-optimized, the format should support chunking and compression. NetCDF3 and HDF4 prior to v4.1 do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with other limitations led to the development of NetCDF4 and HDF5.",
+    "section": "Format",
+    "text": "Format\nTo be considered cloud-optimized, the format should support chunking and compression. NetCDF3 and HDF4 prior to v4.1 do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with other limitations led to the development of NetCDF4 and HDF5.",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1373,19 +1361,7 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html#chunk-size",
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "Chunk Size",
-    "text": "Chunk Size\nThere is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be “too big” or “too small”, because…\n\nWhen chunks are too small:\n\nExtra metadata may increase file size.\nIt takes extra time to look up each chunk.\nMore network I/O is incurred because each chunk is stored and accessed independently (although contiguous chunks may be accessed by extending the byte range into one request).\n\n\n\nWhen chunks are too big:\n\nAn entire chunk must be read and decompressed to read even a small portion of the data.\nManaging large chunks in memory slows down processing and is more likely to exceed memory and chunk caches.\n\nA chunk size should be selected that is large enough to reduce the number of tasks that parallel schedulers have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. The Amazon S3 Best Practices says the typical size for byte-range requests is 8-16MB. However, requests for data from contiguous chunks can be merged into 1 HTTP request, so chunks could be much smaller (one recommendation is 100kb to 2mb) (Jelenak 2024).",
-    "crumbs": [
-      "Formats",
-      "Cloud-Optimized HDF5 and NetCDF",
-      "Cloud-Optimized NetCDF/HDF"
-    ]
-  },
-  {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#chunk-shape-vs-chunk-size",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#chunk-shape-vs-chunk-size",
-    "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "Chunk shape vs chunk size",
-    "text": "Chunk shape vs chunk size\nRecommended chunk size (total number of values per chunk) is generally based on the storage system’s characteristics and its interaction with the data access library. That makes chunk size recommendations fairly universal when holding the storage system data access library (and its settings) constant. In contrast, chunk shape determines how values from different dimensions are grouped within each chunk. For a 3-dimensional dataset (latitude, longitude, time) with a chunk size of 1000, chunk shapes could vary, such as (A) 10 lat x 10 lon x 10 time, (B) 20 lat x 50 lon x 1 time, or (C) 5 lat x 5 lon x 40 time. Larger chunks in a given dimension improve read performance in that direction—e.g., (C) is best for time-series analysis, (B) for mapping, and (A) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of “aspect ratios” of chunks, adjusting relative chunk sizes to fit the expected balance of spatial versus time-series analyses (see https://github.com/jbusecke/dynamic_chunks).\nA best practice to help determine both chunk size and shape would be to specify some “benchmark use cases” for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn’t result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as HDF5’s buffer cache.",
+    "text": "Chunk Size\nThere is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be “too big” or “too small”.\n\nWhen chunks are too small:\n\nExtra metadata may increase file size.\nIt takes extra time to look up each chunk.\nMore network I/O is incurred because each chunk is stored and accessed independently (although contiguous chunks may be accessed by extending the byte range into one request).\n\n\n\nWhen chunks are too big:\n\nAn entire chunk must be read and decompressed to read even a small portion of the data.\nManaging large chunks in memory slows down processing and is more likely to exceed memory and chunk caches.\n\nA chunk size should be selected that is large enough to reduce the number of tasks that parallel schedulers have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. The Amazon S3 Best Practices says the typical size for byte-range requests is 8-16MB. However, requests for data from contiguous chunks can be merged into 1 HTTP request, so chunks could be much smaller (one recommendation is 100kb to 2mb) (Jelenak 2024).\n\n\n\n\n\n\nNote\n\n\n\nPerformance greatly depends on libraries used to access the data and how they are configured to cache data as well.\n\n\n\n\nChunk shape vs chunk size\nThe chunk size - the number of values per chunk, often multiplied by their data type’s size in bytes to get a total size in bytes - must be differentiated from the chunk shape, which is the number of values stored along each dimension in a given chunk. Recommended chunk size depends on a storage system’s characteristics and its interaction with the data access library. That makes chunk size recommendations fairly universal when holding the storage system data access library constant.\nIn contrast, an optimal chunk shape is use case dependent. For a 3-dimensional dataset (latitude, longitude, time) with a chunk size of 1000, chunk shapes could vary, such as:\n\n10 lat x 10 lon x 10 time,\n20 lat x 50 lon x 1 time, or\n5 lat x 5 lon x 40 time.\n\nLarger chunks in a given dimension improve read performance in that direction: (3) is best for time-series analysis, (2) for mapping, and (1) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of “aspect ratios” of chunks, adjusting relative chunk sizes to fit the expected balance of spatial versus time-series analyses (see https://github.com/jbusecke/dynamic_chunks).\n (Shiklomanov 2024)\nA best practice to help determine both chunk size and shape would be to specify some “benchmark use cases” for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn’t result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as HDF5’s buffer cache.",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1397,19 +1373,7 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html#consolidated-internal-file-metadata",
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "Consolidated Internal File Metadata",
-    "text": "Consolidated Internal File Metadata\nConsolidated metadata (or metadata stored contiguously) is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.\n\n\n\n\n\n\nNote\n\n\n\nFor HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access. You can use the h5repack to reorganize the metadata. For example, the following line produces a new file out.h5 which uses the PAGE file space management strategy with a page size of 4MB: $ h5repack -S PAGE -G 400000 in.h5 out.h5 (Jelenak 2023b)\n\n\n\n\n\n\n\n\nNote\n\n\n\nLazy loading: To optimize use of the cloud, it should be possible to “lazily load” a file from cloud storage without an additional service. Lazy loading means deferring the reading of data values until they are needed. Usually, a library reads the metadata to provide a data structure to the user. When the user applies some filters and computation on the data, only then are data bits loaded from storage.",
-    "crumbs": [
-      "Formats",
-      "Cloud-Optimized HDF5 and NetCDF",
-      "Cloud-Optimized NetCDF/HDF"
-    ]
-  },
-  {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#compression",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#compression",
-    "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "Compression",
-    "text": "Compression\nCompression is the process of minimizing the size of data stored on disk using an algorithm to reduce the overall size of the data. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.\nADD IMAGE\nNASA satellite data predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better(Jelenak 2023a).",
+    "text": "Consolidated Internal File Metadata\nConsolidated metadata is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.\nFor HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access.\n\n\n\n\n\n\nNote\n\n\n\nLazy loading: Lazy loading is a common term for first loading only metadata, and deferring reading of data values until computation requires them.\n\n\n\nCompression\nCompression is the process of minimizing the size of data stored on disk using an algorithm to reduce the overall size of the data. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.\n (Quinn 2024)\nNASA satellite data predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better(Jelenak 2023a).",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1421,7 +1385,7 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html#data-product-usage-documentation-tutorials-and-examples",
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "Data Product Usage Documentation (Tutorials and Examples)",
-    "text": "Data Product Usage Documentation (Tutorials and Examples)\nHow users use the data is out of the producers’ control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to leverage popular library’s caching to optimize the experience for the user.\nFor example, the following defaults will impact performance and are important to consider. * HDF5 library: The size of the HDF5’s chunk cache by default at time of writing is 1MB but is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. * S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB, meaning at least that much data is fetched in each request.\nHere is some research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:\n\nIn this issue Optimize s3fs read cache settings for the GEDI Subsetter (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance.\nIn HDF at the Speed of Zarr, Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).\n\nAdditional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in (Jelenak 2024).",
+    "text": "Data Product Usage Documentation (Tutorials and Examples)\nHow users use the data is out of the producers’ control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.\nFor example, the following library defaults will impact performance and are important to consider: * HDF5 library: The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. Learn more: Improve HDF5 performance using caching. * S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (S3FS API docs. * Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in (Jelenak 2024).\n\nAdditional research\nHere is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:\n\nIn this issue Optimize s3fs read cache settings for the GEDI Subsetter (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance.\nIn HDF at the Speed of Zarr, Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1433,7 +1397,43 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html#cloud-optimized-hdfnetcdf-checklist",
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "Cloud-Optimized HDF/NetCDF Checklist",
-    "text": "Cloud-Optimized HDF/NetCDF Checklist\nPlease consider the following when preparing HDF/NetCDF data for use on the cloud:\n\nThe format used supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).\nConsolidated metadata. See section below for checking for consolidated metadata.\nChunk sizes that are not too big nor too small (100kb-16mb). See section below for how to check chunk sizes.\nAn appropriate compression algorithm has been applied.\nExpected use cases for the data were considered when designing the chunk size and shape.\nData product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries’ caching features.",
+    "text": "Cloud-Optimized HDF/NetCDF Checklist\nPlease consider the following when preparing HDF/NetCDF data for use on the cloud:\n\nThe format supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).\nMetadata has been consolidated (see also how-to-check-for-consolidated-metadata).\nChunk sizes that are not too big nor too small (100kb-16mb) (see also how-to-check-chunk-size-and-shape).\nAn appropriate compression algorithm has been applied.\nExpected use cases for the data were considered when designing the chunk size and shape.\nData product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries’ caching features.",
+    "crumbs": [
+      "Formats",
+      "Cloud-Optimized HDF5 and NetCDF",
+      "Cloud-Optimized NetCDF/HDF"
+    ]
+  },
+  {
+    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#commands-in-brief",
+    "href": "cloud-optimized-netcdf4-hdf5/index.html#commands-in-brief",
+    "title": "Cloud-Optimized NetCDF/HDF",
+    "section": "Commands in brief:",
+    "text": "Commands in brief:\n\nh5stat: stats from an existing HDF5 file.\nh5repack: write a new file with a new layout.\nh5dump: display objects from an HDF5 file",
+    "crumbs": [
+      "Formats",
+      "Cloud-Optimized HDF5 and NetCDF",
+      "Cloud-Optimized NetCDF/HDF"
+    ]
+  },
+  {
+    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#how-to-check-for-consolidated-metadata",
+    "href": "cloud-optimized-netcdf4-hdf5/index.html#how-to-check-for-consolidated-metadata",
+    "title": "Cloud-Optimized NetCDF/HDF",
+    "section": "How to check for consolidated metadata",
+    "text": "How to check for consolidated metadata\nTo be considered cloud-optimized, HDF5 files should be written with the paged file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks (Jelenak 2023b).\nYou can check the file space management strategy with the command line h5stat tool:\nh5stat -S infile.h5\nThis returns output such as:\nFilename: infile.h5\nFile space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR\nFile space page size: 4096 bytes\nSummary of file space information:\n  File metadata: 2157376 bytes\n  Raw data: 37784376 bytes\n  Amount/Percent of tracked free space: 0 bytes/0.0%\n  Unaccounted space: 802424 bytes\nTotal space: 40744176 bytes\nNotice the strategy: File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR. This is the default option. The best choice for cloud-optimized access is H5F_FSPACE_STRATEGY_PAGE. Learn more about the options in the HDF docs: File Space Management (HDF Group).",
+    "crumbs": [
+      "Formats",
+      "Cloud-Optimized HDF5 and NetCDF",
+      "Cloud-Optimized NetCDF/HDF"
+    ]
+  },
+  {
+    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#how-to-change-the-file-space-management-strategy",
+    "href": "cloud-optimized-netcdf4-hdf5/index.html#how-to-change-the-file-space-management-strategy",
+    "title": "Cloud-Optimized NetCDF/HDF",
+    "section": "How to change the file space management strategy",
+    "text": "How to change the file space management strategy\nYou can use the h5repack to reorganize the metadata (Jelenak 2023b). When repacking to use the PAGE file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the File metadata value returned from h5stat -S.\n$ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",
@@ -1458,30 +1458,6 @@
     "title": "Cloud-Optimized NetCDF/HDF",
     "section": "How to change the chunk size and shape",
     "text": "How to change the chunk size and shape\n$ h5repack \\\n  # dataset:CHUNK=DIM[xDIM...xDIM]\n  /path/to/dataset:CHUNK=2000 infile.h5 outfile.h5",
-    "crumbs": [
-      "Formats",
-      "Cloud-Optimized HDF5 and NetCDF",
-      "Cloud-Optimized NetCDF/HDF"
-    ]
-  },
-  {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#how-to-check-for-consolidated-metadata",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#how-to-check-for-consolidated-metadata",
-    "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "How to check for consolidated metadata",
-    "text": "How to check for consolidated metadata\nTo be considered cloud-optimized, HDF5 files should be written with the paged file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks.\nYou can check the file space management strategy with the command line h5stat tool:\nh5stat -S infile.h5\nThis returns output such as:\nFilename: infile.h5\nFile space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR\nFile space page size: 4096 bytes\nSummary of file space information:\n  File metadata: 2157376 bytes\n  Raw data: 37784376 bytes\n  Amount/Percent of tracked free space: 0 bytes/0.0%\n  Unaccounted space: 802424 bytes\nTotal space: 40744176 bytes\nNote the strategy: File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR. The best choice for cloud-optimized access is H5F_FSPACE_STRATEGY_PAGE.",
-    "crumbs": [
-      "Formats",
-      "Cloud-Optimized HDF5 and NetCDF",
-      "Cloud-Optimized NetCDF/HDF"
-    ]
-  },
-  {
-    "objectID": "cloud-optimized-netcdf4-hdf5/index.html#how-to-change-the-file-space-management-strategy",
-    "href": "cloud-optimized-netcdf4-hdf5/index.html#how-to-change-the-file-space-management-strategy",
-    "title": "Cloud-Optimized NetCDF/HDF",
-    "section": "How to change the file space management strategy",
-    "text": "How to change the file space management strategy\nWhen repacking to use the PAGE file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the File metadata value returned from h5stat -S.\n$ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF5 and NetCDF",

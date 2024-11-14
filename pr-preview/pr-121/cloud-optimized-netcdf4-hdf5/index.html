@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak">
 
 <title>Cloud-Optimized NetCDF/HDF – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
@@ -420,22 +421,32 @@ div.csl-indent {
    
   <ul>
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a>
+  <li><a href="#current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" id="toc-current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" class="nav-link" data-scroll-target="#current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4">Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4</a>
   <ul class="collapse">
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
-  </ul></li>
-  <li><a href="#chunk-size" id="toc-chunk-size" class="nav-link" data-scroll-target="#chunk-size">Chunk Size</a></li>
+  <li><a href="#chunk-size" id="toc-chunk-size" class="nav-link" data-scroll-target="#chunk-size">Chunk Size</a>
+  <ul class="collapse">
+  <li><a href="#when-chunks-are-too-small" id="toc-when-chunks-are-too-small" class="nav-link" data-scroll-target="#when-chunks-are-too-small">When chunks are too small:</a></li>
+  <li><a href="#when-chunks-are-too-big" id="toc-when-chunks-are-too-big" class="nav-link" data-scroll-target="#when-chunks-are-too-big">When chunks are too big:</a></li>
   <li><a href="#chunk-shape-vs-chunk-size" id="toc-chunk-shape-vs-chunk-size" class="nav-link" data-scroll-target="#chunk-shape-vs-chunk-size">Chunk shape vs chunk size</a></li>
-  <li><a href="#consolidated-internal-file-metadata" id="toc-consolidated-internal-file-metadata" class="nav-link" data-scroll-target="#consolidated-internal-file-metadata">Consolidated Internal File Metadata</a></li>
+  </ul></li>
+  <li><a href="#consolidated-internal-file-metadata" id="toc-consolidated-internal-file-metadata" class="nav-link" data-scroll-target="#consolidated-internal-file-metadata">Consolidated Internal File Metadata</a>
+  <ul class="collapse">
   <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression">Compression</a></li>
-  <li><a href="#data-product-usage-documentation-tutorials-and-examples" id="toc-data-product-usage-documentation-tutorials-and-examples" class="nav-link" data-scroll-target="#data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</a></li>
+  </ul></li>
+  <li><a href="#data-product-usage-documentation-tutorials-and-examples" id="toc-data-product-usage-documentation-tutorials-and-examples" class="nav-link" data-scroll-target="#data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</a>
+  <ul class="collapse">
+  <li><a href="#additional-research" id="toc-additional-research" class="nav-link" data-scroll-target="#additional-research">Additional research</a></li>
+  </ul></li>
   <li><a href="#cloud-optimized-hdfnetcdf-checklist" id="toc-cloud-optimized-hdfnetcdf-checklist" class="nav-link" data-scroll-target="#cloud-optimized-hdfnetcdf-checklist">Cloud-Optimized HDF/NetCDF Checklist</a></li>
+  </ul></li>
   <li><a href="#how-tos" id="toc-how-tos" class="nav-link" data-scroll-target="#how-tos">How tos</a>
   <ul class="collapse">
-  <li><a href="#how-to-check-chunk-size-and-shape" id="toc-how-to-check-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-check-chunk-size-and-shape">How to check chunk size and shape</a></li>
-  <li><a href="#how-to-change-the-chunk-size-and-shape" id="toc-how-to-change-the-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</a></li>
+  <li><a href="#commands-in-brief" id="toc-commands-in-brief" class="nav-link" data-scroll-target="#commands-in-brief">Commands in brief:</a></li>
   <li><a href="#how-to-check-for-consolidated-metadata" id="toc-how-to-check-for-consolidated-metadata" class="nav-link" data-scroll-target="#how-to-check-for-consolidated-metadata">How to check for consolidated metadata</a></li>
   <li><a href="#how-to-change-the-file-space-management-strategy" id="toc-how-to-change-the-file-space-management-strategy" class="nav-link" data-scroll-target="#how-to-change-the-file-space-management-strategy">How to change the file space management strategy</a></li>
+  <li><a href="#how-to-check-chunk-size-and-shape" id="toc-how-to-check-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-check-chunk-size-and-shape">How to check chunk size and shape</a></li>
+  <li><a href="#how-to-change-the-chunk-size-and-shape" id="toc-how-to-change-the-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -453,6 +464,12 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak </p>
+          </div>
+  </div>
     
   
     
@@ -463,8 +480,6 @@ div.csl-indent {
 </header>
 
 
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -475,12 +490,18 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you want to jump to cloud-optimized HDF/NetCDF solutions, you can skip the background and jump to the <a href="#cloud-optimized-hdfnetcdf-checklist">checklist</a>.</p>
+<p>You can skip the background and details by jumping to the <a href="#cloud-optimized-hdfnetcdf-checklist">checklist</a>.</p>
 </div>
 </div>
-<p>NetCDF and HDF were designed for disk access. As Matt Rocklin describes in <a href="https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud">HDF in the Cloud: Challenges and Solutions for Scientific Data</a>: “The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data.”</p>
-<p>When accessing data on disk, small chunks were preferred since access was fast and accessing any part of a chunk required reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. This same data, when stored on the cloud, does deliver good performance as well as many requests must be made for metadata and raw data. With the introduction of a network, fewer requests is preferred.</p>
-<p>However, there has been a lot of progress in establishing best practices for optimizing HDF5 and NetCDF-4 for the cloud.</p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>NetCDF and HDF were originally designed with disk access in mind. As Matt Rocklin explains in <a href="https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud">HDF in the Cloud: Challenges and Solutions for Scientific Data</a>:</p>
+<blockquote class="blockquote">
+<p>The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data.</p>
+</blockquote>
+<p><img src="../images/why-hdf-on-cloud-is-slow.png" class="img-fluid"></p>
+<p><span class="citation" data-cites="barrett2024">(<a href="#ref-barrett2024" role="doc-biblioref">Barrett et al. 2024</a>)</span></p>
+<p>For storage on disk, small chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient. A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -495,41 +516,62 @@ Note
 </div>
 </div>
 </section>
-<section id="details" class="level2">
-<h2 class="anchored" data-anchor-id="details">Details</h2>
-<section id="format" class="level3">
-<h3 class="anchored" data-anchor-id="format">Format</h3>
+<section id="current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" class="level1">
+<h1>Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4</h1>
+<section id="format" class="level2">
+<h2 class="anchored" data-anchor-id="format">Format</h2>
 <p>To be considered cloud-optimized, the format should support chunking and compression. <a href="https://docs.unidata.ucar.edu/netcdf-c/current/faq.html">NetCDF3</a> and <a href="https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18">HDF4 prior to v4.1</a> do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with <a href="https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html">other limitations</a> led to the development of NetCDF4 and HDF5.</p>
-</section>
 </section>
 <section id="chunk-size" class="level2">
 <h2 class="anchored" data-anchor-id="chunk-size">Chunk Size</h2>
-<p>There is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be “too big” or “too small”, because…</p>
-<section id="when-chunks-are-too-small" class="level4">
-<h4 class="anchored" data-anchor-id="when-chunks-are-too-small">When chunks are too small:</h4>
+<p>There is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be “too big” or “too small”.</p>
+<section id="when-chunks-are-too-small" class="level3">
+<h3 class="anchored" data-anchor-id="when-chunks-are-too-small">When chunks are too small:</h3>
 <ul>
 <li>Extra metadata may increase file size.</li>
 <li>It takes extra time to look up each chunk.</li>
 <li>More network I/O is incurred because each chunk is stored and accessed independently (although contiguous chunks may be accessed by extending the byte range into one request).</li>
 </ul>
 </section>
-<section id="when-chunks-are-too-big" class="level4">
-<h4 class="anchored" data-anchor-id="when-chunks-are-too-big">When chunks are too big:</h4>
+<section id="when-chunks-are-too-big" class="level3">
+<h3 class="anchored" data-anchor-id="when-chunks-are-too-big">When chunks are too big:</h3>
 <ul>
 <li>An entire chunk must be read and decompressed to read even a small portion of the data.</li>
 <li>Managing large chunks in memory slows down processing and is more likely to exceed memory and chunk caches.</li>
 </ul>
 <p>A chunk size should be selected that is large enough to reduce the number of tasks that parallel schedulers have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. <a href="https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/use-byte-range-fetches.html">The Amazon S3 Best Practices says the typical size for byte-range requests is 8-16MB</a>. However, requests for data from contiguous chunks can be merged into 1 HTTP request, so chunks could be much smaller (one recommendation is 100kb to 2mb) <span class="citation" data-cites="jelenak2024">(<a href="#ref-jelenak2024" role="doc-biblioref">Jelenak 2024</a>)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.</p>
+</div>
+</div>
 </section>
-</section>
-<section id="chunk-shape-vs-chunk-size" class="level2">
-<h2 class="anchored" data-anchor-id="chunk-shape-vs-chunk-size">Chunk shape vs chunk size</h2>
-<p>Recommended chunk size (total number of values per chunk) is generally based on the storage system’s characteristics and its interaction with the data access library. That makes chunk size recommendations fairly universal when holding the storage system data access library (and its settings) constant. In contrast, chunk shape determines how values from different dimensions are grouped within each chunk. For a 3-dimensional dataset (latitude, longitude, time) with a chunk size of 1000, chunk shapes could vary, such as (A) 10 lat x 10 lon x 10 time, (B) 20 lat x 50 lon x 1 time, or (C) 5 lat x 5 lon x 40 time. Larger chunks in a given dimension improve read performance in that direction—e.g., (C) is best for time-series analysis, (B) for mapping, and (A) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of “aspect ratios” of chunks, adjusting relative chunk sizes to fit the expected balance of spatial versus time-series analyses (see <a href="https://github.com/jbusecke/dynamic_chunks">https://github.com/jbusecke/dynamic_chunks</a>).</p>
+<section id="chunk-shape-vs-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-shape-vs-chunk-size">Chunk shape vs chunk size</h3>
+<p>The chunk size - the number of values per chunk, often multiplied by their data type’s size in bytes to get a total size in bytes - must be differentiated from the chunk shape, which is the number of values stored along each dimension in a given chunk. Recommended chunk size depends on a storage system’s characteristics and its interaction with the data access library. That makes chunk size recommendations fairly universal when holding the storage system data access library constant.</p>
+<p>In contrast, an optimal chunk shape is use case dependent. For a 3-dimensional dataset (latitude, longitude, time) with a chunk size of 1000, chunk shapes could vary, such as:</p>
+<ol type="1">
+<li>10 lat x 10 lon x 10 time,</li>
+<li>20 lat x 50 lon x 1 time, or</li>
+<li>5 lat x 5 lon x 40 time.</li>
+</ol>
+<p>Larger chunks in a given dimension improve read performance in that direction: (3) is best for time-series analysis, (2) for mapping, and (1) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of “aspect ratios” of chunks, adjusting relative chunk sizes to fit the expected balance of spatial versus time-series analyses (see <a href="https://github.com/jbusecke/dynamic_chunks">https://github.com/jbusecke/dynamic_chunks</a>).</p>
+<p><img src="../images/chunk-shape-options.png" class="img-fluid" alt="chunk shape options"> <span class="citation" data-cites="shiklomanov2024">(<a href="#ref-shiklomanov2024" role="doc-biblioref">Shiklomanov 2024</a>)</span></p>
 <p>A best practice to help determine both chunk size and shape would be to specify some “benchmark use cases” for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn’t result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as <a href="https://www.hdfgroup.org/2022/10/improve-hdf5-performance-using-caching/">HDF5’s buffer cache</a>.</p>
+</section>
 </section>
 <section id="consolidated-internal-file-metadata" class="level2">
 <h2 class="anchored" data-anchor-id="consolidated-internal-file-metadata">Consolidated Internal File Metadata</h2>
-<p>Consolidated metadata (or metadata stored contiguously) is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.</p>
+<p>Consolidated metadata is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.</p>
+<p>For HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -540,72 +582,58 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access. You can use the h5repack to reorganize the metadata. For example, the following line produces a new file out.h5 which uses the PAGE file space management strategy with a page size of 4MB: <code>$ h5repack -S PAGE -G 400000 in.h5 out.h5</code> <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span></p>
+<p><em>Lazy loading:</em> Lazy loading is a common term for first loading only metadata, and deferring reading of data values until computation requires them.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Lazy loading:</em> To optimize use of the cloud, it should be possible to “lazily load” a file from cloud storage without an additional service. Lazy loading means deferring the reading of data values until they are needed. Usually, a library reads the metadata to provide a data structure to the user. When the user applies some filters and computation on the data, only then are data bits loaded from storage.</p>
-</div>
-</div>
-</section>
-<section id="compression" class="level2">
-<h2 class="anchored" data-anchor-id="compression">Compression</h2>
+<section id="compression" class="level3">
+<h3 class="anchored" data-anchor-id="compression">Compression</h3>
 <p>Compression is the process of minimizing the size of data stored on disk using an algorithm to reduce the overall size of the data. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.</p>
-<p>ADD IMAGE</p>
+<p><img src="../images/quinn-why-not-compress.png" class="img-fluid" alt="why not compress"> <span class="citation" data-cites="quinn2024">(<a href="#ref-quinn2024" role="doc-biblioref">Quinn 2024</a>)</span></p>
 <p>NASA satellite data predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better<span class="citation" data-cites="jelenak2023_report">(<a href="#ref-jelenak2023_report" role="doc-biblioref">Jelenak 2023a</a>)</span>.</p>
+</section>
 </section>
 <section id="data-product-usage-documentation-tutorials-and-examples" class="level2">
 <h2 class="anchored" data-anchor-id="data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</h2>
-<p>How users use the data is out of the producers’ control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to leverage popular library’s caching to optimize the experience for the user.</p>
-<p>For example, the following defaults will impact performance and are important to consider. * HDF5 library: The size of the HDF5’s chunk cache by default at time of writing is 1MB but is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. * S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB, meaning at least that much data is fetched in each request.</p>
-<p>Here is some research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:</p>
+<p>How users use the data is out of the producers’ control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.</p>
+<p>For example, the following library defaults will impact performance and are important to consider: * HDF5 library: The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. Learn more: <a href="https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/">Improve HDF5 performance using caching</a>. * S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (<a href="https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem">S3FS API docs</a>. * Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">(<a href="#ref-jelenak2024" role="doc-biblioref">Jelenak 2024</a>)</span>.</p>
+<section id="additional-research" class="level3">
+<h3 class="anchored" data-anchor-id="additional-research">Additional research</h3>
+<p>Here is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:</p>
 <ul>
 <li>In this issue <a href="https://github.com/MAAP-Project/gedi-subsetter/issues/77">Optimize s3fs read cache settings for the GEDI Subsetter</a> (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance.</li>
 <li>In <a href="https://docs.google.com/presentation/d/1iYFvGt9Zz0iaTj0STIMbboRKcBGhpOH_LuLBLqsJAlk/edit?usp=sharing">HDF at the Speed of Zarr</a>, Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).</li>
 </ul>
-<p>Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">(<a href="#ref-jelenak2024" role="doc-biblioref">Jelenak 2024</a>)</span>.</p>
+</section>
 </section>
 <section id="cloud-optimized-hdfnetcdf-checklist" class="level2">
 <h2 class="anchored" data-anchor-id="cloud-optimized-hdfnetcdf-checklist">Cloud-Optimized HDF/NetCDF Checklist</h2>
 <p>Please consider the following when preparing HDF/NetCDF data for use on the cloud:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">The format used supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).</label></li>
-<li><label><input type="checkbox">Consolidated metadata. See section below for checking for consolidated metadata.</label></li>
-<li><label><input type="checkbox">Chunk sizes that are not too big nor too small (100kb-16mb). See section below for how to check chunk sizes.</label></li>
+<li><label><input type="checkbox">The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).</label></li>
+<li><label><input type="checkbox">Metadata has been consolidated (see also <a href="#how-to-check-for-consolidated-metadata">how-to-check-for-consolidated-metadata</a>).</label></li>
+<li><label><input type="checkbox">Chunk sizes that are not too big nor too small (100kb-16mb) (see also <a href="#how-to-check-chunk-size-and-shape">how-to-check-chunk-size-and-shape</a>).</label></li>
 <li><label><input type="checkbox">An appropriate compression algorithm has been applied.</label></li>
 <li><label><input type="checkbox">Expected use cases for the data were considered when designing the chunk size and shape.</label></li>
 <li><label><input type="checkbox">Data product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries’ caching features.</label></li>
 </ul>
 </section>
+</section>
 <section id="how-tos" class="level1">
 <h1>How tos</h1>
-<p>ADD ME - does this guidance work for NetCDF4</p>
-<p>The examples below rely on the command line tools that come with the HDF5 library and as such require the HDF5 library package is installed on your system. While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.</p>
-<section id="how-to-check-chunk-size-and-shape" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-check-chunk-size-and-shape">How to check chunk size and shape</h2>
-<p>Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="how-to-change-the-chunk-size-and-shape" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The examples below require the HDF5 library package is installed on your system. While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.</p>
+<section id="commands-in-brief" class="level2">
+<h2 class="anchored" data-anchor-id="commands-in-brief">Commands in brief:</h2>
+<ul>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html"><code>h5stat</code></a>: stats from an existing HDF5 file.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html"><code>h5repack</code></a>: write a new file with a new layout.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html"><code>h5dump</code></a>: display objects from an HDF5 file</li>
+</ul>
 </section>
 <section id="how-to-check-for-consolidated-metadata" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-check-for-consolidated-metadata">How to check for consolidated metadata</h2>
-<p>To be considered cloud-optimized, HDF5 files should be written with the paged file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks.</p>
+<p>To be considered cloud-optimized, HDF5 files should be written with the paged file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>.</p>
 <p>You can check the file space management strategy with the command line h5stat tool:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5stat</span> <span class="at">-S</span> infile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5stat</span> <span class="at">-S</span> infile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This returns output such as:</p>
 <pre class="text"><code>Filename: infile.h5
 File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR
@@ -616,17 +644,31 @@ Summary of file space information:
   Amount/Percent of tracked free space: 0 bytes/0.0%
   Unaccounted space: 802424 bytes
 Total space: 40744176 bytes</code></pre>
-<p>Note the strategy: <code>File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR</code>. The best choice for cloud-optimized access is <code>H5F_FSPACE_STRATEGY_PAGE</code>.</p>
+<p>Notice the strategy: <code>File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR</code>. This is the default option. The best choice for cloud-optimized access is <code>H5F_FSPACE_STRATEGY_PAGE</code>. Learn more about the options in the HDF docs: <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html">File Space Management (HDF Group)</a>.</p>
 </section>
 <section id="how-to-change-the-file-space-management-strategy" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-change-the-file-space-management-strategy">How to change the file space management strategy</h2>
-<p>When repacking to use the PAGE file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can use the <code>h5repack</code> to reorganize the metadata <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>. When repacking to use the PAGE file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="how-to-check-chunk-size-and-shape" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-check-chunk-size-and-shape">How to check chunk size and shape</h2>
+<p>Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="how-to-change-the-chunk-size-and-shape" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-barrett2024" class="csl-entry" role="listitem">
+Barrett, Andy, Luis Lopez, Amy Steiker, Aleksander Jelenek, and Jeff Lee. 2024. <span>“Evaluating Cloud-Optimized HDF5 Solutions for NASA Earthdata: A Case Study with ICESat-2.”</span> NSIDC DAAC, HDF Group, NASA; <a href="https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing</a>.
+</div>
 <div id="ref-h5py_developers" class="csl-entry" role="listitem">
 H5py Developers. n.d. <em>Datasets</em>. H5py Documentation; <a href="https://docs.h5py.org/en/stable/high/dataset.html" class="uri">https://docs.h5py.org/en/stable/high/dataset.html</a>.
 </div>
@@ -638,6 +680,12 @@ Jelenak, Aleksander. 2023a. <span>“Cloud-Optimized HDF5 Files.”</span> The H
 </div>
 <div id="ref-jelenak2024" class="csl-entry" role="listitem">
 ———. 2024. <span>“Cloud Optimized HDF5 Files (Slides).”</span> Slides, <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
+</div>
+<div id="ref-quinn2024" class="csl-entry" role="listitem">
+Quinn, Patrick. 2024. <span>“Computer Scientists, Your Planet Needs You: An Introduction to Access-Optimized Data.”</span> NASA ESDIS Architect; <a href="https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing</a>.
+</div>
+<div id="ref-shiklomanov2024" class="csl-entry" role="listitem">
+Shiklomanov, Alexey. 2024. <span>“Rethinking the Software Architecture of GMAO Data Tools and Services.”</span> <a href="https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing</a>.
 </div>
 </div>
 
