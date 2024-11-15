@@ -8,7 +8,7 @@
 
 <meta name="author" content="Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak">
 
-<title>Cloud-Optimized NetCDF/HDF – Cloud-Optimized Geospatial Formats Guide</title>
+<title>Cloud-Optimized HDF/NetCDF – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF5 and NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized NetCDF/HDF</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -278,7 +278,7 @@ div.csl-indent {
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Cloud-Optimized HDF5 and NetCDF</span></a>
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -287,7 +287,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cloud-Optimized NetCDF/HDF</span></a>
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
   </div>
 </li>
       </ul>
@@ -455,9 +455,9 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF5 and NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized NetCDF/HDF</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Cloud-Optimized NetCDF/HDF</h1>
+<h1 class="title">Cloud-Optimized HDF/NetCDF</h1>
 </div>
 
 
@@ -501,7 +501,8 @@ Note
 </blockquote>
 <p><img src="../images/why-hdf-on-cloud-is-slow.png" class="img-fluid"></p>
 <p><span class="citation" data-cites="barrett2024">(<a href="#ref-barrett2024" role="doc-biblioref">Barrett et al. 2024</a>)</span></p>
-<p>For storage on disk, small chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient. A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.</p>
+<p>For storage on disk, small chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient.</p>
+<p>A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -512,7 +513,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note: NetCDF4 are valid HDF5 files, see <a href="https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html">Reading and Editing NetCDF-4 Files with HDF5</a>.</p>
+<p>Note: NetCDF-4 are valid HDF5 files, see <a href="https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html">Reading and Editing NetCDF-4 Files with HDF5</a>.</p>
 </div>
 </div>
 </section>
@@ -520,7 +521,7 @@ Note
 <h1>Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4</h1>
 <section id="format" class="level2">
 <h2 class="anchored" data-anchor-id="format">Format</h2>
-<p>To be considered cloud-optimized, the format should support chunking and compression. <a href="https://docs.unidata.ucar.edu/netcdf-c/current/faq.html">NetCDF3</a> and <a href="https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18">HDF4 prior to v4.1</a> do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with <a href="https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html">other limitations</a> led to the development of NetCDF4 and HDF5.</p>
+<p>To be considered cloud-optimized, the format should support chunking and compression. <a href="https://docs.unidata.ucar.edu/netcdf-c/current/faq.html">NetCDF3</a> and <a href="https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18">HDF4 prior to v4.1</a> do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with <a href="https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html">other limitations</a> led to the development of NetCDF-4 and HDF5.</p>
 </section>
 <section id="chunk-size" class="level2">
 <h2 class="anchored" data-anchor-id="chunk-size">Chunk Size</h2>
@@ -582,7 +583,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Lazy loading:</em> Lazy loading is a common term for first loading only metadata, and deferring reading of data values until computation requires them.</p>
+<p><em>Lazy loading:</em> Lazy loading is a common term for first loading only metadata, and deferring reading of data values until required by computation.</p>
 </div>
 </div>
 <section id="compression" class="level3">
@@ -595,7 +596,12 @@ Note
 <section id="data-product-usage-documentation-tutorials-and-examples" class="level2">
 <h2 class="anchored" data-anchor-id="data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</h2>
 <p>How users use the data is out of the producers’ control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.</p>
-<p>For example, the following library defaults will impact performance and are important to consider: * HDF5 library: The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. Learn more: <a href="https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/">Improve HDF5 performance using caching</a>. * S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (<a href="https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem">S3FS API docs</a>. * Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">(<a href="#ref-jelenak2024" role="doc-biblioref">Jelenak 2024</a>)</span>.</p>
+<p>For example, the following library defaults will impact performance and are important to consider:</p>
+<ul>
+<li>HDF5 library: The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. Learn more: <a href="https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/">Improve HDF5 performance using caching</a>.</li>
+<li>S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (<a href="https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem">S3FS API docs</a>.</li>
+<li>Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">Jelenak (<a href="#ref-jelenak2024" role="doc-biblioref">2024</a>)</span>.</li>
+</ul>
 <section id="additional-research" class="level3">
 <h3 class="anchored" data-anchor-id="additional-research">Additional research</h3>
 <p>Here is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:</p>
@@ -609,7 +615,7 @@ Note
 <h2 class="anchored" data-anchor-id="cloud-optimized-hdfnetcdf-checklist">Cloud-Optimized HDF/NetCDF Checklist</h2>
 <p>Please consider the following when preparing HDF/NetCDF data for use on the cloud:</p>
 <ul class="task-list">
-<li><label><input type="checkbox">The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).</label></li>
+<li><label><input type="checkbox">The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF-4 do, but HDF4 and NetCDF-3 do not).</label></li>
 <li><label><input type="checkbox">Metadata has been consolidated (see also <a href="#how-to-check-for-consolidated-metadata">how-to-check-for-consolidated-metadata</a>).</label></li>
 <li><label><input type="checkbox">Chunk sizes that are not too big nor too small (100kb-16mb) (see also <a href="#how-to-check-chunk-size-and-shape">how-to-check-chunk-size-and-shape</a>).</label></li>
 <li><label><input type="checkbox">An appropriate compression algorithm has been applied.</label></li>
@@ -620,13 +626,13 @@ Note
 </section>
 <section id="how-tos" class="level1">
 <h1>How tos</h1>
-<p>The examples below require the HDF5 library package is installed on your system. While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.</p>
+<p>The examples below require the HDF5 library package is installed on your system. These commands will also work for NetCDF-4 While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.</p>
 <section id="commands-in-brief" class="level2">
 <h2 class="anchored" data-anchor-id="commands-in-brief">Commands in brief:</h2>
 <ul>
-<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html"><code>h5stat</code></a>: stats from an existing HDF5 file.</li>
-<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html"><code>h5repack</code></a>: write a new file with a new layout.</li>
-<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html"><code>h5dump</code></a>: display objects from an HDF5 file</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html"><code>h5stat</code></a> prints stats from an existing HDF5 file.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html"><code>h5repack</code></a> writes a new file with a new layout.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html"><code>h5dump</code></a> displays objects from an HDF5 file.</li>
 </ul>
 </section>
 <section id="how-to-check-for-consolidated-metadata" class="level2">
