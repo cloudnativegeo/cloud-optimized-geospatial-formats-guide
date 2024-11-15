@@ -1,5 +1,5 @@
 ---
-title: Cloud-Optimized NetCDF/HDF
+title: Cloud-Optimized HDF/NetCDF
 bibliography: references.bib
 author: Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak
 toc-depth: 3
@@ -19,17 +19,19 @@ NetCDF and HDF were originally designed with disk access in mind. As Matt Rockli
 
 [@barrett2024]
 
-For storage on disk, small chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk [@h5py_developers]. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient. A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.
+For storage on disk, small chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk [@h5py_developers]. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient.
+
+A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.
 
 ::: callout-note
-Note: NetCDF4 are valid HDF5 files, see [Reading and Editing NetCDF-4 Files with HDF5](https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html).
+Note: NetCDF-4 are valid HDF5 files, see [Reading and Editing NetCDF-4 Files with HDF5](https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html).
 :::
 
 # Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4
 
 ## Format
 
-To be considered cloud-optimized, the format should support chunking and compression. [NetCDF3](https://docs.unidata.ucar.edu/netcdf-c/current/faq.html) and [HDF4 prior to v4.1](https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18) do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with [other limitations](https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html) led to the development of NetCDF4 and HDF5.
+To be considered cloud-optimized, the format should support chunking and compression. [NetCDF3](https://docs.unidata.ucar.edu/netcdf-c/current/faq.html) and [HDF4 prior to v4.1](https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18) do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with [other limitations](https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html) led to the development of NetCDF-4 and HDF5.
 
 ## Chunk Size
 
@@ -76,7 +78,7 @@ Consolidated metadata is a key characteristic of cloud-optimized data. Client li
 For HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access.
 
 ::: {.callout-note}
-_Lazy loading:_ Lazy loading is a common term for first loading only metadata, and deferring reading of data values until computation requires them.
+_Lazy loading:_ Lazy loading is a common term for first loading only metadata, and deferring reading of data values until required by computation.
 :::
 
 ### Compression
@@ -93,9 +95,10 @@ NASA satellite data predominantly compressed with the zlib (a.k.a., gzip, deflat
 How users use the data is out of the producers' control. However, tutorials and examples can be starting points for many data product users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.
 
 For example, the following library defaults will impact performance and are important to consider:
+
 * HDF5 library: The size of the HDF5's chunk cache by default is 1MB. This value is configurable. Chunks that don't fit into the chunk cache are discarded and must be re-read from the storage location each time. Learn more: [Improve HDF5 performance using caching](https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/).
 * S3FS library: The S3FS library is a popular library for accessing data on AWS's cloud object storage S3. It has a default block size of 5MB ([S3FS API docs](https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem).
-* Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in [@jelenak2024].
+* Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in @jelenak2024.
 
 ### Additional research
 
@@ -108,7 +111,7 @@ Here is some additional research done on caching for specific libraries and data
 
 Please consider the following when preparing HDF/NetCDF data for use on the cloud:
 
-- [ ] The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF4 do, but HDF4 and NetCDF3 do not).
+- [ ] The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF-4 do, but HDF4 and NetCDF-3 do not).
 - [ ] Metadata has been consolidated (see also [how-to-check-for-consolidated-metadata](#how-to-check-for-consolidated-metadata)).
 - [ ] Chunk sizes that are not too big nor too small (100kb-16mb) (see also [how-to-check-chunk-size-and-shape](#how-to-check-chunk-size-and-shape)).
 - [ ] An appropriate compression algorithm has been applied.
@@ -117,13 +120,13 @@ Please consider the following when preparing HDF/NetCDF data for use on the clou
 
 # How tos
 
-The examples below require the HDF5 library package is installed on your system. While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.
+The examples below require the HDF5 library package is installed on your system. These commands will also work for NetCDF-4 While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.
 
 ## Commands in brief:
 
-* [`h5stat`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html): stats from an existing HDF5 file.
-* [`h5repack`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html): write a new file with a new layout.
-* [`h5dump`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html): display objects from an HDF5 file
+* [`h5stat`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html) prints stats from an existing HDF5 file.
+* [`h5repack`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html) writes a new file with a new layout.
+* [`h5dump`](https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html) displays objects from an HDF5 file.
 
 
 ## How to check for consolidated metadata
