@@ -64,7 +64,7 @@
     "href": "index.html#table-of-contents",
     "title": "Cloud-Optimized Geospatial Formats Guide",
     "section": "Table of Contents",
-    "text": "Table of Contents\n\nOverview of Formats (slideshow)\nFormats\n\nCloud-Optimized GeoTIFFs\nZarr\nKerchunk\nCloud-Optimized NetCDF4/HDF5\nCloud-Optimized Point Clouds (COPS)\nGeoParquet\nFlatGeobuf\nPMTiles\n\nCookbooks",
+    "text": "Table of Contents\n\nOverview of Formats (slideshow)\nFormats\n\nCloud-Optimized GeoTIFFs\nZarr\nKerchunk\nCloud-Optimized NetCDF4/HDF5\nCloud-Optimized Point Clouds (COPC)\nGeoParquet\nFlatGeobuf\nPMTiles\n\nCookbooks",
     "crumbs": [
       "Welcome"
     ]
