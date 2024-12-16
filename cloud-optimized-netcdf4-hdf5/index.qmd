@@ -5,7 +5,7 @@ author: Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak, Luis Lopez
 toc-depth: 3
 ---
 
-The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes, as metadata is stored alongside the data. If these formats are not a requirement, you may consider a cloud-native format like [Zarr](../zarr/intro.qmd). If these formats are a requirement, you may also want to consider zarr-readable chunk indexes such as [kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/).
+The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes, as metadata is stored alongside the data. If these formats are not a requirement, you may consider a cloud-native format like [Zarr](../zarr/intro.qmd). If these formats are a requirement, you may also  consider zarr-readable chunk indexes such as [kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/).
 
 ::: callout-note
 You can skip the background and details by jumping to the [checklist](#cloud-optimized-hdfnetcdf-checklist).
