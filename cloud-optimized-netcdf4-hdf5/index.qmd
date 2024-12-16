@@ -187,6 +187,26 @@ Replace infile.h5 with a filename on your system and dataset_name with the name 
 h5dump -pH infile.h5 | grep dataset_name -A 10
 ```
 
+`-p` shows the properties (dataset layout, chunk size and compression) of objects in the HDF5 file. `-H` prints the header information only. Together, we get metadata about the structure of the file.
+
+Example command with output and how to read it, in comments:
+
+```bash
+$ h5dump -pH ~/Downloads/ATL03_20240510223215_08142301_006_01.h5 | grep h_ph -A 10
+DATASET "h_ph" {
+  DATATYPE  H5T_IEEE_F32LE # Four-byte, little-endian, IEEE floating point
+  DATASPACE  SIMPLE { ( 15853996 ) / ( H5S_UNLIMITED ) } # simple (n-dimensional) dataspace, this is a 1-dimensional array of length 15,853,996
+  STORAGE_LAYOUT {
+      CHUNKED ( 10000 ) # Dataset is stored in chunks of 10,000 elements per chunk
+      SIZE 57067702 (1.111:1 COMPRESSION) # Compressed datasets compression ratio of 1.111 to 1 - only slightly compresed
+  }
+  FILTERS {
+      COMPRESSION DEFLATE { LEVEL 6 } # Compressed with deflate algorithm with a compression level of 6
+  }
+  ...
+```
+
+
 ## How to change the chunk size and shape
 
 ``` bash
