@@ -81,7 +81,7 @@ For HDF5 files, to consolidate metadata, files should be written with the paged 
 _Lazy loading:_ Lazy loading is a common term for first loading only metadata, and deferring reading of data values until required by computation.
 :::
 
-### Compression
+## Compression
 
 Compression is the process of minimizing the size of data stored on disk using an algorithm to reduce the overall size of the data. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.
 
