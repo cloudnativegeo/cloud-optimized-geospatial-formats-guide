@@ -1,9 +1,11 @@
 ---
 title: Cloud-Optimized HDF/NetCDF
 bibliography: references.bib
-author: Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak
+author: Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak, Luis Lopez
 toc-depth: 3
 ---
+
+The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes, as metadata is stored alongside the data. If these formats are not a requirement, you may consider a cloud-native format like [Zarr](../zarr/intro.qmd). If these formats are a requirement, you may also want to consider zarr-readable chunk indexes such as [kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/).
 
 ::: callout-note
 You can skip the background and details by jumping to the [checklist](#cloud-optimized-hdfnetcdf-checklist).
@@ -37,7 +39,7 @@ To be considered cloud-optimized, the format should support chunking and compres
 
 ### How to determine chunk size
 
-To estimate the uncompressed size, multiple the dimensions of the chunk by the number of bytes or the given data type. For example, given 3 dimensional chunks of 10x100x100 and a data type of `float64` (8 bytes), each uncompresed chunk will be 0.8 MB.
+The uncompressed chunk size is the multiple of the chunk dimensions and the number of bytes for the given data type. For example, given 3 dimensional chunks of 10x100x100 and a data type of `float64` (8 bytes), each uncompresed chunk will be 0.8 MB.
 
 ### How to choose a chunk size
 
@@ -60,9 +62,10 @@ A chunk size should be selected that is large enough to reduce the number of tas
 Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.
 :::
 
-::: note
+::: callout-note
 When designing chunk size, usually the size is for the _uncompressed_ chunk. This is because:
-1. **Compression variabiliaty:** Because of data variability, you cannot deterministically know the size of each compressed chunk.
+
+1. **Compression variability:** Because of data variability, you cannot deterministically know the size of each compressed chunk.
 2. **Memory considerations:** The uncompressed size determines how much memory must be available for reading and writing each chunk.
 :::
 
