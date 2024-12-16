@@ -35,6 +35,12 @@ To be considered cloud-optimized, the format should support chunking and compres
 
 ## Chunk Size
 
+### How to determine chunk size
+
+To estimate the uncompressed size, multiple the dimensions of the chunk by the number of bytes or the given data type. For example, given 3 dimensional chunks of 10x100x100 and a data type of `float64` (8 bytes), each uncompresed chunk will be 0.8 MB.
+
+### How to choose a chunk size
+
 There is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be "too big" or "too small".
 
 ### When chunks are too small:
@@ -54,6 +60,12 @@ A chunk size should be selected that is large enough to reduce the number of tas
 Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.
 :::
 
+::: note
+When designing chunk size, usually the size is for the _uncompressed_ chunk. This is because:
+1. **Compression variabiliaty:** Because of data variability, you cannot deterministically know the size of each compressed chunk.
+2. **Memory considerations:** The uncompressed size determines how much memory must be available for reading and writing each chunk.
+:::
+
 ### Chunk shape vs chunk size
 
 The chunk size - the number of values per chunk, often multiplied by their data type's size in bytes to get a total size in bytes - must be differentiated from the chunk shape, which is the number of values stored along each dimension in a given chunk. Recommended chunk size depends on a storage system's characteristics and its interaction with the data access library. That makes chunk size recommendations fairly universal when holding the storage system data access library constant.
@@ -69,11 +81,15 @@ Larger chunks in a given dimension improve read performance in that direction: (
 ![chunk shape options](../images/chunk-shape-options.png)
 [@shiklomanov2024]
 
-A best practice to help determine both chunk size and shape would be to specify some "benchmark use cases" for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn't result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as [HDF5’s buffer cache](https://www.hdfgroup.org/2022/10/improve-hdf5-performance-using-caching/).
+A best practice to help determine both chunk size and shape would be to specify some "benchmark use cases" for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn't result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library's buffer cache, such as [HDF5's buffer cache](https://www.hdfgroup.org/2022/10/improve-hdf5-performance-using-caching/).
+
+### Additional chunk shape and size resources
+
+* [Chunking Data: Choosing Shapes](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)
 
 ## Consolidated Internal File Metadata
 
-Consolidated metadata is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.
+Consolidated metadata is a key characteristic of cloud-optimized data. Client libraries use file metadata to understand what's in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.
 
 For HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy. When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Further, only files using paged aggregation can use HDF5 library’s page buffer cache to reduce subsequent data access.
 
@@ -104,7 +120,7 @@ For example, the following library defaults will impact performance and are impo
 
 Here is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:
 
-- In this issue [Optimize s3fs read cache settings for the GEDI Subsetter](https://github.com/MAAP-Project/gedi-subsetter/issues/77) (findings to be formalized), Chuck Daniels found the "all" cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance.
+- In this issue [Optimize s3fs read cache settings for the GEDI Subsetter](https://github.com/MAAP-Project/gedi-subsetter/issues/77) (findings to be formalized), Chuck Daniels found the "all" cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance. NOTE: This is for non-cloud-optimized data.
 - In [HDF at the Speed of Zarr](https://docs.google.com/presentation/d/1iYFvGt9Zz0iaTj0STIMbboRKcBGhpOH_LuLBLqsJAlk/edit?usp=sharing), Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).
 
 ## Cloud-Optimized HDF/NetCDF Checklist
@@ -116,7 +132,7 @@ Please consider the following when preparing HDF/NetCDF data for use on the clou
 - [ ] Chunk sizes that are not too big nor too small (100kb-16mb) (see also [how-to-check-chunk-size-and-shape](#how-to-check-chunk-size-and-shape)).
 - [ ] An appropriate compression algorithm has been applied.
 - [ ] Expected use cases for the data were considered when designing the chunk size and shape.
-- [ ] Data product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries’ caching features.
+- [ ] Data product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries' caching features.
 
 # How tos
 
