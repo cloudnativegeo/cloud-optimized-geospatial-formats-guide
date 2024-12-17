@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak">
+<meta name="author" content="Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak, Luis Lopez">
 
 <title>Cloud-Optimized HDF/NetCDF – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
@@ -91,12 +91,12 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2e6e3fbd5d6a0c3bfa5c0d153af7b39d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-9d7a13f17298172f71657fc78caa4c2d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1d4d4008ecc03009174604e6ca53dac4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ff707a01ca4e9929637f25ec5207f8f3.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -426,14 +426,15 @@ div.csl-indent {
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
   <li><a href="#chunk-size" id="toc-chunk-size" class="nav-link" data-scroll-target="#chunk-size">Chunk Size</a>
   <ul class="collapse">
+  <li><a href="#how-to-determine-chunk-size" id="toc-how-to-determine-chunk-size" class="nav-link" data-scroll-target="#how-to-determine-chunk-size">How to determine chunk size</a></li>
+  <li><a href="#how-to-choose-a-chunk-size" id="toc-how-to-choose-a-chunk-size" class="nav-link" data-scroll-target="#how-to-choose-a-chunk-size">How to choose a chunk size</a></li>
   <li><a href="#when-chunks-are-too-small" id="toc-when-chunks-are-too-small" class="nav-link" data-scroll-target="#when-chunks-are-too-small">When chunks are too small:</a></li>
   <li><a href="#when-chunks-are-too-big" id="toc-when-chunks-are-too-big" class="nav-link" data-scroll-target="#when-chunks-are-too-big">When chunks are too big:</a></li>
   <li><a href="#chunk-shape-vs-chunk-size" id="toc-chunk-shape-vs-chunk-size" class="nav-link" data-scroll-target="#chunk-shape-vs-chunk-size">Chunk shape vs chunk size</a></li>
+  <li><a href="#additional-chunk-shape-and-size-resources" id="toc-additional-chunk-shape-and-size-resources" class="nav-link" data-scroll-target="#additional-chunk-shape-and-size-resources">Additional chunk shape and size resources</a></li>
   </ul></li>
-  <li><a href="#consolidated-internal-file-metadata" id="toc-consolidated-internal-file-metadata" class="nav-link" data-scroll-target="#consolidated-internal-file-metadata">Consolidated Internal File Metadata</a>
-  <ul class="collapse">
+  <li><a href="#consolidated-internal-file-metadata" id="toc-consolidated-internal-file-metadata" class="nav-link" data-scroll-target="#consolidated-internal-file-metadata">Consolidated Internal File Metadata</a></li>
   <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression">Compression</a></li>
-  </ul></li>
   <li><a href="#data-product-usage-documentation-tutorials-and-examples" id="toc-data-product-usage-documentation-tutorials-and-examples" class="nav-link" data-scroll-target="#data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</a>
   <ul class="collapse">
   <li><a href="#additional-research" id="toc-additional-research" class="nav-link" data-scroll-target="#additional-research">Additional research</a></li>
@@ -467,7 +468,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak </p>
+             <p>Aimee Barciauskas, Alexey Shikmonalov, Alexsander Jelenak, Luis Lopez </p>
           </div>
   </div>
     
@@ -480,6 +481,7 @@ div.csl-indent {
 </header>
 
 
+<p>The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes, as metadata is stored alongside the data. If these formats are not a requirement, you may consider a cloud-native format like <a href="../zarr/intro.html">Zarr</a>. If these formats are a requirement, you may also consider zarr-readable chunk indexes such as <a href="../kerchunk/intro.html">kerchunk</a> and <a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -525,7 +527,14 @@ Note
 </section>
 <section id="chunk-size" class="level2">
 <h2 class="anchored" data-anchor-id="chunk-size">Chunk Size</h2>
+<section id="how-to-determine-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-determine-chunk-size">How to determine chunk size</h3>
+<p>The uncompressed chunk size is the multiple of the chunk dimensions and the number of bytes for the given data type. For example, given 3 dimensional chunks of 10x100x100 and a data type of <code>float64</code> (8 bytes), each uncompresed chunk will be 0.8 MB.</p>
+</section>
+<section id="how-to-choose-a-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-choose-a-chunk-size">How to choose a chunk size</h3>
 <p>There is no one-size-fits all chunk size and shape as use cases for different products vary. However, chunks should not be “too big” or “too small”.</p>
+</section>
 <section id="when-chunks-are-too-small" class="level3">
 <h3 class="anchored" data-anchor-id="when-chunks-are-too-small">When chunks are too small:</h3>
 <ul>
@@ -554,6 +563,23 @@ Note
 <p>Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When designing chunk size, usually the size is for the <em>uncompressed</em> chunk. This is because:</p>
+<ol type="1">
+<li><strong>Compression variability:</strong> Because of data variability, you cannot deterministically know the size of each compressed chunk.</li>
+<li><strong>Memory considerations:</strong> The uncompressed size determines how much memory must be available for reading and writing each chunk.</li>
+</ol>
+</div>
+</div>
 </section>
 <section id="chunk-shape-vs-chunk-size" class="level3">
 <h3 class="anchored" data-anchor-id="chunk-shape-vs-chunk-size">Chunk shape vs chunk size</h3>
@@ -567,6 +593,13 @@ Note
 <p>Larger chunks in a given dimension improve read performance in that direction: (3) is best for time-series analysis, (2) for mapping, and (1) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of “aspect ratios” of chunks, adjusting relative chunk sizes to fit the expected balance of spatial versus time-series analyses (see <a href="https://github.com/jbusecke/dynamic_chunks">https://github.com/jbusecke/dynamic_chunks</a>).</p>
 <p><img src="../images/chunk-shape-options.png" class="img-fluid" alt="chunk shape options"> <span class="citation" data-cites="shiklomanov2024">(<a href="#ref-shiklomanov2024" role="doc-biblioref">Shiklomanov 2024</a>)</span></p>
 <p>A best practice to help determine both chunk size and shape would be to specify some “benchmark use cases” for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn’t result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as <a href="https://www.hdfgroup.org/2022/10/improve-hdf5-performance-using-caching/">HDF5’s buffer cache</a>.</p>
+</section>
+<section id="additional-chunk-shape-and-size-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-chunk-shape-and-size-resources">Additional chunk shape and size resources</h3>
+<ul>
+<li><a href="https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes">Chunking Data: Choosing Shapes</a></li>
+<li>The <a href="https://github.com/jbusecke/pangeo-forge-recipes/blob/dynamic_chunks_2/pangeo_forge_recipes/dynamic_target_chunks.py#L230-L343">dynamic_target_chunks_from_schema</a> function written by <a href="https://github.com/jbusecke">Julius Busecke</a> may help in determing a chunk shape based on a target size and dimension aspect ratio.</li>
+</ul>
 </section>
 </section>
 <section id="consolidated-internal-file-metadata" class="level2">
@@ -586,12 +619,12 @@ Note
 <p><em>Lazy loading:</em> Lazy loading is a common term for first loading only metadata, and deferring reading of data values until required by computation.</p>
 </div>
 </div>
-<section id="compression" class="level3">
-<h3 class="anchored" data-anchor-id="compression">Compression</h3>
+</section>
+<section id="compression" class="level2">
+<h2 class="anchored" data-anchor-id="compression">Compression</h2>
 <p>Compression is the process of minimizing the size of data stored on disk using an algorithm to reduce the overall size of the data. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.</p>
 <p><img src="../images/quinn-why-not-compress.png" class="img-fluid" alt="why not compress"> <span class="citation" data-cites="quinn2024">(<a href="#ref-quinn2024" role="doc-biblioref">Quinn 2024</a>)</span></p>
 <p>NASA satellite data predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better<span class="citation" data-cites="jelenak2023_report">(<a href="#ref-jelenak2023_report" role="doc-biblioref">Jelenak 2023a</a>)</span>.</p>
-</section>
 </section>
 <section id="data-product-usage-documentation-tutorials-and-examples" class="level2">
 <h2 class="anchored" data-anchor-id="data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</h2>
@@ -606,7 +639,7 @@ Note
 <h3 class="anchored" data-anchor-id="additional-research">Additional research</h3>
 <p>Here is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:</p>
 <ul>
-<li>In this issue <a href="https://github.com/MAAP-Project/gedi-subsetter/issues/77">Optimize s3fs read cache settings for the GEDI Subsetter</a> (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance.</li>
+<li>In this issue <a href="https://github.com/MAAP-Project/gedi-subsetter/issues/77">Optimize s3fs read cache settings for the GEDI Subsetter</a> (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance. NOTE: This is for non-cloud-optimized data.</li>
 <li>In <a href="https://docs.google.com/presentation/d/1iYFvGt9Zz0iaTj0STIMbboRKcBGhpOH_LuLBLqsJAlk/edit?usp=sharing">HDF at the Speed of Zarr</a>, Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).</li>
 </ul>
 </section>
@@ -656,17 +689,49 @@ Total space: 40744176 bytes</code></pre>
 <h2 class="anchored" data-anchor-id="how-to-change-the-file-space-management-strategy">How to change the file space management strategy</h2>
 <p>You can use the <code>h5repack</code> to reorganize the metadata <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>. When repacking to use the PAGE file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Library limitations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The HDF5 library needs to be configured to use the page aggregated files. When using the HDF5 library you can set <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a> and for <a href="https://docs.h5py.org/en/stable/high/file.html">h5py File objects</a> you can set <code>page_buf_size</code> when instantiating the File object.</li>
+<li>h5repack’s aggregation is fast but rechunking is slow. You may want to use the h5py library directly to repack. See an example of how to do so in NSIDC’s cloud-optimized ICESat-2 repo: <a href="https://github.com/nsidc/cloud-optimized-icesat2/blob/main/notebooks/optimize-atl03.py">optimize-atl03.py</a>.</li>
+<li>The NetCDF library doesn’t expose the low-level HDF5 API so one must first create the file with the NetCDF library and then repack it with h5repack or python. See: <a href="https://github.com/Unidata/netcdf-c/discussions/2871">Using the HDF5 file space strategy property Unidata/netcdf-c #2871</a>.</li>
+</ul>
+<p>author credit: Luis Lopez</p>
+</div>
+</div>
 </section>
 <section id="how-to-check-chunk-size-and-shape" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-check-chunk-size-and-shape">How to check chunk size and shape</h2>
 <p>Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-p</code> shows the properties (dataset layout, chunk size and compression) of objects in the HDF5 file. <code>-H</code> prints the header information only. Together, we get metadata about the structure of the file.</p>
+<p>Example command with output and how to read it, in comments:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5dump <span class="at">-pH</span> ~/Downloads/ATL03_20240510223215_08142301_006_01.h5 <span class="kw">|</span> <span class="fu">grep</span> h_ph <span class="at">-A</span> 10</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">DATASET</span> <span class="st">"h_ph"</span> {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATATYPE</span>  H5T_IEEE_F32LE <span class="co"># Four-byte, little-endian, IEEE floating point</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATASPACE</span>  SIMPLE { <span class="er">(</span> <span class="ex">15853996</span> <span class="kw">)</span> <span class="ex">/</span> <span class="er">(</span> <span class="ex">H5S_UNLIMITED</span> <span class="kw">)</span> <span class="er">}</span> <span class="co"># simple (n-dimensional) dataspace, this is a 1-dimensional array of length 15,853,996</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">STORAGE_LAYOUT</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">CHUNKED</span> <span class="er">(</span> <span class="ex">10000</span> <span class="kw">)</span> <span class="co"># Dataset is stored in chunks of 10,000 elements per chunk</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="ex">SIZE</span> 57067702 <span class="er">(</span><span class="ex">1.111:1</span> COMPRESSION<span class="kw">)</span> <span class="co"># Compressed datasets compression ratio of 1.111 to 1 - only slightly compresed</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">FILTERS</span> {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="ex">COMPRESSION</span> DEFLATE { LEVEL 6 } <span class="co"># Compressed with deflate algorithm with a compression level of 6</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="how-to-change-the-chunk-size-and-shape" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="references" class="level1">
