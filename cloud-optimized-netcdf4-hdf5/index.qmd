@@ -7,7 +7,7 @@ toc-depth: 3
 
 The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes, as metadata is stored alongside the data. If these formats are not a requirement, you may consider a cloud-native format like [Zarr](../zarr/intro.qmd). If these formats are a requirement, you may also  consider zarr-readable chunk indexes such as [kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/).
 
-::: callout-note
+::: {.callout-note}
 You can skip the background and details by jumping to the [checklist](#cloud-optimized-hdfnetcdf-checklist).
 :::
 
@@ -25,7 +25,7 @@ For storage on disk, small chunks were preferred because access was fast, and re
 
 A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.
 
-::: callout-note
+::: {.callout-note}
 Note: NetCDF-4 are valid HDF5 files, see [Reading and Editing NetCDF-4 Files with HDF5](https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html).
 :::
 
@@ -58,11 +58,11 @@ There is no one-size-fits all chunk size and shape as use cases for different pr
 
 A chunk size should be selected that is large enough to reduce the number of tasks that parallel schedulers have to think about (which affects overhead) but also small enough so that many of them can fit in memory at once. [The Amazon S3 Best Practices says the typical size for byte-range requests is 8-16MB](https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/use-byte-range-fetches.html). However, requests for data from contiguous chunks can be merged into 1 HTTP request, so chunks could be much smaller (one recommendation is 100kb to 2mb) [@jelenak2024].
 
-::: callout-note
+::: {.callout-note}
 Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.
 :::
 
-::: callout-note
+::: {.callout-note}
 When designing chunk size, usually the size is for the _uncompressed_ chunk. This is because:
 
 1. **Compression variability:** Because of data variability, you cannot deterministically know the size of each compressed chunk.
@@ -89,6 +89,7 @@ A best practice to help determine both chunk size and shape would be to specify 
 ### Additional chunk shape and size resources
 
 * [Chunking Data: Choosing Shapes](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)
+* The [dynamic_target_chunks_from_schema](https://github.com/jbusecke/pangeo-forge-recipes/blob/dynamic_chunks_2/pangeo_forge_recipes/dynamic_target_chunks.py#L230-L343) function written by [Julius Busecke](https://github.com/jbusecke) may help in determing a chunk shape based on a target size and dimension aspect ratio.
 
 ## Consolidated Internal File Metadata
 
@@ -182,8 +183,12 @@ You can use the `h5repack` to reorganize the metadata [@jelenak2023]. When repac
 $ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5
 ```
 
-.::: {.callout}
+::: {.callout-warning}
+* The HDF5 library needs to be configured to use the page aggregated files. When using the HDF5 library you can set  [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89) and for [h5py File objects](https://docs.h5py.org/en/stable/high/file.html) you can set `page_buf_size` when instantiating the File object.
+* h5repack has some limitations: aggregation is fast but rechunking is slow. You may want to use the h5py library directly to repack. See an example of how to do so in NSIDC's cloud-optimized ICESat-2 repo: [optimize-atl03.py](https://github.com/nsidc/cloud-optimized-icesat2/blob/main/notebooks/optimize-atl03.py).
+* The NetCDF library doesn't expose the low-level HDF5 API so one must first create the file with the NetCDF library and then repack it with h5repack or python. See: [Using the HDF5 file space strategy property Unidata/netcdf-c #2871](https://github.com/Unidata/netcdf-c/discussions/2871).
 
+author credit: Luis Lopez
 :::
 
 ## How to check chunk size and shape
