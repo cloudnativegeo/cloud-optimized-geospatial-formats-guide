@@ -116,7 +116,8 @@ A best practice to help determine both chunk size and shape would be to specify 
 
 ### Additional chunk shape and size resources
 
-* [Chunking Data: Choosing Shapes](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)
+* [Unidata Blog: "Chunking Data: Choosing Shapes"](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)
+* [HDF Support Site: "Chunking in HDF5"](https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/chunking_in_hdf5.html)
 * The [dynamic_target_chunks_from_schema](https://github.com/jbusecke/pangeo-forge-recipes/blob/dynamic_chunks_2/pangeo_forge_recipes/dynamic_target_chunks.py#L230-L343) function written by [Julius Busecke](https://github.com/jbusecke) may help in determing a chunk shape based on a target size and dimension aspect ratio.
 
 ## Compression
