@@ -184,8 +184,10 @@ $ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5
 ```
 
 ::: {.callout-warning}
+## Library limitations
+
 * The HDF5 library needs to be configured to use the page aggregated files. When using the HDF5 library you can set  [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89) and for [h5py File objects](https://docs.h5py.org/en/stable/high/file.html) you can set `page_buf_size` when instantiating the File object.
-* h5repack has some limitations: aggregation is fast but rechunking is slow. You may want to use the h5py library directly to repack. See an example of how to do so in NSIDC's cloud-optimized ICESat-2 repo: [optimize-atl03.py](https://github.com/nsidc/cloud-optimized-icesat2/blob/main/notebooks/optimize-atl03.py).
+* h5repack's aggregation is fast but rechunking is slow. You may want to use the h5py library directly to repack. See an example of how to do so in NSIDC's cloud-optimized ICESat-2 repo: [optimize-atl03.py](https://github.com/nsidc/cloud-optimized-icesat2/blob/main/notebooks/optimize-atl03.py).
 * The NetCDF library doesn't expose the low-level HDF5 API so one must first create the file with the NetCDF library and then repack it with h5repack or python. See: [Using the HDF5 file space strategy property Unidata/netcdf-c #2871](https://github.com/Unidata/netcdf-c/discussions/2871).
 
 author credit: Luis Lopez
