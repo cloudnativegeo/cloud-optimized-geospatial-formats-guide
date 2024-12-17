@@ -182,6 +182,10 @@ You can use the `h5repack` to reorganize the metadata [@jelenak2023]. When repac
 $ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5
 ```
 
+.::: {.callout}
+
+:::
+
 ## How to check chunk size and shape
 
 Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.
