@@ -1337,7 +1337,7 @@
     "href": "cloud-optimized-netcdf4-hdf5/index.html",
     "title": "Cloud-Optimized HDF/NetCDF",
     "section": "",
-    "text": "The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. This assumes one of those formats is a requirement, usually for archival purposes. If these formats are not a requirement, a cloud-native format like Zarr should be considered. If HDF5/NetCDF-4 formats are a requirement, consider zarr-readable chunk indexes such as kerchunk and VirtualiZarr.",
+    "text": "The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. Cloud-optimized formats provide efficient subsetting without maintaining a service, such as OpenDAP, Hyrax or SlideRule. Often HDF5 and NetCDF-4 formats are a requirement, for archival purposes. If HDF5 and NetCDF-4 formats are not a requirement, a cloud-native format like Zarr should be considered. If HDF5/NetCDF-4 formats are a requirement, consider zarr-readable chunk indexes such as kerchunk and VirtualiZarr.",
     "crumbs": [
       "Formats",
       "Cloud-Optimized HDF/NetCDF",
