@@ -40,6 +40,7 @@ website:
           - cloud-optimized-geotiffs/cogs-examples.ipynb
           - cloud-optimized-geotiffs/cogs-overview_resampling.ipynb
           - cloud-optimized-geotiffs/writing-cogs-in-python.ipynb
+          - cloud-optimized-geotiffs/accessing-cogs-in-r.ipynb
         - section: Zarr
           contents:
           - zarr/intro.qmd
