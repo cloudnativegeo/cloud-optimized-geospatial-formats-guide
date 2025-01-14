@@ -1,0 +1,12 @@
+name: coguide-copc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - earthaccess
+  - ipykernel
+  - jupyterlab
+  - matplotlib
+  - libgdal>=3.5
+  - python-pdal=3.3.0
+  - pdal=2.6.3
