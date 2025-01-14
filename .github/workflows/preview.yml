@@ -3,7 +3,7 @@ name: Deploy PR previews
 on:
   pull_request:
     branches:
-      - staging
+      - main
     types:
       - opened
       - reopened
