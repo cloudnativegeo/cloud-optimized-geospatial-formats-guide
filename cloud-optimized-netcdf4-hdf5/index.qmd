@@ -131,15 +131,17 @@ Compression is the process of minimizing the size of data stored using an algori
 
 NASA satellite data is predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better[@jelenak2023_report].
 
-## Data Product Usage Documentation (Tutorials and Examples)
+## Data Usage Documentation through Tutorials and Examples
+
+Provide users data product usage documentation including tutorials and examples.
 
 Tutorials and examples are starting points for many data users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.
 
-For example, the following library defaults will impact performance and are important to consider:
+For example, the following library defaults will impact performance and may be included in data usage documentation:
 
 * HDF5 library:
     * **Chunk cache:** The size of the HDF5's chunk cache by default is 1MB. This value is configurable. Chunks that don't fit into the chunk cache are discarded and must be re-read from the storage location each time. See also: [Improve HDF5 performance using caching](https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/) and [h5py documentation: Chunk cache](https://docs.h5py.org/en/stable/high/file.html#chunk-cache).
-    * **Page buffer size:** See [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89) and [the page_buf_size argument to h5py.File](https://docs.h5py.org/en/stable/high/file.html).
+    * **Page buffer size:** The [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89) and [the page_buf_size argument to h5py.File](https://docs.h5py.org/en/stable/high/file.html) should match up with the page size to optimize reading the data in pages.
 * S3FS library: The S3FS library is a popular library for accessing data on AWS's cloud object storage S3. It has a default block size of 5MB ([S3FS API docs](https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem)).
 * Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in @jelenak2024.
 
@@ -206,7 +208,10 @@ You can use the `h5repack` to reorganize the metadata [@jelenak2023]. When repac
 $ h5repack -S PAGE -G 4000000 infile.h5 outfile.h5
 ```
 
-The HDF5 library needs to be configured to use the page aggregated files. When using the HDF5 library you can set  [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89) and for [h5py File objects](https://docs.h5py.org/en/stable/high/file.html) you can set `page_buf_size` when instantiating the File object.
+::: {.callout-note}
+### Reading page-aggregated files
+When reading the HDF5 library needs to be configured to use the page aggregated files. If using the HDF5 library you can set [H5Pset_page_buffer_size](https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89). For [h5py File objects](https://docs.h5py.org/en/stable/high/file.html) you can set `page_buf_size` when instantiating the File object.
+:::
 
 ::: {.callout-warning}
 ### Library limitations
