@@ -133,8 +133,6 @@ NASA satellite data is predominantly compressed with the zlib (a.k.a., gzip, def
 
 ## Data Usage Documentation through Tutorials and Examples
 
-Provide users data product usage documentation including tutorials and examples.
-
 Tutorials and examples are starting points for many data users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.
 
 For example, the following library defaults will impact performance and may be included in data usage documentation:
