@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Aimee Barciauskas, Alexey Shikmonalov, Luis Lopez">
 
-<title>Cloud-Optimized Geospatial Formats Guide - Cloud-Optimized NetCDF4/HDF5</title>
+<title>Cloud-Optimized HDF/NetCDF – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -36,12 +91,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-28c3752696cdd24fbbf2e2d712d6c647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bb89a3a354fa7077ee9bd9b255ce1f92.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -80,13 +135,13 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF5 and NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized NetCDF4/HDF5</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -126,18 +181,18 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Formats</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -176,9 +231,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
  <span class="menu-text">Zarr</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -199,9 +254,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Kerchunk</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -222,9 +277,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
- <span class="menu-text">Cloud-Optimized HDF5 and NetCDF</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -232,16 +287,16 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cloud-Optimized NetCDF4/HDF5</span></a>
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -262,9 +317,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">GeoParquet</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -285,9 +340,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">FlatGeobuf</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -320,9 +375,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">PMTiles</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -361,20 +416,65 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a>
+  <ul class="collapse">
+  <li><a href="#why-accessing-hdf5-on-the-cloud-is-slow" id="toc-why-accessing-hdf5-on-the-cloud-is-slow" class="nav-link" data-scroll-target="#why-accessing-hdf5-on-the-cloud-is-slow">Why accessing HDF5 on the cloud is slow</a></li>
+  </ul></li>
+  <li><a href="#current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" id="toc-current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" class="nav-link" data-scroll-target="#current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4">Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4</a>
+  <ul class="collapse">
+  <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
+  <li><a href="#consolidated-internal-file-metadata" id="toc-consolidated-internal-file-metadata" class="nav-link" data-scroll-target="#consolidated-internal-file-metadata">Consolidated Internal File Metadata</a></li>
+  <li><a href="#chunk-size" id="toc-chunk-size" class="nav-link" data-scroll-target="#chunk-size">Chunk Size</a>
+  <ul class="collapse">
+  <li><a href="#how-to-determine-chunk-size" id="toc-how-to-determine-chunk-size" class="nav-link" data-scroll-target="#how-to-determine-chunk-size">How to determine chunk size</a></li>
+  <li><a href="#how-to-choose-a-chunk-size" id="toc-how-to-choose-a-chunk-size" class="nav-link" data-scroll-target="#how-to-choose-a-chunk-size">How to choose a chunk size</a></li>
+  <li><a href="#when-chunks-are-too-small" id="toc-when-chunks-are-too-small" class="nav-link" data-scroll-target="#when-chunks-are-too-small">When chunks are too small:</a></li>
+  <li><a href="#when-chunks-are-too-big" id="toc-when-chunks-are-too-big" class="nav-link" data-scroll-target="#when-chunks-are-too-big">When chunks are too big:</a></li>
+  <li><a href="#chunk-shape-vs-chunk-size" id="toc-chunk-shape-vs-chunk-size" class="nav-link" data-scroll-target="#chunk-shape-vs-chunk-size">Chunk shape vs chunk size</a></li>
+  <li><a href="#additional-chunk-shape-and-size-resources" id="toc-additional-chunk-shape-and-size-resources" class="nav-link" data-scroll-target="#additional-chunk-shape-and-size-resources">Additional chunk shape and size resources</a></li>
+  </ul></li>
+  <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression">Compression</a></li>
+  <li><a href="#data-usage-documentation-through-tutorials-and-examples" id="toc-data-usage-documentation-through-tutorials-and-examples" class="nav-link" data-scroll-target="#data-usage-documentation-through-tutorials-and-examples">Data Usage Documentation through Tutorials and Examples</a>
+  <ul class="collapse">
+  <li><a href="#additional-research" id="toc-additional-research" class="nav-link" data-scroll-target="#additional-research">Additional research</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#cloud-optimized-hdfnetcdf-checklist" id="toc-cloud-optimized-hdfnetcdf-checklist" class="nav-link" data-scroll-target="#cloud-optimized-hdfnetcdf-checklist">Cloud-Optimized HDF/NetCDF Checklist</a></li>
+  <li><a href="#how-tos" id="toc-how-tos" class="nav-link" data-scroll-target="#how-tos">How tos</a>
+  <ul class="collapse">
+  <li><a href="#commands-in-brief" id="toc-commands-in-brief" class="nav-link" data-scroll-target="#commands-in-brief">Commands in brief:</a></li>
+  <li><a href="#how-to-check-for-consolidated-metadata" id="toc-how-to-check-for-consolidated-metadata" class="nav-link" data-scroll-target="#how-to-check-for-consolidated-metadata">How to check for consolidated metadata</a></li>
+  <li><a href="#how-to-change-the-file-space-management-strategy" id="toc-how-to-change-the-file-space-management-strategy" class="nav-link" data-scroll-target="#how-to-change-the-file-space-management-strategy">How to change the file space management strategy</a></li>
+  <li><a href="#how-to-check-chunk-size-and-shape" id="toc-how-to-check-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-check-chunk-size-and-shape">How to check chunk size and shape</a></li>
+  <li><a href="#how-to-change-the-chunk-size-and-shape" id="toc-how-to-change-the-chunk-size-and-shape" class="nav-link" data-scroll-target="#how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</a></li>
+  </ul></li>
+  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cloud-optimized-netcdf4-hdf5/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF5 and NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized NetCDF4/HDF5</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Cloud-Optimized NetCDF4/HDF5</h1>
+<h1 class="title">Cloud-Optimized HDF/NetCDF</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aimee Barciauskas, Alexey Shikmonalov, Luis Lopez </p>
+          </div>
+  </div>
     
   
     
@@ -385,7 +485,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Cloud-optimized access to NetCDF4/HDF5 files is possible. However, there are no standards for the metadata, chunking and compression for cloud-optimized access for these file types.</p>
+<p>The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. Cloud-optimized formats provide efficient subsetting without maintaining a service, such as <a href="https://www.opendap.org">OpenDAP</a>, <a href="https://www.opendap.org/software/hyrax-data-server/">Hyrax</a> or <a href="https://slideruleearth.io/">SlideRule</a>. Often HDF5 and NetCDF-4 formats are a requirement, for archival purposes. If HDF5 and NetCDF-4 formats are not a requirement, a cloud-native format like <a href="../zarr/intro.html">Zarr</a> should be considered. If HDF5/NetCDF-4 formats <em>are</em> a requirement, consider zarr-readable chunk indexes such as <a href="../kerchunk/intro.html">kerchunk</a> and <a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -396,18 +496,323 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note: NetCDF4 are valid HDF5 files, see <a href="https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html">Reading and Editing NetCDF-4 Files with HDF5</a>.</p>
+<p>You can skip the background and details by jumping to the <a href="#cloud-optimized-hdfnetcdf-checklist">checklist</a>.</p>
 </div>
 </div>
-<p>NetCDF4/HDF5 were designed for disk access and thus moving them to the cloud has borne little fruit. Matt Rocklin describes the issue in <a href="https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud">HDF in the Cloud: Challenges and Solutions for Scientific Data</a>:</p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>NetCDF and HDF were originally designed with disk access in mind. As Matt Rocklin explains in <a href="https://matthewrocklin.com/blog/work/2018/02/06/hdf-in-the-cloud">HDF in the Cloud: Challenges and Solutions for Scientific Data</a>:</p>
 <blockquote class="blockquote">
-<p>The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data. The only pragmatic way to read a chunk of data from an HDF file today is to use the existing HDF C library, which expects to receive a C FILE object, pointing to a normal file system (not a cloud object store) (this is not entirely true, as we’ll see below).</p>
-<p>So organizations like NASA are dumping large amounts of HDF onto Amazon’s S3 that no one can actually read, except by downloading the entire file to their local hard drive, and then pulling out the particular bits that they need with the HDF library. This is inefficient. It misses out on the potential that cloud-hosted public data can offer to our society.</p>
+<p>The HDF format is complex and metadata is strewn throughout the file, so that a complex sequence of reads is required to reach a specific chunk of data.</p>
 </blockquote>
-<p>To provide cloud-optimized access to these files without an intermediate service like <a href="https://hdfeos.org/software/hdf5_handler.php">Hyrax</a> or the <a href="https://www.hdfgroup.org/solutions/highly-scalable-data-service-hsds/">Highly Scalable Data Service (HSDS)</a>, it is recommended to determine if the NetCDF4/HDF5 data you wish to provide can be used with kerchunk. Rich Signell provided some insightful examples and instructions on how to create a kerchunk reference file (aka <code>fsspec.ReferenceFileSystem</code>) for NetCDF4/HDF5 and the things to be aware of in <a href="https://medium.com/pangeo/cloud-performant-netcdf4-hdf5-with-zarr-fsspec-and-intake-3d3a3e7cb935">Cloud-Performant NetCDF4/HDF5 with Zarr, Fsspec, and Intake</a>. Note, the post is from 2020, so it’s possible details have changed; however, the approach of using kerchunk for NetCDF4/HDF5 is still recommended.</p>
-<p>Stay tuned for more information on cloud-optimized NetCDF4/HDF5 in future releases of this guide.</p>
+<section id="why-accessing-hdf5-on-the-cloud-is-slow" class="level2">
+<h2 class="anchored" data-anchor-id="why-accessing-hdf5-on-the-cloud-is-slow">Why accessing HDF5 on the cloud is slow</h2>
+<p>In the diagram below, <code>R0, ..., Rn</code> represent metadata requests. A large number of these requests slows down working with these files in the cloud.</p>
+<p><img src="../images/why-hdf-on-cloud-is-slow.png" class="img-fluid"></p>
+<p><span class="citation" data-cites="barrett2024">(<a href="#ref-barrett2024" role="doc-biblioref">Barrett et al. 2024</a>)</span></p>
+<p>When reading and writing data from disk, small blocks of metadata and raw data chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient.</p>
+<p>A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note: NetCDF-4 are valid HDF5 files, see <a href="https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html">Reading and Editing NetCDF-4 Files with HDF5</a>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="current-best-practices-for-cloud-optimized-hdf5-and-netcdf-4" class="level1">
+<h1>Current Best Practices for Cloud-Optimized HDF5 and NetCDF-4</h1>
+<section id="format" class="level2">
+<h2 class="anchored" data-anchor-id="format">Format</h2>
+<p>To be considered cloud-optimized, the format should support chunking and compression. <a href="https://docs.unidata.ucar.edu/netcdf-c/current/faq.html">NetCDF3</a> and <a href="https://docs.hdfgroup.org/archive/support/products/hdf4/HDF-FAQ.html#18">HDF4 prior to v4.1</a> do not support chunking and chunk-level compression, and thus cannot be reformatted to be cloud optimized. The lack of support for chunking and compression along with <a href="https://docs.hdfgroup.org/archive/support/products/hdf5_tools/h4toh5/h4vsh5.html">other limitations</a> led to the development of NetCDF-4 and HDF5.</p>
+</section>
+<section id="consolidated-internal-file-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="consolidated-internal-file-metadata">Consolidated Internal File Metadata</h2>
+<p>Consolidated metadata is a key characteristic of cloud-optimized data and enables “lazy loading” (see the <code>Lazy Loading</code> block below). Client libraries use file metadata to understand what’s in the file and where it is stored. When metadata is scattered across a file (which is the default for HDF5 writing), client applications have to make multiple requests for metadata information.</p>
+<p>For HDF5 files, to consolidate metadata, files should be written with the paged aggregation file space management strategy (see also <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html#strategies">H5F_FSPACE_STRATEGY_PAGE</a>). When using this strategy, HDF5 will write data in pages where metadata is separated from raw data chunks. Note the page size should also be set, as the default size is 4096 bytes (or 4KB, <a href="https://support.hdfgroup.org/documentation/hdf5/latest/group___f_c_p_l.html#gaab5e8c08e4f588e0af1d937fcebfc885">source</a>). Further, only files using paged aggregation can use the HDF5 page buffer cache – a low-level library cache <span class="citation" data-cites="jelenak2022">(<a href="#ref-jelenak2022" role="doc-biblioref">Jelenak 2022</a>)</span> – to reduce subsequent data access.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Lazy loading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lazy loading is a common term for first loading only metadata, and deferring reading of data values until required by computation.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+HDF5 File Space Management Strategies
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>HDF5 file organization—data, metadata, and free space—depends on the file space management strategy. Details on these strategies are in <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html">HDF Support: File Space Management</a>.</p>
+<p>Here are a few additional considerations for understanding and implementing the <code>H5F_FSPACE_STRATEGY_PAGE</code> strategy:</p>
+<ul>
+<li><strong>Chunks vs.&nbsp;Pages:</strong> In HDF5, datasets can be chunked, meaning the dataset is divided into smaller blocks of data that can be individually compressed (see also <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/chunking_in_hdf5.html">Chunking in HDF5</a>). Pages, on the other hand, represent the smallest unit HDF5 uses for reading and writing data. To optimize performance, chunk sizes should ideally align with the page size or be a multiple thereof. Entire pages are read into memory when accessing chunks or metadata. Only the relevant data (e.g., a specific chunk) is decompressed.</li>
+<li><strong>Page Size Considerations:</strong> The page size applies to both metadata and raw data. Therefore, the chosen page size should strike a balance: it must consolidate metadata efficiently while minimizing unused space in raw data chunks. Excess unused space can significantly increase file size. File size is typically not a concern for I/O performance when accessing parts of a file. However, increased file size can become a concern for storage costs.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="chunk-size" class="level2">
+<h2 class="anchored" data-anchor-id="chunk-size">Chunk Size</h2>
+<p>As described in <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/chunking_in_hdf5.html">Chunking in HDF5</a>, datasets in HDF5 can be split into chunks and stored in discrete compressed blocks.</p>
+<section id="how-to-determine-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-determine-chunk-size">How to determine chunk size</h3>
+<p>The uncompressed chunk size is calculated by multiplying the chunk dimensions by the size of the data type. For example, a 3-dimensional chunk with dimension lengths 10x100x100 and a float64 data type (8 bytes) results in an uncompressed chunk size of 0.8 MB.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Uncompressed Chunk Size
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When designing chunk size, usually the size is for the <em>uncompressed</em> chunk. This is because:</p>
+<ol type="1">
+<li><strong>Data variability:</strong> Because of data variability, you cannot deterministically know the size of each compressed chunk.</li>
+<li><strong>Memory considerations:</strong> The uncompressed size determines how much memory must be available for reading and writing each chunk.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="how-to-choose-a-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-choose-a-chunk-size">How to choose a chunk size</h3>
+<p>There is no one-size-fits all chunk size and shape as files, use cases, and storage systems vary. However, chunks should not be “too big” or “too small”.</p>
+</section>
+<section id="when-chunks-are-too-small" class="level3">
+<h3 class="anchored" data-anchor-id="when-chunks-are-too-small">When chunks are too small:</h3>
+<ul>
+<li>Extra metadata may increase file size.</li>
+<li>It takes extra time to look up each chunk.</li>
+<li>More network I/O is incurred because each chunk is stored and accessed independently (although contiguous chunks may be accessed by extending the byte range into one request).</li>
+</ul>
+</section>
+<section id="when-chunks-are-too-big" class="level3">
+<h3 class="anchored" data-anchor-id="when-chunks-are-too-big">When chunks are too big:</h3>
+<ul>
+<li>An entire chunk must be read and decompressed to read even a small portion of the data.</li>
+<li>Managing large chunks in memory slows down processing and is more likely to exceed memory and chunk caches.</li>
+</ul>
+<p>A chunk size should be selected that is large enough to reduce the number of tasks that parallel schedulers have to think about (which affects overhead) but also small enough so many can fit in memory at once. <a href="https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/use-byte-range-fetches.html">The Amazon S3 Best Practices says the typical size for byte-range requests is 8-16MB</a>. However, requests for data from contiguous chunks can be merged into 1 HTTP request, so chunks could be much smaller (one recommendation is 100kb to 2mb) <span class="citation" data-cites="jelenak2024">(<a href="#ref-jelenak2024" role="doc-biblioref">Jelenak 2024</a>)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Performance greatly depends on libraries used to access the data and how they are configured to cache data as well.</p>
+</div>
+</div>
+</section>
+<section id="chunk-shape-vs-chunk-size" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-shape-vs-chunk-size">Chunk shape vs chunk size</h3>
+<p>The chunk size must be differentiated from the chunk shape, which is the number of values stored along each dimension in a given chunk. Recommended chunk size depends on a storage system’s (such as S3) characteristics and its interaction with the data access library.</p>
+<p>In contrast, an optimal chunk shape is <em>use case</em> dependent. For a 3-dimensional dataset (latitude, longitude, time) with a chunk size of 1000, chunk shapes could vary, such as:</p>
+<ol type="1">
+<li>10 lat x 10 lon x 10 time,</li>
+<li>20 lat x 50 lon x 1 time, or,</li>
+<li>5 lat x 5 lon x 40 time.</li>
+</ol>
+<p>Larger chunks in a given dimension improve read performance in that direction: (3) is best for time-series analysis, (2) for mapping, and (1) is balanced for both. Thus, chunk shape should be chosen based on how the data is expected to be used, as there are trade-offs. A useful approach is to think in terms of the chunks’ aspect ratio, adjusting relative dimension lengths to fit the desired optimization for spatial versus time-series analyses (see <a href="https://github.com/jbusecke/dynamic_chunks">https://github.com/jbusecke/dynamic_chunks</a>).</p>
+<p><img src="../images/chunk-shape-options.png" class="img-fluid" alt="chunk shape options"> <span class="citation" data-cites="shiklomanov2024">(<a href="#ref-shiklomanov2024" role="doc-biblioref">Shiklomanov 2024</a>)</span></p>
+<p>A best practice to help determine both chunk size and shape would be to specify some “benchmark use cases” for the data. With these use cases in mind, evaluate what chunk shape and size is large enough such that the computation doesn’t result in thousands of jobs and small enough that multiple chunks can be stored in-memory and a library’s buffer cache, such as <a href="https://www.hdfgroup.org/2022/10/improve-hdf5-performance-using-caching/">HDF5’s buffer cache</a>.</p>
+</section>
+<section id="additional-chunk-shape-and-size-resources" class="level3">
+<h3 class="anchored" data-anchor-id="additional-chunk-shape-and-size-resources">Additional chunk shape and size resources</h3>
+<ul>
+<li><a href="https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes">Unidata Blog: “Chunking Data: Choosing Shapes”</a></li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/chunking_in_hdf5.html">HDF Support Site: “Chunking in HDF5”</a></li>
+<li>The <a href="https://github.com/jbusecke/dynamic_chunks">dynamic_chunks</a> module by <a href="https://github.com/jbusecke">Julius Busecke</a> may help in determing a chunk shape based on a target size and dimension aspect ratio.</li>
+</ul>
+</section>
+</section>
+<section id="compression" class="level2">
+<h2 class="anchored" data-anchor-id="compression">Compression</h2>
+<p>Compression is the process of minimizing the size of data stored using an algorithm which can condense data through various methods. This can include scale and offset parameters which reduce the size of each byte that needs to be stored. There are many algorithms for compressing data and users can even define their own compression algorithms. Data product owners should evaluate what compression algorithm is right for their data.</p>
+<p><img src="../images/quinn-why-not-compress.png" class="img-fluid" alt="why not compress"> <span class="citation" data-cites="quinn2024">(<a href="#ref-quinn2024" role="doc-biblioref">Quinn 2024</a>)</span></p>
+<p>NASA satellite data is predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better<span class="citation" data-cites="jelenak2023_report">(<a href="#ref-jelenak2023_report" role="doc-biblioref">Jelenak 2023a</a>)</span>.</p>
+</section>
+<section id="data-usage-documentation-through-tutorials-and-examples" class="level2">
+<h2 class="anchored" data-anchor-id="data-usage-documentation-through-tutorials-and-examples">Data Usage Documentation through Tutorials and Examples</h2>
+<p>Tutorials and examples are starting points for many data users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.</p>
+<p>For example, the following library defaults will impact performance and may be included in data usage documentation:</p>
+<ul>
+<li>HDF5 library:
+<ul>
+<li><strong>Chunk cache:</strong> The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. See also: <a href="https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/">Improve HDF5 performance using caching</a> and <a href="https://docs.h5py.org/en/stable/high/file.html#chunk-cache">h5py documentation: Chunk cache</a>.</li>
+<li><strong>Page buffer size:</strong> The <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a> and <a href="https://docs.h5py.org/en/stable/high/file.html">the page_buf_size argument to h5py.File</a> should match up with the page size to optimize reading the data in pages.</li>
+</ul></li>
+<li>S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (<a href="https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem">S3FS API docs</a>).</li>
+<li>Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">Jelenak (<a href="#ref-jelenak2024" role="doc-biblioref">2024</a>)</span>.</li>
+</ul>
+<section id="additional-research" class="level3">
+<h3 class="anchored" data-anchor-id="additional-research">Additional research</h3>
+<p>Here is some additional research done on caching for specific libraries and datasets that may be helpful in understanding the impact of caching and developing product guidance:</p>
+<ul>
+<li>In this issue <a href="https://github.com/MAAP-Project/gedi-subsetter/issues/77">Optimize s3fs read cache settings for the GEDI Subsetter</a> (findings to be formalized), Chuck Daniels found the “all” cache type (cache entire contents), a block size of 8MB and fill cache=True to deliver the best performance. NOTE: This is for non-cloud-optimized data.</li>
+<li>In <a href="https://docs.google.com/presentation/d/1iYFvGt9Zz0iaTj0STIMbboRKcBGhpOH_LuLBLqsJAlk/edit?usp=sharing">HDF at the Speed of Zarr</a>, Luis Lopez demonstrates, using ICESat-2 data, the importance of using similar arguments with fsspec (blockcache instead of all, but the results in the issue above were not significantly different between these 2 options) as well as the importance of using nearly equivalent arguments in for h5py (raw data chunk cache nbytes and page_buff_size).</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="cloud-optimized-hdfnetcdf-checklist" class="level1">
+<h1>Cloud-Optimized HDF/NetCDF Checklist</h1>
+<p>Please consider the following when preparing HDF/NetCDF data for use on the cloud:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">The format supports consolidated metadata, chunking and compression (HDF5 and NetCDF-4 do, but HDF4 and NetCDF-3 do not).</label></li>
+<li><label><input type="checkbox">Metadata has been consolidated (see also <a href="#how-to-check-for-consolidated-metadata">how-to-check-for-consolidated-metadata</a>).</label></li>
+<li><label><input type="checkbox">Chunk sizes that are not too big nor too small (100kb-16mb) (see also <a href="#how-to-check-chunk-size-and-shape">how-to-check-chunk-size-and-shape</a>).</label></li>
+<li><label><input type="checkbox">An appropriate compression algorithm has been applied.</label></li>
+<li><label><input type="checkbox">Expected use cases for the data were considered when designing the chunk size and shape.</label></li>
+<li><label><input type="checkbox">Data product usage documentation includes directions on how to read directly from cloud storage and how to use client libraries’ to optimize access.</label></li>
+</ul>
+</section>
+<section id="how-tos" class="level1">
+<h1>How tos</h1>
+<p>The examples below require the HDF5 library package is installed on your system. These commands will also work for NetCDF-4. While you can check for chunk size and shape with h5py, h5py is a high-level interface primarily for accessing datasets, attributes, and other basic HDF5 functionalities. h5py does not expose lower-level file options directly.</p>
+<section id="commands-in-brief" class="level2">
+<h2 class="anchored" data-anchor-id="commands-in-brief">Commands in brief:</h2>
+<ul>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__s_t__u_g.html"><code>h5stat</code></a> prints stats from an existing HDF5 file.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__r_p__u_g.html"><code>h5repack</code></a> writes a new file with a new layout.</li>
+<li><a href="https://support.hdfgroup.org/documentation/hdf5/latest/_h5_t_o_o_l__d_p__u_g.html"><code>h5dump</code></a> displays objects from an HDF5 file.</li>
+</ul>
+</section>
+<section id="how-to-check-for-consolidated-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-check-for-consolidated-metadata">How to check for consolidated metadata</h2>
+<p>To be considered cloud-optimized, HDF5 files should be written with the <code>PAGE</code> file space management strategy (see also <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html#strategies">File Space Management Strategies</a>). When using this strategy, HDF5 will write aggregate metadata and raw data into fixed-size pages <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>.</p>
+<p>You can check the file space management strategy with the command line h5stat tool:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5stat</span> <span class="at">-S</span> infile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This returns output such as:</p>
+<pre class="text"><code>Filename: infile.h5
+File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR
+File space page size: 4096 bytes
+Summary of file space information:
+  File metadata: 2157376 bytes
+  Raw data: 37784376 bytes
+  Amount/Percent of tracked free space: 0 bytes/0.0%
+  Unaccounted space: 802424 bytes
+Total space: 40744176 bytes</code></pre>
+<p>Notice the strategy: <code>File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR</code>. This is the default option. The best choice for cloud-optimized access is <code>H5F_FSPACE_STRATEGY_PAGE</code>. Learn more about the options in the HDF docs: <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html">File Space Management (HDF Group)</a>.</p>
+</section>
+<section id="how-to-change-the-file-space-management-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-change-the-file-space-management-strategy">How to change the file space management strategy</h2>
+<p>You can use the <code>h5repack</code> to reorganize the metadata <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>. When repacking to use the <code>PAGE</code> file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reading page-aggregated files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When reading the HDF5 library needs to be configured to use the page aggregated files. If using the HDF5 library you can set <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a>. For <a href="https://docs.h5py.org/en/stable/high/file.html">h5py File objects</a> you can set <code>page_buf_size</code> when instantiating the File object.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Library limitations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>h5repack’s aggregation is fast but rechunking is slow. You may want to use the h5py library directly to repack. See an example of how to do so in NSIDC’s cloud-optimized ICESat-2 repo: <a href="https://github.com/nsidc/cloud-optimized-icesat2/blob/main/notebooks/optimize-atl03.py">optimize-atl03.py</a>.</li>
+<li>The NetCDF library doesn’t expose the low-level HDF5 API so one must first create the file with the NetCDF library and then repack it with h5repack or python. You can also create NetCDF files with HDF5 libraries, however required NetCDF properties must be set. See also: <a href="https://github.com/Unidata/netcdf-c/discussions/2871">Using the HDF5 file space strategy property Unidata/netcdf-c #2871</a>.</li>
+</ul>
+<p>author credit: Luis Lopez</p>
+</div>
+</div>
+</section>
+<section id="how-to-check-chunk-size-and-shape" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-check-chunk-size-and-shape">How to check chunk size and shape</h2>
+<p>Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>-p</code> shows the properties (dataset layout, chunk size and compression) of objects in the HDF5 file. <code>-H</code> prints the header information only. Together, we get metadata about the structure of the file.</p>
+<p>Example command with output and how to read it, in comments:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5dump <span class="at">-pH</span> ~/Downloads/ATL03_20240510223215_08142301_006_01.h5 <span class="kw">|</span> <span class="fu">grep</span> h_ph <span class="at">-A</span> 10</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">DATASET</span> <span class="st">"h_ph"</span> {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATATYPE</span>  H5T_IEEE_F32LE <span class="co"># Four-byte, little-endian, IEEE floating point</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATASPACE</span>  SIMPLE { <span class="er">(</span> <span class="ex">15853996</span> <span class="kw">)</span> <span class="ex">/</span> <span class="er">(</span> <span class="ex">H5S_UNLIMITED</span> <span class="kw">)</span> <span class="er">}</span> <span class="co"># simple (n-dimensional) dataspace, this is a 1-dimensional array of length 15,853,996</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">STORAGE_LAYOUT</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">CHUNKED</span> <span class="er">(</span> <span class="ex">10000</span> <span class="kw">)</span> <span class="co"># Dataset is stored in chunks of 10,000 elements per chunk</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="ex">SIZE</span> 57067702 <span class="er">(</span><span class="ex">1.111:1</span> COMPRESSION<span class="kw">)</span> <span class="co"># Compressed datasets compression ratio of 1.111 to 1 - only slightly compresed</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">FILTERS</span> {</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="ex">COMPRESSION</span> DEFLATE { LEVEL 6 } <span class="co"># Compressed with deflate algorithm with a compression level of 6</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="how-to-change-the-chunk-size-and-shape" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="closing-thoughts" class="level1">
+<h1>Closing Thoughts</h1>
+<p>Many existing HDF5 and NetCDF4 collections use the default file space management strategy and with very small raw data chunks. While optimizing these collections would improve performance, it requires significant effort, including benchmark design and development, reprocessing and a deep understanding of HDF5 file space management and caching. When time and resources are limited, tools like <a href="../kerchunk/intro.html">Kerchunk</a> and <a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a> offer a practical alternative. These tools don’t rechunk the data but instead consolidate metadata, resulting in notable performance improvements.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-barrett2024" class="csl-entry" role="listitem">
+Barrett, Andy, Luis Lopez, Amy Steiker, Aleksander Jelenek, and Jeff Lee. 2024. <span>“Evaluating Cloud-Optimized HDF5 Solutions for NASA Earthdata: A Case Study with ICESat-2.”</span> NSIDC DAAC, HDF Group, NASA; <a href="https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing</a>.
+</div>
+<div id="ref-h5py_developers" class="csl-entry" role="listitem">
+H5py Developers. n.d. <em>Datasets</em>. H5py Documentation; <a href="https://docs.h5py.org/en/stable/high/dataset.html" class="uri">https://docs.h5py.org/en/stable/high/dataset.html</a>.
+</div>
+<div id="ref-jelenak2022" class="csl-entry" role="listitem">
+Jelenak, Aleksander. 2022. <span>“Creating Cloud-Optimized HDF5 Files.”</span> The HDF Group; <a href="https://hdfeos.org/workshops/ws25/presentations/axj.pdf" class="uri">https://hdfeos.org/workshops/ws25/presentations/axj.pdf</a>.
+</div>
+<div id="ref-jelenak2023_report" class="csl-entry" role="listitem">
+———. 2023a. <span>“Cloud-Optimized HDF5 Files.”</span> The HDF Group; <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
+</div>
+<div id="ref-jelenak2023" class="csl-entry" role="listitem">
+———. 2023b. <span>“Cloud-Optimized HDF5 Files – #HUG23.”</span> YouTube video, The HDF Group. <a href="https://www.youtube.com/watch?v=bDH59YTXpkc" class="uri">https://www.youtube.com/watch?v=bDH59YTXpkc</a>.
+</div>
+<div id="ref-jelenak2024" class="csl-entry" role="listitem">
+———. 2024. <span>“Cloud Optimized HDF5 Files (Slides).”</span> Slides, <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
+</div>
+<div id="ref-quinn2024" class="csl-entry" role="listitem">
+Quinn, Patrick. 2024. <span>“Computer Scientists, Your Planet Needs You: An Introduction to Access-Optimized Data.”</span> NASA ESDIS Architect; <a href="https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing</a>.
+</div>
+<div id="ref-shiklomanov2024" class="csl-entry" role="listitem">
+Shiklomanov, Alexey. 2024. <span>“Rethinking the Software Architecture of GMAO Data Tools and Services.”</span> <a href="https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing</a>.
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -589,18 +994,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -632,7 +1026,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
@@ -640,7 +1054,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -737,7 +1151,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -983,7 +1396,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cloud-optimized-netcdf4-hdf5/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cloud-optimized-netcdf4-hdf5/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

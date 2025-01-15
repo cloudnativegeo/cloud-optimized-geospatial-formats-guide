@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cloud-Optimized Geospatial Formats Guide - Zarr in Practice</title>
+<title>Zarr in Practice – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -70,12 +70,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-28c3752696cdd24fbbf2e2d712d6c647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bb89a3a354fa7077ee9bd9b255ce1f92.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -118,13 +118,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/zarr-in-practice.html">Zarr in Practice</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -164,18 +164,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Formats</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -214,9 +214,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Zarr</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -237,9 +237,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Kerchunk</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -260,9 +260,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Cloud-Optimized HDF5 and NetCDF</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -270,16 +270,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cloud-Optimized NetCDF4/HDF5</span></a>
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -300,9 +300,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">GeoParquet</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -323,9 +323,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">FlatGeobuf</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -358,9 +358,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">PMTiles</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -584,8 +584,7 @@ dimension of the array.</pre>
 <div id="cell-28" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<div>
-<table class="zarr-info table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="zarr-info caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
 <tr class="odd">
 <td style="text-align: left;" data-quarto-table-cell-role="th">Type</td>
@@ -639,7 +638,6 @@ dimension of the array.</pre>
 </table>
 </div>
 </div>
-</div>
 <p>We can see, from the storage ratio above, that compression has made our data 155 times smaller 😱 .</p>
 <p>You can set <code>compression=None</code> when creating a Zarr array to turn off this behavior, but I’m not sure why you would do that.</p>
 <p>Let’s see what happens when we use a different compression method. We can checkout a full list of numcodecs compressors here: <a href="https://numcodecs.readthedocs.io/">https://numcodecs.readthedocs.io/</a>.</p>
@@ -649,8 +647,7 @@ dimension of the array.</pre>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>zstore_gzip_compressed <span class="op">=</span> zarr.array(np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span><span class="va">True</span>, compressor<span class="op">=</span>compressor)</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>zstore_gzip_compressed.info</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<div>
-<table class="zarr-info table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="zarr-info caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
 <tr class="odd">
 <td style="text-align: left;" data-quarto-table-cell-role="th">Type</td>
@@ -702,7 +699,6 @@ dimension of the array.</pre>
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 <p>In this case, the storage ratio is 5.3 - so not as good! How to chose a compression algorithm is a topic for future investigation.</p>
@@ -793,7 +789,6 @@ dimension of the array.</pre>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(store, engine<span class="op">=</span><span class="st">'zarr'</span>, chunks<span class="op">=</span>{}, consolidated<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
-<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1183,14 +1178,14 @@ Attributes: (12/45)
     time_coverage_end:          1996-10-01T23:59:59Z
     time_coverage_start:        1996-10-01T00:00:00Z
     title:                      Global Precipitation Climatatology Project (G...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-87312808-6a00-454f-88d1-fce366d31028" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-87312808-6a00-454f-88d1-fce366d31028" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">latitude</span>: 180</li><li><span>nv</span>: 2</li><li><span class="xr-has-index">longitude</span>: 360</li><li><span class="xr-has-index">time</span>: 9226</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-1db6f159-c598-4fa1-89a1-ee1ee32180a1" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-1db6f159-c598-4fa1-89a1-ee1ee32180a1" class="xr-section-summary">Coordinates: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lat_bounds</span></div><div class="xr-var-dims">(latitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(180, 2), meta=np.ndarray&gt;</div><input id="attrs-7892e3df-adfd-4133-8058-a78a3b6436fb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7892e3df-adfd-4133-8058-a78a3b6436fb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a45e1970-d186-421f-86ff-ed1e49a42775" class="xr-var-data-in" type="checkbox"><label for="data-a45e1970-d186-421f-86ff-ed1e49a42775" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>latitude values at the north and south bounds of each pixel.</dd></dl></div><div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -1225,59 +1220,7 @@ Attributes: (12/45)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">latitude</span>
-</div>
-<div class="xr-var-dims">
-(latitude)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
--90.0 -89.0 -88.0 ... 88.0 89.0
-</div>
-<input id="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" class="xr-var-data-in" type="checkbox">
-<label for="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>axis :</span></dt>
-<dd>
-Y
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Latitude
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-latitude
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_north
-</dd>
-<dt><span>valid_range :</span></dt>
-<dd>
-[-90.0, 90.0]
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array([-90., -89., -88., -87., -86., -85., -84., -83., -82., -81., -80., -79.,
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">latitude</span></div><div class="xr-var-dims">(latitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-90.0 -89.0 -88.0 ... 88.0 89.0</div><input id="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7d0c7d6a-597e-4be5-ba89-ca34b6221707" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" class="xr-var-data-in" type="checkbox"><label for="data-ee4d6280-1a9f-4844-924b-1bf912fdceee" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>Latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_range :</span></dt><dd>[-90.0, 90.0]</dd></dl></div><div class="xr-var-data"><pre>array([-90., -89., -88., -87., -86., -85., -84., -83., -82., -81., -80., -79.,
        -78., -77., -76., -75., -74., -73., -72., -71., -70., -69., -68., -67.,
        -66., -65., -64., -63., -62., -61., -60., -59., -58., -57., -56., -55.,
        -54., -53., -52., -51., -50., -49., -48., -47., -46., -45., -44., -43.,
@@ -1292,51 +1235,15 @@ degrees_north
         54.,  55.,  56.,  57.,  58.,  59.,  60.,  61.,  62.,  63.,  64.,  65.,
         66.,  67.,  68.,  69.,  70.,  71.,  72.,  73.,  74.,  75.,  76.,  77.,
         78.,  79.,  80.,  81.,  82.,  83.,  84.,  85.,  86.,  87.,  88.,  89.],
-      dtype=float32)</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>lon_bounds</span>
-</div>
-<div class="xr-var-dims">
-(longitude, nv)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-09d84b9c-8729-4334-98f4-50b956428e08" class="xr-var-data-in" type="checkbox">
-<label for="data-09d84b9c-8729-4334-98f4-50b956428e08" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>comment :</span></dt>
-<dd>
-longitude values at the west and east bounds of each pixel.
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon_bounds</span></div><div class="xr-var-dims">(longitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;</div><input id="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" class="xr-var-attrs-in" type="checkbox"><label for="attrs-132a6088-c678-4e8f-8aef-f1e961c0d485" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-09d84b9c-8729-4334-98f4-50b956428e08" class="xr-var-data-in" type="checkbox"><label for="data-09d84b9c-8729-4334-98f4-50b956428e08" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>longitude values at the west and east bounds of each pixel.</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -1371,151 +1278,18 @@ longitude values at the west and east bounds of each pixel.
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">longitude</span>
-</div>
-<div class="xr-var-dims">
-(longitude)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-0.0 1.0 2.0 ... 357.0 358.0 359.0
-</div>
-<input id="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" class="xr-var-data-in" type="checkbox">
-<label for="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>axis :</span></dt>
-<dd>
-X
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Longitude
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-longitude
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_east
-</dd>
-<dt><span>valid_range :</span></dt>
-<dd>
-[0.0, 360.0]
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array([  0.,   1.,   2., ..., 357., 358., 359.], dtype=float32)</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">time</span>
-</div>
-<div class="xr-var-dims">
-(time)
-</div>
-<div class="xr-var-dtype">
-datetime64[ns]
-</div>
-<div class="xr-var-preview xr-preview">
-1996-10-01 ... 2021-12-31
-</div>
-<input id="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" class="xr-var-data-in" type="checkbox">
-<label for="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>axis :</span></dt>
-<dd>
-T
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-time
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-time
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array(['1996-10-01T00:00:00.000000000', '1996-10-02T00:00:00.000000000',
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">longitude</span></div><div class="xr-var-dims">(longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">0.0 1.0 2.0 ... 357.0 358.0 359.0</div><input id="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-152cbd7e-87d6-4e6b-ad55-bb54f72107d6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" class="xr-var-data-in" type="checkbox"><label for="data-4f8a2b05-ac0a-4c01-b8f5-36657c3ad0de" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>Longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_range :</span></dt><dd>[0.0, 360.0]</dd></dl></div><div class="xr-var-data"><pre>array([  0.,   1.,   2., ..., 357., 358., 359.], dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">1996-10-01 ... 2021-12-31</div><input id="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-03b580ec-726c-4c95-b41d-9e1e1ec59a6c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" class="xr-var-data-in" type="checkbox"><label for="data-4530eaf6-24f3-42d4-acd8-d3bad58d2d46" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>long_name :</span></dt><dd>time</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['1996-10-01T00:00:00.000000000', '1996-10-02T00:00:00.000000000',
        '1996-10-03T00:00:00.000000000', ..., '2021-12-29T00:00:00.000000000',
        '2021-12-30T00:00:00.000000000', '2021-12-31T00:00:00.000000000'],
-      dtype='datetime64[ns]')</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>time_bounds</span>
-</div>
-<div class="xr-var-dims">
-(time, nv)
-</div>
-<div class="xr-var-dtype">
-datetime64[ns]
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(200, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-b9566218-6432-4360-b874-6cb3e2e85201" class="xr-var-data-in" type="checkbox">
-<label for="data-b9566218-6432-4360-b874-6cb3e2e85201" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>comment :</span></dt>
-<dd>
-time bounds for each time value
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>time_bounds</span></div><div class="xr-var-dims">(time, nv)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(200, 2), meta=np.ndarray&gt;</div><input id="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d791209d-0c97-48ab-b4ec-01a31e682d3f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b9566218-6432-4360-b874-6cb3e2e85201" class="xr-var-data-in" type="checkbox"><label for="data-b9566218-6432-4360-b874-6cb3e2e85201" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>time bounds for each time value</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -1550,77 +1324,15 @@ time bounds for each time value
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li class="xr-section-item">
-<input id="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary-in" type="checkbox" checked="">
-<label for="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary">Data variables: <span>(1)</span></label>
-<div class="xr-section-inline-details">
-
-</div>
-<div class="xr-section-details">
-<ul class="xr-var-list">
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>precip</span>
-</div>
-<div class="xr-var-dims">
-(time, latitude, longitude)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(200, 180, 360), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" class="xr-var-data-in" type="checkbox">
-<label for="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: mean
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-NOAA Climate Data Record (CDR) of Daily GPCP Satellite-Gauge Combined Precipitation
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-lwe_precipitation_rate
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-mm/day
-</dd>
-<dt><span>valid_range :</span></dt>
-<dd>
-[0.0, 100.0]
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-a8ca1861-eee3-4e81-b988-524f00098a68" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>precip</span></div><div class="xr-var-dims">(time, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(200, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e94a9fa0-03a6-45d6-b632-bc491349b6ae" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" class="xr-var-data-in" type="checkbox"><label for="data-4faebbd1-cbef-4d75-9ef3-eba490b07043" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>long_name :</span></dt><dd>NOAA Climate Data Record (CDR) of Daily GPCP Satellite-Gauge Combined Precipitation</dd><dt><span>standard_name :</span></dt><dd>lwe_precipitation_rate</dd><dt><span>units :</span></dt><dd>mm/day</dd><dt><span>valid_range :</span></dt><dd>[0.0, 100.0]</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -1655,9 +1367,7 @@ mm/day
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div>
-</li></ul></div></div><li class="xr-section-item"><input id="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary-in" type="checkbox"><label for="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>latitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" class="xr-index-data-in" type="checkbox"><label for="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.0, -88.0, -87.0, -86.0, -85.0, -84.0, -83.0, -82.0, -81.0,
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary-in" type="checkbox"><label for="section-0c56d214-245b-4beb-866d-622d388c2cd1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>latitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" class="xr-index-data-in" type="checkbox"><label for="index-d4e2fef4-4f6f-46cf-a777-ea5ef681c2b0" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.0, -88.0, -87.0, -86.0, -85.0, -84.0, -83.0, -82.0, -81.0,
        ...
         80.0,  81.0,  82.0,  83.0,  84.0,  85.0,  86.0,  87.0,  88.0,  89.0],
       dtype='float32', name='latitude', length=180))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>longitude</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-b0e613b3-6501-4e1e-baa9-6fa14d6a72f2" class="xr-index-data-in" type="checkbox"><label for="index-b0e613b3-6501-4e1e-baa9-6fa14d6a72f2" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.0,   1.0,   2.0,   3.0,   4.0,   5.0,   6.0,   7.0,   8.0,   9.0,
@@ -1670,31 +1380,29 @@ mm/day
                '2021-12-22', '2021-12-23', '2021-12-24', '2021-12-25',
                '2021-12-26', '2021-12-27', '2021-12-28', '2021-12-29',
                '2021-12-30', '2021-12-31'],
-              dtype='datetime64[ns]', name='time', length=9226, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary-in" type="checkbox"><label for="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary">Attributes: <span>(45)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD 1.3</dd><dt><span>Metadata_Conventions :</span></dt><dd>CF-1.6, Unidata Dataset Discovery v1.0, NOAA CDR v1.0, GDS v2.0</dd><dt><span>acknowledgment :</span></dt><dd>This project was supported in part by a grant from the NOAA Climate Data Record (CDR) Program for satellites.</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>cdr_program :</span></dt><dd>NOAA Climate Data Record Program for satellites, FY 2011.</dd><dt><span>cdr_variable :</span></dt><dd>precipitation</dd><dt><span>comment :</span></dt><dd>Processing computer: eagle2.umd.edu</dd><dt><span>contributor_name :</span></dt><dd>Robert Adler, Jian-Jian Wang</dd><dt><span>contributor_role :</span></dt><dd>principalInvestigator, processor and custodian</dd><dt><span>creator_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>creator_name :</span></dt><dd>Dr. Jian-Jian Wang</dd><dt><span>date_created :</span></dt><dd>2017-05-30T16:52:42Z</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>360.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>1) 2017-05-30T16:52:42Z, Dr. Jian-Jian Wang, U of Maryland, Created beta (B1) file</dd><dt><span>id :</span></dt><dd>199610/gpcp_v01r03_daily_d19961001_c20170530.nc</dd><dt><span>institution :</span></dt><dd>ACADEMIC &gt; UMD/ESSIC &gt; Earth System Science Interdisciplinary Center, University of Maryland</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE &gt; ATMOSPHERE &gt; PRECIPITATION &gt; PRECIPITATION AMOUNT</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Earth Science Keywords, Version 7.0</dd><dt><span>license :</span></dt><dd>No constraints on data access or use.</dd><dt><span>metadata_link :</span></dt><dd>gov.noaa.ncdc:XXXXX</dd><dt><span>naming_authority :</span></dt><dd>gov.noaa.ncdc</dd><dt><span>platform :</span></dt><dd>GOES (Geostationary Operational Environmental Satellite), GMS (Japan Geostationary Meteorological Satellite), METEOSAT, TIROS &gt; Television Infrared Observation Satellite, DMSP (Defense Meteorological Satellite Program)</dd><dt><span>processing_level :</span></dt><dd>NASA Level 3</dd><dt><span>product_version :</span></dt><dd>v01r03</dd><dt><span>project :</span></dt><dd>GPCP &gt; Global Precipitation Climatology Project</dd><dt><span>publisher_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>publisher_name :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>publisher_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>references :</span></dt><dd>Huffman et al. 1997, http://dx.doi.org/10.1175/1520-0477(1997)078&lt;0005:TGPCPG&gt;2.0.CO;2; Adler et al. 2003, http://dx.doi.org/10.1175/1525-7541(2003)004&lt;1147:TVGPCP&gt;2.0.CO;2; Huffman et al. 2009, http://dx.doi.org/10.1029/2009GL040000; Adler et al. 2017, Global Precipitation Climatology Project (GPCP) Daily Analysis: Climate Algorithm Theoretical Basis Document (C-ATBD)</dd><dt><span>sensor :</span></dt><dd>Imager, TOVS &gt; TIROS Operational Vertical Sounder, SSMI &gt; Special Sensor Microwave/Imager</dd><dt><span>source :</span></dt><dd>/data1/GPCP_CDR/GPCP_Output/1DD//bin/199610/stfsg3.19961001.s</dd><dt><span>spatial_resolution :</span></dt><dd>1 degree</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table (v41, 22 February 2017)</dd><dt><span>summary :</span></dt><dd>Global Precipitation Climatology Project (GPCP) Daily Version 1.3 gridded, merged satellite/gauge precipitation Climate data Record (CDR) from 1996 to present.</dd><dt><span>time_coverage_duration :</span></dt><dd>P1D</dd><dt><span>time_coverage_end :</span></dt><dd>1996-10-01T23:59:59Z</dd><dt><span>time_coverage_start :</span></dt><dd>1996-10-01T00:00:00Z</dd><dt><span>title :</span></dt><dd>Global Precipitation Climatatology Project (GPCP) Climate Data Record (CDR), Daily V1.3</dd></dl></div></li></div></div>
+              dtype='datetime64[ns]', name='time', length=9226, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary-in" type="checkbox"><label for="section-86895ee6-a9de-4645-9a9f-3251774bae66" class="xr-section-summary">Attributes: <span>(45)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6, ACDD 1.3</dd><dt><span>Metadata_Conventions :</span></dt><dd>CF-1.6, Unidata Dataset Discovery v1.0, NOAA CDR v1.0, GDS v2.0</dd><dt><span>acknowledgment :</span></dt><dd>This project was supported in part by a grant from the NOAA Climate Data Record (CDR) Program for satellites.</dd><dt><span>cdm_data_type :</span></dt><dd>Grid</dd><dt><span>cdr_program :</span></dt><dd>NOAA Climate Data Record Program for satellites, FY 2011.</dd><dt><span>cdr_variable :</span></dt><dd>precipitation</dd><dt><span>comment :</span></dt><dd>Processing computer: eagle2.umd.edu</dd><dt><span>contributor_name :</span></dt><dd>Robert Adler, Jian-Jian Wang</dd><dt><span>contributor_role :</span></dt><dd>principalInvestigator, processor and custodian</dd><dt><span>creator_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>creator_name :</span></dt><dd>Dr. Jian-Jian Wang</dd><dt><span>date_created :</span></dt><dd>2017-05-30T16:52:42Z</dd><dt><span>geospatial_lat_max :</span></dt><dd>90.0</dd><dt><span>geospatial_lat_min :</span></dt><dd>-90.0</dd><dt><span>geospatial_lat_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lat_units :</span></dt><dd>degrees_north</dd><dt><span>geospatial_lon_max :</span></dt><dd>360.0</dd><dt><span>geospatial_lon_min :</span></dt><dd>0.0</dd><dt><span>geospatial_lon_resolution :</span></dt><dd>1 degree</dd><dt><span>geospatial_lon_units :</span></dt><dd>degrees_east</dd><dt><span>history :</span></dt><dd>1) 2017-05-30T16:52:42Z, Dr. Jian-Jian Wang, U of Maryland, Created beta (B1) file</dd><dt><span>id :</span></dt><dd>199610/gpcp_v01r03_daily_d19961001_c20170530.nc</dd><dt><span>institution :</span></dt><dd>ACADEMIC &gt; UMD/ESSIC &gt; Earth System Science Interdisciplinary Center, University of Maryland</dd><dt><span>keywords :</span></dt><dd>EARTH SCIENCE &gt; ATMOSPHERE &gt; PRECIPITATION &gt; PRECIPITATION AMOUNT</dd><dt><span>keywords_vocabulary :</span></dt><dd>NASA Global Change Master Directory (GCMD) Earth Science Keywords, Version 7.0</dd><dt><span>license :</span></dt><dd>No constraints on data access or use.</dd><dt><span>metadata_link :</span></dt><dd>gov.noaa.ncdc:XXXXX</dd><dt><span>naming_authority :</span></dt><dd>gov.noaa.ncdc</dd><dt><span>platform :</span></dt><dd>GOES (Geostationary Operational Environmental Satellite), GMS (Japan Geostationary Meteorological Satellite), METEOSAT, TIROS &gt; Television Infrared Observation Satellite, DMSP (Defense Meteorological Satellite Program)</dd><dt><span>processing_level :</span></dt><dd>NASA Level 3</dd><dt><span>product_version :</span></dt><dd>v01r03</dd><dt><span>project :</span></dt><dd>GPCP &gt; Global Precipitation Climatology Project</dd><dt><span>publisher_email :</span></dt><dd>jjwang@umd.edu</dd><dt><span>publisher_name :</span></dt><dd>NOAA National Centers for Environmental Information (NCEI)</dd><dt><span>publisher_url :</span></dt><dd>https://www.ncei.noaa.gov</dd><dt><span>references :</span></dt><dd>Huffman et al. 1997, http://dx.doi.org/10.1175/1520-0477(1997)078&lt;0005:TGPCPG&gt;2.0.CO;2; Adler et al. 2003, http://dx.doi.org/10.1175/1525-7541(2003)004&lt;1147:TVGPCP&gt;2.0.CO;2; Huffman et al. 2009, http://dx.doi.org/10.1029/2009GL040000; Adler et al. 2017, Global Precipitation Climatology Project (GPCP) Daily Analysis: Climate Algorithm Theoretical Basis Document (C-ATBD)</dd><dt><span>sensor :</span></dt><dd>Imager, TOVS &gt; TIROS Operational Vertical Sounder, SSMI &gt; Special Sensor Microwave/Imager</dd><dt><span>source :</span></dt><dd>/data1/GPCP_CDR/GPCP_Output/1DD//bin/199610/stfsg3.19961001.s</dd><dt><span>spatial_resolution :</span></dt><dd>1 degree</dd><dt><span>standard_name_vocabulary :</span></dt><dd>CF Standard Name Table (v41, 22 February 2017)</dd><dt><span>summary :</span></dt><dd>Global Precipitation Climatology Project (GPCP) Daily Version 1.3 gridded, merged satellite/gauge precipitation Climate data Record (CDR) from 1996 to present.</dd><dt><span>time_coverage_duration :</span></dt><dd>P1D</dd><dt><span>time_coverage_end :</span></dt><dd>1996-10-01T23:59:59Z</dd><dt><span>time_coverage_start :</span></dt><dd>1996-10-01T00:00:00Z</dd><dt><span>title :</span></dt><dd>Global Precipitation Climatatology Project (GPCP) Climate Data Record (CDR), Daily V1.3</dd></dl></div></li></ul></div></div>
 </div>
-</section></main></div>
-
+</div>
 <p>Microsoft’s Planetary Computer goes above and beyond, providing tutorials alongside each dataset. We recommend exploring these on your own to get an idea of what you can do with Zarr and Xarray. See all tutorials here: <a href="https://github.com/microsoft/PlanetaryComputerExamples/tree/main/tutorials">microsoft/PlanetaryComputerExamples</a>. Note, this repo contains ALL tutorials, not just Zarr tutorials, so you may want to filter for Zarr.</p>
 <p>For example, here is some code from the <a href="https://planetarycomputer.microsoft.com/dataset/daymet-daily-pr#Example-Notebook">Daymet Puerto Rico Dataset on MS Planetary Computer</a>:</p>
 <div id="cell-43" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.crs <span class="im">as</span> ccrs</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">"ignore"</span>, <span class="pp">RuntimeWarning</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cartopy.crs <span class="im">as</span> ccrs</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(<span class="st">"ignore"</span>, <span class="pp">RuntimeWarning</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-44" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://planetarycomputer.microsoft.com/api/stac/v1/collections/daymet-daily-hi"</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.read_file(url)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>asset <span class="op">=</span> collection.assets[<span class="st">"zarr-https"</span>]</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> fsspec.get_mapper(asset.href)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(store, <span class="op">**</span>asset.extra_fields[<span class="st">"xarray:open_kwargs"</span>])</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://planetarycomputer.microsoft.com/api/stac/v1/collections/daymet-daily-hi"</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.read_file(url)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>asset <span class="op">=</span> collection.assets[<span class="st">"zarr-https"</span>]</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> fsspec.get_mapper(asset.href)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_zarr(store, <span class="op">**</span>asset.extra_fields[<span class="st">"xarray:open_kwargs"</span>])</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2086,14 +1794,14 @@ Attributes:
     references:        Please see http://daymet.ornl.gov/ for current informa...
     source:            Daymet Software Version 4.0
     start_year:        1980</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-3a99461e-5d2e-43e9-aa6b-cc22e1f2e53b" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3a99461e-5d2e-43e9-aa6b-cc22e1f2e53b" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 14965</li><li><span class="xr-has-index">y</span>: 584</li><li><span class="xr-has-index">x</span>: 284</li><li><span>nv</span>: 2</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-3616fb2a-9a09-403d-a3f3-f2a5d648ef12" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-3616fb2a-9a09-403d-a3f3-f2a5d648ef12" class="xr-section-summary">Coordinates: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lat</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;</div><input id="attrs-d5c3f402-10f8-4c00-bad8-ff687df802f6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d5c3f402-10f8-4c00-bad8-ff687df802f6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-36bff427-b26e-4974-83d4-709644e313b1" class="xr-var-data-in" type="checkbox"><label for="data-36bff427-b26e-4974-83d4-709644e313b1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude coordinate</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2128,58 +1836,15 @@ Attributes:
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>lon</span>
-</div>
-<div class="xr-var-dims">
-(y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-2cd94214-519a-44ba-a725-43e75436c480" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-2cd94214-519a-44ba-a725-43e75436c480" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-6d38d838-3466-416c-b6dd-220a75c3c961" class="xr-var-data-in" type="checkbox">
-<label for="data-6d38d838-3466-416c-b6dd-220a75c3c961" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-longitude coordinate
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-longitude
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees_east
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;</div><input id="attrs-2cd94214-519a-44ba-a725-43e75436c480" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2cd94214-519a-44ba-a725-43e75436c480" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6d38d838-3466-416c-b6dd-220a75c3c961" class="xr-var-data-in" type="checkbox"><label for="data-6d38d838-3466-416c-b6dd-220a75c3c961" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude coordinate</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2214,213 +1879,20 @@ degrees_east
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">time</span>
-</div>
-<div class="xr-var-dims">
-(time)
-</div>
-<div class="xr-var-dtype">
-datetime64[ns]
-</div>
-<div class="xr-var-preview xr-preview">
-1980-01-01T12:00:00 ... 2020-12-...
-</div>
-<input id="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-bc473913-ad24-4efc-b03e-6228ec5c6868" class="xr-var-data-in" type="checkbox">
-<label for="data-bc473913-ad24-4efc-b03e-6228ec5c6868" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>bounds :</span></dt>
-<dd>
-time_bnds
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-24-hour day based on local time
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-time
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array(['1980-01-01T12:00:00.000000000', '1980-01-02T12:00:00.000000000',
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">1980-01-01T12:00:00 ... 2020-12-...</div><input id="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-49280f61-1ea7-40fa-b5d6-a8e3f48d5c0f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bc473913-ad24-4efc-b03e-6228ec5c6868" class="xr-var-data-in" type="checkbox"><label for="data-bc473913-ad24-4efc-b03e-6228ec5c6868" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>bounds :</span></dt><dd>time_bnds</dd><dt><span>long_name :</span></dt><dd>24-hour day based on local time</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array(['1980-01-01T12:00:00.000000000', '1980-01-02T12:00:00.000000000',
        '1980-01-03T12:00:00.000000000', ..., '2020-12-28T12:00:00.000000000',
        '2020-12-29T12:00:00.000000000', '2020-12-30T12:00:00.000000000'],
-      dtype='datetime64[ns]')</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">x</span>
-</div>
-<div class="xr-var-dims">
-(x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
--5.802e+06 ... -5.519e+06
-</div>
-<input id="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-58bb849b-1e8f-461b-be7a-c962b31c4194" class="xr-var-data-in" type="checkbox">
-<label for="data-58bb849b-1e8f-461b-be7a-c962b31c4194" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-x coordinate of projection
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-projection_x_coordinate
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-m
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array([-5802250., -5801250., -5800250., ..., -5521250., -5520250., -5519250.],
-      dtype=float32)</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span class="xr-has-index">y</span>
-</div>
-<div class="xr-var-dims">
-(y)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
--3.9e+04 -4e+04 ... -6.22e+05
-</div>
-<input id="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" class="xr-var-data-in" type="checkbox">
-<label for="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-y coordinate of projection
-</dd>
-<dt><span>standard_name :</span></dt>
-<dd>
-projection_y_coordinate
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-m
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>array([ -39000.,  -40000.,  -41000., ..., -620000., -621000., -622000.],
-      dtype=float32)</code></pre>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li class="xr-section-item">
-<input id="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary-in" type="checkbox" checked="">
-<label for="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary">Data variables: <span>(10)</span></label>
-<div class="xr-section-inline-details">
-
-</div>
-<div class="xr-section-details">
-<ul class="xr-var-list">
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>dayl</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-d96ec99e-8523-448a-9523-3df8249963e9" class="xr-var-data-in" type="checkbox">
-<label for="data-d96ec99e-8523-448a-9523-3df8249963e9" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daylength
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-s
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-5.802e+06 ... -5.519e+06</div><input id="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-96a8b8bd-6f0d-41ea-8e8b-84a9df72009f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-58bb849b-1e8f-461b-be7a-c962b31c4194" class="xr-var-data-in" type="checkbox"><label for="data-58bb849b-1e8f-461b-be7a-c962b31c4194" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>x coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_x_coordinate</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([-5802250., -5801250., -5800250., ..., -5521250., -5520250., -5519250.],
+      dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-3.9e+04 -4e+04 ... -6.22e+05</div><input id="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c1b3d61a-ff90-42f5-851f-8d04e7054055" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" class="xr-var-data-in" type="checkbox"><label for="data-8b25a02f-183b-4e54-8ab1-7d1eb47a3b93" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>y coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_y_coordinate</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([ -39000.,  -40000.,  -41000., ..., -620000., -621000., -622000.],
+      dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b08398b7-0c9f-4696-a1d6-5fdb83571501" class="xr-section-summary">Data variables: <span>(10)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>dayl</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d6fe9c3d-16c7-459d-9d66-5b407edd8b4d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d96ec99e-8523-448a-9523-3df8249963e9" class="xr-var-data-in" type="checkbox"><label for="data-d96ec99e-8523-448a-9523-3df8249963e9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daylength</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2455,127 +1927,15 @@ s
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>lambert_conformal_conic</span>
-</div>
-<div class="xr-var-dims">
-()
-</div>
-<div class="xr-var-dtype">
-int16
-</div>
-<div class="xr-var-preview xr-preview">
-...
-</div>
-<input id="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-569f2272-9a4a-4736-a91a-58f38335eb7b" class="xr-var-data-in" type="checkbox">
-<label for="data-569f2272-9a4a-4736-a91a-58f38335eb7b" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>false_easting :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>false_northing :</span></dt>
-<dd>
-0.0
-</dd>
-<dt><span>grid_mapping_name :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>inverse_flattening :</span></dt>
-<dd>
-298.257223563
-</dd>
-<dt><span>latitude_of_projection_origin :</span></dt>
-<dd>
-42.5
-</dd>
-<dt><span>longitude_of_central_meridian :</span></dt>
-<dd>
--100.0
-</dd>
-<dt><span>semi_major_axis :</span></dt>
-<dd>
-6378137.0
-</dd>
-<dt><span>standard_parallel :</span></dt>
-<dd>
-[25.0, 60.0]
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<pre><code>[1 values with dtype=int16]</code></pre>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>prcp</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" class="xr-var-data-in" type="checkbox">
-<label for="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: sum
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daily total precipitation
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-mm/day
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>lambert_conformal_conic</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" class="xr-var-attrs-in" type="checkbox"><label for="attrs-901dbc46-0696-471e-b36a-c881ac7fbaf0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-569f2272-9a4a-4736-a91a-58f38335eb7b" class="xr-var-data-in" type="checkbox"><label for="data-569f2272-9a4a-4736-a91a-58f38335eb7b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>false_easting :</span></dt><dd>0.0</dd><dt><span>false_northing :</span></dt><dd>0.0</dd><dt><span>grid_mapping_name :</span></dt><dd>lambert_conformal_conic</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>42.5</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>-100.0</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>standard_parallel :</span></dt><dd>[25.0, 60.0]</dd></dl></div><div class="xr-var-data"><pre>[1 values with dtype=int16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>prcp</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e675fbde-52f7-40d0-aca9-ac4214372070" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" class="xr-var-data-in" type="checkbox"><label for="data-56a00fec-40dc-428c-ab39-1bdfb6f880d4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: sum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily total precipitation</dd><dt><span>units :</span></dt><dd>mm/day</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2610,62 +1970,15 @@ mm/day
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>srad</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-42884eac-d1f2-4ac5-9d45-699c21810d90" class="xr-var-data-in" type="checkbox">
-<label for="data-42884eac-d1f2-4ac5-9d45-699c21810d90" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: mean
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daylight average incident shortwave radiation
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-W/m2
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>srad</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-98990403-d2f8-48e5-aa72-43191bb716a1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-42884eac-d1f2-4ac5-9d45-699c21810d90" class="xr-var-data-in" type="checkbox"><label for="data-42884eac-d1f2-4ac5-9d45-699c21810d90" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daylight average incident shortwave radiation</dd><dt><span>units :</span></dt><dd>W/m2</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2700,62 +2013,15 @@ W/m2
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>swe</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" class="xr-var-data-in" type="checkbox">
-<label for="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: mean
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-snow water equivalent
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-kg/m2
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>swe</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-58bedc90-9922-4739-adf0-2c22e1db85e9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" class="xr-var-data-in" type="checkbox"><label for="data-c47eaab6-f110-47a6-b4ba-e6147fcf9e1f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>snow water equivalent</dd><dt><span>units :</span></dt><dd>kg/m2</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2790,46 +2056,15 @@ kg/m2
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>time_bnds</span>
-</div>
-<div class="xr-var-dims">
-(time, nv)
-</div>
-<div class="xr-var-dtype">
-datetime64[ns]
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;
-</div>
-<input id="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" class="xr-var-attrs-in" type="checkbox" disabled="">
-<label for="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-55293e97-724b-46da-954e-b7325a37ec3b" class="xr-var-data-in" type="checkbox">
-<label for="data-55293e97-724b-46da-954e-b7325a37ec3b" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>time_bnds</span></div><div class="xr-var-dims">(time, nv)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;</div><input id="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4d8761a1-4f97-4846-b00a-60a92a3b59b4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-55293e97-724b-46da-954e-b7325a37ec3b" class="xr-var-data-in" type="checkbox"><label for="data-55293e97-724b-46da-954e-b7325a37ec3b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2864,62 +2099,15 @@ dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>tmax</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" class="xr-var-data-in" type="checkbox">
-<label for="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: maximum
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daily maximum temperature
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees C
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>tmax</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e4b61009-398b-45df-8bfa-81a5e24b9f65" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" class="xr-var-data-in" type="checkbox"><label for="data-57b501df-5450-4d4f-b3a3-5697ad3ac8f1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: maximum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily maximum temperature</dd><dt><span>units :</span></dt><dd>degrees C</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -2954,62 +2142,15 @@ degrees C
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>tmin</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-ea2184aa-f543-4793-a873-546fe7c1042b" class="xr-var-data-in" type="checkbox">
-<label for="data-ea2184aa-f543-4793-a873-546fe7c1042b" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: minimum
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daily minimum temperature
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-degrees C
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>tmin</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ac913015-7322-4f9e-b836-4aba7145bd8a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ea2184aa-f543-4793-a873-546fe7c1042b" class="xr-var-data-in" type="checkbox"><label for="data-ea2184aa-f543-4793-a873-546fe7c1042b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: minimum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily minimum temperature</dd><dt><span>units :</span></dt><dd>degrees C</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -3044,62 +2185,15 @@ degrees C
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>vp</span>
-</div>
-<div class="xr-var-dims">
-(time, y, x)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;
-</div>
-<input id="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" class="xr-var-data-in" type="checkbox">
-<label for="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>cell_methods :</span></dt>
-<dd>
-area: mean time: mean
-</dd>
-<dt><span>grid_mapping :</span></dt>
-<dd>
-lambert_conformal_conic
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-daily average vapor pressure
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-Pa
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>vp</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d4b87cd5-32f2-41d5-8a6c-7ce17b4ee17d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" class="xr-var-data-in" type="checkbox"><label for="data-2dd3b032-e0db-4a0b-bcb0-e7b6af8cff62" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily average vapor pressure</dd><dt><span>units :</span></dt><dd>Pa</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -3134,50 +2228,15 @@ Pa
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>yearday</span>
-</div>
-<div class="xr-var-dims">
-(time)
-</div>
-<div class="xr-var-dtype">
-int16
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(365,), meta=np.ndarray&gt;
-</div>
-<input id="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-1b960db4-ea74-4f8d-a111-900c84528485" class="xr-var-data-in" type="checkbox">
-<label for="data-1b960db4-ea74-4f8d-a111-900c84528485" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-day of year (DOY) starting with day 1 on Januaray 1st
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>yearday</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365,), meta=np.ndarray&gt;</div><input id="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" class="xr-var-attrs-in" type="checkbox"><label for="attrs-24c51e17-d6d8-4381-be80-8bc1c9bc5137" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1b960db4-ea74-4f8d-a111-900c84528485" class="xr-var-data-in" type="checkbox"><label for="data-1b960db4-ea74-4f8d-a111-900c84528485" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>day of year (DOY) starting with day 1 on Januaray 1st</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th></th>
@@ -3212,9 +2271,7 @@ day of year (DOY) starting with day 1 on Januaray 1st
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div>
-</li></ul></div></div><li class="xr-section-item"><input id="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary-in" type="checkbox"><label for="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-5304668e-d87a-4656-ad09-000b11bb09d9" class="xr-index-data-in" type="checkbox"><label for="index-5304668e-d87a-4656-ad09-000b11bb09d9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1980-01-01 12:00:00', '1980-01-02 12:00:00',
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary-in" type="checkbox"><label for="section-b311db5e-4f9c-43a2-802f-c48638c4b3e6" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-5304668e-d87a-4656-ad09-000b11bb09d9" class="xr-index-data-in" type="checkbox"><label for="index-5304668e-d87a-4656-ad09-000b11bb09d9" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['1980-01-01 12:00:00', '1980-01-02 12:00:00',
                '1980-01-03 12:00:00', '1980-01-04 12:00:00',
                '1980-01-05 12:00:00', '1980-01-06 12:00:00',
                '1980-01-07 12:00:00', '1980-01-08 12:00:00',
@@ -3235,11 +2292,10 @@ day of year (DOY) starting with day 1 on Januaray 1st
        ...
        -613000.0, -614000.0, -615000.0, -616000.0, -617000.0, -618000.0,
        -619000.0, -620000.0, -621000.0, -622000.0],
-      dtype='float32', name='y', length=584))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6</dd><dt><span>Version_data :</span></dt><dd>Daymet Data Version 4.0</dd><dt><span>Version_software :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>citation :</span></dt><dd>Please see http://daymet.ornl.gov/ for current Daymet data citation information</dd><dt><span>references :</span></dt><dd>Please see http://daymet.ornl.gov/ for current information on Daymet references</dd><dt><span>source :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>start_year :</span></dt><dd>1980</dd></dl></div></li></div></div>
+      dtype='float32', name='y', length=584))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-80c3b630-28ec-412f-bf5c-b5f43a4589db" class="xr-section-summary">Attributes: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.6</dd><dt><span>Version_data :</span></dt><dd>Daymet Data Version 4.0</dd><dt><span>Version_software :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>citation :</span></dt><dd>Please see http://daymet.ornl.gov/ for current Daymet data citation information</dd><dt><span>references :</span></dt><dd>Please see http://daymet.ornl.gov/ for current information on Daymet references</dd><dt><span>source :</span></dt><dd>Daymet Software Version 4.0</dd><dt><span>start_year :</span></dt><dd>1980</dd></dl></div></li></ul></div></div>
 </div>
-
-
-
+</div>
+</section>
 <section id="additional-resources" class="level1">
 <h1>Additional Resources</h1>
 <ul>
@@ -3249,7 +2305,7 @@ day of year (DOY) starting with day 1 on Januaray 1st
 
 </section>
 
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -3429,18 +2485,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -3472,7 +2517,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
@@ -3480,7 +2545,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -3577,7 +2642,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -3815,7 +2879,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
