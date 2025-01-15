@@ -438,7 +438,7 @@ div.csl-indent {
   <li><a href="#additional-chunk-shape-and-size-resources" id="toc-additional-chunk-shape-and-size-resources" class="nav-link" data-scroll-target="#additional-chunk-shape-and-size-resources">Additional chunk shape and size resources</a></li>
   </ul></li>
   <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression">Compression</a></li>
-  <li><a href="#data-product-usage-documentation-tutorials-and-examples" id="toc-data-product-usage-documentation-tutorials-and-examples" class="nav-link" data-scroll-target="#data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</a>
+  <li><a href="#data-usage-documentation-through-tutorials-and-examples" id="toc-data-usage-documentation-through-tutorials-and-examples" class="nav-link" data-scroll-target="#data-usage-documentation-through-tutorials-and-examples">Data Usage Documentation through Tutorials and Examples</a>
   <ul class="collapse">
   <li><a href="#additional-research" id="toc-additional-research" class="nav-link" data-scroll-target="#additional-research">Additional research</a></li>
   </ul></li>
@@ -654,15 +654,16 @@ Note
 <p><img src="../images/quinn-why-not-compress.png" class="img-fluid" alt="why not compress"> <span class="citation" data-cites="quinn2024">(<a href="#ref-quinn2024" role="doc-biblioref">Quinn 2024</a>)</span></p>
 <p>NASA satellite data is predominantly compressed with the zlib (a.k.a., gzip, deflate) method. However, other methods should be explored as a higher compression ratio is often possible, and in the case of HDF5, fills file pages better<span class="citation" data-cites="jelenak2023_report">(<a href="#ref-jelenak2023_report" role="doc-biblioref">Jelenak 2023a</a>)</span>.</p>
 </section>
-<section id="data-product-usage-documentation-tutorials-and-examples" class="level2">
-<h2 class="anchored" data-anchor-id="data-product-usage-documentation-tutorials-and-examples">Data Product Usage Documentation (Tutorials and Examples)</h2>
+<section id="data-usage-documentation-through-tutorials-and-examples" class="level2">
+<h2 class="anchored" data-anchor-id="data-usage-documentation-through-tutorials-and-examples">Data Usage Documentation through Tutorials and Examples</h2>
+<p>Provide users data product usage documentation including tutorials and examples.</p>
 <p>Tutorials and examples are starting points for many data users. These documents should include information on how to read data directly from cloud storage (as opposed to downloading over HTTPS) and how to configure popular libraries for optimizing performance.</p>
-<p>For example, the following library defaults will impact performance and are important to consider:</p>
+<p>For example, the following library defaults will impact performance and may be included in data usage documentation:</p>
 <ul>
 <li>HDF5 library:
 <ul>
 <li><strong>Chunk cache:</strong> The size of the HDF5’s chunk cache by default is 1MB. This value is configurable. Chunks that don’t fit into the chunk cache are discarded and must be re-read from the storage location each time. See also: <a href="https://www.hdfgroup.org/2022/10/17/improve-hdf5-performance-using-caching/">Improve HDF5 performance using caching</a> and <a href="https://docs.h5py.org/en/stable/high/file.html#chunk-cache">h5py documentation: Chunk cache</a>.</li>
-<li><strong>Page buffer size:</strong> See <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a> and <a href="https://docs.h5py.org/en/stable/high/file.html">the page_buf_size argument to h5py.File</a>.</li>
+<li><strong>Page buffer size:</strong> The <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a> and <a href="https://docs.h5py.org/en/stable/high/file.html">the page_buf_size argument to h5py.File</a> should match up with the page size to optimize reading the data in pages.</li>
 </ul></li>
 <li>S3FS library: The S3FS library is a popular library for accessing data on AWS’s cloud object storage S3. It has a default block size of 5MB (<a href="https://s3fs.readthedocs.io/en/stable/api.html#s3fs.core.S3FileSystem">S3FS API docs</a>).</li>
 <li>Additional guidance on h5py, fsspec, and ROS3 libraries for creating and reading HDF5 can be found in <span class="citation" data-cites="jelenak2024">Jelenak (<a href="#ref-jelenak2024" role="doc-biblioref">2024</a>)</span>.</li>
@@ -721,7 +722,19 @@ Total space: 40744176 bytes</code></pre>
 <h2 class="anchored" data-anchor-id="how-to-change-the-file-space-management-strategy">How to change the file space management strategy</h2>
 <p>You can use the <code>h5repack</code> to reorganize the metadata <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>. When repacking to use the <code>PAGE</code> file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The HDF5 library needs to be configured to use the page aggregated files. When using the HDF5 library you can set <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a> and for <a href="https://docs.h5py.org/en/stable/high/file.html">h5py File objects</a> you can set <code>page_buf_size</code> when instantiating the File object.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reading page-aggregated files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When reading the HDF5 library needs to be configured to use the page aggregated files. If using the HDF5 library you can set <a href="https://hdfgroup.github.io/hdf5/develop/group___f_a_p_l.html#title89">H5Pset_page_buffer_size</a>. For <a href="https://docs.h5py.org/en/stable/high/file.html">h5py File objects</a> you can set <code>page_buf_size</code> when instantiating the File object.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
