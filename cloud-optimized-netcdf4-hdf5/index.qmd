@@ -21,7 +21,7 @@ NetCDF and HDF were originally designed with disk access in mind. As Matt Rockli
 
 In the diagram below, `R0, ..., Rn` represent metadata requests. A large number of these requests slows down working with these files in the cloud.
 
-![](../images/why-hdf-on-cloud-is-slow.png)
+![](../images/hdf5-basic-layout.png)
 
 [@barrett2024]
 
