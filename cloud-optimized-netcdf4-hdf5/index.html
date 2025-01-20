@@ -508,7 +508,7 @@ Note
 <section id="why-accessing-hdf5-on-the-cloud-is-slow" class="level2">
 <h2 class="anchored" data-anchor-id="why-accessing-hdf5-on-the-cloud-is-slow">Why accessing HDF5 on the cloud is slow</h2>
 <p>In the diagram below, <code>R0, ..., Rn</code> represent metadata requests. A large number of these requests slows down working with these files in the cloud.</p>
-<p><img src="../images/why-hdf-on-cloud-is-slow.png" class="img-fluid"></p>
+<p><img src="../images/hdf5-basic-layout.png" class="img-fluid"></p>
 <p><span class="citation" data-cites="barrett2024">(<a href="#ref-barrett2024" role="doc-biblioref">Barrett et al. 2024</a>)</span></p>
 <p>When reading and writing data from disk, small blocks of metadata and raw data chunks were preferred because access was fast, and retrieving any part of a chunk involved reading the entire chunk <span class="citation" data-cites="h5py_developers">(<a href="#ref-h5py_developers" role="doc-biblioref">H5py Developers n.d.</a>)</span>. However, when this same data is stored in the cloud, performance can suffer due to the high number of requests required to access both metadata and raw data. With network access, reducing the number of requests makes access much more efficient.</p>
 <p>A detailed explanation of current best practices for cloud-optimized HDF5 and NetCDF-4 is provided below, followed by a checklist and some how-to guidance for assessing file layout.</p>
