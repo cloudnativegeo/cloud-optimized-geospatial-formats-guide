@@ -417,7 +417,12 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="contribution-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="contribution-workflow">Contribution Workflow</h2>
-<p>Due to previews only working from branches within the repository and not external forks (see: <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/74">#74</a>), all PRs should target staging. More specifically, the contribution workflow follows these steps: 1. PR is made with <code>staging</code> as target. 2. Maintainer will merge the PR to staging and then open a PR to main (build preview will run). 3. Maintainers merge to main which triggers the production deployment.</p>
+<p>Due to previews only working from branches within the repository and not external forks (see: <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/74">#74</a>), all PRs should target staging. More specifically, the contribution workflow follows these steps:</p>
+<ol type="1">
+<li><p>PR is made with <code>staging</code> as target.</p></li>
+<li><p>Maintainer will merge the PR to staging and then open a PR to main (build preview will run).</p></li>
+<li><p>Maintainers merge to main which triggers the production deployment.</p></li>
+</ol>
 <p>The process is not ideal, and we are open to suggestions on how to improve upon it. The main constraint is the <a href="https://github.com/rossjrw/pr-preview-action"><code>pr-preview-action</code></a> not supporting previews on external contributions.</p>
 </section>
 <section id="communication-channels" class="level2">

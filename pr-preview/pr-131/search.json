@@ -716,7 +716,7 @@
     "href": "contributing.html#contribution-workflow",
     "title": "Get Involved",
     "section": "Contribution Workflow",
-    "text": "Contribution Workflow\nDue to previews only working from branches within the repository and not external forks (see: #74), all PRs should target staging. More specifically, the contribution workflow follows these steps: 1. PR is made with staging as target. 2. Maintainer will merge the PR to staging and then open a PR to main (build preview will run). 3. Maintainers merge to main which triggers the production deployment.\nThe process is not ideal, and we are open to suggestions on how to improve upon it. The main constraint is the pr-preview-action not supporting previews on external contributions.",
+    "text": "Contribution Workflow\nDue to previews only working from branches within the repository and not external forks (see: #74), all PRs should target staging. More specifically, the contribution workflow follows these steps:\n\nPR is made with staging as target.\nMaintainer will merge the PR to staging and then open a PR to main (build preview will run).\nMaintainers merge to main which triggers the production deployment.\n\nThe process is not ideal, and we are open to suggestions on how to improve upon it. The main constraint is the pr-preview-action not supporting previews on external contributions.",
     "crumbs": [
       "Get Involved"
     ]
