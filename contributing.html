@@ -39,8 +39,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-28c3752696cdd24fbbf2e2d712d6c647.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-bb89a3a354fa7077ee9bd9b255ce1f92.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-fc0827400c7fb63616016a9a8d668cd3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e1d7c1915fc215dd86f63e27fd133068.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -366,6 +366,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#pre-requisites" id="toc-pre-requisites" class="nav-link" data-scroll-target="#pre-requisites">Pre-requisites</a></li>
+  <li><a href="#contribution-workflow" id="toc-contribution-workflow" class="nav-link" data-scroll-target="#contribution-workflow">Contribution Workflow</a></li>
   <li><a href="#communication-channels" id="toc-communication-channels" class="nav-link" data-scroll-target="#communication-channels">Communication Channels</a></li>
   <li><a href="#core-principles" id="toc-core-principles" class="nav-link" data-scroll-target="#core-principles">Core Principles</a></li>
   <li><a href="#additional-criteria" id="toc-additional-criteria" class="nav-link" data-scroll-target="#additional-criteria">Additional Criteria</a></li>
@@ -413,6 +414,16 @@ ul.task-list li input[type="checkbox"] {
 <section id="pre-requisites" class="level2">
 <h2 class="anchored" data-anchor-id="pre-requisites">Pre-requisites</h2>
 <p>If you wish to preview the site locally, install <a href="https://quarto.org/">quarto</a>. You will also need to be familiar with <a href="https://quarto.org/docs/authoring/markdown-basics.html">quarto markdown</a>.</p>
+</section>
+<section id="contribution-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="contribution-workflow">Contribution Workflow</h2>
+<p>Due to previews only working from branches within the repository and not external forks (see: <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/74">#74</a>), all PRs should target staging. More specifically, the contribution workflow follows these steps:</p>
+<ol type="1">
+<li><p>PR is made with <code>staging</code> as target.</p></li>
+<li><p>Maintainer will merge the PR to staging and then open a PR to main (build preview will run).</p></li>
+<li><p>Maintainers merge to main which triggers the production deployment.</p></li>
+</ol>
+<p>The process is not ideal, and we are open to suggestions on how to improve upon it. The main constraint is the <a href="https://github.com/rossjrw/pr-preview-action"><code>pr-preview-action</code></a> not supporting previews on external contributions.</p>
 </section>
 <section id="communication-channels" class="level2">
 <h2 class="anchored" data-anchor-id="communication-channels">Communication Channels</h2>
