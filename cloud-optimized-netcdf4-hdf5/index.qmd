@@ -1,7 +1,7 @@
 ---
 title: Cloud-Optimized HDF/NetCDF
 bibliography: references.bib
-author: Aimee Barciauskas, Alexey Shikmonalov, Luis Lopez
+author: Aimee Barciauskas, Alexey Shiklomanov, Luis Lopez
 toc-depth: 3
 ---
 
