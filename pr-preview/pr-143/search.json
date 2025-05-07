@@ -52,59 +52,94 @@
     "href": "cookbooks/index.html",
     "title": "Cloud-Optimized Cookbooks",
     "section": "",
-    "text": "Cookbooks should address common questions and present solutions for cloud-optimized access and visualization.\nCookbooks:\n\nZarr Visualization Report (in development)\nSTAC &lt;&gt; Zarr Report (in development)",
+    "text": "Cookbooks should address common questions and present solutions for cloud-optimized access and visualization.\nCookbooks:\n\nZarr Visualization Report (in development)\nZarr + STAC Report (in development)",
     "crumbs": [
       "Cookbooks"
     ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html",
+    "title": "Zarr + STAC for Data Producers",
     "section": "",
-    "text": "This section is targeted at people who are trying to disseminate data cubes. It addresses questions like: - Should you use STAC? - Should you use Zarr? - Where should Zarr stores go in your STAC catalog? - How much metadata should you pull up out of the Zarr dataset? - How to pull metadata out of Zarr?"
+    "text": "This section is targeted at people who are trying to disseminate data cubes. It addresses questions like:",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#is-your-data-spatial-temporal",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#is-your-data-spatial-temporal",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#is-your-data-spatial-temporal",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#is-your-data-spatial-temporal",
+    "title": "Zarr + STAC for Data Producers",
     "section": "Is your data spatial-temporal?",
-    "text": "Is your data spatial-temporal?\nSince this is explicitly a geospatial guide, your data is probably spatial-temporal, but just in case it is not - there is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: FROST).\nIf you are looking for something that exists now:\n\nGoogle dataset search which takes advantage of https://schema.org/ (see also this guide describing how to use schema.org for science)\nRegistry of Open Data on AWS which lets you catalog publicly-accessible datasets stored in AWS.\nzenodo which adds a little dataset-level metadata building off the concept of DOIs.\nintake which is a Python-specific catalog supporting arbitrary metadata."
+    "text": "Is your data spatial-temporal?\nSince this is explicitly a geospatial guide, your data is probably spatial-temporal, but just in case it is not - there is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: FROST).\nIf you are looking for something that exists now:\n\nGoogle dataset search which takes advantage of https://schema.org/ (see also this guide describing how to use schema.org for science)\nRegistry of Open Data on AWS which lets you catalog publicly-accessible datasets stored in AWS.\nzenodo which adds a little dataset-level metadata building off the concept of DOIs.\nintake which is a Python-specific catalog supporting arbitrary metadata.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#is-your-data-well-gridded",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#is-your-data-well-gridded",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#is-your-data-well-gridded",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#is-your-data-well-gridded",
+    "title": "Zarr + STAC for Data Producers",
     "section": "Is your data well-gridded?",
-    "text": "Is your data well-gridded?\nBefore we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned – for instance Level 1 or Level 2 satellite imagery, then you might not want to use Zarr at all.\nIn the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you do want to use Zarr then you should use the Many smaller Zarr stores approach outlined below.\nIf your data is aligned as a data cube, for instance Level 3 or Level 4 data, then it is well suited to Zarr and you need to make some choices about priorities."
+    "text": "Is your data well-gridded?\nBefore we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned – for instance Level 1 or Level 2 satellite imagery, then you might not want to use Zarr at all.\nIn the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you do want to use Zarr then you should use the Many smaller Zarr stores approach outlined below.\nIf your data is aligned as a data cube, for instance Level 3 or Level 4 data, then it is well suited to Zarr and you need to make some choices about priorities.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#what-are-your-highest-priorities",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#what-are-your-highest-priorities",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#what-are-your-highest-priorities",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#what-are-your-highest-priorities",
+    "title": "Zarr + STAC for Data Producers",
     "section": "What are your highest priorities?",
-    "text": "What are your highest priorities?\nIt’s usually not possible to optimize for all benefits at the same time. That’s why we recommend picking out a few of your highest priorities. Examples include:\n1. Streamline variable-level discovery for web-based users.\n\n2. Integrate with existing tools and workflows.\n\n3. Enable the simplest possible access patterns for users from `&lt;insert-programming-language&gt;`\n\n4. Enable web-based visualization of large-scale multi-dimensional datasets.\n\n5. Minimize the number of GET requests for accessing large-scale multi-dimensional datasets.\n\n6. Minimize data transfer for accessing subsets of large-scale multi-dimensional datasets.\n\n7. Minimize the amount of infrastructure required to maintain the catalog.\n\n8. Minimize the cost/time of generating the catalog.\n\n9. Limit who can read from the dataset without limiting who can inspect the metadata.\nFor each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred."
+    "text": "What are your highest priorities?\nIt’s usually not possible to optimize for all benefits at the same time. That’s why we recommend picking out a few of your highest priorities. Examples include:\n\nStreamline variable-level discovery for web-based users.\nIntegrate with existing tools and workflows.\nEnable the simplest possible access patterns for users from &lt;insert-programming-language&gt;\nEnable web-based visualization of large-scale multi-dimensional datasets.\nMinimize the number of GET requests for accessing large-scale multi-dimensional datasets.\nMinimize data transfer for accessing subsets of large-scale multi-dimensional datasets.\nMinimize the amount of infrastructure required to maintain the catalog.\nMinimize the cost/time of generating the catalog.\nLimit who can read from the dataset without limiting who can inspect the metadata.\n\nFor each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#options",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#options",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#options",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#options",
+    "title": "Zarr + STAC for Data Producers",
     "section": "Options",
-    "text": "Options\nSo given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.\n\nOne big Zarr store\nIf you have aligned data cubes Level 3 and 4 data or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.\n\nAt a minimum this setup looks like:\n\nCreate a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc)\nDefine a STAC collection for each Zarr dataset.\nIn each collection include a collection-level asset containing the href link to the Zarr store.\n\nPros - There is no metadata duplication so the STAC side is easy to maintain. - Simple access interface for Python users - no client-side concatenation.\nCons - Potentially many GETs to construct the data cube if there is no consolidated metadata file. - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.\n\n\nOne big Zarr store - some STAC metadata\nSame as above but with the additional step:\n\nWrite variable metadata about the groups up into the STAC collection as collection-level metadata using the Data Cube Extension.\n\nPros - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation.\nCons - Potentially many GETs to construct the data cube if there is no consolidated metadata file. - Metadata is duplicated, but it is variable-level so unlikely to change often.\n\n\nOne big Zarr store - most STAC metadata\nThis applies to datasets that consist of nested groups of arrays.\n\nInclude collection-level Link Templates for each subgroup in the Zarr store\n\nPros - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation. - Access subgroups without directly without any GETs to the data store.\nCons - Metadata is duplicated, but it is group-level and variable-level so unlikely to change often.\n\n\nMany smaller Zarr stores\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr store for the whole scene.\n\nAt a minimum this looks like:\n\nCreate a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc) at a particular time and place\nDefine a STAC collection for each dataset.\nDefine a STAC item for each unique spatial temporal extent within that dataset.\nIn each STAC item include one asset with an href link to the Zarr containing that data.\n\nPros - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.\nCons - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables. - User is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\nMany smaller Zarr stores - some STAC medatata\nSame as above but with the additional step:\n\nWrite metadata summaries and item_assets on the STAC collection.\n\nPros - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.\nCons - Metadata is duplicated, but it is variable-level so unlikely to change often. - User is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\nMany smaller Zarr stores - most STAC metadata\nIn this setup all the metadata about variables in every Zarr store are exposed at the STAC-level.\n\nWrite metadata on the STAC item using the Data Cube Extension.\n\nPros - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.\nCons - Metadata is fully duplicated which can be expensive to maintain and potentially lead to inconsistencies if the underlying data is changed - User is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\nVirtual dataset in an external file\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that has consistent chunking, encoding, and aligned coordinates on-disc.\n\n\nCreate a virtual reference file (kerchunk) or store (icechunk) pointing to chunks of data on-disc.\nDefine a STAC collection for each virtual dataset.\nIn each collection include a collection-level asset containing the href link to the virtual reference file.\nDefine a STAC item for each file referenced by the virtual datasets containing one asset with an href link to the legacy file containing that data.\n\nPros - There is no metadata duplication in STAC, so the STAC side is easy to maintain. - Simple access interface for Python users - no client-side concatenation. - Entire data cube can be lazily constructed with one GET to the reference file or store. - Data stays in its original file format - no data duplication.\nCons - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables. - Virtual reference file needs to be kept in sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well developed.\n\n\nVirtual dataset in an external file - more STAC metadata\nSame as above but with the additional step:\n\nWrite STAC item metadata using the Data Cube Extension.\n\nPros - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation. - Entire data cube can be lazily constructed with one GET to the reference file.\nCons - Metadata is duplicated, but it is variable-level so unlikely to change often. - Virtual reference file needs to be kept in-sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well developed.\n\n\nVirtual dataset in STAC - most STAC metadata\nThis is the most experimental approach. It is similar to the one above but instead of a separate reference file the whole chunk manifest is contained within STAC.\n\nCreate virtual references (kerchunk) pointing to chunks of data on-disc.\nDefine a STAC collection for each virtual dataset.\nDefine a STAC item for each spatial-temporal chunk within that dataset.\nIn each STAC item include one asset for each variable with an href link to a chunk of data on-disc and a property containing the kerchunk reference.\n\nPros - Simple access interface for Python users - no client-side concatenation. - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Entire data cube can be lazily constructed directly from STAC response. - Data stays in its original file - no data duplication.\nCons - This is the most verbose option, so it likely to not work well with static STAC except when using stac-geoparquet. - Virtual references needs to be kept in-sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well-developed."
+    "text": "Options\nSo given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.\n\nOne big Zarr store\nIf you have aligned data cubes Level 3 and 4 data or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.\n\nAt a minimum this setup looks like:\n\nCreate a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc)\nDefine a STAC collection for each Zarr dataset.\nIn each collection include a collection-level asset containing the href link to the Zarr store.\n\nPros\n\nThere is no metadata duplication so the STAC side is easy to maintain.\nSimple access interface for Python users - no client-side concatenation.\n\nCons\n\nPotentially many GETs to construct the data cube if there is no consolidated metadata file.\nData variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.\n\n\n\nOne big Zarr store - some STAC metadata\nSame as above but with the additional step:\n\nWrite variable metadata about the groups up into the STAC collection as collection-level metadata using the Data Cube Extension.\n\nPros\n\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nSimple access interface for Python users - no client-side concatenation.\n\nCons\n\nPotentially many GETs to construct the data cube if there is no consolidated metadata file.\nMetadata is duplicated, but it is variable-level so unlikely to change often.\n\n\n\nOne big Zarr store - most STAC metadata\nThis applies to datasets that consist of nested groups of arrays.\n\nInclude collection-level Link Templates for each subgroup in the Zarr store\n\nPros\n\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nSimple access interface for Python users - no client-side concatenation.\nAccess subgroups without directly without any GETs to the data store.\n\nCons\n\nMetadata is duplicated, but it is group-level and variable-level so unlikely to change often.\n\n\n\nMany smaller Zarr stores\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr store for the whole scene.\n\nAt a minimum this looks like:\n\nCreate a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc) at a particular time and place\nDefine a STAC collection for each dataset.\nDefine a STAC item for each unique spatial temporal extent within that dataset.\nIn each STAC item include one asset with an href link to the Zarr containing that data.\n\nPros\n\nSpatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.\nWhen only accessing necessary items, fewer GETs to construct the data cube.\n\nCons\n\nData variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.\nUser is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\n\nMany smaller Zarr stores - some STAC medatata\nSame as above but with the additional step:\n\nWrite metadata summaries and item_assets on the STAC collection.\n\nPros\n\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nSpatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.\nWhen only accessing necessary items, fewer GETs to construct the data cube.\n\nCons\n\nMetadata is duplicated, but it is variable-level so unlikely to change often.\nUser is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\n\nMany smaller Zarr stores - most STAC metadata\nIn this setup all the metadata about variables in every Zarr store are exposed at the STAC-level.\n\nWrite metadata on the STAC item using the Data Cube Extension.\n\nPros\n\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nSpatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.\nWhen only accessing necessary items, fewer GETs to construct the data cube.\n\nCons\n\nMetadata is fully duplicated which can be expensive to maintain and potentially lead to inconsistencies if the underlying data is changed\nUser is responsible for aligning and concatenating data which can be slow and error-prone.\n\n\n\nVirtual dataset in an external file\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that has consistent chunking, encoding, and aligned coordinates on-disc.\n\n\nCreate a virtual reference file (kerchunk) or store (icechunk) pointing to chunks of data on-disc.\nDefine a STAC collection for each virtual dataset.\nIn each collection include a collection-level asset containing the href link to the virtual reference file.\nDefine a STAC item for each file referenced by the virtual datasets containing one asset with an href link to the legacy file containing that data.\n\nPros\n\nThere is no metadata duplication in STAC, so the STAC side is easy to maintain.\nSimple access interface for Python users - no client-side concatenation.\nEntire data cube can be lazily constructed with one GET to the reference file or store.\nData stays in its original file format - no data duplication.\n\nCons\n\nData variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.\nVirtual reference file needs to be kept in sync with updates in the underlying data which can be expensive to maintain.\nNon-Python access is less well developed.\n\n\n\nVirtual dataset in an external file - more STAC metadata\nSame as above but with the additional step:\n\nWrite STAC item metadata using the Data Cube Extension.\n\nPros\n\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nSimple access interface for Python users - no client-side concatenation.\nEntire data cube can be lazily constructed with one GET to the reference file.\n\nCons\n\nMetadata is duplicated, but it is variable-level so unlikely to change often.\nVirtual reference file needs to be kept in-sync with updates in the underlying data which can be expensive to maintain.\nNon-Python access is less well developed.\n\n\n\nVirtual dataset in STAC - most STAC metadata\nThis is the most experimental approach. It is similar to the one above but instead of a separate reference file the whole chunk manifest is contained within STAC.\n\nCreate virtual references (kerchunk) pointing to chunks of data on-disc.\nDefine a STAC collection for each virtual dataset.\nDefine a STAC item for each spatial-temporal chunk within that dataset.\nIn each STAC item include one asset for each variable with an href link to a chunk of data on-disc and a property containing the kerchunk reference.\n\nPros\n\nSimple access interface for Python users - no client-side concatenation.\nData variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.\nEntire data cube can be lazily constructed directly from STAC response.\nData stays in its original file - no data duplication.\n\nCons\n\nThis is the most verbose option, so it likely to not work well with static STAC except when using stac-geoparquet.\nVirtual references needs to be kept in-sync with updates in the underlying data which can be expensive to maintain.\nNon-Python access is less well-developed.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#how-to-pull-stac-metadata-out-of-zarr",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#how-to-pull-stac-metadata-out-of-zarr",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#how-to-pull-stac-metadata-out-of-zarr",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#how-to-pull-stac-metadata-out-of-zarr",
+    "title": "Zarr + STAC for Data Producers",
     "section": "How to pull STAC metadata out of Zarr",
-    "text": "How to pull STAC metadata out of Zarr\nOnce you have decided how to structure your Zarr stores you can use xstac to write the metadata to STAC. To use xstac you just need to load you Zarr store into xarray and xstac will: - Expose variables to STAC using Data Cube Extension - Include kwargs that let xarray know how to open the dataset xarray extension - Get the spatial-temporal extents of the data\nSome other things to keep in mind when you are writing STAC metadata: - Take advantage of inheritance to reduce duplication at the item and asset levels. - Take advantage of roles to make it clear which assets should be included in a data cube. - If you are using many small Zarr stores, consider providing a virtual reference file to make the intended stacking explicit"
+    "text": "How to pull STAC metadata out of Zarr\nOnce you have decided how to structure your Zarr stores you can use xstac to write the metadata to STAC. To use xstac you just need to load you Zarr store into xarray and xstac will:\n\nExpose variables to STAC using Data Cube Extension\nInclude kwargs that let xarray know how to open the dataset xarray extension\nGet the spatial-temporal extents of the data\n\nSome other things to keep in mind when you are writing STAC metadata:\n\nTake advantage of inheritance to reduce duplication at the item and asset levels.\nTake advantage of roles to make it clear which assets should be included in a data cube.\nIf you are using many small Zarr stores, consider providing a virtual reference file to make the intended stacking explicit",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-producers/index.html#links",
-    "href": "cookbooks/stac-zarr-report/data-producers/index.html#links",
-    "title": "Data Producers",
+    "objectID": "cookbooks/zarr-stac-report/data-producers/index.html#links",
+    "href": "cookbooks/zarr-stac-report/data-producers/index.html#links",
+    "title": "Zarr + STAC for Data Producers",
     "section": "Links",
-    "text": "Links\n\nFROST\nGoogle dataset search\nschema.org for science\nRegistry of Open Data on AWS\nZenodo\nintake\nData Processing Levels\nConsolidated metadata\nData Cube Extension\nkerchunk\nicechunk\nstac-geoparquet\nxstac\nLink Templates Extension\nXarray Extension"
+    "text": "Links\n\nFROST\nGoogle dataset search\nschema.org for science\nRegistry of Open Data on AWS\nZenodo\nintake\nData Processing Levels\nConsolidated metadata\nData Cube Extension\nkerchunk\nicechunk\nstac-geoparquet\nxstac\nLink Templates Extension\nXarray Extension",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Producers"
+    ]
   },
   {
     "objectID": "pmtiles/pmtiles-example.html",
@@ -1771,109 +1806,184 @@
     ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "",
-    "text": "This section is targeted at people who are trying to access data cubes in Python. It addresses questions like: - How do you find the data you need? - How do you filter down to a subset of the data? - When should you write to a virtualized file?\nThis section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC."
+    "text": "This section is targeted at people who are trying to access data cubes in Python. It addresses questions like:\nThis section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#how-to-read-the-minimum-amount-of-data",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#how-to-read-the-minimum-amount-of-data",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#how-to-read-the-minimum-amount-of-data",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#how-to-read-the-minimum-amount-of-data",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "How to read the minimum amount of data",
-    "text": "How to read the minimum amount of data\nOne of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.\nDepending on your background you might have a preference for interacting with the entire lazily-loaded data cube in xarray. Or you might want to use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied.\nBoth of those access patterns should be supported by tooling, but depending on how the catalog is set up some patterns may be simpler and faster than others (at this point in time). So which is better? Basically it depends on the structure of the Zarr store(s) and the STAC catalog that you are interacting with."
+    "text": "How to read the minimum amount of data\nOne of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.\nDepending on your background you might have a preference for interacting with the entire lazily-loaded data cube in xarray. Or you might want to use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied.\nBoth of those access patterns should be supported by tooling, but depending on how the catalog is set up some patterns may be simpler and faster than others (at this point in time). So which is better? Basically it depends on the structure of the Zarr store(s) and the STAC catalog that you are interacting with.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#one-big-zarr-store-in-a-standalone-stac-collection",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#one-big-zarr-store-in-a-standalone-stac-collection",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#one-big-zarr-store-in-a-standalone-stac-collection",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#one-big-zarr-store-in-a-standalone-stac-collection",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "One big Zarr store in a standalone STAC collection",
-    "text": "One big Zarr store in a standalone STAC collection\nThe STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.\nIn this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see Future Work for more on that). To search the STAC catalog to find collections of interest you will use the Collection Search API Extension. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables (aka groups) contained within the Zarr store.\n\nRead straight to xarray\nOnce you have found the collection of interest, the best approach for accessing the data is to construct the lazily-loaded data cube in xarray (or an xarray.DataTree if the Zarr store has more than one group) and filter from there.\nTo do this you can use the zarr backend directly or you can use the stac backend to streamline even more. The stac backend is mostly useful if the STAC collection uses the xarray extension.\nConstructing the lazy data cube is likely to be very fast if there is a consolidated metadata file OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized (read more)."
+    "text": "One big Zarr store in a standalone STAC collection\nThe STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.\nIn this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see Future Work for more on that). To search the STAC catalog to find collections of interest you will use the Collection Search API Extension. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables (aka groups) contained within the Zarr store.\n\nRead straight to xarray\nOnce you have found the collection of interest, the best approach for accessing the data is to construct the lazily-loaded data cube in xarray (or an xarray.DataTree if the Zarr store has more than one group) and filter from there.\nTo do this you can use the zarr backend directly or you can use the stac backend to streamline even more. The stac backend is mostly useful if the STAC collection uses the xarray extension.\nConstructing the lazy data cube is likely to be very fast if there is a consolidated metadata file OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized (read more).",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#many-small-zarr-stores-in-stac-items",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#many-small-zarr-stores-in-stac-items",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#many-small-zarr-stores-in-stac-items",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#many-small-zarr-stores-in-stac-items",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "Many small Zarr stores in STAC items",
-    "text": "Many small Zarr stores in STAC items\nThe STAC catalog contains many items in each collection and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).\nIn this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.\n\nFilter in STAC first\nIf you are interacting with a STAC API and the Zarr store is cataloged in STAC following xstac conventions then all the metadata you need for filtering and subsetting is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.\nIf you are interacting with a static STAC catalog (in json or geoparquet) you might be able to use rustac and stac-geoparquet to search the collection and find the items of interest. This is a newer approach and might have rough edges.\nIn both the API and static STAC case the result of the search will be an iterable of items. Each of these items will have at least one asset pointing to the Zarr store (sometimes there will be multiple assets that point to the same store using different protocols). Take the assets that meet your needs and you can use xr.open_mfdataset with the zarr or stac backend to construct the data cube.\nIf the Zarr stores all cover the same area and are on the same grid then concatenation might be straightforward. If you need to apply some transformation (such as regridding or doing a projection) before concatenating the data in the files then you might find it easier to use xr.open_dataset directly and iterate over the items in the list applying transformations before using one of xarray’s combine methods.\nIf the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an xarray.DataTree and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension."
+    "text": "Many small Zarr stores in STAC items\nThe STAC catalog contains many items in each collection and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).\nIn this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.\n\nFilter in STAC first\nIf you are interacting with a STAC API and the Zarr store is cataloged in STAC following xstac conventions then all the metadata you need for filtering and subsetting is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.\nIf you are interacting with a static STAC catalog (in json or geoparquet) you might be able to use rustac and stac-geoparquet to search the collection and find the items of interest. This is a newer approach and might have rough edges.\nIn both the API and static STAC case the result of the search will be an iterable of items. Each of these items will have at least one asset pointing to the Zarr store (sometimes there will be multiple assets that point to the same store using different protocols). Take the assets that meet your needs and you can use xr.open_mfdataset with the zarr or stac backend to construct the data cube.\nIf the Zarr stores all cover the same area and are on the same grid then concatenation might be straightforward. If you need to apply some transformation (such as regridding or doing a projection) before concatenating the data in the files then you might find it easier to use xr.open_dataset directly and iterate over the items in the list applying transformations before using one of xarray’s combine methods.\nIf the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an xarray.DataTree and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#virtual-reference-files-in-stac",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#virtual-reference-files-in-stac",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#virtual-reference-files-in-stac",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#virtual-reference-files-in-stac",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "Virtual reference files in STAC",
-    "text": "Virtual reference files in STAC\nVirtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the kerchunk or stac backend and doing so will result in one GET request containing the minimal metadata."
+    "text": "Virtual reference files in STAC\nVirtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the kerchunk or stac backend and doing so will result in one GET request containing the minimal metadata.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#storing-results",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#storing-results",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#storing-results",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#storing-results",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "Storing results",
-    "text": "Storing results\nThis is a newer area of development. It applies to cases where you are interacting with many smaller Zarr stores and concatenating them. The core concept is that instead of repeatedly querying the STAC catalog you could store the results for easy access.\nThere are several layers at which you can store results: - Store the result of a STAC search in stac-geoparquet (using rustac) - Store the result of a data cube constructed by concatenating Zarr stores: - as a new Zarr store - this option can include filtering and subsetting - as a virtual reference file (icechunk or kerchunk)"
+    "text": "Storing results\nThis is a newer area of development. It applies to cases where you are interacting with many smaller Zarr stores and concatenating them. The core concept is that instead of repeatedly querying the STAC catalog you could store the results for easy access.\nThere are several layers at which you can store results: - Store the result of a STAC search in stac-geoparquet (using rustac) - Store the result of a data cube constructed by concatenating Zarr stores: - as a new Zarr store - this option can include filtering and subsetting - as a virtual reference file (icechunk or kerchunk)",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#future-work",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#future-work",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#future-work",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#future-work",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "Future Work",
-    "text": "Future Work\n\nIt might be possible to support filtering and subsetting inside one big Zarr by adding predicate push-down to xpystac\nImplement a static version of collection search in rustac: GitHub issue\nExplore possibilities for reading virtual references stored directly in STAC items (no external file). The xarray stac backend has experimental support."
+    "text": "Future Work\n\nIt might be possible to support filtering and subsetting inside one big Zarr by adding predicate push-down to xpystac\nImplement a static version of collection search in rustac: GitHub issue\nExplore possibilities for reading virtual references stored directly in STAC items (no external file). The xarray stac backend has experimental support.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/data-consumers/index.html#links",
-    "href": "cookbooks/stac-zarr-report/data-consumers/index.html#links",
-    "title": "Data Consumers",
+    "objectID": "cookbooks/zarr-stac-report/data-consumers/index.html#links",
+    "href": "cookbooks/zarr-stac-report/data-consumers/index.html#links",
+    "title": "Zarr + STAC for Data Consumers",
     "section": "Links",
-    "text": "Links\n\nxpystac\nstac-geoparquet\nrustac\nkerchunk\nicechunk\nEarthmover blog: Accelerating Xarray with Zarr-Python 3\nCollection Search API Extension\nxarray.DataTree\nConsolidated Metadata\nxstac"
+    "text": "Links\n\nxpystac\nstac-geoparquet\nrustac\nkerchunk\nicechunk\nEarthmover blog: Accelerating Xarray with Zarr-Python 3\nCollection Search API Extension\nxarray.DataTree\nConsolidated Metadata\nxstac",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC for Data Consumers"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html",
-    "href": "cookbooks/stac-zarr-report/index.html",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html",
+    "href": "cookbooks/zarr-stac-report/index.html",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "STAC (SpatioTemporal Asset Catalogs) is a specification for defining and searching any type of data that has spatial and temporal dimensions. STAC has seen significant adoption in the earth observation community. Zarr is a specification for storing self-describing groups of cloud-optimized arrays. Zarr has been adopted by the earth modeling community (led by Pangeo). Both STAC and Zarr offer a flexible nested structure with arbitrary metadata at a variety of levels – for STAC: catalog, collection, item, asset, for Zarr: group, array. This flexibility has contributed to their popularity, but their overlapping goals can make it hard to tell where to draw the line between what belongs in Zarr and what belongs in STAC.\n\n\nThe main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.\n\n\n\n\n\n\n\nSTAC\nZarr\n\n\n\n\nfor data with spatial and temporal dimensions\nfor groups of arrays\n\n\nsupports arbitrary metadata for catalogs, collections, items, assets\nsupports arbitrary metadata for groups, arrays\n\n\ngood for discovering datasets of interest\ngood at filtering within a dataset\n\n\nsearching returns STAC items or collections\nfiltering returns chunks of arrays\n\n\nstorage of STAC metadata is completely decoupled from storage of data\nstorage of metadata is coupled to data (i.e., in the same directory, except when virtualized)\n\n\n\n\n\n\nThis is the most common approach for organizing data with STAC:\n1. Create a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)\n2. Define a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).\n3. Define a STAC item for each unique temporal and regional extent within that dataset.\n4. In each STAC item include assets for each variable or band with href links to the COGs containing that data.\nThis is great for Level 1 or Level 2 data which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:\n* Client libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.\n* Data consumers need to use client libraries for concatenation (e.g., [stackstac][2] vs [odc-stac][3]) which can be confusing and have unintended performance implications.\n\n\n\nData producers can use STAC + Zarr to make their data accessible and discoverable. More details are in:\n\nThe Data Producers section – explores approaches for how to store data cubes using Zarr + STAC.\nThe Data Consumers section – deals with how to reproducibly consume data cubes stored in Zarr + STAC.\n\nHow you set up the Zarr stores depend on what type of data you have.\n\n\nGood for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).\n\n\n\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).\nThis is the approach that ESA is planning to use with the new distribution of Sentinel-2 L2A data.\n\n\n\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.\nThis is the approach that Planetary Computer takes for Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6).\n\n\n\n\nThis report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like: - What do each of these specifications excel at? - How can they be used together to get the maximum benefit out of both? - How do we refer to NetCDF or Zarr assets from STAC? - How do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog? - Where do virtualized datasets (kerchunk references and Icechunk virtual stores produced by VirtualiZarr) fit in?\n\n\n\nThis report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:\n\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139\nhttps://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472\nhttps://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134\nhttps://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112\n\n\n\n\n\nData Processing Levels\nstackstac\nodc-stac\nEOPF Sentinel-2 L2A sample service\nCMIP6 on Planetary Computer\nkerchunk\nIcechunk\nVirtualiZarr"
+    "text": "STAC (SpatioTemporal Asset Catalogs) is a specification for defining and searching any type of data that has spatial and temporal dimensions. STAC has seen significant adoption in the earth observation community. Zarr is a specification for storing self-describing groups of cloud-optimized arrays. Zarr has been adopted by the earth modeling community (led by Pangeo). Both STAC and Zarr offer a flexible nested structure with arbitrary metadata at a variety of levels – for STAC: catalog, collection, item, asset, for Zarr: group, array. This flexibility has contributed to their popularity, but their overlapping goals can make it hard to tell where to draw the line between what belongs in Zarr and what belongs in STAC.\n\n\nThe main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.\n\n\n\n\n\n\n\nSTAC\nZarr (+xarray for the last 2 rows)\n\n\n\n\nfor data with spatial and temporal dimensions\nfor groups of arrays with any type of dimensions\n\n\nsupports arbitrary metadata for catalogs, collections, items, assets\nsupports arbitrary metadata for groups, arrays\n\n\nstorage of STAC metadata is completely decoupled from storage of data\nstorage of metadata is coupled to data (i.e., in the same directory, except when virtualized)\n\n\ngood for discovering datasets of interest\ngood at filtering within a dataset\n\n\nsearching returns STAC items or collections\nfiltering returns subsets of arrays (potentially composed of parts of multiple chunks)\n\n\n\n\n\n\nThis is the most common approach for organizing data with STAC:\n\nCreate a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)\nDefine a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).\nDefine a STAC item for each unique temporal and regional extent within that dataset.\nIn each STAC item include assets for each variable or band with href links to the COGs containing that data.\n\nThis is great for Level 1 or Level 2 data which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:\n\nClient libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.\nData consumers need to use client libraries for concatenation (e.g., stackstac vs odc-stac) which can be confusing and have unintended performance implications.\n\n\n\n\nData producers can use Zarr + STAC to make their data accessible and discoverable. More details are in:\n\nThe Data Producers section – explores approaches for how to store data cubes using Zarr + STAC.\nThe Data Consumers section – deals with how to reproducibly consume data cubes stored in Zarr + STAC.\n\nHow you set up the Zarr stores depend on what type of data you have.\n\n\nGood for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).\n\n\n\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).\nThis is the approach that ESA is planning to use with the new distribution of Sentinel-2 L2A data.\n\n\n\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.\nThis is the approach that Planetary Computer takes for Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6).\n\n\n\n\nThis report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like:\n\nWhat do each of these specifications excel at?\nHow can they be used together to get the maximum benefit out of both?\nHow do we refer to NetCDF or Zarr assets from STAC?\nHow do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog?\nWhere do virtualized datasets (kerchunk references and Icechunk virtual stores produced by VirtualiZarr) fit in?\n\n\n\n\nThis report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:\n\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139\nhttps://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472\nhttps://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134\nhttps://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112\n\n\n\n\n\nData Processing Levels\nstackstac\nodc-stac\nEOPF Sentinel-2 L2A sample service\nCMIP6 on Planetary Computer\nkerchunk\nIcechunk\nVirtualiZarr",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#comparison-table",
-    "href": "cookbooks/stac-zarr-report/index.html#comparison-table",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#comparison-table",
+    "href": "cookbooks/zarr-stac-report/index.html#comparison-table",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "The main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.\n\n\n\n\n\n\n\nSTAC\nZarr\n\n\n\n\nfor data with spatial and temporal dimensions\nfor groups of arrays\n\n\nsupports arbitrary metadata for catalogs, collections, items, assets\nsupports arbitrary metadata for groups, arrays\n\n\ngood for discovering datasets of interest\ngood at filtering within a dataset\n\n\nsearching returns STAC items or collections\nfiltering returns chunks of arrays\n\n\nstorage of STAC metadata is completely decoupled from storage of data\nstorage of metadata is coupled to data (i.e., in the same directory, except when virtualized)"
+    "text": "The main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.\n\n\n\n\n\n\n\nSTAC\nZarr (+xarray for the last 2 rows)\n\n\n\n\nfor data with spatial and temporal dimensions\nfor groups of arrays with any type of dimensions\n\n\nsupports arbitrary metadata for catalogs, collections, items, assets\nsupports arbitrary metadata for groups, arrays\n\n\nstorage of STAC metadata is completely decoupled from storage of data\nstorage of metadata is coupled to data (i.e., in the same directory, except when virtualized)\n\n\ngood for discovering datasets of interest\ngood at filtering within a dataset\n\n\nsearching returns STAC items or collections\nfiltering returns subsets of arrays (potentially composed of parts of multiple chunks)",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#typical-approach-to-storing-data-in-stac",
-    "href": "cookbooks/stac-zarr-report/index.html#typical-approach-to-storing-data-in-stac",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#typical-approach-to-storing-data-in-stac",
+    "href": "cookbooks/zarr-stac-report/index.html#typical-approach-to-storing-data-in-stac",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "This is the most common approach for organizing data with STAC:\n1. Create a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)\n2. Define a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).\n3. Define a STAC item for each unique temporal and regional extent within that dataset.\n4. In each STAC item include assets for each variable or band with href links to the COGs containing that data.\nThis is great for Level 1 or Level 2 data which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:\n* Client libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.\n* Data consumers need to use client libraries for concatenation (e.g., [stackstac][2] vs [odc-stac][3]) which can be confusing and have unintended performance implications."
+    "text": "This is the most common approach for organizing data with STAC:\n\nCreate a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)\nDefine a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).\nDefine a STAC item for each unique temporal and regional extent within that dataset.\nIn each STAC item include assets for each variable or band with href links to the COGs containing that data.\n\nThis is great for Level 1 or Level 2 data which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:\n\nClient libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.\nData consumers need to use client libraries for concatenation (e.g., stackstac vs odc-stac) which can be confusing and have unintended performance implications.",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#new-approaches",
-    "href": "cookbooks/stac-zarr-report/index.html#new-approaches",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#new-approaches",
+    "href": "cookbooks/zarr-stac-report/index.html#new-approaches",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "Data producers can use STAC + Zarr to make their data accessible and discoverable. More details are in:\n\nThe Data Producers section – explores approaches for how to store data cubes using Zarr + STAC.\nThe Data Consumers section – deals with how to reproducibly consume data cubes stored in Zarr + STAC.\n\nHow you set up the Zarr stores depend on what type of data you have.\n\n\nGood for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).\n\n\n\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).\nThis is the approach that ESA is planning to use with the new distribution of Sentinel-2 L2A data.\n\n\n\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.\nThis is the approach that Planetary Computer takes for Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6)."
+    "text": "Data producers can use Zarr + STAC to make their data accessible and discoverable. More details are in:\n\nThe Data Producers section – explores approaches for how to store data cubes using Zarr + STAC.\nThe Data Consumers section – deals with how to reproducibly consume data cubes stored in Zarr + STAC.\n\nHow you set up the Zarr stores depend on what type of data you have.\n\n\nGood for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).\n\n\n\nThis mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).\nThis is the approach that ESA is planning to use with the new distribution of Sentinel-2 L2A data.\n\n\n\nThis is similar to One big Zarr store with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.\nThis is the approach that Planetary Computer takes for Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6).",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#goals",
-    "href": "cookbooks/stac-zarr-report/index.html#goals",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#goals",
+    "href": "cookbooks/zarr-stac-report/index.html#goals",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "This report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like: - What do each of these specifications excel at? - How can they be used together to get the maximum benefit out of both? - How do we refer to NetCDF or Zarr assets from STAC? - How do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog? - Where do virtualized datasets (kerchunk references and Icechunk virtual stores produced by VirtualiZarr) fit in?"
+    "text": "This report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like:\n\nWhat do each of these specifications excel at?\nHow can they be used together to get the maximum benefit out of both?\nHow do we refer to NetCDF or Zarr assets from STAC?\nHow do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog?\nWhere do virtualized datasets (kerchunk references and Icechunk virtual stores produced by VirtualiZarr) fit in?",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#references",
-    "href": "cookbooks/stac-zarr-report/index.html#references",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#references",
+    "href": "cookbooks/zarr-stac-report/index.html#references",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "This report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:\n\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139\nhttps://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472\nhttps://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134\nhttps://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112"
+    "text": "This report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:\n\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139\nhttps://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472\nhttps://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847\nhttps://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134\nhttps://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
-    "objectID": "cookbooks/stac-zarr-report/index.html#links",
-    "href": "cookbooks/stac-zarr-report/index.html#links",
-    "title": "STAC <> Zarr Report",
+    "objectID": "cookbooks/zarr-stac-report/index.html#links",
+    "href": "cookbooks/zarr-stac-report/index.html#links",
+    "title": "Zarr + STAC",
     "section": "",
-    "text": "Data Processing Levels\nstackstac\nodc-stac\nEOPF Sentinel-2 L2A sample service\nCMIP6 on Planetary Computer\nkerchunk\nIcechunk\nVirtualiZarr"
+    "text": "Data Processing Levels\nstackstac\nodc-stac\nEOPF Sentinel-2 L2A sample service\nCMIP6 on Planetary Computer\nkerchunk\nIcechunk\nVirtualiZarr",
+    "crumbs": [
+      "Cookbooks",
+      "Zarr + STAC Report",
+      "Zarr + STAC"
+    ]
   },
   {
     "objectID": "geoparquet/geoparquet-example.html",

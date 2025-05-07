@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Julia Signell, Max Jones">
 
-<title>STAC &lt;&gt; Zarr Report – Cloud-Optimized Geospatial Formats Guide</title>
+<title>Zarr + STAC for Data Producers – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,26 +23,28 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-865983b469c5695565322b9c79ebeb1a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../cookbooks/zarr-stac-report/data-consumers/index.html" rel="next">
+<link href="../../../cookbooks/zarr-stac-report/index.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-865983b469c5695565322b9c79ebeb1a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -73,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -247,9 +248,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Cloud-Optimized Geospatial Formats Guide
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/data-producers/index.html">Zarr + STAC for Data Producers</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -264,7 +263,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../../">Cloud-Optimized Geospatial Formats Guide</a> 
+      <a href="../../../">Cloud-Optimized Geospatial Formats Guide</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -280,13 +279,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview Slides</span></a>
   </div>
 </li>
@@ -310,31 +309,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced COG/GeoTIFF Details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Examples of Working with COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
   </div>
 </li>
@@ -351,13 +350,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../zarr/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../zarr/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr in Practice</span></a>
   </div>
 </li>
@@ -374,13 +373,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kerchunk/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../kerchunk/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk in Practice</span></a>
   </div>
 </li>
@@ -397,7 +396,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
   </div>
 </li>
@@ -414,13 +413,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../copc/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../copc/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
   </div>
 </li>
@@ -437,13 +436,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../geoparquet/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../geoparquet/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GeoParquet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GeoParquet Example</span></a>
   </div>
 </li>
@@ -460,25 +459,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf Spatial Index</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf in JavaScript</span></a>
   </div>
 </li>
@@ -495,7 +494,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PMTiles</span></a>
   </div>
 </li>
@@ -505,19 +504,59 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../glossary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../cookbooks/index.html" class="sidebar-item-text sidebar-link">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../cookbooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cookbooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://nasa-impact.github.io/zarr-visualization-report/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Visualization Report ↗</span></a>
   </div>
 </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zarr + STAC Report</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Zarr + STAC for Data Producers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Consumers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../contributing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../contributing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Involved</span></a>
   </div>
 </li>
@@ -531,43 +570,40 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background-motivation" id="toc-background-motivation" class="nav-link active" data-scroll-target="#background-motivation">Background + Motivation</a>
-  <ul class="collapse">
-  <li><a href="#comparison-table" id="toc-comparison-table" class="nav-link" data-scroll-target="#comparison-table">Comparison Table</a></li>
-  <li><a href="#typical-approach-to-storing-data-in-stac" id="toc-typical-approach-to-storing-data-in-stac" class="nav-link" data-scroll-target="#typical-approach-to-storing-data-in-stac">Typical approach to storing data in STAC</a></li>
-  <li><a href="#new-approaches" id="toc-new-approaches" class="nav-link" data-scroll-target="#new-approaches">New Approaches</a>
+  <li><a href="#is-your-data-spatial-temporal" id="toc-is-your-data-spatial-temporal" class="nav-link active" data-scroll-target="#is-your-data-spatial-temporal">Is your data spatial-temporal?</a></li>
+  <li><a href="#is-your-data-well-gridded" id="toc-is-your-data-well-gridded" class="nav-link" data-scroll-target="#is-your-data-well-gridded">Is your data well-gridded?</a></li>
+  <li><a href="#what-are-your-highest-priorities" id="toc-what-are-your-highest-priorities" class="nav-link" data-scroll-target="#what-are-your-highest-priorities">What are your highest priorities?</a></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
   <ul class="collapse">
   <li><a href="#one-big-zarr-store" id="toc-one-big-zarr-store" class="nav-link" data-scroll-target="#one-big-zarr-store">One big Zarr store</a></li>
+  <li><a href="#one-big-zarr-store---some-stac-metadata" id="toc-one-big-zarr-store---some-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</a></li>
+  <li><a href="#one-big-zarr-store---most-stac-metadata" id="toc-one-big-zarr-store---most-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</a></li>
   <li><a href="#many-smaller-zarr-stores" id="toc-many-smaller-zarr-stores" class="nav-link" data-scroll-target="#many-smaller-zarr-stores">Many smaller Zarr stores</a></li>
-  <li><a href="#virtual-references" id="toc-virtual-references" class="nav-link" data-scroll-target="#virtual-references">Virtual references</a></li>
+  <li><a href="#many-smaller-zarr-stores---some-stac-medatata" id="toc-many-smaller-zarr-stores---some-stac-medatata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---some-stac-medatata">Many smaller Zarr stores - some STAC medatata</a></li>
+  <li><a href="#many-smaller-zarr-stores---most-stac-metadata" id="toc-many-smaller-zarr-stores---most-stac-metadata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---most-stac-metadata">Many smaller Zarr stores - most STAC metadata</a></li>
+  <li><a href="#virtual-dataset-in-an-external-file" id="toc-virtual-dataset-in-an-external-file" class="nav-link" data-scroll-target="#virtual-dataset-in-an-external-file">Virtual dataset in an external file</a></li>
+  <li><a href="#virtual-dataset-in-an-external-file---more-stac-metadata" id="toc-virtual-dataset-in-an-external-file---more-stac-metadata" class="nav-link" data-scroll-target="#virtual-dataset-in-an-external-file---more-stac-metadata">Virtual dataset in an external file - more STAC metadata</a></li>
+  <li><a href="#virtual-dataset-in-stac---most-stac-metadata" id="toc-virtual-dataset-in-stac---most-stac-metadata" class="nav-link" data-scroll-target="#virtual-dataset-in-stac---most-stac-metadata">Virtual dataset in STAC - most STAC metadata</a></li>
   </ul></li>
-  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#how-to-pull-stac-metadata-out-of-zarr" id="toc-how-to-pull-stac-metadata-out-of-zarr" class="nav-link" data-scroll-target="#how-to-pull-stac-metadata-out-of-zarr">How to pull STAC metadata out of Zarr</a></li>
   <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
-  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/stac-zarr-report/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/data-producers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/data-producers/index.html">Zarr + STAC for Data Producers</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">STAC &lt;&gt; Zarr Report</h1>
-<p class="subtitle lead">Approaches to integrating STAC and Zarr</p>
+<h1 class="title">Zarr + STAC for Data Producers</h1>
+<p class="subtitle lead">Approaches to structuring your data cubes using Zarr + STAC</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Julia Signell, Max Jones </p>
-          </div>
-  </div>
     
   
     
@@ -578,111 +614,266 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="background-motivation" class="level1">
-<h1>Background + Motivation</h1>
-<p>STAC (SpatioTemporal Asset Catalogs) is a specification for defining and searching any type of data that has spatial and temporal dimensions. STAC has seen significant adoption in the earth observation community. Zarr is a specification for storing self-describing groups of cloud-optimized arrays. Zarr has been adopted by the earth modeling community (led by Pangeo). Both STAC and Zarr offer a flexible nested structure with arbitrary metadata at a variety of levels – for STAC: catalog, collection, item, asset, for Zarr: group, array. This flexibility has contributed to their popularity, but their overlapping goals can make it hard to tell where to draw the line between what belongs in Zarr and what belongs in STAC.</p>
-<section id="comparison-table" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-table">Comparison Table</h2>
-<p>The main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 60%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>STAC</th>
-<th>Zarr</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>for data with spatial and temporal dimensions</td>
-<td>for groups of arrays</td>
-</tr>
-<tr class="even">
-<td>supports arbitrary metadata for catalogs, collections, items, assets</td>
-<td>supports arbitrary metadata for groups, arrays</td>
-</tr>
-<tr class="odd">
-<td>good for discovering datasets of interest</td>
-<td>good at filtering within a dataset</td>
-</tr>
-<tr class="even">
-<td>searching returns STAC items or collections</td>
-<td>filtering returns chunks of arrays</td>
-</tr>
-<tr class="odd">
-<td>storage of STAC metadata is completely decoupled from storage of data</td>
-<td>storage of metadata is coupled to data (i.e., in the same directory, except when virtualized)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="typical-approach-to-storing-data-in-stac" class="level2">
-<h2 class="anchored" data-anchor-id="typical-approach-to-storing-data-in-stac">Typical approach to storing data in STAC</h2>
-<p>This is the most common approach for organizing data with STAC:</p>
-<pre><code>1. Create a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)
-2. Define a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).
-3. Define a STAC item for each unique temporal and regional extent within that dataset.
-4. In each STAC item include assets for each variable or band with href links to the COGs containing that data.</code></pre>
-<p>This is great for <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 1 or Level 2 data</a> which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:</p>
-<pre><code>* Client libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.
-* Data consumers need to use client libraries for concatenation (e.g., [stackstac][2] vs [odc-stac][3]) which can be confusing and have unintended performance implications.</code></pre>
-</section>
-<section id="new-approaches" class="level2">
-<h2 class="anchored" data-anchor-id="new-approaches">New Approaches</h2>
-<p>Data producers can use STAC + Zarr to make their data accessible and discoverable. More details are in:</p>
+<p>This section is targeted at people who are trying to disseminate data cubes. It addresses questions like:</p>
 <ul>
-<li>The <a href="./data-producers">Data Producers section</a> – explores approaches for how to store data cubes using Zarr + STAC.</li>
-<li>The <a href="./data-consumers">Data Consumers section</a> – deals with how to reproducibly consume data cubes stored in Zarr + STAC.</li>
+<li>Should you use STAC?</li>
+<li>Should you use Zarr?</li>
+<li>Where should Zarr stores go in your STAC catalog?</li>
+<li>How much metadata should you pull up out of the Zarr dataset?</li>
+<li>How to pull metadata out of Zarr?</li>
 </ul>
-<p>How you set up the Zarr stores depend on what type of data you have.</p>
+<section id="is-your-data-spatial-temporal" class="level2">
+<h2 class="anchored" data-anchor-id="is-your-data-spatial-temporal">Is your data spatial-temporal?</h2>
+<p>Since this is explicitly a geospatial guide, your data is probably spatial-temporal, but just in case it is not - there is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: <a href="https://github.com/TomNicholas/FROST">FROST</a>).</p>
+<p>If you are looking for something that exists now:</p>
+<ul>
+<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a> which takes advantage of https://schema.org/ (see also <a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">this guide</a> describing how to use schema.org for science)</li>
+<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a> which lets you catalog publicly-accessible datasets stored in AWS.</li>
+<li><a href="https://zenodo.org/">zenodo</a> which adds a little dataset-level metadata building off the concept of DOIs.</li>
+<li><a href="https://intake.readthedocs.io/en/latest/">intake</a> which is a Python-specific catalog supporting arbitrary metadata.</li>
+</ul>
+</section>
+<section id="is-your-data-well-gridded" class="level2">
+<h2 class="anchored" data-anchor-id="is-your-data-well-gridded">Is your data well-gridded?</h2>
+<p>Before we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned – for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 1 or Level 2</a> satellite imagery, then you might not want to use Zarr at all.</p>
+<p>In the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you <em>do</em> want to use Zarr then you should use the <strong>Many smaller Zarr stores</strong> approach outlined below.</p>
+<p>If your data <em>is</em> aligned as a data cube, for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 or Level 4</a> data, then it is well suited to Zarr and you need to make some choices about priorities.</p>
+</section>
+<section id="what-are-your-highest-priorities" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-your-highest-priorities">What are your highest priorities?</h2>
+<p>It’s usually not possible to optimize for all benefits at the same time. That’s why we recommend picking out a few of your highest priorities. Examples include:</p>
+<ol type="1">
+<li>Streamline variable-level discovery for web-based users.</li>
+<li>Integrate with existing tools and workflows.</li>
+<li>Enable the simplest possible access patterns for users from <code>&lt;insert-programming-language&gt;</code></li>
+<li>Enable web-based visualization of large-scale multi-dimensional datasets.</li>
+<li>Minimize the number of GET requests for accessing large-scale multi-dimensional datasets.</li>
+<li>Minimize data transfer for accessing subsets of large-scale multi-dimensional datasets.</li>
+<li>Minimize the amount of infrastructure required to maintain the catalog.</li>
+<li>Minimize the cost/time of generating the catalog.</li>
+<li>Limit who can read from the dataset without limiting who can inspect the metadata.</li>
+</ol>
+<p>For each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred.</p>
+</section>
+<section id="options" class="level2">
+<h2 class="anchored" data-anchor-id="options">Options</h2>
+<p>So given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.</p>
 <section id="one-big-zarr-store" class="level3">
 <h3 class="anchored" data-anchor-id="one-big-zarr-store">One big Zarr store</h3>
-<p>Good for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).</p>
+<p>If you have aligned data cubes <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 and 4 data</a> or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.</p>
+<p><img src="../../../images/one-big-zarr+stac-diagram.png" class="img-fluid"></p>
+<p>At a minimum this setup looks like:</p>
+<ol type="1">
+<li>Create a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc)</li>
+<li>Define a STAC collection for each Zarr dataset.</li>
+<li>In each collection include a collection-level asset containing the href link to the Zarr store.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>There is no metadata duplication so the STAC side is easy to maintain.</li>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Potentially many GETs to construct the data cube if there is no <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata</a> file.</li>
+<li>Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.</li>
+</ul>
+</section>
+<section id="one-big-zarr-store---some-stac-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</h3>
+<p>Same as above but with the additional step:</p>
+<ol start="4" type="1">
+<li>Write variable metadata about the groups up into the STAC collection as collection-level metadata using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Potentially many GETs to construct the data cube if there is no consolidated metadata file.</li>
+<li>Metadata is duplicated, but it is variable-level so unlikely to change often.</li>
+</ul>
+</section>
+<section id="one-big-zarr-store---most-stac-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</h3>
+<p>This applies to datasets that consist of nested groups of arrays.</p>
+<ol start="5" type="1">
+<li>Include collection-level <a href="https://github.com/stac-extensions/link-templates">Link Templates</a> for each subgroup in the Zarr store</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+<li>Access subgroups without directly without any GETs to the data store.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Metadata is duplicated, but it is group-level and variable-level so unlikely to change often.</li>
+</ul>
 </section>
 <section id="many-smaller-zarr-stores" class="level3">
 <h3 class="anchored" data-anchor-id="many-smaller-zarr-stores">Many smaller Zarr stores</h3>
-<p>This mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).</p>
-<p>This is the approach that ESA is planning to use with the new distribution of <a href="https://zarr.eopf.copernicus.eu/eopf-sentinel-zarr-samples/">Sentinel-2 L2A data</a>.</p>
-</section>
-<section id="virtual-references" class="level3">
-<h3 class="anchored" data-anchor-id="virtual-references">Virtual references</h3>
-<p>This is similar to <strong>One big Zarr store</strong> with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.</p>
-<p>This is the approach that Planetary Computer takes for <a href="https://planetarycomputer.microsoft.com/api/stac/v1/collections/nasa-nex-gddp-cmip6">Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6)</a>.</p>
-</section>
-</section>
-<section id="goals" class="level2">
-<h2 class="anchored" data-anchor-id="goals">Goals</h2>
-<p>This report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like: - What do each of these specifications excel at? - How can they be used together to get the maximum benefit out of both? - How do we refer to NetCDF or Zarr assets from STAC? - How do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog? - Where do virtualized datasets (<a href="https://github.com/fsspec/kerchunk">kerchunk</a> references and <a href="https://icechunk.io/en/latest/">Icechunk</a> virtual stores produced by <a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a>) fit in?</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p>This report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:</p>
+<p>This mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr store for the whole scene.</p>
+<p><img src="../../../images/many-smaller-zarr+stac-diagram.png" class="img-fluid"></p>
+<p>At a minimum this looks like:</p>
+<ol type="1">
+<li>Create a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc) at a particular time and place</li>
+<li>Define a STAC collection for each dataset.</li>
+<li>Define a STAC item for each unique spatial temporal extent within that dataset.</li>
+<li>In each STAC item include one asset with an href link to the Zarr containing that data.</li>
+</ol>
+<p><strong>Pros</strong></p>
 <ul>
-<li>https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139</li>
-<li>https://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472</li>
-<li>https://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847</li>
-<li>https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134</li>
-<li>https://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112</li>
+<li>Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.</li>
+<li>When only accessing necessary items, fewer GETs to construct the data cube.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.</li>
+<li>User is responsible for aligning and concatenating data which can be slow and error-prone.</li>
+</ul>
+</section>
+<section id="many-smaller-zarr-stores---some-stac-medatata" class="level3">
+<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores---some-stac-medatata">Many smaller Zarr stores - some STAC medatata</h3>
+<p>Same as above but with the additional step:</p>
+<ol start="5" type="1">
+<li>Write metadata summaries and <code>item_assets</code> on the STAC collection.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.</li>
+<li>When only accessing necessary items, fewer GETs to construct the data cube.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Metadata is duplicated, but it is variable-level so unlikely to change often.</li>
+<li>User is responsible for aligning and concatenating data which can be slow and error-prone.</li>
+</ul>
+</section>
+<section id="many-smaller-zarr-stores---most-stac-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores---most-stac-metadata">Many smaller Zarr stores - most STAC metadata</h3>
+<p>In this setup all the metadata about variables in every Zarr store are exposed at the STAC-level.</p>
+<ol start="6" type="1">
+<li>Write metadata on the STAC item using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves.</li>
+<li>When only accessing necessary items, fewer GETs to construct the data cube.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Metadata is fully duplicated which can be expensive to maintain and potentially lead to inconsistencies if the underlying data is changed</li>
+<li>User is responsible for aligning and concatenating data which can be slow and error-prone.</li>
+</ul>
+</section>
+<section id="virtual-dataset-in-an-external-file" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-dataset-in-an-external-file">Virtual dataset in an external file</h3>
+<p>This is similar to <strong>One big Zarr store</strong> with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that has consistent chunking, encoding, and aligned coordinates on-disc.</p>
+<p><img src="../../../images/virtual-zarr+stac-diagram.png" class="img-fluid"></p>
+<ol type="1">
+<li>Create a virtual reference file (<a href="https://github.com/fsspec/kerchunk">kerchunk</a>) or store (<a href="https://icechunk.io/en/latest/">icechunk</a>) pointing to chunks of data on-disc.</li>
+<li>Define a STAC collection for each virtual dataset.</li>
+<li>In each collection include a collection-level asset containing the href link to the virtual reference file.</li>
+<li>Define a STAC item for each file referenced by the virtual datasets containing one asset with an href link to the legacy file containing that data.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>There is no metadata duplication in STAC, so the STAC side is easy to maintain.</li>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+<li>Entire data cube can be lazily constructed with one GET to the reference file or store.</li>
+<li>Data stays in its original file format - no data duplication.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.</li>
+<li>Virtual reference file needs to be kept in sync with updates in the underlying data which can be expensive to maintain.</li>
+<li>Non-Python access is less well developed.</li>
+</ul>
+</section>
+<section id="virtual-dataset-in-an-external-file---more-stac-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-dataset-in-an-external-file---more-stac-metadata">Virtual dataset in an external file - more STAC metadata</h3>
+<p>Same as above but with the additional step:</p>
+<ol start="4" type="1">
+<li>Write STAC item metadata using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+<li>Entire data cube can be lazily constructed with one GET to the reference file.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Metadata is duplicated, but it is variable-level so unlikely to change often.</li>
+<li>Virtual reference file needs to be kept in-sync with updates in the underlying data which can be expensive to maintain.</li>
+<li>Non-Python access is less well developed.</li>
+</ul>
+</section>
+<section id="virtual-dataset-in-stac---most-stac-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-dataset-in-stac---most-stac-metadata">Virtual dataset in STAC - most STAC metadata</h3>
+<p>This is the most experimental approach. It is similar to the one above but instead of a separate reference file the whole chunk manifest is contained within STAC.</p>
+<ol type="1">
+<li>Create virtual references (<a href="https://github.com/fsspec/kerchunk">kerchunk</a>) pointing to chunks of data on-disc.</li>
+<li>Define a STAC collection for each virtual dataset.</li>
+<li>Define a STAC item for each spatial-temporal chunk within that dataset.</li>
+<li>In each STAC item include one asset for each variable with an href link to a chunk of data on-disc and a property containing the kerchunk reference.</li>
+</ol>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Simple access interface for Python users - no client-side concatenation.</li>
+<li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
+<li>Entire data cube can be lazily constructed directly from STAC response.</li>
+<li>Data stays in its original file - no data duplication.</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>This is the most verbose option, so it likely to not work well with static STAC except when using <a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a>.</li>
+<li>Virtual references needs to be kept in-sync with updates in the underlying data which can be expensive to maintain.</li>
+<li>Non-Python access is less well-developed.</li>
+</ul>
+</section>
+</section>
+<section id="how-to-pull-stac-metadata-out-of-zarr" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-pull-stac-metadata-out-of-zarr">How to pull STAC metadata out of Zarr</h2>
+<p>Once you have decided how to structure your Zarr stores you can use <a href="https://github.com/stac-utils/xstac">xstac</a> to write the metadata to STAC. To use <code>xstac</code> you just need to load you Zarr store into xarray and <code>xstac</code> will:</p>
+<ul>
+<li>Expose variables to STAC using <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a></li>
+<li>Include kwargs that let xarray know how to open the dataset <a href="https://github.com/stac-extensions/xarray">xarray extension</a></li>
+<li>Get the spatial-temporal extents of the data</li>
+</ul>
+<p>Some other things to keep in mind when you are writing STAC metadata:</p>
+<ul>
+<li>Take advantage of inheritance to reduce duplication at the item and asset levels.</li>
+<li>Take advantage of roles to make it clear which assets should be included in a data cube.</li>
+<li>If you are using many small Zarr stores, consider providing a virtual reference file to make the intended stacking explicit</li>
 </ul>
 </section>
 <section id="links" class="level2">
 <h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
+<li><a href="https://github.com/TomNicholas/FROST">FROST</a></li>
+<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a></li>
+<li><a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">schema.org for science</a></li>
+<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a></li>
+<li><a href="https://zenodo.org/">Zenodo</a></li>
+<li><a href="https://intake.readthedocs.io/en/latest/">intake</a></li>
 <li><a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Data Processing Levels</a></li>
-<li><a href="https://github.com/gjoseph92/stackstac">stackstac</a></li>
-<li><a href="https://github.com/opendatacube/odc-stac">odc-stac</a></li>
-<li><a href="https://zarr.eopf.copernicus.eu/eopf-sentinel-zarr-samples/">EOPF Sentinel-2 L2A sample service</a></li>
-<li><a href="https://planetarycomputer.microsoft.com/api/stac/v1/collections/nasa-nex-gddp-cmip6">CMIP6 on Planetary Computer</a></li>
+<li><a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">Consolidated metadata</a></li>
+<li><a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a></li>
 <li><a href="https://github.com/fsspec/kerchunk">kerchunk</a></li>
-<li><a href="https://icechunk.io/en/latest/">Icechunk</a></li>
-<li><a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a></li>
+<li><a href="https://icechunk.io/en/latest/">icechunk</a></li>
+<li><a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a></li>
+<li><a href="https://github.com/stac-utils/xstac">xstac</a></li>
+<li><a href="https://github.com/stac-extensions/link-templates">Link Templates Extension</a></li>
+<li><a href="https://github.com/stac-extensions/xarray">Xarray Extension</a></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1098,6 +1289,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../cookbooks/zarr-stac-report/index.html" class="pagination-link" aria-label="Zarr + STAC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Zarr + STAC</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../cookbooks/zarr-stac-report/data-consumers/index.html" class="pagination-link" aria-label="Zarr + STAC for Data Consumers">
+        <span class="nav-page-text">Zarr + STAC for Data Consumers</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1106,7 +1309,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/stac-zarr-report/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/data-producers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

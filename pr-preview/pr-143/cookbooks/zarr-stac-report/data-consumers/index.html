@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Producers – Cloud-Optimized Geospatial Formats Guide</title>
+<title>Zarr + STAC for Data Consumers – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,6 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../contributing.html" rel="next">
+<link href="../../../cookbooks/zarr-stac-report/data-producers/index.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -246,9 +248,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Cloud-Optimized Geospatial Formats Guide
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/data-consumers/index.html">Zarr + STAC for Data Consumers</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -508,12 +508,52 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../cookbooks/index.html" class="sidebar-item-text sidebar-link">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../cookbooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cookbooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://nasa-impact.github.io/zarr-visualization-report/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Visualization Report ↗</span></a>
   </div>
 </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
+ <span class="menu-text">Zarr + STAC Report</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Producers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Zarr + STAC for Data Consumers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../contributing.html" class="sidebar-item-text sidebar-link">
@@ -530,34 +570,30 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#is-your-data-spatial-temporal" id="toc-is-your-data-spatial-temporal" class="nav-link active" data-scroll-target="#is-your-data-spatial-temporal">Is your data spatial-temporal?</a></li>
-  <li><a href="#is-your-data-well-gridded" id="toc-is-your-data-well-gridded" class="nav-link" data-scroll-target="#is-your-data-well-gridded">Is your data well-gridded?</a></li>
-  <li><a href="#what-are-your-highest-priorities" id="toc-what-are-your-highest-priorities" class="nav-link" data-scroll-target="#what-are-your-highest-priorities">What are your highest priorities?</a></li>
-  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
+  <li><a href="#how-to-read-the-minimum-amount-of-data" id="toc-how-to-read-the-minimum-amount-of-data" class="nav-link active" data-scroll-target="#how-to-read-the-minimum-amount-of-data">How to read the minimum amount of data</a></li>
+  <li><a href="#one-big-zarr-store-in-a-standalone-stac-collection" id="toc-one-big-zarr-store-in-a-standalone-stac-collection" class="nav-link" data-scroll-target="#one-big-zarr-store-in-a-standalone-stac-collection">One big Zarr store in a standalone STAC collection</a>
   <ul class="collapse">
-  <li><a href="#one-big-zarr-store" id="toc-one-big-zarr-store" class="nav-link" data-scroll-target="#one-big-zarr-store">One big Zarr store</a></li>
-  <li><a href="#one-big-zarr-store---some-stac-metadata" id="toc-one-big-zarr-store---some-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</a></li>
-  <li><a href="#one-big-zarr-store---most-stac-metadata" id="toc-one-big-zarr-store---most-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</a></li>
-  <li><a href="#many-smaller-zarr-stores" id="toc-many-smaller-zarr-stores" class="nav-link" data-scroll-target="#many-smaller-zarr-stores">Many smaller Zarr stores</a></li>
-  <li><a href="#many-smaller-zarr-stores---some-stac-medatata" id="toc-many-smaller-zarr-stores---some-stac-medatata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---some-stac-medatata">Many smaller Zarr stores - some STAC medatata</a></li>
-  <li><a href="#many-smaller-zarr-stores---most-stac-metadata" id="toc-many-smaller-zarr-stores---most-stac-metadata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---most-stac-metadata">Many smaller Zarr stores - most STAC metadata</a></li>
-  <li><a href="#virtual-dataset-in-an-external-file" id="toc-virtual-dataset-in-an-external-file" class="nav-link" data-scroll-target="#virtual-dataset-in-an-external-file">Virtual dataset in an external file</a></li>
-  <li><a href="#virtual-dataset-in-an-external-file---more-stac-metadata" id="toc-virtual-dataset-in-an-external-file---more-stac-metadata" class="nav-link" data-scroll-target="#virtual-dataset-in-an-external-file---more-stac-metadata">Virtual dataset in an external file - more STAC metadata</a></li>
-  <li><a href="#virtual-dataset-in-stac---most-stac-metadata" id="toc-virtual-dataset-in-stac---most-stac-metadata" class="nav-link" data-scroll-target="#virtual-dataset-in-stac---most-stac-metadata">Virtual dataset in STAC - most STAC metadata</a></li>
+  <li><a href="#read-straight-to-xarray" id="toc-read-straight-to-xarray" class="nav-link" data-scroll-target="#read-straight-to-xarray">Read straight to xarray</a></li>
   </ul></li>
-  <li><a href="#how-to-pull-stac-metadata-out-of-zarr" id="toc-how-to-pull-stac-metadata-out-of-zarr" class="nav-link" data-scroll-target="#how-to-pull-stac-metadata-out-of-zarr">How to pull STAC metadata out of Zarr</a></li>
+  <li><a href="#many-small-zarr-stores-in-stac-items" id="toc-many-small-zarr-stores-in-stac-items" class="nav-link" data-scroll-target="#many-small-zarr-stores-in-stac-items">Many small Zarr stores in STAC items</a>
+  <ul class="collapse">
+  <li><a href="#filter-in-stac-first" id="toc-filter-in-stac-first" class="nav-link" data-scroll-target="#filter-in-stac-first">Filter in STAC first</a></li>
+  </ul></li>
+  <li><a href="#virtual-reference-files-in-stac" id="toc-virtual-reference-files-in-stac" class="nav-link" data-scroll-target="#virtual-reference-files-in-stac">Virtual reference files in STAC</a></li>
+  <li><a href="#storing-results" id="toc-storing-results" class="nav-link" data-scroll-target="#storing-results">Storing results</a></li>
+  <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
   <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/stac-zarr-report/data-producers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/data-consumers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../../cookbooks/zarr-stac-report/data-consumers/index.html">Zarr + STAC for Data Consumers</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Producers</h1>
-<p class="subtitle lead">Approaches to structuring your data cubes using Zarr + STAC</p>
+<h1 class="title">Zarr + STAC for Data Consumers</h1>
+<p class="subtitle lead">Accessing data cubes in Zarr + STAC</p>
 </div>
 
 
@@ -574,170 +610,73 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section is targeted at people who are trying to disseminate data cubes. It addresses questions like: - Should you use STAC? - Should you use Zarr? - Where should Zarr stores go in your STAC catalog? - How much metadata should you pull up out of the Zarr dataset? - How to pull metadata out of Zarr?</p>
-<section id="is-your-data-spatial-temporal" class="level2">
-<h2 class="anchored" data-anchor-id="is-your-data-spatial-temporal">Is your data spatial-temporal?</h2>
-<p>Since this is explicitly a geospatial guide, your data is probably spatial-temporal, but just in case it is not - there is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: <a href="https://github.com/TomNicholas/FROST">FROST</a>).</p>
-<p>If you are looking for something that exists now:</p>
+<p>This section is targeted at people who are trying to access data cubes in Python. It addresses questions like:</p>
 <ul>
-<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a> which takes advantage of https://schema.org/ (see also <a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">this guide</a> describing how to use schema.org for science)</li>
-<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a> which lets you catalog publicly-accessible datasets stored in AWS.</li>
-<li><a href="https://zenodo.org/">zenodo</a> which adds a little dataset-level metadata building off the concept of DOIs.</li>
-<li><a href="https://intake.readthedocs.io/en/latest/">intake</a> which is a Python-specific catalog supporting arbitrary metadata.</li>
+<li>How do you find the data you need?</li>
+<li>How do you filter down to a subset of the data?</li>
+<li>When should you write to a virtualized file?</li>
 </ul>
+<p>This section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC.</p>
+<section id="how-to-read-the-minimum-amount-of-data" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-minimum-amount-of-data">How to read the minimum amount of data</h2>
+<p>One of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.</p>
+<p>Depending on your background you might have a preference for interacting with the entire lazily-loaded data cube in xarray. Or you might want to use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied.</p>
+<p>Both of those access patterns should be supported by tooling, but depending on how the catalog is set up some patterns may be simpler and faster than others (at this point in time). So which is better? Basically it depends on the structure of the Zarr store(s) and the STAC catalog that you are interacting with.</p>
 </section>
-<section id="is-your-data-well-gridded" class="level2">
-<h2 class="anchored" data-anchor-id="is-your-data-well-gridded">Is your data well-gridded?</h2>
-<p>Before we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned – for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 1 or Level 2</a> satellite imagery, then you might not want to use Zarr at all.</p>
-<p>In the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you <em>do</em> want to use Zarr then you should use the <strong>Many smaller Zarr stores</strong> approach outlined below.</p>
-<p>If your data <em>is</em> aligned as a data cube, for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 or Level 4</a> data, then it is well suited to Zarr and you need to make some choices about priorities.</p>
-</section>
-<section id="what-are-your-highest-priorities" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-your-highest-priorities">What are your highest priorities?</h2>
-<p>It’s usually not possible to optimize for all benefits at the same time. That’s why we recommend picking out a few of your highest priorities. Examples include:</p>
-<pre><code>1. Streamline variable-level discovery for web-based users.
-
-2. Integrate with existing tools and workflows.
-
-3. Enable the simplest possible access patterns for users from `&lt;insert-programming-language&gt;`
-
-4. Enable web-based visualization of large-scale multi-dimensional datasets.
-
-5. Minimize the number of GET requests for accessing large-scale multi-dimensional datasets.
-
-6. Minimize data transfer for accessing subsets of large-scale multi-dimensional datasets.
-
-7. Minimize the amount of infrastructure required to maintain the catalog.
-
-8. Minimize the cost/time of generating the catalog.
-
-9. Limit who can read from the dataset without limiting who can inspect the metadata.</code></pre>
-<p>For each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred.</p>
-</section>
-<section id="options" class="level2">
-<h2 class="anchored" data-anchor-id="options">Options</h2>
-<p>So given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.</p>
-<section id="one-big-zarr-store" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store">One big Zarr store</h3>
-<p>If you have aligned data cubes <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 and 4 data</a> or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.</p>
-<p><img src="../../../images/one-big-zarr+stac-diagram.png" class="img-fluid"></p>
-<p>At a minimum this setup looks like:</p>
-<ol type="1">
-<li>Create a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc)</li>
-<li>Define a STAC collection for each Zarr dataset.</li>
-<li>In each collection include a collection-level asset containing the href link to the Zarr store.</li>
-</ol>
-<p><strong>Pros</strong> - There is no metadata duplication so the STAC side is easy to maintain. - Simple access interface for Python users - no client-side concatenation.</p>
-<p><strong>Cons</strong> - Potentially many GETs to construct the data cube if there is no <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata</a> file. - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.</p>
-</section>
-<section id="one-big-zarr-store---some-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</h3>
-<p>Same as above but with the additional step:</p>
-<ol start="4" type="1">
-<li>Write variable metadata about the groups up into the STAC collection as collection-level metadata using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
-</ol>
-<p><strong>Pros</strong> - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation.</p>
-<p><strong>Cons</strong> - Potentially many GETs to construct the data cube if there is no consolidated metadata file. - Metadata is duplicated, but it is variable-level so unlikely to change often.</p>
-</section>
-<section id="one-big-zarr-store---most-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</h3>
-<p>This applies to datasets that consist of nested groups of arrays.</p>
-<ol start="5" type="1">
-<li>Include collection-level <a href="https://github.com/stac-extensions/link-templates">Link Templates</a> for each subgroup in the Zarr store</li>
-</ol>
-<p><strong>Pros</strong> - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation. - Access subgroups without directly without any GETs to the data store.</p>
-<p><strong>Cons</strong> - Metadata is duplicated, but it is group-level and variable-level so unlikely to change often.</p>
-</section>
-<section id="many-smaller-zarr-stores" class="level3">
-<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores">Many smaller Zarr stores</h3>
-<p>This mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr store for the whole scene.</p>
-<p><img src="../../../images/many-smaller-zarr+stac-diagram.png" class="img-fluid"></p>
-<p>At a minimum this looks like:</p>
-<ol type="1">
-<li>Create a Zarr store for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc) at a particular time and place</li>
-<li>Define a STAC collection for each dataset.</li>
-<li>Define a STAC item for each unique spatial temporal extent within that dataset.</li>
-<li>In each STAC item include one asset with an href link to the Zarr containing that data.</li>
-</ol>
-<p><strong>Pros</strong> - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.</p>
-<p><strong>Cons</strong> - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables. - User is responsible for aligning and concatenating data which can be slow and error-prone.</p>
-</section>
-<section id="many-smaller-zarr-stores---some-stac-medatata" class="level3">
-<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores---some-stac-medatata">Many smaller Zarr stores - some STAC medatata</h3>
-<p>Same as above but with the additional step:</p>
-<ol start="5" type="1">
-<li>Write metadata summaries and <code>item_assets</code> on the STAC collection.</li>
-</ol>
-<p><strong>Pros</strong> - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.</p>
-<p><strong>Cons</strong> - Metadata is duplicated, but it is variable-level so unlikely to change often. - User is responsible for aligning and concatenating data which can be slow and error-prone.</p>
-</section>
-<section id="many-smaller-zarr-stores---most-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores---most-stac-metadata">Many smaller Zarr stores - most STAC metadata</h3>
-<p>In this setup all the metadata about variables in every Zarr store are exposed at the STAC-level.</p>
-<ol start="6" type="1">
-<li>Write metadata on the STAC item using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
-</ol>
-<p><strong>Pros</strong> - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Spatial temporal extents are exposed at the STAC level, so users can find data covering their region of interest without accessing the data files themselves. - When only accessing necessary items, fewer GETs to construct the data cube.</p>
-<p><strong>Cons</strong> - Metadata is fully duplicated which can be expensive to maintain and potentially lead to inconsistencies if the underlying data is changed - User is responsible for aligning and concatenating data which can be slow and error-prone.</p>
-</section>
-<section id="virtual-dataset-in-an-external-file" class="level3">
-<h3 class="anchored" data-anchor-id="virtual-dataset-in-an-external-file">Virtual dataset in an external file</h3>
-<p>This is similar to <strong>One big Zarr store</strong> with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that has consistent chunking, encoding, and aligned coordinates on-disc.</p>
-<p><img src="../../../images/virtual-zarr+stac-diagram.png" class="img-fluid"></p>
-<ol type="1">
-<li>Create a virtual reference file (<a href="https://github.com/fsspec/kerchunk">kerchunk</a>) or store (<a href="https://icechunk.io/en/latest/">icechunk</a>) pointing to chunks of data on-disc.</li>
-<li>Define a STAC collection for each virtual dataset.</li>
-<li>In each collection include a collection-level asset containing the href link to the virtual reference file.</li>
-<li>Define a STAC item for each file referenced by the virtual datasets containing one asset with an href link to the legacy file containing that data.</li>
-</ol>
-<p><strong>Pros</strong> - There is no metadata duplication in STAC, so the STAC side is easy to maintain. - Simple access interface for Python users - no client-side concatenation. - Entire data cube can be lazily constructed with one GET to the reference file or store. - Data stays in its original file format - no data duplication.</p>
-<p><strong>Cons</strong> - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables. - Virtual reference file needs to be kept in sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well developed.</p>
-</section>
-<section id="virtual-dataset-in-an-external-file---more-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="virtual-dataset-in-an-external-file---more-stac-metadata">Virtual dataset in an external file - more STAC metadata</h3>
-<p>Same as above but with the additional step:</p>
-<ol start="4" type="1">
-<li>Write STAC item metadata using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
-</ol>
-<p><strong>Pros</strong> - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Simple access interface for Python users - no client-side concatenation. - Entire data cube can be lazily constructed with one GET to the reference file.</p>
-<p><strong>Cons</strong> - Metadata is duplicated, but it is variable-level so unlikely to change often. - Virtual reference file needs to be kept in-sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well developed.</p>
-</section>
-<section id="virtual-dataset-in-stac---most-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="virtual-dataset-in-stac---most-stac-metadata">Virtual dataset in STAC - most STAC metadata</h3>
-<p>This is the most experimental approach. It is similar to the one above but instead of a separate reference file the whole chunk manifest is contained within STAC.</p>
-<ol type="1">
-<li>Create virtual references (<a href="https://github.com/fsspec/kerchunk">kerchunk</a>) pointing to chunks of data on-disc.</li>
-<li>Define a STAC collection for each virtual dataset.</li>
-<li>Define a STAC item for each spatial-temporal chunk within that dataset.</li>
-<li>In each STAC item include one asset for each variable with an href link to a chunk of data on-disc and a property containing the kerchunk reference.</li>
-</ol>
-<p><strong>Pros</strong> - Simple access interface for Python users - no client-side concatenation. - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables. - Entire data cube can be lazily constructed directly from STAC response. - Data stays in its original file - no data duplication.</p>
-<p><strong>Cons</strong> - This is the most verbose option, so it likely to not work well with static STAC except when using <a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a>. - Virtual references needs to be kept in-sync with updates in the underlying data which can be expensive to maintain. - Non-Python access is less well-developed.</p>
+<section id="one-big-zarr-store-in-a-standalone-stac-collection" class="level2">
+<h2 class="anchored" data-anchor-id="one-big-zarr-store-in-a-standalone-stac-collection">One big Zarr store in a standalone STAC collection</h2>
+<p>The STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.</p>
+<p>In this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see <a href="#future-work">Future Work</a> for more on that). To search the STAC catalog to find collections of interest you will use the <a href="https://github.com/stac-api-extensions/collection-search">Collection Search API Extension</a>. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables (aka groups) contained within the Zarr store.</p>
+<section id="read-straight-to-xarray" class="level3">
+<h3 class="anchored" data-anchor-id="read-straight-to-xarray">Read straight to xarray</h3>
+<p>Once you have found the collection of interest, the best approach for accessing the data is to construct the lazily-loaded data cube in xarray (or an <a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a> if the Zarr store has more than one group) and filter from there.</p>
+<p>To do this you can use the <code>zarr</code> backend directly or you can use <a href="https://github.com/stac-utils/xpystac">the <code>stac</code> backend</a> to streamline even more. The <code>stac</code> backend is mostly useful if the STAC collection uses the xarray extension.</p>
+<p>Constructing the lazy data cube is likely to be very fast if there is a <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata file</a> OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized (<a href="https://earthmover.io/blog/xarray-open-zarr-improvements">read more</a>).</p>
 </section>
 </section>
-<section id="how-to-pull-stac-metadata-out-of-zarr" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-pull-stac-metadata-out-of-zarr">How to pull STAC metadata out of Zarr</h2>
-<p>Once you have decided how to structure your Zarr stores you can use <a href="https://github.com/stac-utils/xstac">xstac</a> to write the metadata to STAC. To use <code>xstac</code> you just need to load you Zarr store into xarray and <code>xstac</code> will: - Expose variables to STAC using <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a> - Include kwargs that let xarray know how to open the dataset <a href="https://github.com/stac-extensions/xarray">xarray extension</a> - Get the spatial-temporal extents of the data</p>
-<p>Some other things to keep in mind when you are writing STAC metadata: - Take advantage of inheritance to reduce duplication at the item and asset levels. - Take advantage of roles to make it clear which assets should be included in a data cube. - If you are using many small Zarr stores, consider providing a virtual reference file to make the intended stacking explicit</p>
+<section id="many-small-zarr-stores-in-stac-items" class="level2">
+<h2 class="anchored" data-anchor-id="many-small-zarr-stores-in-stac-items">Many small Zarr stores in STAC items</h2>
+<p>The STAC catalog contains many items in each collection and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).</p>
+<p>In this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.</p>
+<section id="filter-in-stac-first" class="level3">
+<h3 class="anchored" data-anchor-id="filter-in-stac-first">Filter in STAC first</h3>
+<p>If you are interacting with a STAC API and the Zarr store is cataloged in STAC following <a href="https://github.com/stac-utils/xstac"><code>xstac</code></a> conventions then all the metadata you need for filtering and subsetting is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.</p>
+<p>If you are interacting with a static STAC catalog (in json or geoparquet) you might be able to use <a href="https://github.com/stac-utils/rustac-py">rustac</a> and <a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a> to search the collection and find the items of interest. <em>This is a newer approach and might have rough edges</em>.</p>
+<p>In both the API and static STAC case the result of the search will be an iterable of items. Each of these items will have at least one asset pointing to the Zarr store (sometimes there will be multiple assets that point to the same store using different protocols). Take the assets that meet your needs and you can use <code>xr.open_mfdataset</code> with the <code>zarr</code> or <code>stac</code> backend to construct the data cube.</p>
+<p>If the Zarr stores all cover the same area and are on the same grid then concatenation might be straightforward. If you need to apply some transformation (such as regridding or doing a projection) before concatenating the data in the files then you might find it easier to use <code>xr.open_dataset</code> directly and iterate over the items in the list applying transformations before using one of xarray’s combine methods.</p>
+<p>If the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an <a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a> and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension.</p>
+</section>
+</section>
+<section id="virtual-reference-files-in-stac" class="level2">
+<h2 class="anchored" data-anchor-id="virtual-reference-files-in-stac">Virtual reference files in STAC</h2>
+<p>Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the <a href="https://github.com/fsspec/kerchunk"><code>kerchunk</code></a> or <a href="https://github.com/stac-utils/xpystac"><code>stac</code></a> backend and doing so will result in one GET request containing the minimal metadata.</p>
+</section>
+<section id="storing-results" class="level2">
+<h2 class="anchored" data-anchor-id="storing-results">Storing results</h2>
+<p>This is a newer area of development. It applies to cases where you are interacting with many smaller Zarr stores and concatenating them. The core concept is that instead of repeatedly querying the STAC catalog you could store the results for easy access.</p>
+<p>There are several layers at which you can store results: - Store the result of a STAC search in <a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a> (using <a href="https://github.com/stac-utils/rustac-py">rustac</a>) - Store the result of a data cube constructed by concatenating Zarr stores: - as a new Zarr store - this option can include filtering and subsetting - as a virtual reference file (<a href="https://icechunk.io/en/latest/">icechunk</a> or <a href="https://github.com/fsspec/kerchunk">kerchunk</a>)</p>
+</section>
+<section id="future-work" class="level2">
+<h2 class="anchored" data-anchor-id="future-work">Future Work</h2>
+<ul>
+<li>It might be possible to support filtering and subsetting inside one big Zarr by adding predicate push-down to <a href="https://github.com/stac-utils/xpystac">xpystac</a></li>
+<li>Implement a static version of collection search in <a href="https://github.com/stac-utils/rustac-py">rustac</a>: <a href="https://github.com/stac-utils/rustac/issues/704">GitHub issue</a></li>
+<li>Explore possibilities for reading virtual references stored directly in STAC items (no external file). The xarray <code>stac</code> backend has experimental support.</li>
+</ul>
 </section>
 <section id="links" class="level2">
 <h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
-<li><a href="https://github.com/TomNicholas/FROST">FROST</a></li>
-<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a></li>
-<li><a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">schema.org for science</a></li>
-<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a></li>
-<li><a href="https://zenodo.org/">Zenodo</a></li>
-<li><a href="https://intake.readthedocs.io/en/latest/">intake</a></li>
-<li><a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Data Processing Levels</a></li>
-<li><a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">Consolidated metadata</a></li>
-<li><a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a></li>
+<li><a href="https://github.com/stac-utils/xpystac">xpystac</a></li>
+<li><a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a></li>
+<li><a href="https://github.com/stac-utils/rustac-py">rustac</a></li>
 <li><a href="https://github.com/fsspec/kerchunk">kerchunk</a></li>
 <li><a href="https://icechunk.io/en/latest/">icechunk</a></li>
-<li><a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a></li>
+<li><a href="https://earthmover.io/blog/xarray-open-zarr-improvements">Earthmover blog: Accelerating Xarray with Zarr-Python 3</a></li>
+<li><a href="https://github.com/stac-api-extensions/collection-search">Collection Search API Extension</a></li>
+<li><a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a></li>
+<li><a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">Consolidated Metadata</a></li>
 <li><a href="https://github.com/stac-utils/xstac">xstac</a></li>
-<li><a href="https://github.com/stac-extensions/link-templates">Link Templates Extension</a></li>
-<li><a href="https://github.com/stac-extensions/xarray">Xarray Extension</a></li>
 </ul>
 
 
@@ -1156,6 +1095,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../cookbooks/zarr-stac-report/data-producers/index.html" class="pagination-link" aria-label="Zarr + STAC for Data Producers">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Zarr + STAC for Data Producers</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../contributing.html" class="pagination-link" aria-label="Get Involved">
+        <span class="nav-page-text">Get Involved</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1164,7 +1115,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/stac-zarr-report/data-producers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/data-consumers/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
