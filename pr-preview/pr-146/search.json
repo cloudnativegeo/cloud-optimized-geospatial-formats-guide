@@ -1810,7 +1810,7 @@
     "href": "cookbooks/zarr-stac-report/data-consumers/index.html",
     "title": "Zarr + STAC for Data Consumers",
     "section": "",
-    "text": "This section is targeted at people who are trying to access data cubes. It addresses questions like:\nThis section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC. It is mostly about Python (and specifically xarray) but the concepts apply to other languages and libraries.",
+    "text": "This section is targeted at people who are trying to access data cubes. It addresses questions like:\nThis section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC. It is mostly about Python (and specifically Xarray) but the concepts apply to other languages and libraries.",
     "crumbs": [
       "Cookbooks",
       "Zarr + STAC Report",
