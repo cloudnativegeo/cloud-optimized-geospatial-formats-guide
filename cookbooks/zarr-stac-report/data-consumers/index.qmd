@@ -13,13 +13,13 @@ This section assumes a world in which you as a data consumer are interacting wit
 
 ## How to read the minimum amount of data
 
-One of the benefits of using a cloud-optimized file format like Zarr is that you don't have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.
+One of the benefits of using a cloud-optimized file format like Zarr is that you don't have to read all the data in a dataset. Reading just the metadata to construct a logical dataset is often called lazy loading. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.
 
-Depending on your background you might have a preference for interacting with the entire lazily-loaded data cube in xarray. Or you might want to use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied. 
+There are two different ways of getting from a Zarr store into an xarray object. You can open a single Zarr store and interact with the entire lazily-loaded data cube in xarray or you can use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied. 
 
-Both of those access patterns should be supported by tooling, but depending on how the catalog is set up some patterns may be simpler and faster than others (at this point in time). So which is better? Basically it depends on the structure of the Zarr store(s) and the STAC catalog that you are interacting with.
+Both of those access patterns are supported by tooling, but depending on how the collection is set up some patterns may be simpler and faster than others (at this point in time). So which should you use? Basically it depends on the structure of the Zarr store(s) and the STAC collection that you are interacting with. The most likely scenarios are outlined below.
 
-## One big Zarr store in a standalone STAC collection
+## Scenario 1: One big Zarr store as a standalone STAC collection
 
 The STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.
 
@@ -34,9 +34,9 @@ To do this you can use the `zarr` backend directly or you can use [the `stac` ba
 Constructing the lazy data cube is likely to be very fast if there is a [consolidated metadata file][9] OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized ([read more][4]).
 
 
-## Many small Zarr stores in STAC items
+## Scenario 2: Many small Zarr stores as STAC items within a collection
 
-The STAC catalog contains many items in each collection and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).
+Each STAC collection contains many items and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).
 
 In this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.
 
@@ -52,7 +52,7 @@ If the Zarr stores all cover the same area and are on the same grid then concate
 
 If the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an [xarray.DataTree][8] and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension.
 
-## Virtual reference files in STAC
+## Scenario 3: Virtual reference files in STAC
 
 Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the [`kerchunk`][5] or [`stac`][1] backend and doing so will result in one GET request containing the minimal metadata. Virtual reference files are indicated by a special asset role: "references" or "index".
 
