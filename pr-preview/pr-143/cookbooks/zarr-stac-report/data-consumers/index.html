@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,14 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-865983b469c5695565322b9c79ebeb1a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-50bbe5b5b776ca3553050705b284751a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-9bdd63971bf61612cca32b08edfe50fa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -610,13 +610,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section is targeted at people who are trying to access data cubes in Python. It addresses questions like:</p>
+<p>This section is targeted at people who are trying to access data cubes. It addresses questions like:</p>
 <ul>
 <li>How do you find the data you need?</li>
 <li>How do you filter down to a subset of the data?</li>
 <li>When should you write to a virtualized file?</li>
 </ul>
-<p>This section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC.</p>
+<p>This section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC. It is mostly about Python (and specifically Xarray) but the concepts apply to other languages and libraries.</p>
 <section id="how-to-read-the-minimum-amount-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-the-minimum-amount-of-data">How to read the minimum amount of data</h2>
 <p>One of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.</p>
@@ -626,7 +626,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="one-big-zarr-store-in-a-standalone-stac-collection" class="level2">
 <h2 class="anchored" data-anchor-id="one-big-zarr-store-in-a-standalone-stac-collection">One big Zarr store in a standalone STAC collection</h2>
 <p>The STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.</p>
-<p>In this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see <a href="#future-work">Future Work</a> for more on that). To search the STAC catalog to find collections of interest you will use the <a href="https://github.com/stac-api-extensions/collection-search">Collection Search API Extension</a>. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables (aka groups) contained within the Zarr store.</p>
+<p>In this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see <a href="#future-work">Future Work</a> for more on that). To search the STAC catalog to find collections of interest you will use the <a href="https://github.com/stac-api-extensions/collection-search">Collection Search API Extension</a>. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables – exposed via the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</p>
 <section id="read-straight-to-xarray" class="level3">
 <h3 class="anchored" data-anchor-id="read-straight-to-xarray">Read straight to xarray</h3>
 <p>Once you have found the collection of interest, the best approach for accessing the data is to construct the lazily-loaded data cube in xarray (or an <a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a> if the Zarr store has more than one group) and filter from there.</p>
@@ -640,7 +640,7 @@ ul.task-list li input[type="checkbox"] {
 <p>In this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.</p>
 <section id="filter-in-stac-first" class="level3">
 <h3 class="anchored" data-anchor-id="filter-in-stac-first">Filter in STAC first</h3>
-<p>If you are interacting with a STAC API and the Zarr store is cataloged in STAC following <a href="https://github.com/stac-utils/xstac"><code>xstac</code></a> conventions then all the metadata you need for filtering and subsetting is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.</p>
+<p>If you are interacting with a STAC API and the Item representing the Zarr store contains spatial and temporal extents alongside <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a> metadata, then all the metadata you need for filtering is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.</p>
 <p>If you are interacting with a static STAC catalog (in json or geoparquet) you might be able to use <a href="https://github.com/stac-utils/rustac-py">rustac</a> and <a href="https://github.com/stac-utils/stac-geoparquet">stac-geoparquet</a> to search the collection and find the items of interest. <em>This is a newer approach and might have rough edges</em>.</p>
 <p>In both the API and static STAC case the result of the search will be an iterable of items. Each of these items will have at least one asset pointing to the Zarr store (sometimes there will be multiple assets that point to the same store using different protocols). Take the assets that meet your needs and you can use <code>xr.open_mfdataset</code> with the <code>zarr</code> or <code>stac</code> backend to construct the data cube.</p>
 <p>If the Zarr stores all cover the same area and are on the same grid then concatenation might be straightforward. If you need to apply some transformation (such as regridding or doing a projection) before concatenating the data in the files then you might find it easier to use <code>xr.open_dataset</code> directly and iterate over the items in the list applying transformations before using one of xarray’s combine methods.</p>
@@ -649,7 +649,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="virtual-reference-files-in-stac" class="level2">
 <h2 class="anchored" data-anchor-id="virtual-reference-files-in-stac">Virtual reference files in STAC</h2>
-<p>Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the <a href="https://github.com/fsspec/kerchunk"><code>kerchunk</code></a> or <a href="https://github.com/stac-utils/xpystac"><code>stac</code></a> backend and doing so will result in one GET request containing the minimal metadata.</p>
+<p>Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the <a href="https://github.com/fsspec/kerchunk"><code>kerchunk</code></a> or <a href="https://github.com/stac-utils/xpystac"><code>stac</code></a> backend and doing so will result in one GET request containing the minimal metadata. Virtual reference files are indicated by a special asset role: “references” or “index”.</p>
 </section>
 <section id="storing-results" class="level2">
 <h2 class="anchored" data-anchor-id="storing-results">Storing results</h2>
@@ -677,6 +677,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a></li>
 <li><a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">Consolidated Metadata</a></li>
 <li><a href="https://github.com/stac-utils/xstac">xstac</a></li>
+<li><a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a></li>
 </ul>
 
 
