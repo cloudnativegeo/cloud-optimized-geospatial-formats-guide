@@ -11,26 +11,19 @@ This section is targeted at people who are trying to disseminate data cubes. It 
  - How much metadata should you pull up out of the Zarr dataset?
  - How to pull metadata out of Zarr?
 
-## Is your data spatial-temporal?
+## Should you use STAC?
 
 Since this is explicitly a geospatial guide, your data is probably spatial-temporal. In that case you should use STAC! STAC is a flexible specification for describing your datasets that allows people to search for and discover datasets of interest.
 
-In case your data is not geospatial, these are some general purpose catalogs for scientific data:
+STAC has seen wide adoption across many different scales of data producers including large government efforts like [Landsat][1]. This adoption has spurred a rich ecosystem of STAC tools from python client libraries to QGIS integrations.
 
-- [Google dataset search][2] which takes advantage of https://schema.org/ (see also [this guide][3] describing how to use schema.org for science)
-- [Registry of Open Data on AWS][4] which lets you catalog publicly-accessible datasets stored in AWS.
-- [zenodo][5] which adds a little dataset-level metadata building off the concept of DOIs.
-- [intake][6] which is a Python-specific catalog supporting arbitrary metadata.
-
-There is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: [FROST][1]). 
-
-## Is your data well-gridded?
+## Should you use Zarr?
 
 Before we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned -- for instance [Level 1 or Level 2][7] satellite imagery, then you might not want to use Zarr at all.
 
 In the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you _do_ want to use Zarr then you should use the **Many smaller Zarr stores** approach outlined below.
 
-If your data _is_ aligned as a data cube, for instance [Level 3 or Level 4][7] data, then it is well suited to Zarr and you need to make some choices about priorities. 
+If your data _is_ aligned as a data cube, for instance [Level 3 or Level 4][7] data, then it is well suited to Zarr. In order to design and implement metadata for your Zarr store and any associated STAC metadata, it is important to consider the use case priorities for your dataset.
 
 ## What are your highest priorities?
 
@@ -48,11 +41,13 @@ It's usually not possible to optimize for all benefits at the same time. That's 
 
 For each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred.
 
+For instance if you want to minimize the amount of infrastructure required to maintain a catalog then you might abstract very little metadata from Zarr into STAC. But that means that people need to access the metadata within the Zarr groups themselves which requires more GETs.
+
 ## Options
 
-So given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data. 
+Given your priorities, how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data. 
 
-### One big Zarr store
+### One big Zarr store + basic STAC collection metadata
 
 If you have aligned data cubes [Level 3 and 4 data][7] or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.
 
@@ -74,7 +69,7 @@ At a minimum this setup looks like:
 - Potentially many GETs to construct the data cube if there is no [consolidated metadata][8] file.
 - Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.
 
-### One big Zarr store - some STAC metadata
+### One big Zarr store + STAC metadata about what is in the Zarr store
 
 Same as above but with the additional step:
 
@@ -87,10 +82,10 @@ Same as above but with the additional step:
 
 **Cons**
 
-- Potentially many GETs to construct the data cube if there is no consolidated metadata file.
+- Potentially many GETs to construct the data cube if there is no [consolidated metadata][8] file.
 - Metadata is duplicated, but it is variable-level so unlikely to change often.
 
-### One big Zarr store - most STAC metadata
+### One big Zarr store + STAC metadata about nested groups
 
 This applies to datasets that consist of nested groups of arrays.
 
@@ -100,7 +95,7 @@ This applies to datasets that consist of nested groups of arrays.
 
 - Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.
 - Simple access interface for Python users - no client-side concatenation.
-- Access subgroups without directly without any GETs to the data store.
+- Access subgroups directly without any GETs to the data store.
 
 **Cons**
 
@@ -245,12 +240,7 @@ Some other things to keep in mind when you are writing STAC metadata:
 
 ## Links
 
-- [FROST][1]
-- [Google dataset search][2]
-- [schema.org for science][3]
-- [Registry of Open Data on AWS][4]
-- [Zenodo][5]
-- [intake][6]
+- [Landsat STAC API][1]
 - [Data Processing Levels][7]
 - [Consolidated metadata][8]
 - [Data Cube Extension][9]
@@ -262,12 +252,7 @@ Some other things to keep in mind when you are writing STAC metadata:
 - [Xarray Extension][14]
 
 
-[1]: https://github.com/TomNicholas/FROST
-[2]: https://datasetsearch.research.google.com/
-[3]: https://github.com/ESIPFed/science-on-schema.org/tree/main
-[4]: https://registry.opendata.aws/
-[5]: https://zenodo.org/
-[6]: https://intake.readthedocs.io/en/latest/
+[1]: https://landsatlook.usgs.gov/stac-server/
 [7]: https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels
 [8]: https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html
 [9]: https://github.com/stac-extensions/datacube
