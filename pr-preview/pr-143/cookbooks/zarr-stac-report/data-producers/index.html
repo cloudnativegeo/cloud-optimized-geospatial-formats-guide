@@ -570,14 +570,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#is-your-data-spatial-temporal" id="toc-is-your-data-spatial-temporal" class="nav-link active" data-scroll-target="#is-your-data-spatial-temporal">Is your data spatial-temporal?</a></li>
-  <li><a href="#is-your-data-well-gridded" id="toc-is-your-data-well-gridded" class="nav-link" data-scroll-target="#is-your-data-well-gridded">Is your data well-gridded?</a></li>
+  <li><a href="#should-you-use-stac" id="toc-should-you-use-stac" class="nav-link active" data-scroll-target="#should-you-use-stac">Should you use STAC?</a></li>
+  <li><a href="#should-you-use-zarr" id="toc-should-you-use-zarr" class="nav-link" data-scroll-target="#should-you-use-zarr">Should you use Zarr?</a></li>
   <li><a href="#what-are-your-highest-priorities" id="toc-what-are-your-highest-priorities" class="nav-link" data-scroll-target="#what-are-your-highest-priorities">What are your highest priorities?</a></li>
   <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a>
   <ul class="collapse">
-  <li><a href="#one-big-zarr-store" id="toc-one-big-zarr-store" class="nav-link" data-scroll-target="#one-big-zarr-store">One big Zarr store</a></li>
-  <li><a href="#one-big-zarr-store---some-stac-metadata" id="toc-one-big-zarr-store---some-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</a></li>
-  <li><a href="#one-big-zarr-store---most-stac-metadata" id="toc-one-big-zarr-store---most-stac-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</a></li>
+  <li><a href="#one-big-zarr-store-basic-stac-collection-metadata" id="toc-one-big-zarr-store-basic-stac-collection-metadata" class="nav-link" data-scroll-target="#one-big-zarr-store-basic-stac-collection-metadata">One big Zarr store + basic STAC collection metadata</a></li>
+  <li><a href="#one-big-zarr-store-stac-metadata-about-what-is-in-the-zarr-store" id="toc-one-big-zarr-store-stac-metadata-about-what-is-in-the-zarr-store" class="nav-link" data-scroll-target="#one-big-zarr-store-stac-metadata-about-what-is-in-the-zarr-store">One big Zarr store + STAC metadata about what is in the Zarr store</a></li>
+  <li><a href="#one-big-zarr-store-stac-metadata-about-nested-groups" id="toc-one-big-zarr-store-stac-metadata-about-nested-groups" class="nav-link" data-scroll-target="#one-big-zarr-store-stac-metadata-about-nested-groups">One big Zarr store + STAC metadata about nested groups</a></li>
   <li><a href="#many-smaller-zarr-stores" id="toc-many-smaller-zarr-stores" class="nav-link" data-scroll-target="#many-smaller-zarr-stores">Many smaller Zarr stores</a></li>
   <li><a href="#many-smaller-zarr-stores---some-stac-medatata" id="toc-many-smaller-zarr-stores---some-stac-medatata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---some-stac-medatata">Many smaller Zarr stores - some STAC medatata</a></li>
   <li><a href="#many-smaller-zarr-stores---most-stac-metadata" id="toc-many-smaller-zarr-stores---most-stac-metadata" class="nav-link" data-scroll-target="#many-smaller-zarr-stores---most-stac-metadata">Many smaller Zarr stores - most STAC metadata</a></li>
@@ -622,23 +622,16 @@ ul.task-list li input[type="checkbox"] {
 <li>How much metadata should you pull up out of the Zarr dataset?</li>
 <li>How to pull metadata out of Zarr?</li>
 </ul>
-<section id="is-your-data-spatial-temporal" class="level2">
-<h2 class="anchored" data-anchor-id="is-your-data-spatial-temporal">Is your data spatial-temporal?</h2>
+<section id="should-you-use-stac" class="level2">
+<h2 class="anchored" data-anchor-id="should-you-use-stac">Should you use STAC?</h2>
 <p>Since this is explicitly a geospatial guide, your data is probably spatial-temporal. In that case you should use STAC! STAC is a flexible specification for describing your datasets that allows people to search for and discover datasets of interest.</p>
-<p>In case your data is not geospatial, these are some general purpose catalogs for scientific data:</p>
-<ul>
-<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a> which takes advantage of https://schema.org/ (see also <a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">this guide</a> describing how to use schema.org for science)</li>
-<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a> which lets you catalog publicly-accessible datasets stored in AWS.</li>
-<li><a href="https://zenodo.org/">zenodo</a> which adds a little dataset-level metadata building off the concept of DOIs.</li>
-<li><a href="https://intake.readthedocs.io/en/latest/">intake</a> which is a Python-specific catalog supporting arbitrary metadata.</li>
-</ul>
-<p>There is a really interesting discussion going on about a general catalog that would cover a larger set of things (read more: <a href="https://github.com/TomNicholas/FROST">FROST</a>).</p>
+<p>STAC has seen wide adoption across many different scales of data producers including large government efforts like <a href="https://landsatlook.usgs.gov/stac-server/">Landsat</a>. This adoption has spurred a rich ecosystem of STAC tools from python client libraries to QGIS integrations.</p>
 </section>
-<section id="is-your-data-well-gridded" class="level2">
-<h2 class="anchored" data-anchor-id="is-your-data-well-gridded">Is your data well-gridded?</h2>
+<section id="should-you-use-zarr" class="level2">
+<h2 class="anchored" data-anchor-id="should-you-use-zarr">Should you use Zarr?</h2>
 <p>Before we really get into it, it is helpful to consider the data that you are trying to disseminate. When we say data cubes we tend to mean well-aligned high-dimensional data. If your data is not well-aligned – for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 1 or Level 2</a> satellite imagery, then you might not want to use Zarr at all.</p>
 <p>In the case of un-aligned data, you are likely well-served by using single-band COGs stored as STAC assets on STAC items where each item represents one scene. This setup is well-understood and well-supported by existing technology. Additionally the ability to virtually point to remote chunks on disk (using a reference file spec like kerchunk or data store spec like icechunk) enables Zarr-like access regardless of the actual file format. If you <em>do</em> want to use Zarr then you should use the <strong>Many smaller Zarr stores</strong> approach outlined below.</p>
-<p>If your data <em>is</em> aligned as a data cube, for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 or Level 4</a> data, then it is well suited to Zarr and you need to make some choices about priorities.</p>
+<p>If your data <em>is</em> aligned as a data cube, for instance <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 or Level 4</a> data, then it is well suited to Zarr. In order to design and implement metadata for your Zarr store and any associated STAC metadata, it is important to consider the use case priorities for your dataset.</p>
 </section>
 <section id="what-are-your-highest-priorities" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-your-highest-priorities">What are your highest priorities?</h2>
@@ -655,12 +648,13 @@ ul.task-list li input[type="checkbox"] {
 <li>Limit who can read from the dataset without limiting who can inspect the metadata.</li>
 </ol>
 <p>For each of these examples, prioritizing one over the other impacts how much effort you dedicate to abstracting metadata into the STAC catalog. Your choices will also impact the number of GET requests needed for common access patterns and the amount of data transferred.</p>
+<p>For instance if you want to minimize the amount of infrastructure required to maintain a catalog then you might abstract very little metadata from Zarr into STAC. But that means that people need to access the metadata within the Zarr groups themselves which requires more GETs.</p>
 </section>
 <section id="options" class="level2">
 <h2 class="anchored" data-anchor-id="options">Options</h2>
-<p>So given your priorities how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.</p>
-<section id="one-big-zarr-store" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store">One big Zarr store</h3>
+<p>Given your priorities, how should you structure the division between what metadata belongs in STAC and what belongs in Zarr? To a certain extent it depends on the shape of your data.</p>
+<section id="one-big-zarr-store-basic-stac-collection-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store-basic-stac-collection-metadata">One big Zarr store + basic STAC collection metadata</h3>
 <p>If you have aligned data cubes <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 3 and 4 data</a> or groups of data cubes that tend to be global in scale (for instance CMIP6 data or ERA5) then you will want to use this approach.</p>
 <p><img src="../../../images/one-big-zarr+stac-diagram.png" class="img-fluid"></p>
 <p>At a minimum this setup looks like:</p>
@@ -680,8 +674,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Data variables are not exposed at the STAC level, so users cannot discover relevant datasets by searching for variables.</li>
 </ul>
 </section>
-<section id="one-big-zarr-store---some-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store---some-stac-metadata">One big Zarr store - some STAC metadata</h3>
+<section id="one-big-zarr-store-stac-metadata-about-what-is-in-the-zarr-store" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store-stac-metadata-about-what-is-in-the-zarr-store">One big Zarr store + STAC metadata about what is in the Zarr store</h3>
 <p>Same as above but with the additional step:</p>
 <ol start="4" type="1">
 <li>Write variable metadata about the groups up into the STAC collection as collection-level metadata using the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</li>
@@ -693,12 +687,12 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p><strong>Cons</strong></p>
 <ul>
-<li>Potentially many GETs to construct the data cube if there is no consolidated metadata file.</li>
+<li>Potentially many GETs to construct the data cube if there is no <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata</a> file.</li>
 <li>Metadata is duplicated, but it is variable-level so unlikely to change often.</li>
 </ul>
 </section>
-<section id="one-big-zarr-store---most-stac-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="one-big-zarr-store---most-stac-metadata">One big Zarr store - most STAC metadata</h3>
+<section id="one-big-zarr-store-stac-metadata-about-nested-groups" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store-stac-metadata-about-nested-groups">One big Zarr store + STAC metadata about nested groups</h3>
 <p>This applies to datasets that consist of nested groups of arrays.</p>
 <ol start="5" type="1">
 <li>Include collection-level <a href="https://github.com/stac-extensions/link-templates">Link Templates</a> for each subgroup in the Zarr store</li>
@@ -707,7 +701,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Data variables are exposed at the STAC level, so users can discover relevant datasets by searching for variables.</li>
 <li>Simple access interface for Python users - no client-side concatenation.</li>
-<li>Access subgroups without directly without any GETs to the data store.</li>
+<li>Access subgroups directly without any GETs to the data store.</li>
 </ul>
 <p><strong>Cons</strong></p>
 <ul>
@@ -857,12 +851,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="links" class="level2">
 <h2 class="anchored" data-anchor-id="links">Links</h2>
 <ul>
-<li><a href="https://github.com/TomNicholas/FROST">FROST</a></li>
-<li><a href="https://datasetsearch.research.google.com/">Google dataset search</a></li>
-<li><a href="https://github.com/ESIPFed/science-on-schema.org/tree/main">schema.org for science</a></li>
-<li><a href="https://registry.opendata.aws/">Registry of Open Data on AWS</a></li>
-<li><a href="https://zenodo.org/">Zenodo</a></li>
-<li><a href="https://intake.readthedocs.io/en/latest/">intake</a></li>
+<li><a href="https://landsatlook.usgs.gov/stac-server/">Landsat STAC API</a></li>
 <li><a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Data Processing Levels</a></li>
 <li><a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">Consolidated metadata</a></li>
 <li><a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a></li>

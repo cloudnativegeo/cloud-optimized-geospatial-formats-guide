@@ -571,15 +571,15 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#how-to-read-the-minimum-amount-of-data" id="toc-how-to-read-the-minimum-amount-of-data" class="nav-link active" data-scroll-target="#how-to-read-the-minimum-amount-of-data">How to read the minimum amount of data</a></li>
-  <li><a href="#one-big-zarr-store-in-a-standalone-stac-collection" id="toc-one-big-zarr-store-in-a-standalone-stac-collection" class="nav-link" data-scroll-target="#one-big-zarr-store-in-a-standalone-stac-collection">One big Zarr store in a standalone STAC collection</a>
+  <li><a href="#scenario-1-one-big-zarr-store-as-a-standalone-stac-collection" id="toc-scenario-1-one-big-zarr-store-as-a-standalone-stac-collection" class="nav-link" data-scroll-target="#scenario-1-one-big-zarr-store-as-a-standalone-stac-collection">Scenario 1: One big Zarr store as a standalone STAC collection</a>
   <ul class="collapse">
   <li><a href="#read-straight-to-xarray" id="toc-read-straight-to-xarray" class="nav-link" data-scroll-target="#read-straight-to-xarray">Read straight to xarray</a></li>
   </ul></li>
-  <li><a href="#many-small-zarr-stores-in-stac-items" id="toc-many-small-zarr-stores-in-stac-items" class="nav-link" data-scroll-target="#many-small-zarr-stores-in-stac-items">Many small Zarr stores in STAC items</a>
+  <li><a href="#scenario-2-many-small-zarr-stores-as-stac-items-within-a-collection" id="toc-scenario-2-many-small-zarr-stores-as-stac-items-within-a-collection" class="nav-link" data-scroll-target="#scenario-2-many-small-zarr-stores-as-stac-items-within-a-collection">Scenario 2: Many small Zarr stores as STAC items within a collection</a>
   <ul class="collapse">
   <li><a href="#filter-in-stac-first" id="toc-filter-in-stac-first" class="nav-link" data-scroll-target="#filter-in-stac-first">Filter in STAC first</a></li>
   </ul></li>
-  <li><a href="#virtual-reference-files-in-stac" id="toc-virtual-reference-files-in-stac" class="nav-link" data-scroll-target="#virtual-reference-files-in-stac">Virtual reference files in STAC</a></li>
+  <li><a href="#scenario-3-virtual-reference-files-in-stac" id="toc-scenario-3-virtual-reference-files-in-stac" class="nav-link" data-scroll-target="#scenario-3-virtual-reference-files-in-stac">Scenario 3: Virtual reference files in STAC</a></li>
   <li><a href="#storing-results" id="toc-storing-results" class="nav-link" data-scroll-target="#storing-results">Storing results</a></li>
   <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
   <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
@@ -619,12 +619,12 @@ ul.task-list li input[type="checkbox"] {
 <p>This section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC. It is mostly about Python (and specifically Xarray) but the concepts apply to other languages and libraries.</p>
 <section id="how-to-read-the-minimum-amount-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-the-minimum-amount-of-data">How to read the minimum amount of data</h2>
-<p>One of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.</p>
-<p>Depending on your background you might have a preference for interacting with the entire lazily-loaded data cube in xarray. Or you might want to use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied.</p>
-<p>Both of those access patterns should be supported by tooling, but depending on how the catalog is set up some patterns may be simpler and faster than others (at this point in time). So which is better? Basically it depends on the structure of the Zarr store(s) and the STAC catalog that you are interacting with.</p>
+<p>One of the benefits of using a cloud-optimized file format like Zarr is that you don’t have to read all the data in a dataset. Reading just the metadata to construct a logical dataset is often called lazy loading. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.</p>
+<p>There are two different ways of getting from a Zarr store into an xarray object. You can open a single Zarr store and interact with the entire lazily-loaded data cube in xarray or you can use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied.</p>
+<p>Both of those access patterns are supported by tooling, but depending on how the collection is set up some patterns may be simpler and faster than others (at this point in time). So which should you use? Basically it depends on the structure of the Zarr store(s) and the STAC collection that you are interacting with. The most likely scenarios are outlined below.</p>
 </section>
-<section id="one-big-zarr-store-in-a-standalone-stac-collection" class="level2">
-<h2 class="anchored" data-anchor-id="one-big-zarr-store-in-a-standalone-stac-collection">One big Zarr store in a standalone STAC collection</h2>
+<section id="scenario-1-one-big-zarr-store-as-a-standalone-stac-collection" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-1-one-big-zarr-store-as-a-standalone-stac-collection">Scenario 1: One big Zarr store as a standalone STAC collection</h2>
 <p>The STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.</p>
 <p>In this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see <a href="#future-work">Future Work</a> for more on that). To search the STAC catalog to find collections of interest you will use the <a href="https://github.com/stac-api-extensions/collection-search">Collection Search API Extension</a>. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables – exposed via the <a href="https://github.com/stac-extensions/datacube">Data Cube Extension</a>.</p>
 <section id="read-straight-to-xarray" class="level3">
@@ -634,9 +634,9 @@ ul.task-list li input[type="checkbox"] {
 <p>Constructing the lazy data cube is likely to be very fast if there is a <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata file</a> OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized (<a href="https://earthmover.io/blog/xarray-open-zarr-improvements">read more</a>).</p>
 </section>
 </section>
-<section id="many-small-zarr-stores-in-stac-items" class="level2">
-<h2 class="anchored" data-anchor-id="many-small-zarr-stores-in-stac-items">Many small Zarr stores in STAC items</h2>
-<p>The STAC catalog contains many items in each collection and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).</p>
+<section id="scenario-2-many-small-zarr-stores-as-stac-items-within-a-collection" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-2-many-small-zarr-stores-as-stac-items-within-a-collection">Scenario 2: Many small Zarr stores as STAC items within a collection</h2>
+<p>Each STAC collection contains many items and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).</p>
 <p>In this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.</p>
 <section id="filter-in-stac-first" class="level3">
 <h3 class="anchored" data-anchor-id="filter-in-stac-first">Filter in STAC first</h3>
@@ -647,8 +647,8 @@ ul.task-list li input[type="checkbox"] {
 <p>If the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an <a href="https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree">xarray.DataTree</a> and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension.</p>
 </section>
 </section>
-<section id="virtual-reference-files-in-stac" class="level2">
-<h2 class="anchored" data-anchor-id="virtual-reference-files-in-stac">Virtual reference files in STAC</h2>
+<section id="scenario-3-virtual-reference-files-in-stac" class="level2">
+<h2 class="anchored" data-anchor-id="scenario-3-virtual-reference-files-in-stac">Scenario 3: Virtual reference files in STAC</h2>
 <p>Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the <a href="https://github.com/fsspec/kerchunk"><code>kerchunk</code></a> or <a href="https://github.com/stac-utils/xpystac"><code>stac</code></a> backend and doing so will result in one GET request containing the minimal metadata. Virtual reference files are indicated by a special asset role: “references” or “index”.</p>
 </section>
 <section id="storing-results" class="level2">
