@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Julia Signell, Max Jones">
 
-<title>Cloud-Optimized Cookbooks – Cloud-Optimized Geospatial Formats Guide</title>
+<title>Zarr + STAC – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +24,28 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../cookbooks/zarr-stac-report/index.html" rel="next">
-<link href="../glossary.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-9bdd63971bf61612cca32b08edfe50fa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../cookbooks/zarr-stac-report/data-producers/index.html" rel="next">
+<link href="../../cookbooks/index.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-9bdd63971bf61612cca32b08edfe50fa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-9a71b86b5b19b7bdae771903c6638258.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -74,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -248,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cookbooks/index.html">Cookbooks</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../cookbooks/zarr-stac-report/index.html">Zarr + STAC</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Cloud-Optimized Geospatial Formats Guide</a> 
+      <a href="../../">Cloud-Optimized Geospatial Formats Guide</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -279,13 +280,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../overview.html" class="sidebar-item-text sidebar-link">
+  <a href="../../overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Overview Slides</span></a>
   </div>
 </li>
@@ -309,31 +310,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Advanced COG/GeoTIFF Details</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Examples of Working with COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
   </div>
 </li>
@@ -350,13 +351,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../zarr/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../zarr/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr in Practice</span></a>
   </div>
 </li>
@@ -373,13 +374,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../kerchunk/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../kerchunk/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
+  <a href="../../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kerchunk in Practice</span></a>
   </div>
 </li>
@@ -396,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
   </div>
 </li>
@@ -413,13 +414,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../copc/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
   </div>
 </li>
@@ -436,13 +437,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../geoparquet/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../geoparquet/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GeoParquet</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
+  <a href="../../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GeoParquet Example</span></a>
   </div>
 </li>
@@ -459,25 +460,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
+  <a href="../../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf Spatial Index</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
+  <a href="../../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf example</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
+  <a href="../../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlatGeobuf in JavaScript</span></a>
   </div>
 </li>
@@ -494,7 +495,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PMTiles</span></a>
   </div>
 </li>
@@ -504,13 +505,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../cookbooks/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../cookbooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cookbooks</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -525,28 +526,28 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true">
  <span class="menu-text">Zarr + STAC Report</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Zarr + STAC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr + STAC for Data Producers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zarr + STAC for Data Consumers</span></a>
   </div>
 </li>
@@ -556,7 +557,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Involved</span></a>
   </div>
 </li>
@@ -565,22 +566,48 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background-motivation" id="toc-background-motivation" class="nav-link active" data-scroll-target="#background-motivation">Background + Motivation</a>
+  <ul class="collapse">
+  <li><a href="#comparison-table" id="toc-comparison-table" class="nav-link" data-scroll-target="#comparison-table">Comparison Table</a></li>
+  <li><a href="#typical-approach-to-storing-data-in-stac" id="toc-typical-approach-to-storing-data-in-stac" class="nav-link" data-scroll-target="#typical-approach-to-storing-data-in-stac">Typical approach to storing data in STAC</a></li>
+  <li><a href="#new-approaches" id="toc-new-approaches" class="nav-link" data-scroll-target="#new-approaches">New Approaches</a>
+  <ul class="collapse">
+  <li><a href="#one-big-zarr-store" id="toc-one-big-zarr-store" class="nav-link" data-scroll-target="#one-big-zarr-store">One big Zarr store</a></li>
+  <li><a href="#many-smaller-zarr-stores" id="toc-many-smaller-zarr-stores" class="nav-link" data-scroll-target="#many-smaller-zarr-stores">Many smaller Zarr stores</a></li>
+  <li><a href="#virtual-references" id="toc-virtual-references" class="nav-link" data-scroll-target="#virtual-references">Virtual references</a></li>
+  </ul></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#links" id="toc-links" class="nav-link" data-scroll-target="#links">Links</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../cookbooks/index.html">Cookbooks</a></li><li class="breadcrumb-item"><a href="../../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report</a></li><li class="breadcrumb-item"><a href="../../cookbooks/zarr-stac-report/index.html">Zarr + STAC</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Cloud-Optimized Cookbooks</h1>
+<h1 class="title">Zarr + STAC</h1>
+<p class="subtitle lead">Approaches to integrating STAC and Zarr</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julia Signell, Max Jones </p>
+          </div>
+  </div>
     
   
     
@@ -591,14 +618,123 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Cookbooks should address common questions and present solutions for cloud-optimized access and visualization.</p>
-<p>Cookbooks:</p>
+<section id="background-motivation" class="level1">
+<h1>Background + Motivation</h1>
+<p>STAC (SpatioTemporal Asset Catalogs) is a specification for defining and searching any type of data that has spatial and temporal dimensions. STAC has seen significant adoption in the earth observation community. Zarr is a specification for storing self-describing groups of cloud-optimized arrays. Zarr has been adopted by the earth modeling community (led by Pangeo). Both STAC and Zarr offer a flexible nested structure with arbitrary metadata at a variety of levels – for STAC: catalog, collection, item, asset, for Zarr: group, array. This flexibility has contributed to their popularity, but their overlapping goals can make it hard to tell where to draw the line between what belongs in Zarr and what belongs in STAC.</p>
+<section id="comparison-table" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-table">Comparison Table</h2>
+<p>The main thing to keep in mind is that Zarr is a data format and STAC is a catalog. Sometimes we conflate “STAC” with “COGs stored in a STAC catalog”, but STAC can be used to catalog anything as long as it has spatial and temporal dimensions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>STAC</th>
+<th>Zarr (+xarray for the last 2 rows)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>for data with spatial and temporal dimensions</td>
+<td>for groups of arrays with any type of dimensions</td>
+</tr>
+<tr class="even">
+<td>supports arbitrary metadata for catalogs, collections, items, assets</td>
+<td>supports arbitrary metadata for groups, arrays</td>
+</tr>
+<tr class="odd">
+<td>storage of STAC metadata is completely decoupled from storage of data</td>
+<td>storage of metadata is coupled to data (i.e., in the same directory, except when virtualized)</td>
+</tr>
+<tr class="even">
+<td>good for discovering datasets of interest</td>
+<td>good at filtering within a dataset</td>
+</tr>
+<tr class="odd">
+<td>searching returns STAC items or collections</td>
+<td>filtering returns subsets of arrays (potentially composed of parts of multiple chunks)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="typical-approach-to-storing-data-in-stac" class="level2">
+<h2 class="anchored" data-anchor-id="typical-approach-to-storing-data-in-stac">Typical approach to storing data in STAC</h2>
+<p>This is the most common approach for organizing data with STAC:</p>
+<ol type="1">
+<li>Create a COG for each variable (for satellites: band) at each time and place (in satellite terminology: each scene)</li>
+<li>Define a STAC collection for each dataset (i.e., set of data collected using the same platform, algorithms, model, etc).</li>
+<li>Define a STAC item for each unique temporal and regional extent within that dataset.</li>
+<li>In each STAC item include assets for each variable or band with href links to the COGs containing that data.</li>
+</ol>
+<p>This is great for <a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Level 1 or Level 2 data</a> which tends to not be aligned and are potentially on different reference systems. When applied to Level 3 or Level 4 data (which tends to be aligned and on the same reference system) this approach has downsides:</p>
 <ul>
-<li><a href="https://nasa-impact.github.io/zarr-visualization-report/">Zarr Visualization Report (in development)</a></li>
-<li><a href="../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report (in development)</a></li>
+<li>Client libraries need to scan the metadata for each file in order to lazily load the data cube, which can result in lots of tiny GET requests. Depending on where the data is being used, that can be slow and expensive.</li>
+<li>Data consumers need to use client libraries for concatenation (e.g., <a href="https://github.com/gjoseph92/stackstac">stackstac</a> vs <a href="https://github.com/opendatacube/odc-stac">odc-stac</a>) which can be confusing and have unintended performance implications.</li>
+</ul>
+</section>
+<section id="new-approaches" class="level2">
+<h2 class="anchored" data-anchor-id="new-approaches">New Approaches</h2>
+<p>Data producers can use Zarr + STAC to make their data accessible and discoverable. More details are in:</p>
+<ul>
+<li>The <a href="./data-producers">Data Producers section</a> – explores approaches for how to store data cubes using Zarr + STAC.</li>
+<li>The <a href="./data-consumers">Data Consumers section</a> – deals with how to reproducibly consume data cubes stored in Zarr + STAC.</li>
+</ul>
+<p>How you set up the Zarr stores depend on what type of data you have.</p>
+<section id="one-big-zarr-store" class="level3">
+<h3 class="anchored" data-anchor-id="one-big-zarr-store">One big Zarr store</h3>
+<p>Good for aligned data cubes (Level 3 and 4 data) - using one big Zarr store gives the data producer full control over the shape of the data cube (or tree of data cubes).</p>
+</section>
+<section id="many-smaller-zarr-stores" class="level3">
+<h3 class="anchored" data-anchor-id="many-smaller-zarr-stores">Many smaller Zarr stores</h3>
+<p>This mimics the common STAC + COG approach but instead of a COG for each band at each scene there is a Zarr for the whole scene potentially with different groups representing different resolutions (in COG terminology: overviews).</p>
+<p>This is the approach that ESA is planning to use with the new distribution of <a href="https://zarr.eopf.copernicus.eu/eopf-sentinel-zarr-samples/">Sentinel-2 L2A data</a>.</p>
+</section>
+<section id="virtual-references" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-references">Virtual references</h3>
+<p>This is similar to <strong>One big Zarr store</strong> with the exception that data does not need to be stored in a Zarr store. It can be stored in any number of COG or NetCDF or HDF5 files. Anything that is accessible via a GET request and has consistent chunking, encoding, and aligned coordinates on-disc.</p>
+<p>This is the approach that Planetary Computer takes for <a href="https://planetarycomputer.microsoft.com/api/stac/v1/collections/nasa-nex-gddp-cmip6">Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6)</a>.</p>
+</section>
+</section>
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<p>This report will discuss the partially overlapping goals of STAC and Zarr and offer suggestions for how to use them together. Answering questions like:</p>
+<ul>
+<li>What do each of these specifications excel at?</li>
+<li>How can they be used together to get the maximum benefit out of both?</li>
+<li>How do we refer to NetCDF or Zarr assets from STAC?</li>
+<li>How do we represent the typical deeply nested hierarchy of earth-system model fields in a STAC catalog?</li>
+<li>Where do virtualized datasets (<a href="https://github.com/fsspec/kerchunk">kerchunk</a> references and <a href="https://icechunk.io/en/latest/">Icechunk</a> virtual stores produced by <a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a>) fit in?</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>This report does not represent novel work, but instead tries to aggregate ideas from a variety of sources:</p>
+<ul>
+<li>https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/pull/139</li>
+<li>https://discourse.pangeo.io/t/stac-and-earth-systems-datasets/1472</li>
+<li>https://discourse.pangeo.io/t/pangeo-showcase-high-performance-python-stac-tooling-backed-by-rust-feb-5-2025/4847</li>
+<li>https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/134</li>
+<li>https://github.com/stac-utils/xpystac/pull/33#issuecomment-1785892112</li>
+</ul>
+</section>
+<section id="links" class="level2">
+<h2 class="anchored" data-anchor-id="links">Links</h2>
+<ul>
+<li><a href="https://www.earthdata.nasa.gov/learn/earth-observation-data-basics/data-processing-levels">Data Processing Levels</a></li>
+<li><a href="https://github.com/gjoseph92/stackstac">stackstac</a></li>
+<li><a href="https://github.com/opendatacube/odc-stac">odc-stac</a></li>
+<li><a href="https://zarr.eopf.copernicus.eu/eopf-sentinel-zarr-samples/">EOPF Sentinel-2 L2A sample service</a></li>
+<li><a href="https://planetarycomputer.microsoft.com/api/stac/v1/collections/nasa-nex-gddp-cmip6">CMIP6 on Planetary Computer</a></li>
+<li><a href="https://github.com/fsspec/kerchunk">kerchunk</a></li>
+<li><a href="https://icechunk.io/en/latest/">Icechunk</a></li>
+<li><a href="https://virtualizarr.readthedocs.io/en/latest/">VirtualiZarr</a></li>
 </ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -700,13 +836,6 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1022,13 +1151,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../glossary.html" class="pagination-link" aria-label="Glossary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Glossary</span>
+      <a href="../../cookbooks/index.html" class="pagination-link" aria-label="Cookbooks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cookbooks</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../cookbooks/zarr-stac-report/index.html" class="pagination-link" aria-label="Zarr + STAC">
-        <span class="nav-page-text">Zarr + STAC</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../cookbooks/zarr-stac-report/data-producers/index.html" class="pagination-link" aria-label="Zarr + STAC for Data Producers">
+        <span class="nav-page-text">Zarr + STAC for Data Producers</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1040,7 +1169,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/zarr-stac-report/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
