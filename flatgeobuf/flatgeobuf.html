@@ -642,7 +642,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>This notebook will give an overview of how to read and write FlatGeobuf files with GeoPandas, putting an emphasis on cloud-native operations where possible.</p>
 <p>The primary way to interact with FlatGeobuf in Python is via bindings to GDAL, as there is no pure-Python implementation of FlatGeobuf.</p>
-<p>There are two different Python libraries for interacting between Python and GDAL’s vector support: <code>fiona</code> and <code>pyogrio</code>. Both of these are integrated into <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html"><code>geopandas.read_file</code></a> via the <code>engine</code> keyword, but <code>pyogrio</code> is much faster. Set <code>engine="pyogrio"</code> when using <code>read_file</code> or <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html"><code>GeoDataFrame.to_file</code></a> to speed up reading and writing significantly. We also suggest passing <code>use_arrow=True</code> when reading for a slight extra speedup (this is not supported when writing).</p>
+<p>There are two different Python libraries for interacting between Python and GDAL’s vector support: <code>fiona</code> and <code>pyogrio</code>. Both of these are integrated into <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html"><code>geopandas.read_file</code></a> via the <code>engine</code> keyword, but <code>pyogrio</code> is much faster. From <code>geopandas</code> version 1.0.0, the default is <code>pyogrio</code>. For prior <code>geopandas</code> versions, set <code>engine="pyogrio"</code> when using <code>read_file</code> or <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html"><code>GeoDataFrame.to_file</code></a> to speed up reading and writing significantly. We also suggest passing <code>use_arrow=True</code> when reading for a slight extra speedup (this is not supported when writing).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -653,9 +653,8 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="https://github.com/Toblerity/Fiona"><code>fiona</code></a> is the default engine for <code>geopandas.read_file</code>. It provides full-featured bindings to GDAL but does not implement <em>vectorized</em> operations. <a href="https://wesmckinney.com/book/numpy-basics#ndarray_binops">Vectorization</a> refers to operating on whole arrays of data at once rather than operating on individual values using a Python for loop. <code>fiona</code>’s non-vectorized approach means that each row of the source file is read individually with Python, and a Python for loop. In contrast, <a href="https://github.com/geopandas/pyogrio"><code>pyogrio</code></a>’s vectorized implementation reads all rows in C before passing the data to Python, allowing it to achieve vast speedups (up to 40x) over <code>fiona</code>.</p>
-<p>You can opt in to using <code>pyogrio</code> with <code>geopandas.read_file</code> by passing <code>engine="pyogrio"</code>.</p>
-<p>Additionally, if you’re using GDAL version 3.6 or higher (usually the case when using pyogrio), you can pass <code>use_arrow=True</code> to <code>geopandas.read_file</code> to use <code>pyogrio</code>’s support for <a href="https://gdal.org/development/rfc/rfc86_column_oriented_api.html">GDAL’s RFC 86</a>, which speeds up data reading even more.</p>
+<p><a href="https://github.com/Toblerity/Fiona"><code>fiona</code></a> was the default engine for <code>geopandas.read_file</code> prior to version 1.0.0. It provides full-featured bindings to GDAL but does not implement <em>vectorized</em> operations. <a href="https://wesmckinney.com/book/numpy-basics#ndarray_binops">Vectorization</a> refers to operating on whole arrays of data at once rather than operating on individual values using a Python for loop. <code>fiona</code>’s non-vectorized approach means that each row of the source file is read individually with Python, and a Python for loop. In contrast, <a href="https://github.com/geopandas/pyogrio"><code>pyogrio</code></a>’s vectorized implementation reads all rows in C before passing the data to Python, allowing it to achieve vast speedups (up to 40x) over <code>fiona</code>.</p>
+<p>If you’re using GDAL version 3.6 or higher (usually the case when using pyogrio), you can pass <code>use_arrow=True</code> to <code>geopandas.read_file</code> to use <code>pyogrio</code>’s support for <a href="https://gdal.org/development/rfc/rfc86_column_oriented_api.html">GDAL’s RFC 86</a>, which speeds up data reading even more.</p>
 </div>
 </div>
 <section id="local-vs-remote-reading" class="level2">
@@ -670,54 +669,56 @@ Note
 <p>or</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Alternatively, you can install the versions of <code>pyogrio</code> and <code>geopandas</code> used in this notebook with pip:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pyogrio==0.6.0 geopandas==0.13.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pyogrio==0.11.0 geopandas==1.0.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Additionally, to reproduce the comparisons between <code>fiona</code> and <code>pyogrio</code> below, you would need to install <code>fiona</code> separately as well, but if you prefer to only run the (faster) <code>pyogrio</code> examples, you can skip the <code>fiona</code> install and examples altogether.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install fiona==1.10.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="imports" class="level2">
 <h2 class="anchored" data-anchor-id="imports">Imports</h2>
 <div id="cell-6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tempfile <span class="im">import</span> TemporaryDirectory</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlretrieve</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyogrio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tempfile <span class="im">import</span> TemporaryDirectory</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> urlretrieve</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyogrio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="reading-from-local-disk" class="level2">
 <h2 class="anchored" data-anchor-id="reading-from-local-disk">Reading from local disk</h2>
 <p>First we’ll cover reading FlatGeobuf from local disk storage. As a first example, we’ll use the US counties FlatGeobuf data from <a href="https://observablehq.com/@bjornharrtell/streaming-flatgeobuf">this example</a>. This file is only 13 MB in size, which we’ll download to cover simple loading from disk.</p>
 <div id="cell-8" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary directory in which to save the file</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tmpdir <span class="op">=</span> TemporaryDirectory()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># URL to download</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://flatgeobuf.org/test/data/UScounties.fgb"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download, saving the output path</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>local_fgb_path, _ <span class="op">=</span> urlretrieve(url, <span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/countries.fgb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary directory in which to save the file</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tmpdir <span class="op">=</span> TemporaryDirectory()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># URL to download</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://flatgeobuf.org/test/data/UScounties.fgb"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Download, saving the output path</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>local_fgb_path, _ <span class="op">=</span> urlretrieve(url, <span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/countries.fgb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In each of the cases below, we use <code>geopandas.read_file</code> to read the file into a <code>GeoDataFrame</code>.</p>
-<p>First we’ll show that reading this file with <code>engine="fiona"</code> (the default) is slower. Taking an extra 500 milliseconds might not seem like a lot, but this file contains only 3,000 rows, so this difference gets magnified with larger files.</p>
+<p>First we’ll show that reading this file with <code>engine="fiona"</code> is slower. Taking an extra 500 milliseconds might not seem like a lot, but this file contains only 3,000 rows, so this difference gets magnified with larger files.</p>
 <div id="cell-10" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"fiona"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"fiona"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 565 ms, sys: 16.9 ms, total: 582 ms
-Wall time: 685 ms</code></pre>
+<pre><code>CPU times: user 1.85 s, sys: 34.7 ms, total: 1.88 s
+Wall time: 2.35 s</code></pre>
 </div>
 </div>
-<p>Passing <code>engine="pyogrio"</code> speeds up loading by 18x here!</p>
+<p>Using the (since version 1.0.0 default) <code>engine="pyogrio"</code> speeds up loading by 22x here!</p>
 <div id="cell-12" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 25.3 ms, sys: 6.84 ms, total: 32.1 ms
-Wall time: 31.3 ms</code></pre>
+<pre><code>CPU times: user 69.6 ms, sys: 15.9 ms, total: 85.5 ms
+Wall time: 89.6 ms</code></pre>
 </div>
 </div>
-<p>Using <code>use_arrow=True</code> often makes loading slightly faster again! We’re now 21x faster than using fiona.</p>
+<p>Using <code>use_arrow=True</code> often makes loading slightly faster again! We’re now 24x faster than using fiona.</p>
 <div id="cell-14" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"pyogrio"</span>, use_arrow<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf <span class="op">=</span> gpd.read_file(local_fgb_path, engine<span class="op">=</span><span class="st">"pyogrio"</span>, use_arrow<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 19.7 ms, sys: 10.1 ms, total: 29.7 ms
-Wall time: 29.1 ms</code></pre>
+<pre><code>CPU times: user 48 ms, sys: 30.7 ms, total: 78.8 ms
+Wall time: 118 ms</code></pre>
 </div>
 </div>
 </section>
@@ -726,17 +727,17 @@ Wall time: 29.1 ms</code></pre>
 <p>Similarly, we can use <code>GeoDataFrame.to_file</code> to write to a local FlatGeobuf file. As expected, writing can be much faster if you pass <code>engine="pyogrio"</code>.</p>
 <p>By default, this writes a spatial index to the created FlatGeobuf file.</p>
 <div id="cell-16" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf.to_file(<span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/out_fiona.fgb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf.to_file(<span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/out_fiona.fgb"</span>, engine<span class="op">=</span><span class="st">"fiona"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 362 ms, sys: 44.4 ms, total: 407 ms
-Wall time: 418 ms</code></pre>
+<pre><code>CPU times: user 875 ms, sys: 53.2 ms, total: 928 ms
+Wall time: 944 ms</code></pre>
 </div>
 </div>
 <div id="cell-17" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf.to_file(<span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/out_pyogrio.fgb"</span>, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time gdf.to_file(<span class="ss">f"</span><span class="sc">{</span>tmpdir<span class="sc">.</span>name<span class="sc">}</span><span class="ss">/out_pyogrio.fgb"</span>, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 60.8 ms, sys: 23.4 ms, total: 84.2 ms
-Wall time: 83.5 ms</code></pre>
+<pre><code>CPU times: user 62.9 ms, sys: 13.9 ms, total: 76.8 ms
+Wall time: 76.8 ms</code></pre>
 </div>
 </div>
 </section>
@@ -745,54 +746,63 @@ Wall time: 83.5 ms</code></pre>
 <p>Knowing how to read and write local files is important, but given that FlatGeobuf is a cloud-optimized format, it’s important to be able to read from cloud-hosted files as well.</p>
 <p>For this example, we’ll use the EuroCrops data hosted on Source Cooperative because it has versions of the same data in both FlatGeobuf and GeoParquet format. Hopefully using the same dataset for both the FlatGeobuf and GeoParquet example notebooks will be helpful.</p>
 <div id="cell-19" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://data.source.coop/cholmes/eurocrops/unprojected/flatgeobuf/FR_2018_EC21.fgb"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://s3.us-west-2.amazonaws.com/us-west-2.opendata.source.coop/cholmes/eurocrops/unprojected/flatgeobuf/FR_2018_EC21.fgb"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usually when reading from the cloud, you want to filter on some spatial extent. Pyogrio offers a <code>read_info</code> function to access many pieces of information about the file:</p>
 <div id="cell-21" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pyogrio.read_info(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pyogrio.read_info(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>{'crs': 'EPSG:4326',
+<pre><code>{'layer_name': 'FR_2018_EC21',
+ 'crs': 'EPSG:4326',
  'encoding': 'UTF-8',
  'fields': array(['ID_PARCEL', 'SURF_PARC', 'CODE_CULTU', 'CODE_GROUP', 'CULTURE_D1',
         'CULTURE_D2', 'EC_org_n', 'EC_trans_n', 'EC_hcat_n', 'EC_hcat_c'],
        dtype=object),
  'dtypes': array(['object', 'float64', 'object', 'object', 'object', 'object',
         'object', 'object', 'object', 'object'], dtype=object),
+ 'fid_column': '',
+ 'geometry_name': '',
  'geometry_type': 'MultiPolygon',
  'features': 9517874,
+ 'total_bounds': (-6.047022416643922,
+  -3.916364769838749,
+  68.89050422648864,
+  51.075100624023094),
  'driver': 'FlatGeobuf',
- 'capabilities': {'random_read': 1,
-  'fast_set_next_by_index': 0,
-  'fast_spatial_filter': 1},
+ 'capabilities': {'random_read': True,
+  'fast_set_next_by_index': False,
+  'fast_spatial_filter': True,
+  'fast_feature_count': True,
+  'fast_total_bounds': True},
  'layer_metadata': None,
  'dataset_metadata': None}</code></pre>
 </div>
 </div>
 <p>For now we’ll hard-code a region around Valence in the south of France, which we know the be within our dataset.</p>
 <div id="cell-23" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The order of bounds is</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (min longitude, min latitude, max longitude, max latitude)</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="fl">4.301042</span>, <span class="fl">44.822783</span>, <span class="fl">4.410535</span>, <span class="fl">44.877149</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The order of bounds is</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (min longitude, min latitude, max longitude, max latitude)</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> (<span class="fl">4.301042</span>, <span class="fl">44.822783</span>, <span class="fl">4.410535</span>, <span class="fl">44.877149</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can fetch a dataframe containing only the records in these bounds by passing a <code>bbox</code> argument to <code>read_file</code>. Note that the Coordinate Reference System of this bounding box <strong>must match</strong> the CRS of the dataset. Here, we know from the output of <code>read_info</code> that the CRS of the dataset is EPSG:4326, so we can pass a longitude-latitude bounding box.</p>
 <div id="cell-25" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds, engine<span class="op">=</span><span class="st">"fiona"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 144 ms, sys: 21.4 ms, total: 165 ms
-Wall time: 6 s</code></pre>
+<pre><code>CPU times: user 195 ms, sys: 20.6 ms, total: 216 ms
+Wall time: 2.51 s</code></pre>
 </div>
 </div>
 <p>Passing <code>engine="pyogrio"</code> is only slightly faster, which may mean that most of the time is taken up in network requests, not in parsing the actual data into Python.</p>
 <div id="cell-27" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 26.9 ms, sys: 2.98 ms, total: 29.9 ms
-Wall time: 490 ms</code></pre>
+<pre><code>CPU times: user 26.4 ms, sys: 20 ms, total: 46.4 ms
+Wall time: 1.91 s</code></pre>
 </div>
 </div>
 <p>This gives us a much smaller dataset of only 400 rows (down from 9.5 million rows in the original dataset).</p>
 <div id="cell-29" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
@@ -892,22 +902,22 @@ Wall time: 490 ms</code></pre>
 </div>
 </div>
 <div id="cell-30" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>(415, 11)</code></pre>
 </div>
 </div>
 <p>There are other useful keyword arguments to <code>read_file</code>. Since we’re using the <code>pyogrio</code> engine, we can pass specific column names into <code>read_file</code>, and only those columns will be parsed. In the case of FlatGeobuf, this doesn’t save us much time, because the same amount of data needs to be fetched. (Though if running this cell soon after the previous one, the relevant data will be cached and won’t be downloaded again.)</p>
 <div id="cell-32" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>column_names <span class="op">=</span> [<span class="st">"ID_PARCEL"</span>, <span class="st">"SURF_PARC"</span>, <span class="st">"CODE_CULTU"</span>, <span class="st">"geometry"</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds, columns<span class="op">=</span>column_names, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>column_names <span class="op">=</span> [<span class="st">"ID_PARCEL"</span>, <span class="st">"SURF_PARC"</span>, <span class="st">"CODE_CULTU"</span>, <span class="st">"geometry"</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>time crops_gdf <span class="op">=</span> gpd.read_file(url, bbox<span class="op">=</span>bounds, columns<span class="op">=</span>column_names, engine<span class="op">=</span><span class="st">"pyogrio"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 25 ms, sys: 2.47 ms, total: 27.4 ms
-Wall time: 706 ms</code></pre>
+<pre><code>CPU times: user 12.9 ms, sys: 0 ns, total: 12.9 ms
+Wall time: 155 ms</code></pre>
 </div>
 </div>
 <div id="cell-33" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>crops_gdf.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
