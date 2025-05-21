@@ -1,0 +1,12 @@
+name: coguide-cog
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - earthaccess
+  - ipykernel
+  - jupyterlab
+  - matplotlib
+  - rasterio>=1.3.3
+  - rio-cogeo>3.5
+  - libgdal>=3.5
