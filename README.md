@@ -35,7 +35,15 @@ This site is built using [Quarto](https://quarto.org/docs/get-started/). To prev
 
 This project is licensed under the Creative Commons Attribution 4.0 International license.
 
-Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0`.
+## Citation
+
+Please cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: <TBA>. This DOI represents all versions, and will always resolve to the latest one.
+
+The citation will look something like:
+
+> Aimee Barciauskas, TBA (2023). cloudnativegeo/cloud-optimized-geospatial-formats-guide: Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. <TBA>
+
+Please visit the Guide's [DOI link](TBA) to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide. 
 
 ## Questions?
 
