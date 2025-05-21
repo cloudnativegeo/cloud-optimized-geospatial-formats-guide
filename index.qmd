@@ -38,9 +38,9 @@ Regardless, users will access data over a network, which must be considered when
 
 As a community, we have arrived at the following **cloud-optimized format pattern:**
 
-1. Metadata includes addresses for data blocks.
+1. Metadata or specification provides addresses for data blocks.
 2. Metadata is stored in a consistent format and location.
-3. Metadata can be read once.
+3. All Metadata can be loading by a single read operation.
 4. Metadata can read the underlying file format, which supports subsetted access via addressable chunks, internal tiling, or both.
 
 These characteristics allow for parallelized and partial reading.
