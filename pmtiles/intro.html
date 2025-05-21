@@ -700,7 +700,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="alternatives">Alternatives</h2>
 <section id="mbtiles" class="level3">
 <h3 class="anchored" data-anchor-id="mbtiles">MBTiles</h3>
-<p>The most common alternative for PMTiles is <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a>, which was in many ways the precursor to PMTiles. MBTiles stores the included vector tiles in a table in a SQLite database. MBTiles has the benefit of being much easier to use than manually managing millions of tiny, individual files, but MBTiles is not serverless. In general, it’s impossible to read from a SQLite database without fetching the entire file’s content. This means that frontend clients like a web browser couldn’t fetch tiles directly using range requests, but rather a server has to be running to fetch tiles from the MBTiles file.</p>
+<p>The most common alternative for PMTiles is <a href="https://github.com/mapbox/mbtiles-spec">MBTiles</a>, which was in many ways the precursor to PMTiles. MBTiles stores the included vector tiles in a table in a SQLite database. MBTiles has the benefit of being much easier to use than manually managing millions of tiny, individual files, but MBTiles is not serverless. In general, it’s inefficient to read from a SQLite database without fetching the entire file’s content. This means that frontend clients like a web browser couldn’t fetch tiles directly using range requests, but rather a server has to be running to fetch tiles from the MBTiles file.</p>
 </section>
 <section id="saving-individual-files-to-cloud-storage" class="level3">
 <h3 class="anchored" data-anchor-id="saving-individual-files-to-cloud-storage">Saving individual files to cloud storage</h3>
