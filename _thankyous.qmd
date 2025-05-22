@@ -9,5 +9,5 @@ This guide has been made possible through the support of:
 
 [![](./images/thankyous-devseed-logo.png){fig-alt="Development Seed Logo" fig-align="left" width=40%}](https://developmentseed.org)
 
-[![](./images/thankyous-cng-logo.png){fig-alt="Cloud-Native Geospatial Foundation" fig-align="left" width=40%}](https://cloudnativegeo.org)
+[![](./images/thankyous-cng-logo.png){fig-alt="Cloud-Native Geospatial Forum" fig-align="left" width=40%}](https://cloudnativegeo.org)
 :::
