@@ -40,7 +40,7 @@ As a community, we have arrived at the following **cloud-optimized format patter
 
 1. Metadata or specification provides addresses for data blocks.
 2. Metadata is stored in a consistent format and location.
-3. All metadata can be loading by a single read operation.
+3. All metadata can be loaded by a single read operation.
 4. Metadata or the format specification can be used by libraries to read subsets of data from the underlying file format. Subsetted access is facilitated via addressable chunks, internal tiling, or both.
 
 These characteristics allow for parallelized and partial reading.
