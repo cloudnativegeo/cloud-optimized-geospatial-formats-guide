@@ -136,8 +136,8 @@ image source: https://www.kitware.com/deciphering-cloud-optimized-geotiffs/
 * This internal organization is friendly for consumption by clients issuing HTTP GET range request ("bytes: start_offset-end_offset" HTTP header)
 :::
 
-::: {.column width="50%"}
-![](./images/cog-overviews.png)
+::: {.column width="40%"}
+![](./images/cog-diagram.png)
 :::
 
 ::::
