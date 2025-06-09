@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with stars in R – Cloud-Optimized Geospatial Formats Guide</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../cloud-optimized-geotiffs/accessing-cogs-in-r-terra.html" rel="next">
+<link href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-67a4954e68c7a1ba7091cf5e6996f036.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-4d224e4188a381638bbd122e16de7de3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-67a4954e68c7a1ba7091cf5e6996f036.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-stars.html">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Cloud-Optimized Geospatial Formats Guide</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview Slides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Formats</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cloud Optimized GeoTIFFs (COG)</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced COG/GeoTIFF Details</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples of Working with COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-stars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-terra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>terra</code> in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Zarr</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../zarr/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr in Practice</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Kerchunk</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kerchunk/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk in Practice</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">GeoParquet</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../geoparquet/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GeoParquet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GeoParquet Example</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">FlatGeobuf</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf Spatial Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf in JavaScript</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">PMTiles</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PMTiles</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../cookbooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cookbooks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://nasa-impact.github.io/zarr-visualization-report/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Visualization Report ↗</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Zarr + STAC Report</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Producers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Consumers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Involved</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#demonstration-goals" id="toc-demonstration-goals" class="nav-link active" data-scroll-target="#demonstration-goals"><strong>Demonstration Goals</strong></a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways"><strong>Key Takeaways</strong></a></li>
+  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a>
+  <ul class="collapse">
+  <li><a href="#tldr-efficiently-read-and-display-the-bottom-half-of-a-cog" id="toc-tldr-efficiently-read-and-display-the-bottom-half-of-a-cog" class="nav-link" data-scroll-target="#tldr-efficiently-read-and-display-the-bottom-half-of-a-cog">TL;DR: Efficiently Read and Display the Bottom Half of a COG</a></li>
+  </ul></li>
+  <li><a href="#detailed-demonstration" id="toc-detailed-demonstration" class="nav-link" data-scroll-target="#detailed-demonstration">Detailed Demonstration</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-for-cloud-optimized-geotiff-cog-access-with-stars" id="toc-setting-up-for-cloud-optimized-geotiff-cog-access-with-stars" class="nav-link" data-scroll-target="#setting-up-for-cloud-optimized-geotiff-cog-access-with-stars">Setting Up for Cloud-Optimized GeoTIFF (COG) Access with <code>stars</code></a></li>
+  <li><a href="#exploring-metadata-with-gdal_utils-with-gdalinfo-as-the-util" id="toc-exploring-metadata-with-gdal_utils-with-gdalinfo-as-the-util" class="nav-link" data-scroll-target="#exploring-metadata-with-gdal_utils-with-gdalinfo-as-the-util">Exploring Metadata with <code>gdal_utils</code> (with <code>gdalinfo</code> as the util)</a></li>
+  <li><a href="#visualizing-the-internal-tile-grid-of-the-cog" id="toc-visualizing-the-internal-tile-grid-of-the-cog" class="nav-link" data-scroll-target="#visualizing-the-internal-tile-grid-of-the-cog">Visualizing the Internal Tile Grid of the COG</a></li>
+  <li><a href="#extracting-and-visualizing-the-first-full-tile-top-left-1024x1024-block" id="toc-extracting-and-visualizing-the-first-full-tile-top-left-1024x1024-block" class="nav-link" data-scroll-target="#extracting-and-visualizing-the-first-full-tile-top-left-1024x1024-block">Extracting and Visualizing the First Full Tile (Top-Left 1024x1024 Block)</a></li>
+  <li><a href="#visualizing-a-region-spanning-multiple-tiles" id="toc-visualizing-a-region-spanning-multiple-tiles" class="nav-link" data-scroll-target="#visualizing-a-region-spanning-multiple-tiles">Visualizing a Region Spanning Multiple Tiles</a></li>
+  <li><a href="#extracting-and-visualizing-the-selected-window" id="toc-extracting-and-visualizing-the-selected-window" class="nav-link" data-scroll-target="#extracting-and-visualizing-the-selected-window">Extracting and Visualizing the Selected Window</a></li>
+  <li><a href="#review-of-key-points" id="toc-review-of-key-points" class="nav-link" data-scroll-target="#review-of-key-points">Review of Key Points</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/accessing-cogs-in-r-stars.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/intro.html">Cloud Optimized GeoTIFFs (COG)</a></li><li class="breadcrumb-item"><a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-stars.html">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Cloud-Optimized GeoTIFFs (COGs) are an optimized variant of the GeoTIFF format that enables efficient, scalable access to raster data. By structuring data in cloud-friendly tiles and enabling partial reads, COGs minimize storage and bandwidth requirements while improving performance for remote sensing and GIS workflows.</p>
+<p>This notebook will demonstrate how <a href="https://r-spatial.github.io/stars/"><code>stars</code>, an R package for spatial data</a>, can efficiently read and visualize COGs while leveraging their internal structure for optimal data access. Although users typically do not need to consider tiling explicitly, understanding the layout of COGs can help design workflows that take full advantage of their efficiency. Another option for accessing cogs in in R is the <code>terra</code> package, for which another version of this notebook is available <a href="./accessing-cogs-in-r-terra.html">here</a>.</p>
+<p>Because COGs offer substantial performance benefits with minimal overhead, it is a best practice to always generate valid COGs when writing GeoTIFFs. For more information, see the <a href="./writing-cogs-in-python.html">guide on writing COGs with python</a>.</p>
+<p>If you’re unsure whether a given GeoTIFF is a COG, refer to this <a href="./cogs-examples.html#is-it-a-valid-cog">guide on COG validation</a></p>
+<hr>
+<section id="demonstration-goals" class="level3">
+<h3 class="anchored" data-anchor-id="demonstration-goals"><strong>Demonstration Goals</strong></h3>
+<p>This notebook demonstrates how <code>stars</code> can be used to access and process COGs efficiently in R:</p>
+<ul>
+<li><strong>Accessing Metadata:</strong>
+<ul>
+<li>Using <code>stars</code> to retrieve key metadata such as dimensions, resolution, projection, and internal tiling structure.</li>
+</ul></li>
+<li><strong>Visualizing the Internal Tiling Structure:</strong>
+<ul>
+<li>Overlaying a grid to illustrate how the dataset is structured into tiles.</li>
+</ul></li>
+<li><strong>Reading Specific Regions:</strong>
+<ul>
+<li>Extracting a tile-aligned region to demonstrate efficient data access.</li>
+<li>Extracting a region spanning multiple tiles to illustrate how misalignment affects performance.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="key-takeaways" class="level3">
+<h3 class="anchored" data-anchor-id="key-takeaways"><strong>Key Takeaways</strong></h3>
+<ul>
+<li><strong>COGs allow efficient, selective access to raster data</strong>, avoiding the need to download full datasets.</li>
+<li><strong>Aligning reads with internal tile grids</strong> optimizes performance by minimizing unnecessary data transfer.</li>
+<li><strong>Even misaligned access benefits from COGs’ optimized structure</strong>, making them more efficient than standard GeoTIFFs.</li>
+<li><strong><code>stars</code> provides a powerful and flexible interface</strong> for working with COGs in R, making cloud-native raster workflows seamless.</li>
+</ul>
+<p>By the end of this notebook, you will have a practical understanding of how to use <code>stars</code> for accessing and processing COGs efficiently.</p>
+</section>
+<section id="environment" class="level2">
+<h2 class="anchored" data-anchor-id="environment">Environment</h2>
+<p>The packages needed for this notebook can be installed with <code>conda</code> or <code>mamba</code>. Using the <a href="./environment.yml"><code>environment.yml</code> from this folder</a> run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, you may activate and select the kernel in the notebook (running in Jupyter)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The notebook has been tested to work with the listed Conda environment.</p>
+<section id="tldr-efficiently-read-and-display-the-bottom-half-of-a-cog" class="level3">
+<h3 class="anchored" data-anchor-id="tldr-efficiently-read-and-display-the-bottom-half-of-a-cog">TL;DR: Efficiently Read and Display the Bottom Half of a COG</h3>
+<p>This example demonstrates how to efficiently extract and display the <strong>bottom half</strong> of a Cloud-Optimized GeoTIFF (COG) using <code>stars</code>. Instead of reading the full dataset, we request only the portion we need, taking advantage of the optimized access patterns of COGs.</p>
+<p><strong>NOTE</strong>: it is very important to set <code>proxy</code> to true when calling <code>read_stars</code> to take full advantage of COG partial reads!</p>
+<div id="62c7f5a2-1678-41ee-b8dc-107d7514ca84" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required library</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new=</span><span class="cn">FALSE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the COG URL (public Sentinel-2 COG)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>cog_url <span class="ot">&lt;-</span> <span class="st">"/vsis3/sentinel-cogs/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Set environment variables</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">AWS_NO_SIGN_REQUEST =</span> <span class="st">"YES"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">GDAL_DISABLE_READDIR_ON_OPEN =</span> <span class="st">"EMPTY_DIR"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># proxy=TRUE ensures only metadata is read at this point</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(cog_url, <span class="at">proxy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract raster dimensions</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>dims <span class="ot">&lt;-</span> <span class="fu">st_dimensions</span>(r)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>yOffset <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>to <span class="sc">/</span> <span class="dv">2</span>  <span class="co"># Start at the midpoint (bottom half)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>ySize <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>to <span class="sc">/</span> <span class="dv">2</span>     <span class="co"># Capture half the height</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>xSize <span class="ot">&lt;-</span> dims<span class="sc">$</span>x<span class="sc">$</span>to         <span class="co"># Use full width</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Define RasterIO parameters for efficient reading of only a subset of the total data</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>rasterio <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">nYOff =</span> yOffset, <span class="at">nXSize =</span> xSize, <span class="at">nYSize =</span> ySize, <span class="at">bands =</span> <span class="fu">c</span>(<span class="dv">1</span>))</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the bottom half of the raster efficiently</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(cog_url, <span class="at">RasterIO =</span> rasterio)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the extracted bottom half</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: abind
+
+Loading required package: sf
+
+Linking to GEOS 3.13.0, GDAL 3.10.1, PROJ 9.5.1; sf_use_s2() is TRUE
+
+Note: sf is linked to a GDAL version without netCDF driver, some tests or examples may fail
+
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”
+downsample set to 14
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="accessing-cogs-in-r-stars_files/figure-html/cell-2-output-2.svg" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="detailed-demonstration" class="level2">
+<h2 class="anchored" data-anchor-id="detailed-demonstration">Detailed Demonstration</h2>
+<p>Now that we’ve seen how to quickly and efficiently read a specific region of a Cloud-Optimized GeoTIFF (COG) in the TL;DR section immediately above, let’s explore things in greater detail. Stars documentation can be found at <a href="https://r-spatial.github.io/stars/">https://r-spatial.github.io/stars/</a>.</p>
+<section id="setting-up-for-cloud-optimized-geotiff-cog-access-with-stars" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-for-cloud-optimized-geotiff-cog-access-with-stars">Setting Up for Cloud-Optimized GeoTIFF (COG) Access with <code>stars</code></h3>
+<p>This section configures the environment and prepares stars to access a Cloud-Optimized GeoTIFF (COG) hosted on AWS.</p>
+<section id="loading-stars" class="level4">
+<h4 class="anchored" data-anchor-id="loading-stars">1. Loading stars</h4>
+<p>The only library required for this workflow is <strong><code>stars</code></strong>, which provides powerful tools for geospatial data analysis in R.</p>
+</section>
+<section id="configuring-the-environment" class="level4">
+<h4 class="anchored" data-anchor-id="configuring-the-environment">2. Configuring the environment</h4>
+<p>To enable seamless access to publicly accessible data on AWS: - <strong>Anonymous Access</strong>: - AWS-hosted public datasets allow anonymous access without credentials. This is enabled by setting the <code>AWS_NO_SIGN_REQUEST</code> environment variable to <code>"YES"</code>. This configuration ensures that GDAL makes unsigned requests when accessing the file.</p>
+<ul>
+<li><strong>Metadata from File Header</strong>:
+<ul>
+<li>By setting the <code>GDAL_DISABLE_READDIR_ON_OPEN</code> environment variable to <code>"EMPTY_DIR"</code>, we inform GDAL that all necessary metadata is contained within the file header. This avoids unnecessary checks for external “sidecar” metadata files, improving efficiency.</li>
+</ul></li>
+</ul>
+<p>For more configuration options, consult the <a href="https://gdal.org/en/stable/user/configoptions.html">GDAL configuration documentation</a>.</p>
+</section>
+<section id="defining-the-cog-url" class="level4">
+<h4 class="anchored" data-anchor-id="defining-the-cog-url">3. Defining the COG URL</h4>
+<p>The file is accessed using its virtual filesystem (VSI) path: - The path <code>/vsis3/</code> indicates that the file is hosted on Amazon S3. - This example points to a Sentinel-2 COG available in the public Sentinel COG dataset. - GDAL supports other virtual filesystems, including <code>http</code>, <code>zip</code>, <code>tar</code>, and combinations thereof. For details, see <a href="https://gdal.org/en/stable/user/virtual_file_systems.html">GDAL virtual filesystem documentation</a>.</p>
+</section>
+<section id="opening-the-cog-and-inspecting-metadata" class="level4">
+<h4 class="anchored" data-anchor-id="opening-the-cog-and-inspecting-metadata">4. Opening the COG and Inspecting Metadata</h4>
+<p>Using the <code>read_stars()</code> function from <code>stars</code>, we create a reference to the COG: - <strong>Important Note</strong>: We set <code>proxy=True</code> here to make sure that no data is downloaded at this stage! Only the file’s metadata is read. - Metadata includes details such as resolution, coordinate reference system (CRS), and geographic extent, which can be accessed immediately without fetching pixel data.</p>
+<div id="35d89b31-543d-40fa-884d-b749b362d3c4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">AWS_NO_SIGN_REQUEST =</span> <span class="st">"YES"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">GDAL_DISABLE_READDIR_ON_OPEN =</span> <span class="st">"EMPTY_DIR"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cog_url <span class="ot">&lt;-</span> <span class="st">"/vsis3/sentinel-cogs/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(cog_url, <span class="at">proxy =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(r)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars_proxy object with 1 attribute in 1 file(s):
+$B02.tif
+[1] "[...]/B02.tif"
+
+dimension(s):
+  from    to  offset delta                refsys point x/y
+x    1 10980   3e+05    10 WGS 84 / UTM zone 12N FALSE [x]
+y    1 10980 3400020   -10 WGS 84 / UTM zone 12N FALSE [y]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exploring-metadata-with-gdal_utils-with-gdalinfo-as-the-util" class="level3">
+<h3 class="anchored" data-anchor-id="exploring-metadata-with-gdal_utils-with-gdalinfo-as-the-util">Exploring Metadata with <code>gdal_utils</code> (with <a href="https://gdal.org/en/stable/programs/gdalinfo.html"><code>gdalinfo</code></a> as the util)</h3>
+<p>Before diving further into visualization or analysis, it’s essential to understand the structure and metadata of the Cloud-Optimized GeoTIFF (COG) we’re working with. Metadata provides critical insights about the file, such as:</p>
+<ul>
+<li><strong>Dimensions</strong>: The raster’s size in pixels.</li>
+<li><strong>Projection</strong>: The coordinate reference system (CRS) used for the dataset.</li>
+<li><strong>Resolution</strong>: The pixel size in geographic or projected units.</li>
+<li><strong>Tile Information</strong>: The internal structure of the COG (e.g., block size and block layout).</li>
+<li><strong>Overviews</strong>: Precomputed lower-resolution representations for efficient access.</li>
+<li><strong>Statistics</strong>: Summary statistics about the dataset’s pixel values.</li>
+</ul>
+<p>In the following cell, we use the <code>gdal_utils</code> command to retrieve this metadata. <code>gdal_utils</code> is provided with <code>sf</code> and is made available to us here via the <code>stars</code> import, above. This step helps verify the internal structure of the TIFF and confirm details like tile size, overview levels, and compression, which are crucial for understanding data access and performance characteristics.</p>
+<div id="bef7b5c1-9170-4318-a133-1abd9ec78fdd" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gdal_utils</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">util =</span> <span class="st">"info"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">source =</span> cog_url</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_gdalinfo(if (missing(source)) character(0) else source, options, :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_gdalinfo(if (missing(source)) character(0) else source, options, :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Driver: GTiff/GeoTIFF
+Files: /vsis3/sentinel-cogs/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif
+Size is 10980, 10980
+Coordinate System is:
+PROJCRS["WGS 84 / UTM zone 12N",
+    BASEGEOGCRS["WGS 84",
+        DATUM["World Geodetic System 1984",
+            ELLIPSOID["WGS 84",6378137,298.257223563,
+                LENGTHUNIT["metre",1,
+                    ID["EPSG",9001]]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433,
+                ID["EPSG",9122]]]],
+    CONVERSION["Transverse Mercator",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-111,
+            ANGLEUNIT["degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1,
+                ID["EPSG",9001]]]]
+Data axis to CRS axis mapping: 1,2
+Origin = (300000.000000000000000,3400020.000000000000000)
+Pixel Size = (10.000000000000000,-10.000000000000000)
+Metadata:
+  OVR_RESAMPLING_ALG=AVERAGE
+  AREA_OR_POINT=Area
+Image Structure Metadata:
+  COMPRESSION=DEFLATE
+  INTERLEAVE=BAND
+  PREDICTOR=2
+Corner Coordinates:
+Upper Left  (  300000.000, 3400020.000) (113d 5'18.97"W, 30d42'58.55"N)
+Lower Left  (  300000.000, 3290220.000) (113d 4' 4.00"W, 29d43'33.78"N)
+Upper Right (  409800.000, 3400020.000) (111d56'31.81"W, 30d43'46.74"N)
+Lower Right (  409800.000, 3290220.000) (111d55'57.97"W, 29d44'20.10"N)
+Center      (  354900.000, 3345120.000) (112d30'28.19"W, 30d13'44.33"N)
+Band 1 Block=1024x1024 Type=UInt16, ColorInterp=Gray
+  NoData Value=0
+  Overviews: 5490x5490, 2745x2745, 1373x1373, 687x687</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-internal-tile-grid-of-the-cog" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-internal-tile-grid-of-the-cog">Visualizing the Internal Tile Grid of the COG</h3>
+<p>After inspecting the metadata with <code>gdal_utils</code>, we can use the extracted information to visualize the internal tile grid of the Cloud-Optimized GeoTIFF (COG). This visualization helps confirm how the file is divided into tiles and ensures our understanding aligns with the metadata.</p>
+<p>In this cell, we:</p>
+<ol type="1">
+<li><strong>Calculate Block Size in Geographic Units</strong>:
+<ul>
+<li>Using the block size in pixels (from the metadata, typically 1024x1024 for Sentinel-2 COGs) and the raster’s resolution, we compute the corresponding geographic dimensions of each tile.</li>
+</ul></li>
+<li><strong>Generate Grid Coordinates</strong>:
+<ul>
+<li>Grid lines are defined by the tile boundaries. The code to generate such a grid is included in the collapsed code block below.</li>
+<li>Horizontal (<code>x</code>) and vertical (<code>y</code>) grid coordinates are calculated to align with the raster’s extent, ensuring proper alignment starting from the top-left corner (consistent with COG tiling).</li>
+</ul></li>
+<li><strong>Overlay the Grid on the Raster</strong>:
+<ul>
+<li>The raster is plotted at a low resolution (using overviews, if available) for performance.</li>
+<li>Red grid lines are drawn to represent the tile boundaries.</li>
+<li>The blue rectangle corresponds to the region or window we’ll be plotting.</li>
+</ul></li>
+</ol>
+<p>This visualization depicts the COG’s internal tiling structure, which is crucial for efficient access to specific regions of the COG.</p>
+<div id="858da83f-4088-47dc-9839-c7533e0fe1d3" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract dimensions and resolution</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dims <span class="ot">&lt;-</span> <span class="fu">st_dimensions</span>(r)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>res_x <span class="ot">&lt;-</span> dims<span class="sc">$</span>x<span class="sc">$</span>delta  <span class="co"># Resolution in X direction (units per pixel)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>res_y <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>delta  <span class="co"># Resolution in Y direction (units per pixel)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Define tile size in pixels</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>block_size_pixels <span class="ot">&lt;-</span> <span class="dv">1024</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate tile size in geographic units</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>block_size_x <span class="ot">&lt;-</span> block_size_pixels <span class="sc">*</span> res_x</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>block_size_y <span class="ot">&lt;-</span> block_size_pixels <span class="sc">*</span> res_y</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define extent boundaries for the first tile</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>first_tile_xmin <span class="ot">&lt;-</span> dims<span class="sc">$</span>x<span class="sc">$</span>offset  <span class="co"># xmin of the raster</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>first_tile_xmax <span class="ot">&lt;-</span> first_tile_xmin <span class="sc">+</span> block_size_x</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>first_tile_ymax <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>offset</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>first_tile_ymin <span class="ot">&lt;-</span> first_tile_ymax <span class="sc">+</span> block_size_y</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the tif preview with grid</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_stars</span>(cog_url, <span class="at">options =</span> <span class="fu">c</span>(<span class="st">"OVERVIEW_LEVEL=3"</span>)),</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">reset =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coordinate range and resolution</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>x_min <span class="ot">&lt;-</span> dims<span class="sc">$</span>x<span class="sc">$</span>offset</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>x_max <span class="ot">&lt;-</span> x_min <span class="sc">+</span> (dims<span class="sc">$</span>x<span class="sc">$</span>delta <span class="sc">*</span> (dims<span class="sc">$</span>x<span class="sc">$</span>to <span class="sc">-</span> dims<span class="sc">$</span>x<span class="sc">$</span>from))</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>y_max <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>offset</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>y_min <span class="ot">&lt;-</span> y_max <span class="sc">+</span> (dims<span class="sc">$</span>y<span class="sc">$</span>delta <span class="sc">*</span> (dims<span class="sc">$</span>y<span class="sc">$</span>to <span class="sc">-</span> dims<span class="sc">$</span>y<span class="sc">$</span>from))</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate grid coordinates (meters/pixel * 1024 pixels up and down a single tile)</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>x_coords <span class="ot">&lt;-</span> <span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> block_size_x)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>y_coords <span class="ot">&lt;-</span> <span class="fu">seq</span>(y_max, y_min, <span class="at">by =</span> block_size_y)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical grid lines</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> x_coords) {</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> x, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Add horizontal grid lines</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (y <span class="cf">in</span> y_coords) {</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> y, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="fu">rect</span>(</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">xleft  =</span> first_tile_xmin,</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">ybottom =</span> <span class="fu">min</span>(first_tile_ymin, first_tile_ymax),</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">xright =</span> first_tile_xmax,</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">ytop   =</span> <span class="fu">max</span>(first_tile_ymin, first_tile_ymax),</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">"blue"</span>,</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd    =</span> <span class="dv">2</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="accessing-cogs-in-r-stars_files/figure-html/cell-5-output-2.svg" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-and-visualizing-the-first-full-tile-top-left-1024x1024-block" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-and-visualizing-the-first-full-tile-top-left-1024x1024-block">Extracting and Visualizing the First Full Tile (Top-Left 1024x1024 Block)</h3>
+<p>In this step, we extract the <strong>first full tile</strong> (a 1024x1024 block, represented by the blue square above) of the dataset, aligned with the internal tiling structure of the Cloud-Optimized GeoTIFF (COG). This demonstrates the efficiency of accessing tiles directly, as COGs enable on-demand retrieval of specific data blocks without downloading the entire file.</p>
+<section id="steps-performed" class="level4">
+<h4 class="anchored" data-anchor-id="steps-performed">Steps Performed:</h4>
+<ol type="1">
+<li><strong>Define the Extent</strong>:
+<ul>
+<li>The geographic extent of the first tile is calculated, starting from the top-left corner of the raster’s full extent and spanning the dimensions of one full tile.</li>
+</ul></li>
+<li><strong>Read a Single Tile</strong>:
+<ul>
+<li>Use the defined <code>rasterio</code> to read <em>only</em> the part we care about.</li>
+</ul></li>
+<li><strong>Visualize the Tile</strong>:
+<ul>
+<li>The tile is plotted to confirm its alignment with the internal tiling structure.</li>
+</ul></li>
+</ol>
+<p>This process demonstrates a best-case scenario for access efficiency: all and only the bytes necessary for the selected region are read. While this level of optimization isn’t necessary, it illustrates how COGs can minimize data access. In most workflows, reading a few extra bytes is acceptable, but the ability to avoid processing the bulk of a large TIFF is a major advantage enabled by this per-tile access.</p>
+<div id="d29f4fbc-97dd-4dc1-98fc-ff162b3714c1" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define RasterIO parameters to read one of the cog's tiles</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rasterio <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nXOff  =</span> <span class="dv">1</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nYOff  =</span> <span class="dv">1</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nXSize =</span> <span class="dv">1024</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nYSize =</span> <span class="dv">1024</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">bands  =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the defined extent</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(cog_url, <span class="at">RasterIO =</span> rasterio)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the first tile</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”
+downsample set to 1
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="accessing-cogs-in-r-stars_files/figure-html/cell-6-output-2.svg" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualizing-a-region-spanning-multiple-tiles" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-a-region-spanning-multiple-tiles">Visualizing a Region Spanning Multiple Tiles</h3>
+<p>In this step, we visualize a <strong>1024x1024 region</strong> (the same size as above). This time, however, the window we construct will span portions of 4 internal tiles. This is a less-optimal case because multiple tiles must be accessed to satisfy a single request. From the point of view of someone using the API, things remain seamless. But behind the scenes, 4 times the data is being requested compared to the request above which aligned neatly with the internal tile grid.</p>
+<section id="steps" class="level4">
+<h4 class="anchored" data-anchor-id="steps">Steps:</h4>
+<ol type="1">
+<li><strong>Define the Extent Centered on a Tile Intersection</strong>:
+<ul>
+<li>The region is centered on the intersection of 4 tiles, ensuring it overlaps multiple internal blocks of the TIFF.</li>
+<li>Red grid lines represent the boundaries of the internal tiles, showing how the request spans these blocks.</li>
+</ul></li>
+<li><strong>Visualize the Region</strong>:
+<ul>
+<li>The blue rectangle highlights the requested region, superimposed over the red tile grid lines. This illustrates which tiles will need to be accessed to satisfy the request.</li>
+</ul></li>
+</ol>
+</section>
+<section id="insights" class="level4">
+<h4 class="anchored" data-anchor-id="insights">Insights:</h4>
+<ul>
+<li>The red grid lines illustrate the boundaries of the COG’s internal tiling, highlighting the efficiency of accessing data aligned with these tiles.</li>
+<li>The blue rectangle represents the requested region, showing how it spans multiple tiles.</li>
+<li>This step is purely visual: no reading or cropping data yet.</li>
+</ul>
+<div id="068e1992-cd3a-4eee-b5da-6c1185ccd96d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the tif preview with grid</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_stars</span>(cog_url, <span class="at">options =</span> <span class="fu">c</span>(<span class="st">"OVERVIEW_LEVEL=3"</span>)),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">reset =</span> <span class="cn">FALSE</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract coordinate range and resolution</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>x_min <span class="ot">&lt;-</span> dims<span class="sc">$</span>x<span class="sc">$</span>offset</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>x_max <span class="ot">&lt;-</span> x_min <span class="sc">+</span> (dims<span class="sc">$</span>x<span class="sc">$</span>delta <span class="sc">*</span> (dims<span class="sc">$</span>x<span class="sc">$</span>to <span class="sc">-</span> dims<span class="sc">$</span>x<span class="sc">$</span>from))</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>y_max <span class="ot">&lt;-</span> dims<span class="sc">$</span>y<span class="sc">$</span>offset</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>y_min <span class="ot">&lt;-</span> y_max <span class="sc">+</span> (dims<span class="sc">$</span>y<span class="sc">$</span>delta <span class="sc">*</span> (dims<span class="sc">$</span>y<span class="sc">$</span>to <span class="sc">-</span> dims<span class="sc">$</span>y<span class="sc">$</span>from))</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate grid coordinates (meters/pixel * 1024 pixels up and down a single tile)</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>x_coords <span class="ot">&lt;-</span> <span class="fu">seq</span>(x_min, x_max, <span class="at">by =</span> block_size_x)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>y_coords <span class="ot">&lt;-</span> <span class="fu">seq</span>(y_max, y_min, <span class="at">by =</span> block_size_y)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical grid lines</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> x_coords) {</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> x, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Add horizontal grid lines</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (y <span class="cf">in</span> y_coords) {</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> y, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="fu">rect</span>(</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">xleft  =</span> first_tile_xmin <span class="sc">+</span> (block_size_x <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">ybottom =</span> <span class="fu">min</span>(first_tile_ymin, first_tile_ymax)<span class="sc">+</span> (block_size_y <span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">xright =</span> first_tile_xmax <span class="sc">+</span> (block_size_x <span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">ytop   =</span> <span class="fu">max</span>(first_tile_ymin, first_tile_ymax) <span class="sc">-</span> (block_size_x <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">border =</span> <span class="st">"blue"</span>,</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd    =</span> <span class="dv">2</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="accessing-cogs-in-r-stars_files/figure-html/cell-7-output-2.svg" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="extracting-and-visualizing-the-selected-window" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-and-visualizing-the-selected-window">Extracting and Visualizing the Selected Window</h3>
+<p>In this step, we read the raster data corresponding to the <strong>blue rectangle</strong> visualized in the previous step. This window spans portions of 4 internal tiles. Again, this is a less-optimal case where data from multiple tiles must be accessed to fulfill a single request.</p>
+<section id="steps-1" class="level4">
+<h4 class="anchored" data-anchor-id="steps-1">Steps:</h4>
+<ol type="1">
+<li><strong>Read the Window</strong>:
+<ul>
+<li>Using the previously defined extent (the blue rectangle), we extract the corresponding raster data.</li>
+<li>The operation retrieves data from all 4 tiles that overlap with the window.</li>
+</ul></li>
+<li><strong>Visualize the Region</strong>:
+<ul>
+<li>The extracted region is plotted, confirming its location and spatial coverage within the raster.</li>
+</ul></li>
+</ol>
+</section>
+<section id="insights-1" class="level4">
+<h4 class="anchored" data-anchor-id="insights-1">Insights:</h4>
+<ul>
+<li>While the request spans multiple tiles, the ability to target only the relevant portions of the raster remains far more efficient than downloading the entire file.</li>
+</ul>
+<div id="555419ac-7683-4046-9469-1c58c3533100" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define RasterIO parameters to read one of the cog's tiles</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rasterio <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">nXOff  =</span> <span class="dv">513</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nYOff  =</span> <span class="dv">513</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">nXSize =</span> <span class="dv">1536</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">nYSize =</span> <span class="dv">1536</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">bands  =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the defined extent</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read_stars</span>(cog_url, <span class="at">RasterIO =</span> rasterio)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the first tile</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: PROJ: proj_create_from_database: Open of /opt/conda/share/proj failed”
+Warning message in CPL_read_gdal(as.character(x), as.character(options), as.character(driver), :
+“GDAL Message 1: The definition of projected CRS EPSG:32612 got from GeoTIFF keys is not the same as the one from the EPSG registry, which may cause issues during reprojection operations. Set GTIFF_SRS_SOURCE configuration option to EPSG to use official parameters (overriding the ones from GeoTIFF keys), or to GEOKEYS to use custom values from GeoTIFF keys and drop the EPSG code.”
+downsample set to 2
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="accessing-cogs-in-r-stars_files/figure-html/cell-8-output-2.svg" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="review-of-key-points" class="level3">
+<h3 class="anchored" data-anchor-id="review-of-key-points">Review of Key Points</h3>
+<p>In this notebook, we explored how to efficiently access and process geospatial data stored in a Cloud-Optimized GeoTIFF (COG) using <code>stars</code> in R. The key takeaways include:</p>
+<section id="efficient-data-access" class="level4">
+<h4 class="anchored" data-anchor-id="efficient-data-access">Efficient Data Access:</h4>
+<ul>
+<li>COGs allow on-demand access to specific regions of a dataset without requiring the download of the entire file.</li>
+<li>This capability minimizes bandwidth usage, accelerates workflows, and supports scalable analysis of large geospatial datasets.</li>
+</ul>
+</section>
+<section id="visualization-of-internal-tiling" class="level4">
+<h4 class="anchored" data-anchor-id="visualization-of-internal-tiling">Visualization of Internal Tiling:</h4>
+<ul>
+<li>We visualized the internal tile structure of the COG (1024x1024 tiles) by overlaying a grid on the raster.</li>
+<li>A blue rectangle highlighted the region corresponding to the first tile, illustrating how COGs organize data into blocks for efficient access.</li>
+</ul>
+</section>
+<section id="aligned-and-unaligned-access" class="level4">
+<h4 class="anchored" data-anchor-id="aligned-and-unaligned-access">Aligned and Unaligned Access:</h4>
+<ol type="1">
+<li><strong>Aligned Access</strong>:
+<ul>
+<li>A 1024x1024 region corresponding to the first tile (top-left corner) was extracted.</li>
+<li>This represents the best-case scenario for COGs, where the requested region aligns perfectly with an internal tile, ensuring minimal data transfer.</li>
+</ul></li>
+<li><strong>Unaligned Access</strong>:
+<ul>
+<li>A 1024x1024 region spanning portions of 4 tiles was extracted.</li>
+<li>This less-optimal case demonstrates how misalignment with the internal tile grid increases the amount of data accessed while still avoiding the need to download the entire file.</li>
+</ul></li>
+</ol>
+</section>
+<section id="reflection-on-tools" class="level4">
+<h4 class="anchored" data-anchor-id="reflection-on-tools">Reflection on Tools:</h4>
+<ul>
+<li>The <code>stars</code> package provides a powerful and flexible interface for geospatial data processing in R, enabling tasks such as cropping, visualizing, and analyzing raster data.</li>
+<li>By leveraging COG-specific features like internal tiling and on-demand access, workflows can be made more efficient and cost-effective.</li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="pagination-link" aria-label="Writing Cloud Optimized Geotiffs (COGs) with Python">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-terra.html" class="pagination-link" aria-label="Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with `terra` in R">
+        <span class="nav-page-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>terra</code> in R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Forum</a>, 2023</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/cloudnativegeo/cloud-optimized-geospatial-formats-guide/blob/main/cloud-optimized-geotiffs/accessing-cogs-in-r-stars.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
