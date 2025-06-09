@@ -242,7 +242,7 @@ image source: https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/
 * Geoparquet is highly compressed.
 * Geoparquet can be stored in a single- or multi-file store.
 * Geoparquet support was recently added to GeoPandas and is supported in R with GeoArrow.
-* Potential for cross language in-memory shared access.
+* Geoparquet provides the potential for cross language in-memory shared access.
 * Specifications for spatial-indexing, projection handling, etc. are still in discussion.
 * Learn more: [https://github.com/opengeospatial/geoparquet](https://github.com/opengeospatial/geoparquet)
 :::
