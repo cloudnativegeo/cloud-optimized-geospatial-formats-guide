@@ -65,7 +65,7 @@ File formats are read-oriented to support:
 ## What Does Cloud-Optimized Mean?
 
 * File metadata in one read
-* When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads. Each read should happen at the same time.
+* When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads. The preceding requirement of fetching all metadata in one read means that data reads can happen concurrently.
 * An easy win is metadata in one read, which can be used to read a cloud-native dataset.
 * A cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.
 
