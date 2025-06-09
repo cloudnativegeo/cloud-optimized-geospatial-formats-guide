@@ -10,3 +10,7 @@ dependencies:
   - rasterio>=1.3.3
   - rio-cogeo>3.5
   - libgdal>=3.5
+  - r-base
+  - r-essentials
+  - r-terra
+  - r-stars
