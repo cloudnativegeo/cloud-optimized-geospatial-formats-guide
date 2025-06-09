@@ -1148,7 +1148,7 @@
     "href": "overview.html#what-does-cloud-optimized-mean-1",
     "title": "Cloud-Optimized Geospatial Formats Overview",
     "section": "What Does Cloud-Optimized Mean?",
-    "text": "What Does Cloud-Optimized Mean?\n\nFile metadata in one read\nWhen accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads. Each read should happen at the same time.\nAn easy win is metadata in one read, which can be used to read a cloud-native dataset.\nA cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.",
+    "text": "What Does Cloud-Optimized Mean?\n\nFile metadata in one read\nWhen accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads. The preceding requirement of fetching all metadata in one read means that data reads can happen concurrently.\nAn easy win is metadata in one read, which can be used to read a cloud-native dataset.\nA cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.",
     "crumbs": [
       "Overview Slides"
     ]
