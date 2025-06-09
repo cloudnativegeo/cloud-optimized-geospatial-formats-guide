@@ -97,3 +97,9 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 5. How much of your data is typically rendered or selected at once?
 
 {{< include _thankyous.qmd >}}
+
+```{=html}
+<a href="https://www.netlify.com">
+  <img src="https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg" alt="Deploys by Netlify" />
+</a>
+```
