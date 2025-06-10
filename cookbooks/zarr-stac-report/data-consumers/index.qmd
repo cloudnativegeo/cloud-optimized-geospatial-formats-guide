@@ -1,0 +1,100 @@
+---
+title: "Zarr + STAC for Data Consumers"
+subtitle: "Accessing data cubes in Zarr + STAC"
+---
+
+This section is targeted at people who are trying to access data cubes. It addresses questions like:
+
+ - How do you find the data you need?
+ - How do you filter down to a subset of the data?
+ - When should you write to a virtualized file?
+
+This section assumes a world in which you as a data consumer are interacting with Zarr stores cataloged by STAC. It is mostly about Python (and specifically Xarray) but the concepts apply to other languages and libraries.
+
+## How to read the minimum amount of data
+
+One of the benefits of using a cloud-optimized file format like Zarr is that you don't have to read all the data in a dataset. Reading just the metadata to construct a logical dataset is often called lazy loading. You can filter the data to just the variables, area and time period that you are interested in. The sooner you do this filtering the quicker the rest of the workflow will be.
+
+There are two different ways of getting from a Zarr store into an xarray object. You can open a single Zarr store and interact with the entire lazily-loaded data cube in xarray or you can use STAC tooling to do searching and filtering on the server-side and only start interacting with the data cube after filtering has been applied. 
+
+Both of those access patterns are supported by tooling, but depending on how the collection is set up some patterns may be simpler and faster than others (at this point in time). So which should you use? Basically it depends on the structure of the Zarr store(s) and the STAC collection that you are interacting with. The most likely scenarios are outlined below.
+
+## Scenario 1: One big Zarr store as a standalone STAC collection
+
+The STAC catalog contains a collection for each Zarr store and there are collection-level assets that point to the location of the Zarr store. There are no items at all in this setup.
+
+In this scenario any STAC metadata exists purely for discovery and cannot be used for filtering or subsetting (see [Future Work](#future-work) for more on that). To search the STAC catalog to find collections of interest you will use the [Collection Search API Extension][7]. Depending on the level of metadata that has been provided in the STAC catalog you can search by the name of the collection and possibly by the variables -- exposed via the [Data Cube Extension][11].
+
+### Read straight to xarray
+
+Once you have found the collection of interest, the best approach for accessing the data is to construct the lazily-loaded data cube in xarray (or an [xarray.DataTree][8] if the Zarr store has more than one group) and filter from there.
+
+To do this you can use the `zarr` backend directly or you can use [the `stac` backend][1] to streamline even more. The `stac` backend is mostly useful if the STAC collection uses the xarray extension.
+
+Constructing the lazy data cube is likely to be very fast if there is a [consolidated metadata file][9] OR the data is in Zarr-3 and the Zarr metadata fetch is highly parallelized ([read more][4]).
+
+
+## Scenario 2: Many small Zarr stores as STAC items within a collection
+
+Each STAC collection contains many items and the items each contain one asset pointing to a Zarr store. In this setup, the Zarr store represents a particular area in time and space (a scene). This is very similar to the common practice of using COGs and STAC where each COG represents one band at one scene. The difference is instead of one band per COG, all bands are in one Zarr store (this is conceptually equivalent to a multi-band COG).
+
+In this scenario the STAC metadata can be used to find data that overlaps the region of interest (both in time and space) before constructing a lazily-loaded data cube in xarray.
+
+### Filter in STAC first
+
+If you are interacting with a STAC API and the Item representing the Zarr store contains spatial and temporal extents alongside [Data Cube Extension][11] metadata, then all the metadata you need for filtering is available at the STAC level so you should be able to search either in the web-browser directly or using pystac-client.
+
+If you are interacting with a static STAC catalog (in json or geoparquet) you might be able to use [rustac][3] and [stac-geoparquet][2] to search the collection and find the items of interest. _This is a newer approach and might have rough edges_.
+
+In both the API and static STAC case the result of the search will be an iterable of items. Each of these items will have at least one asset pointing to the Zarr store (sometimes there will be multiple assets that point to the same store using different protocols). Take the assets that meet your needs and you can use `xr.open_mfdataset` with the `zarr` or `stac` backend to construct the data cube. 
+
+If the Zarr stores all cover the same area and are on the same grid then concatenation might be straightforward. If you need to apply some transformation (such as regridding or doing a projection) before concatenating the data in the files then you might find it easier to use  `xr.open_dataset` directly and iterate over the items in the list applying transformations before using one of xarray's combine methods.
+
+If the Zarr store includes data at several resolutions (for instance if it has overviews) then it might make more sense to open it as an [xarray.DataTree][8] and pick out the arrays that are of interest before potentially reprojecting and combining across the time dimension.
+
+## Scenario 3: Virtual reference files in STAC
+
+Virtual reference files can be treated exactly like how you would treat a Zarr store. They can be lazily-loaded into xarray using the [`kerchunk`][5] or [`stac`][1] backend and doing so will result in one GET request containing the minimal metadata. Virtual reference files are indicated by a special asset role: "references" or "index".
+
+
+## Storing results
+
+This is a newer area of development. It applies to cases where you are interacting with many smaller Zarr stores and concatenating them. The core concept is that instead of repeatedly querying the STAC catalog you could store the results for easy access.
+
+There are several layers at which you can store results:
+  - Store the result of a STAC search in [stac-geoparquet][2]  (using [rustac][3])
+  - Store the result of a data cube constructed by concatenating Zarr stores: 
+    - as a new Zarr store - this option can include filtering and subsetting
+    - as a virtual reference file ([icechunk][6] or [kerchunk][5])
+
+## Future Work
+
+- It might be possible to support filtering and subsetting inside one big Zarr by adding predicate push-down to [xpystac][1]
+- Implement a static version of collection search in [rustac][3]: [GitHub issue](https://github.com/stac-utils/rustac/issues/704)
+- Explore possibilities for reading virtual references stored directly in STAC items (no external file). The xarray `stac` backend has experimental support.
+
+## Links
+
+- [xpystac][1]
+- [stac-geoparquet][2]
+- [rustac][3]
+- [kerchunk][5]
+- [icechunk][6]
+- [Earthmover blog: Accelerating Xarray with Zarr-Python 3][4]
+- [Collection Search API Extension][7]
+- [xarray.DataTree][8]
+- [Consolidated Metadata][9]
+- [xstac][10]
+- [Data Cube Extension][11]
+
+[1]: https://github.com/stac-utils/xpystac
+[2]: https://github.com/stac-utils/stac-geoparquet
+[3]: https://github.com/stac-utils/rustac-py
+[4]: https://earthmover.io/blog/xarray-open-zarr-improvements
+[5]: https://github.com/fsspec/kerchunk
+[6]: https://icechunk.io/en/latest/
+[7]: https://github.com/stac-api-extensions/collection-search
+[8]: https://docs.xarray.dev/en/latest/user-guide/data-structures.html#datatree
+[9]: https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html
+[10]: https://github.com/stac-utils/xstac
+[11]: https://github.com/stac-extensions/datacube

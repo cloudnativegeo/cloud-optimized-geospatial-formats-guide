@@ -14,7 +14,7 @@ website:
   page-footer:
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
     center: '<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1">'
-    left: '&copy; [Cloud-Native Geospatial Foundation](https://cloudnativegeo.org/), 2023'
+    left: '&copy; [Cloud-Native Geospatial Forum](https://cloudnativegeo.org/), 2023'
   sidebar:
     pinned: true
     align: center
@@ -41,6 +41,8 @@ website:
           - cloud-optimized-geotiffs/cogs-overview_resampling.ipynb
           - cloud-optimized-geotiffs/accessing-cogs-in-python.ipynb
           - cloud-optimized-geotiffs/writing-cogs-in-python.ipynb
+          - cloud-optimized-geotiffs/accessing-cogs-in-r-stars.ipynb
+          - cloud-optimized-geotiffs/accessing-cogs-in-r-terra.ipynb
         - section: Zarr
           contents:
           - zarr/intro.qmd
@@ -73,6 +75,15 @@ website:
         text: Glossary
       - href: cookbooks/index.qmd
         text: Cookbooks
+        contents:
+        - text: Zarr Visualization Report ↗
+          href: https://nasa-impact.github.io/zarr-visualization-report/
+        - section: Zarr + STAC Report
+          contents:
+            - cookbooks/zarr-stac-report/index.qmd
+            - cookbooks/zarr-stac-report/data-producers/index.qmd
+            - cookbooks/zarr-stac-report/data-consumers/index.qmd
+
       - href: contributing.qmd
         text: Get Involved
 

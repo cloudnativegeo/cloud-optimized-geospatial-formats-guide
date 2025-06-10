@@ -13,3 +13,7 @@ dependencies:
   - boto3
   - numpy
   - rio-xarray
+  - r-base
+  - r-essentials
+  - r-terra
+  - r-stars

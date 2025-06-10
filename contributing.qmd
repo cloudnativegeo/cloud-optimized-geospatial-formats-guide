@@ -10,6 +10,18 @@ We encourage contributions to this guide. The guide's goal is to provide documen
 
 If you wish to preview the site locally, install [quarto](https://quarto.org/). You will also need to be familiar with [quarto markdown](https://quarto.org/docs/authoring/markdown-basics.html).
 
+## Contribution Workflow
+
+Due to previews only working from branches within the repository and not external forks (see: [#74](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/74)), all PRs should target staging. More specifically, the contribution workflow follows these steps:
+
+1. PR is made with `staging` as target.
+
+2. Maintainer will merge the PR to staging and then open a PR to main (build preview will run).
+
+3. Maintainers merge to main which triggers the production deployment.
+
+The process is not ideal, and we are open to suggestions on how to improve upon it. The main constraint is the [`pr-preview-action`](https://github.com/rossjrw/pr-preview-action) not supporting previews on external contributions. 
+
 ## Communication Channels
 
 Discussions can occur in [GitHub Discussions](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions) and issues can be raised at [GitHub Issues](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues).
