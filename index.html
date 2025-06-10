@@ -41,9 +41,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-67a4954e68c7a1ba7091cf5e6996f036.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-4d224e4188a381638bbd122e16de7de3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-67a4954e68c7a1ba7091cf5e6996f036.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f4b662c236d3caee851d1cf67ec0b095.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f1bc16c688ae4021c7c0f5129326b331.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f4b662c236d3caee851d1cf67ec0b095.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -332,8 +332,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./cloud-optimized-geotiffs/accessing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cloud-optimized-geotiffs/accessing-cogs-in-r-stars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cloud-optimized-geotiffs/accessing-cogs-in-r-terra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>terra</code> in R</span></a>
   </div>
 </li>
       </ul>
@@ -638,10 +656,10 @@ ul.task-list li input[type="checkbox"] {
 <p>Regardless, users will access data over a network, which must be considered when designing the cloud-optimized format. Traditional geospatial formats are optimized for on-disk access via small internal chunks. A network introduces latency, and the number of requests must be considered.</p>
 <p>As a community, we have arrived at the following <strong>cloud-optimized format pattern:</strong></p>
 <ol type="1">
-<li>Metadata includes addresses for data blocks.</li>
+<li>Metadata or specification provides addresses for data blocks.</li>
 <li>Metadata is stored in a consistent format and location.</li>
-<li>Metadata can be read once.</li>
-<li>Metadata can read the underlying file format, which supports subsetted access via addressable chunks, internal tiling, or both.</li>
+<li>All metadata can be loaded by a single read operation.</li>
+<li>Metadata or the format specification can be used by libraries to read subsets of data from the underlying file format. Subsetted access is facilitated via addressable chunks, internal tiling, or both.</li>
 </ol>
 <p>These characteristics allow for parallelized and partial reading.</p>
 </section>
@@ -745,6 +763,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<a href="https://www.netlify.com">
+  <img src="https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg" alt="Deploys by Netlify">
+</a>
 
 
 </section>

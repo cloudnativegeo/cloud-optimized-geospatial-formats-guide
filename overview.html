@@ -9,7 +9,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
-  <meta name="author" content="Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey">
+  <meta name="author" content="Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey, Max Jones">
   <title>Cloud-Optimized Geospatial Formats Guide – Cloud-Optimized Geospatial Formats Overview</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -133,14 +133,15 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey 
+Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey, Max Jones 
 </div>
 </div>
 </div>
 
 </section>
-<section class="slide level2">
-
+<section id="cloud-optimized-geospatial-formats-overview" class="title-slide slide level1 center">
+<h1>Cloud-Optimized Geospatial Formats Overview</h1>
+<p>Google Slides version of this content: <a href="https://docs.google.com/presentation/d/1F89kcrtX9LNQPTOuwyL5FRex_8--Vlg-DA8GJNzWqGk/edit?usp=sharing">Cloud-Optimized Geospatial Formats</a>.</p>
 <aside class="notes">
 <p>These slides were generated with https://quarto.org/docs/presentations/revealjs. Source: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide.</p>
 <style type="text/css">
@@ -155,15 +156,11 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
           display:block!important;
       }</style></aside>
 </section>
-<section id="cloud-optimized-geospatial-formats-overview" class="title-slide slide level1 center">
-<h1>Cloud-Optimized Geospatial Formats Overview</h1>
-<p>Google Slides version of this content: <a href="https://docs.google.com/presentation/d/1F89kcrtX9LNQPTOuwyL5FRex_8--Vlg-DA8GJNzWqGk/edit?usp=sharing">Cloud-Optimized Geospatial Formats</a>.</p>
-</section>
 
 <section id="what-makes-cloud-optimized-challenging" class="title-slide slide level1 incremental center">
 <h1>What Makes Cloud-Optimized Challenging?</h1>
 <ul>
-<li class="fragment">No one size fits all approach</li>
+<li class="fragment">There is no one size fits all approach.</li>
 <li class="fragment">Earth observation data may be processed into raster, vector and point cloud data types and stored in a long list of data formats and structures.</li>
 <li class="fragment">Optimization depends on the user.</li>
 <li class="fragment">Users must learn new tools and which data is accessed and how may differ depending on the user.</li>
@@ -174,7 +171,9 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <section id="what-makes-cloud-optimized-challenging-1" class="title-slide slide level1 center">
 <h1>What Makes Cloud-optimized Challenging?</h1>
 
-<img data-src="./images/2019-points-lines-polygons.png" class="r-stretch"><p>image source: <a href="https://ui.josiahparry.com/spatial-analysis.html#types-of-spatial-data">ui.josiahparry.com/spatial-analysis.html</a></p>
+<img data-src="./images/data-structures.png" class="r-stretch"><div class="footer">
+<p>Based on <a href="https://ui.josiahparry.com/spatial-analysis.html#types-of-spatial-data">ui.josiahparry.com/spatial-analysis.html</a></p>
+</div>
 </section>
 
 <section id="what-makes-cloud-optimized-challenging-2" class="title-slide slide level1 center">
@@ -204,7 +203,7 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <h2>What Does Cloud-Optimized Mean?</h2>
 <ul>
 <li class="fragment">File metadata in one read</li>
-<li class="fragment">When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads.</li>
+<li class="fragment">When accessing data over the internet, such as when data is in cloud storage, latency is high when compared with local storage so it is preferable to fetch lots of data in fewer reads. The preceding requirement of fetching all metadata in one read means that data reads can happen concurrently.</li>
 <li class="fragment">An easy win is metadata in one read, which can be used to read a cloud-native dataset.</li>
 <li class="fragment">A cloud-native dataset is one with small addressable chunks via files, internal tiles, or both.</li>
 </ul>
@@ -222,10 +221,10 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 </div><div class="column" style="width:40%;">
 <p><img alt="higher level libraries" src="./images/higher-level-libraries.png"></p>
 </div></div>
-
-<aside><div>
+<div class="footer">
 <p>image credit: Ryan Abernathey</p>
-</div></aside></section></section>
+</div>
+</section></section>
 <section id="formats-by-data-type" class="title-slide slide level1 center">
 <h1>Formats by Data Type</h1>
 <table class="caption-top">
@@ -248,7 +247,7 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <td style="text-align: left;">OGC standard for comment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Zarr, Kerchunk</td>
+<td style="text-align: left;">Zarr, Kerchunk, Icechunk</td>
 <td style="text-align: left;">Multi-dimensional raster</td>
 <td style="text-align: left;">ESDIS and OGC standards in development</td>
 </tr>
@@ -288,7 +287,7 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <td style="text-align: left;">OGC standard for comment</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Zarr, Kerchunk</td>
+<td style="text-align: left;">Zarr, Kerchunk, Icechunk</td>
 <td style="text-align: left;">(Less) widely adopted, especially in specific communities</td>
 <td style="text-align: left;">ESDIS and OGC standards in development</td>
 </tr>
@@ -319,10 +318,10 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 </div><div class="column" style="width:60%;">
 <p><img data-src="./images/tile-diagram.png"></p>
 </div></div>
-
-<aside><div>
+<div class="footer">
 <p>image source: https://www.kitware.com/deciphering-cloud-optimized-geotiffs/</p>
-</div></aside></section>
+</div>
+</section>
 <section id="what-are-cogs-1" class="slide level2">
 <h2>What are COGs?</h2>
 <div class="columns">
@@ -335,10 +334,10 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 </div><div class="column" style="width:40%;">
 <p><img data-src="./images/cog-diagram.png"></p>
 </div></div>
-
-<aside><div>
+<div class="footer">
 <p>image source: https://medium.com/devseed/cog-talk-part-1-whats-new-941facbcd3d1</p>
-</div></aside></section></section>
+</div>
+</section></section>
 <section id="what-is-zarr" class="title-slide slide level1 center">
 <h1>What is Zarr?</h1>
 <div class="columns">
@@ -351,52 +350,50 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 </div><div class="column" style="width:50%;">
 <p><img data-src="./images/xarray-datastructure.png"></p>
 </div></div>
-
-<aside><div>
+<div class="footer">
 <p>image source: https://xarray.dev/</p>
-</div></aside></section>
+</div>
+</section>
 
 <section>
-<section id="what-is-kerchunk" class="title-slide slide level1 center">
-<h1>What is Kerchunk?</h1>
+<section id="what-is-virtual-zarr" class="title-slide slide level1 center">
+<h1>What is Virtual Zarr?</h1>
 <ul>
-<li class="fragment">Kerchunk is a way to create Zarr metadata for archival formats, so that you can leverage the benefits of partial and parallel reads for archives in NetCDF4, HDF5, GRIB2, TIFF and FITS.</li>
+<li class="fragment">Virtual Zarr stores include metadata along with references to data in archival file formats, such that you can leverage the benefits of partial and parallel reads for archives in NetCDF4, HDF5, GRIB2, TIFF and FITS. Kerchunk and Icechunk provide ways to persist Virtual Zarr stores on disk or in object stores.</li>
 </ul>
 <div class="fragment">
-<p><img src="./images/multi_refs.png" style="margin: 0px auto; display: block; width:700px;"></p>
-
+<p><img src="./images/virtual-zarr.png" style="margin: 0px auto; display: block; width:700px;"></p>
 </div>
-<aside><div>
-<p>image source: https://fsspec.github.io/kerchunk/detail.html</p>
-</div></aside></section>
+</section>
 <section id="zarr-specs-in-development" class="slide level2">
 <h2>Zarr Specs in Development</h2>
 <ul>
-<li class="fragment">V2 and older specs exist, however,</li>
-<li class="fragment">A cross-organization working group has just formed to establish a GeoZarr standards working group, organized by Brianna Pagán (NASA) and includes representatives from many other orgs in the industry.</li>
-<li class="fragment">The GeoZarr spec defines conventions for how geospatial data should be organized in a Zarr store. The spec details how the Zarr DataArray and DataSet metadata, and subsequent organization of data, must be in order to be conformant as GeoZarr archive.</li>
-<li class="fragment">There is a proposal for Zarr v3 which will address challenges in language support, and storage organization to address the issues of high-latency reads and volume of reads for the many objects stored.</li>
-<li class="fragment">There is recent work on a parquet alternative to JSON for indexing.</li>
+<li class="fragment">V2 is widely adopted. Zarr V3 was recently released.</li>
+<li class="fragment">Zarr V3 provides additional extension mechanisms and sharding, which allows high concurrency while minimizing the number of files.</li>
+<li class="fragment">Zarr Python 3 supports reading and writing to Zarr format V3 while still supporting Zarr V2, with dramatic performance improvements.</li>
+<li class="fragment">Brianna Pagán (formerly NASA, currently Development Seed) has organized the OGC GeoZarr standards working group (SWG) to establish standards for geospatial metadata. The SWG includes representatives from many other orgs in the industry.</li>
+<li class="fragment">The GeoZarr spec defines conventions for organizing geospatial data in a Zarr store. Specifically, the spec defines conventions for Zarr DataArray and DataSet metadata and organization of associated data to be conformant as GeoZarr archive. The spec remains in development.</li>
+<li class="fragment">Icechunk provides features including data version control and serializable isolation on top of Zarr. Icechunk is still under rapid development and is moving towards a v1.0 release.</li>
 </ul>
 </section>
 <section id="copc-cloud-optimized-point-clouds" class="slide level2">
 <h2>COPC (Cloud-Optimized Point Clouds)</h2>
-<p><img src="./images/copc-vlr-chunk-table-illustration.png" style="margin: 0px auto; display: block; width:900px;"></p>
 
+<img src="./images/copc-vlr-chunk-table-illustration.png" style="margin: 0px auto; display: block; width:900px;" class="r-stretch"><div class="footer">
+<p>image source: https://copc.io/</p>
+</div>
 <ul>
 <li class="fragment">Point clouds are a set of data points in space, such as gathered from LiDAR measurements.</li>
 <li class="fragment">COPC is a valid LAZ file.</li>
 <li class="fragment">Similar to COGs but for point clouds: COPC is just one file, but data is reorganized into a clustered octree instead of regularly gridded overviews.</li>
 <li class="fragment">2 key features:
 <ul>
-<li class="fragment">Support for partial decompression via storage of data in a series of chunks</li>
+<li class="fragment">Support for partial decompression via storage of data in a series of chunks.</li>
 <li class="fragment">Variable-length records (VLRs) can store application-specific metadata of any kind. VLRs describe the octree structure.</li>
 </ul></li>
 <li class="fragment">Limitation: Not all attribute types are compatible.</li>
 </ul>
-<aside><div>
-<p>image source: https://copc.io/</p>
-</div></aside></section></section>
+</section></section>
 <section id="flatgeobuf" class="title-slide slide level1 smaller center">
 <h1>FlatGeoBuf</h1>
 <div class="columns">
@@ -413,10 +410,10 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <li class="fragment">Learn more: <a href="https://github.com/flatgeobuf/flatgeobuf">https://github.com/flatgeobuf/flatgeobuf</a>, <a href="https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/">Kicking the Tires: Flatgeobuf</a></li>
 </ul>
 </div></div>
-
-<aside><div>
+<div class="footer">
 <p>image source: https://worace.works/2022/02/23/kicking-the-tires-flatgeobuf/</p>
-</div></aside></section>
+</div>
+</section>
 
 <section id="geoparquet" class="title-slide slide level1 smaller center">
 <h1>Geoparquet</h1>
@@ -425,21 +422,21 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <p><img src="./images/gpq_query_window.png"></p>
 </div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Vector data is traditionally stored as rows representing points, lines, or polygons with an attribute table</li>
+<li class="fragment">Vector data is traditionally stored as rows representing points, lines, or polygons with an attribute table.</li>
 <li class="fragment">GeoParquet defines how to store vector data in Apache Parquet, which is a columnar storage format (like many cloud data warehouses). “Give me all points with height greater than 10m”.</li>
-<li class="fragment">Highly compressed</li>
-<li class="fragment">Single-file or multi-file</li>
-<li class="fragment">Recent support added to geopandas as a distinct function, R support with geoarrow</li>
-<li class="fragment">Potential for cross language in-memory shared access</li>
-<li class="fragment">Specifications for spatial-indexing, projection handling, etc. are still in discussion</li>
+<li class="fragment">GeoParquet is highly compressed.</li>
+<li class="fragment">GeoParquet can be stored in a single- or multi-file store.</li>
+<li class="fragment">GeoParquet support exists in GeoPandas and is supported in R with GeoArrow.</li>
+<li class="fragment">GeoArrow provides the potential for cross language in-memory shared access.</li>
+<li class="fragment">Specifications for spatial-indexing, projection handling, etc. are still in discussion.</li>
 <li class="fragment">Learn more: <a href="https://github.com/opengeospatial/geoparquet">https://github.com/opengeospatial/geoparquet</a></li>
 </ul>
 </div></div>
 <p><br></p>
-
-<aside><div>
+<div class="footer">
 <p>image source: https://www.wherobots.ai/post/spatial-data-parquet-and-apache-sedona</p>
-</div></aside></section>
+</div>
+</section>
 
 <section>
 <section id="the-end" class="title-slide slide level1 center">
@@ -449,7 +446,7 @@ Authors + Credits: Aimee Barciauskas, Alex Mandel, Brianna Pagán, Vincent Sarag
 <section id="not-quite" class="slide level2">
 <h2>Not Quite</h2>
 <ul>
-<li class="fragment">These formats and their tooling are in active development</li>
+<li class="fragment">These formats and their tooling are in active development.</li>
 <li class="fragment">Some formats were not mentioned, such as EPT, geopkg, tiledb, Cloud-Optimized HDF5. This presentation was scoped to those known best by the authors.</li>
 <li class="fragment">This site will continue to be updated with new content.</li>
 </ul>
