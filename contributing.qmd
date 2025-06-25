@@ -48,7 +48,7 @@ Before submitting a bug report or a feature request, please start a [GitHub Disc
 4. Make your changes and use `quarto preview` to make sure they look good.
 5. Open a pull request.
 
-Once the pull request is opened, and the GitHub `preview.yml` workflow runs ("Deploy PR previews"), you should have a preview available for review at `https://guide.cloudnativegeo.org/pr-preview/pr-<YOUR-PR-NUMBER-HERE>`. A bot will comment on your PR when the PR preview is ready.
+Once your pull request is opened, Netlify will automatically build a preview of your changes. A bot will comment with a link once the preview is ready.
 
 ### Specific Contributions
 
