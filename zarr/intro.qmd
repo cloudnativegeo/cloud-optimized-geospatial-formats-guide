@@ -16,7 +16,7 @@ Read more in the official zarr-python user guide: [Zarr User Guide](https://zarr
 ## Zarr Version 2 and Version 3
 
 ::: {.callout-important}
-Zarr Version 3 represents a breaking change in the format but the concepts remain largely the same, however some metadata field names and organization have changed. Zarr Version 3 support is included in the canonical Python implementation -- zarr-python -- as of January 2025 (read more in the [release blog post](https://zarr.dev/blog/zarr-python-3-release/)). Zarr Versions 2 data is still usable in newer versions of the zarr-python library. All the examples in this guide are for Zarr Version 3 data and use zarr-python >= 3.
+Zarr Version 3 represents a new specification of the same array-based data model. The concepts remain largely the same, however some metadata field names and organization have changed. Zarr Version 3 support is included in the canonical Python implementation -- zarr-python -- as of January 2025 (read more in the [release blog post](https://zarr.dev/blog/zarr-python-3-release/)). Zarr Version 2 data is still usable in newer versions of the zarr-python library. The examples in this guide use zarr-python >= 3 and Zarr Version 3 data unless otherwise specified.
 :::
 
 Zarr Version 3 specification changes from Version 2:
