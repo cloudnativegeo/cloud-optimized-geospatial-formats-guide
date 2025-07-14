@@ -1,0 +1,17 @@
+name: coguide-zarr
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - adlfs
+  - aiohttp
+  - dask
+  - fsspec
+  - ipykernel
+  - jupyterlab
+  - planetary-computer
+  - pystac
+  - requests
+  - rich
+  - xarray
+  - zarr

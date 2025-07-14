@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f4b662c236d3caee851d1cf67ec0b095.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-f1bc16c688ae4021c7c0f5129326b331.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-f4b662c236d3caee851d1cf67ec0b095.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -641,9 +641,9 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-is-zarr" class="level1">
 <h1>What is Zarr?</h1>
 <p><a href="https://zarr.dev/">Zarr</a>, despite its name, is not a scary format. It’s designed for data that is too big for users’ machines, but Zarr makes data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of those bits (stored as chunks) across many machines.</p>
-<p>The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr’s flexible indexing and compatibility with object storage lends itself to parallel processing.</p>
-<p>A Zarr chunk is Zarr’s unit of data storage. Each chunk of a Zarr array is an equally-sized block of the array within a larger Zarr store comprised of one or more arrays and array groups. These blocks or chunks of data are stored separately to make reading and updating small chunks more efficient.</p>
-<p>Read more in the official tutorial: <a href="https://zarr.readthedocs.io/en/stable/tutorial.html">Zarr Tutorial</a></p>
+<p>The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of chunked and compressed n-dimensional arrays. Zarr’s flexible indexing and compatibility with object storage lends itself to parallel processing.</p>
+<p>A Zarr chunk is Zarr’s unit of data storage. Each chunk of a Zarr array is an equally-sized block of the array within a larger Zarr store. The larger Zarr store is comprised of one or more arrays and array groups. The Zarr chunks are normally stored in separate objects in object storage to make reading and updating individual chunks more efficient.</p>
+<p>Read more in the official zarr-python user guide: <a href="https://zarr.readthedocs.io/en/stable/user-guide/">Zarr User Guide</a></p>
 <section id="zarr-version-2-and-version-3" class="level2">
 <h2 class="anchored" data-anchor-id="zarr-version-2-and-version-3">Zarr Version 2 and Version 3</h2>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -656,28 +656,29 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Zarr Version 3 is underway but not released yet, so all the examples in this guide are for Zarr Version 2 data. The concepts in this page are consistent across both Zarr Version 2 and Zarr Version 3, however some metadata field names and organization are changing from Version 2 to version 3.</p>
+<p>Zarr Version 3 represents a new specification of the same array-based data model. The concepts remain largely the same, however some metadata field names and organization have changed. Zarr Version 3 support is included in the canonical Python implementation – zarr-python – as of January 2025 (read more in the <a href="https://zarr.dev/blog/zarr-python-3-release/">release blog post</a>). Zarr Version 2 data is still usable in newer versions of the zarr-python library. The examples in this guide use zarr-python &gt;= 3 and Zarr Version 3 data unless otherwise specified.</p>
 </div>
 </div>
-<p>Version 3 changes from Version 2:</p>
+<p>Zarr Version 3 specification changes from Version 2:</p>
 <ul>
 <li><code>dtype</code> has been renamed to <code>data_type</code>,</li>
 <li><code>chunks</code> has been replaced with <code>chunk_grid</code>,</li>
 <li><code>dimension_separator</code> has been replaced with <code>chunk_key_encoding</code>,</li>
 <li><code>order</code> has been replaced by the <a href="https://zarr-specs.readthedocs.io/en/latest/v3/codecs/transpose/v1.0.html#transpose-codec-v1">transpose</a> codec,</li>
+<li>multiple chunks can be stored within a single object on object storage (via the <a href="https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html">sharding</a> codec)</li>
 <li>the separate <code>filters</code> and <code>compressor</code> fields been combined into the single <code>codecs</code> field.</li>
 </ul>
 <p>Read more:</p>
 <ul>
-<li><a href="https://zarr.readthedocs.io/en/stable/spec/v2.html">Zarr specification version 2</a></li>
-<li><a href="https://zarr.readthedocs.io/en/stable/spec/v3.html">Zarr specification version 3.0</a></li>
+<li><a href="https://zarr-specs.readthedocs.io/en/latest/v2/v2.0.html">Zarr specification version 2</a></li>
+<li><a href="https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html">Zarr specification version 3</a></li>
 </ul>
 </section>
 <section id="zarr-data-organization" class="level2">
 <h2 class="anchored" data-anchor-id="zarr-data-organization">Zarr Data Organization</h2>
 <section id="arrays" class="level3">
 <h3 class="anchored" data-anchor-id="arrays">Arrays</h3>
-<p>Zarr arrays are similar to numpy arrays, but chunked and compressed. We will add details about chunking and compression to this guide soon.</p>
+<p>Zarr arrays are similar to numpy arrays, but chunked and compressed.</p>
 </section>
 <section id="hierarchy-via-groups" class="level3">
 <h3 class="anchored" data-anchor-id="hierarchy-via-groups">Hierarchy via Groups</h3>
@@ -689,7 +690,7 @@ Important
 </section>
 <section id="coordinates-and-indexes" class="level3">
 <h3 class="anchored" data-anchor-id="coordinates-and-indexes">Coordinates and Indexes</h3>
-<p>Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: <a href="https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing">Advanced indexing</a>.</p>
+<p>Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the zarr-python user guide: <a href="https://zarr.readthedocs.io/en/stable/user-guide/arrays.html#advanced-indexing">Advanced indexing</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -703,19 +704,19 @@ Note
 <p>The Zarr format is language-agnostic, but this indexing reference is specific to Python.</p>
 </div>
 </div>
-<p>The <a href="https://docs.xarray.dev/">Xarray</a> library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, often include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.</p>
+<p>The <a href="https://docs.xarray.dev/">Xarray</a> library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, often include latitude and longitude (or y and x). Another common coordinate for data cubes is time. These coordinates (also called names or labels) can be used to read and write data without needing to know the positional index value.</p>
 </section>
 <section id="consolidated-metadata" class="level3">
 <h3 class="anchored" data-anchor-id="consolidated-metadata">Consolidated Metadata</h3>
-<p>Every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.</p>
-<p>Read more on <a href="https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata">consolidating metadata</a>.</p>
+<p>Every Zarr group and every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata at the root of the Zarr store so all metadata can be read from one object.</p>
+<p>Read more on <a href="https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html">consolidated metadata</a>.</p>
 </section>
 </section>
 <section id="zarr-data-storage" class="level2">
 <h2 class="anchored" data-anchor-id="zarr-data-storage">Zarr Data Storage</h2>
 <section id="storage" class="level3">
 <h3 class="anchored" data-anchor-id="storage">Storage</h3>
-<p>Zarr can be stored in memory, on disk, in Zip files, and in object storage like S3.</p>
+<p>At its core Zarr is a very flexible format that does not have any requirements regarding the actual storage system. Zarr can be stored in memory, on disk, in Zip files, and in any key-value store, such as object storage like S3. Learn more in the <a href="https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html#id25">Storage section of the Zarr specification</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -726,15 +727,27 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Any backend that implements <code>MutableMapping</code> interface from the Python <code>collections</code> module can be used to store Zarr. Learn more and see all the options on the <a href="https://zarr.readthedocs.io/en/stable/api/storage.html"><code>Storage (zarr.storage)</code></a> documentation page.</p>
+<p>Zarr data chunks do not necessarily need to be stored in the same storage system as the Zarr metadata. This is what enables virtual Zarr stores (kerchunk, icechunk) where the metadata references data in legacy chunked data formats (such as NetCDF and HDF5).</p>
 </div>
 </div>
-<p>As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.</p>
 </section>
 <section id="chunking" class="level3">
 <h3 class="anchored" data-anchor-id="chunking">Chunking</h3>
 <p>Chunking is the process of dividing the data arrays into smaller pieces. This allows for parallel processing and efficient storage.</p>
-<p>Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed, within-chunk reads are not possible.</p>
+<p>Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed at the chunk-level, within-chunk reads are not possible.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Traditionally each chunk is stored in a separate object in object storage but with the [sharding] codec in Zarr version 3 now several chunks can be stored within a single object. This is an important enhancement because it prevents Zarr hierarchies from having so many files that they are effectively too large to manage.</p>
+</div>
+</div>
 </section>
 <section id="compression" class="level3">
 <h3 class="anchored" data-anchor-id="compression">Compression</h3>
