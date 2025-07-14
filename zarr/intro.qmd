@@ -7,36 +7,37 @@ subtitle: Chunked, Compressed N-Dimensional Arrays
 
 [Zarr](https://zarr.dev/), despite its name, is not a scary format. It's designed for data that is too big for users' machines, but Zarr makes data small and organizes it in a way where users can take just the bits they need or distribute the load of processing lots of those bits (stored as chunks) across many machines.
 
-The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of compressed and chunked n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
+The Zarr data format is a community-maintained format for large-scale n-dimensional data. A Zarr store consists of chunked and compressed n-dimensional arrays. Zarr's flexible indexing and compatibility with object storage lends itself to parallel processing.
 
-A Zarr chunk is Zarr's unit of data storage. Each chunk of a Zarr array is an equally-sized block of the array within a larger Zarr store comprised of one or more arrays and array groups. These blocks or chunks of data are stored separately to make reading and updating small chunks more efficient.
+A Zarr chunk is Zarr's unit of data storage. Each chunk of a Zarr array is an equally-sized block of the array within a larger Zarr store. The larger Zarr store is comprised of one or more arrays and array groups. The Zarr chunks are normally stored in separate objects in object storage to make reading and updating individual chunks more efficient.
 
-Read more in the official tutorial: [Zarr Tutorial](https://zarr.readthedocs.io/en/stable/tutorial.html)
+Read more in the official zarr-python user guide: [Zarr User Guide](https://zarr.readthedocs.io/en/stable/user-guide/)
 
 ## Zarr Version 2 and Version 3
 
 ::: {.callout-important}
-Zarr Version 3 is underway but not released yet, so all the examples in this guide are for Zarr Version 2 data. The concepts in this page are consistent across both Zarr Version 2 and Zarr Version 3, however some metadata field names and organization are changing from Version 2 to version 3. 
+Zarr Version 3 represents a new specification of the same array-based data model. The concepts remain largely the same, however some metadata field names and organization have changed. Zarr Version 3 support is included in the canonical Python implementation -- zarr-python -- as of January 2025 (read more in the [release blog post](https://zarr.dev/blog/zarr-python-3-release/)). Zarr Version 2 data is still usable in newer versions of the zarr-python library. The examples in this guide use zarr-python >= 3 and Zarr Version 3 data unless otherwise specified.
 :::
 
-Version 3 changes from Version 2:
+Zarr Version 3 specification changes from Version 2:
 
 * `dtype` has been renamed to `data_type`,
 * `chunks` has been replaced with `chunk_grid`,
 * `dimension_separator` has been replaced with `chunk_key_encoding`,
 * `order` has been replaced by the [transpose](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/transpose/v1.0.html#transpose-codec-v1) codec,
+* multiple chunks can be stored within a single object on object storage (via the [sharding](https://zarr-specs.readthedocs.io/en/latest/v3/codecs/sharding-indexed/index.html) codec)
 * the separate `filters` and `compressor` fields been combined into the single `codecs` field.
 
 Read more:
 
-* [Zarr specification version 2](https://zarr.readthedocs.io/en/stable/spec/v2.html)
-* [Zarr specification version 3.0](https://zarr.readthedocs.io/en/stable/spec/v3.html)
+* [Zarr specification version 2](https://zarr-specs.readthedocs.io/en/latest/v2/v2.0.html)
+* [Zarr specification version 3](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html)
 
 ## Zarr Data Organization
 
 ### Arrays
 
-Zarr arrays are similar to numpy arrays, but chunked and compressed. We will add details about chunking and compression to this guide soon.
+Zarr arrays are similar to numpy arrays, but chunked and compressed.
 
 ### Hierarchy via Groups
 
@@ -48,37 +49,39 @@ A Zarr array has zero or more dimensions. A Zarr array's shape is the tuple of t
 
 ### Coordinates and Indexes
 
-Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the Zarr tutorial: [Advanced indexing](https://zarr.readthedocs.io/en/stable/tutorial.html#advanced-indexing).
+Zarr indexing supports array subsetting (both reading and writing) without loading the whole array into memory. Advanced indexing operations, such as block indexing, are detailed in the zarr-python user guide: [Advanced indexing](https://zarr.readthedocs.io/en/stable/user-guide/arrays.html#advanced-indexing).
 
 ::: {.callout-note}
 The Zarr format is language-agnostic, but this indexing reference is specific to Python.
 :::
 
-The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, often include latitude and longitude (or y and x). These coordinates (also called names or labels) can be used to read and write data when the position is unknown.
+The [Xarray](https://docs.xarray.dev/) library provides a rich API for slicing and subselecting data. In addition to providing a positional index to subselect data, xarray supports label-based indexing. Labels, or coordinates, in the case of geospatial data, often include latitude and longitude (or y and x). Another common coordinate for data cubes is time. These coordinates (also called names or labels) can be used to read and write data without needing to know the positional index value.
 
 ### Consolidated Metadata
 
-Every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata so all metadata can be read from one object.
+Every Zarr group and every Zarr array has its own metadata. When considering cloud storage options, where latency is high so total requests should be limited, it is important to consolidate metadata at the root of the Zarr store so all metadata can be read from one object.
 
-Read more on [consolidating metadata](https://zarr.readthedocs.io/en/stable/tutorial.html#consolidating-metadata).
+Read more on [consolidated metadata](https://zarr.readthedocs.io/en/main/user-guide/consolidated_metadata.html).
 
 ## Zarr Data Storage
 
 ### Storage
 
-Zarr can be stored in memory, on disk, in Zip files, and in object storage like S3.
+At its core Zarr is a very flexible format that does not have any requirements regarding the actual storage system. Zarr can be stored in memory, on disk, in Zip files, and in any key-value store, such as object storage like S3. Learn more in the [Storage section of the Zarr specification](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html#id25).
 
 ::: {.callout-note}
-Any backend that implements `MutableMapping` interface from the Python `collections` module can be used to store Zarr. Learn more and see all the options on the [`Storage (zarr.storage)`](https://zarr.readthedocs.io/en/stable/api/storage.html) documentation page.
+Zarr data chunks do not necessarily need to be stored in the same storage system as the Zarr metadata. This is what enables virtual Zarr stores (kerchunk, icechunk) where the metadata references data in legacy chunked data formats (such as NetCDF and HDF5).
 :::
-
-As of Zarr version 2.5, Zarr store URLs can be passed to fsspec and it will create a MutableMapping automatically.
 
 ### Chunking
 
 Chunking is the process of dividing the data arrays into smaller pieces. This allows for parallel processing and efficient storage.
 
-Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed, within-chunk reads are not possible.
+Once data is chunked, applications may read in 1 or many chunks. Because the data is compressed at the chunk-level, within-chunk reads are not possible.
+
+::: {.callout-note}
+Traditionally each chunk is stored in a separate object in object storage but with the [sharding] codec in Zarr version 3 now several chunks can be stored within a single object. This is an important enhancement because it prevents Zarr hierarchies from having so many files that they are effectively too large to manage.
+:::
 
 ### Compression
 
