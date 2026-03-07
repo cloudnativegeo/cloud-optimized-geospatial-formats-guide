@@ -78,6 +78,9 @@ website:
         contents:
         - text: Zarr Visualization Report ↗
           href: https://nasa-impact.github.io/zarr-visualization-report/
+        - section: Tissot
+          contents:
+            - cookbooks/tissot/index.qmd
         - section: Zarr + STAC Report
           contents:
             - cookbooks/zarr-stac-report/index.qmd

@@ -1,0 +1,81 @@
+---
+title: Validate Cloud-Ready Vector Data with Tissot
+---
+
+## Overview
+
+This cookbook shows a practical workflow for validating vector data readiness with [Tissot](https://github.com/chrislyonsKY/tissot), a geospatial diagnostics CLI.
+
+It focuses on commands that are available in the current prerelease and suitable for CI and pull request checks.
+
+Discussion thread: [Cloud Native Geo discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions?discussions_q=).
+
+## Prerequisites
+
+Install Tissot from the current prerelease tag:
+
+```bash
+cargo install --git https://github.com/chrislyonsKY/tissot.git --tag v0.1.0-alpha.1 tissot --force
+```
+
+## Create Open Example Data
+
+This example uses synthetic open data created locally.
+
+```bash
+cat > sample.geojson <<'EOF'
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {"type": "Point", "coordinates": [-84.5, 38.0]},
+      "properties": {"name": "a"}
+    }
+  ]
+}
+EOF
+```
+
+## Run Diagnostics
+
+Run a standard check:
+
+```bash
+tissot check sample.geojson --terminal
+```
+
+Run SARIF output for code scanning and CI ingestion:
+
+```bash
+tissot check sample.geojson --sarif > results.sarif
+```
+
+## Score and Badge
+
+Create a quality score report:
+
+```bash
+tissot score sample.geojson --terminal
+```
+
+Generate a badge for repository status pages:
+
+```bash
+tissot score sample.geojson --badge tissot-score.svg
+```
+
+## Suggested CI Step
+
+Add a lightweight gate in CI:
+
+```bash
+tissot check data/sample.geojson --sarif > tissot-results.sarif
+```
+
+Upload the SARIF artifact or ingest it into your security workflow.
+
+## Further Reading
+
+- [Cloud-Optimized Geospatial Formats Guide](https://guide.cloudnativegeo.org/)
+- [Tissot releases](https://github.com/chrislyonsKY/tissot/releases)

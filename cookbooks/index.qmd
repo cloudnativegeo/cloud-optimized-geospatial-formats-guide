@@ -12,3 +12,4 @@ Cookbooks:
 
 * [Zarr Visualization Report (in development)](https://nasa-impact.github.io/zarr-visualization-report/)
 * [Zarr + STAC Report (in development)](./zarr-stac-report/index.qmd)
+* [Validate Cloud-Ready Vector Data with Tissot](./tissot/index.qmd)
