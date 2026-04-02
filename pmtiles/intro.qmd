@@ -80,7 +80,7 @@ If you have an existing PMTiles archive, either as a local file or hosted on clo
 
 PMTiles doesn't have a standalone JavaScript library, but rather is designed to be used in conjunction with a JavaScript map rendering library.
 
-See the docs on viewing PMTiles in [Leaflet](https://protomaps.com/docs/frontends/leaflet), [MapLibre GL JS](https://protomaps.com/docs/frontends/maplibre) and [OpenLayers](https://protomaps.com/docs/frontends/openlayers).
+See the docs on viewing PMTiles in [Leaflet](https://docs.protomaps.com/pmtiles/leaflet), [MapLibre GL JS](https://docs.protomaps.com/pmtiles/maplibre) and [OpenLayers](https://docs.protomaps.com/pmtiles/openlayers).
 
 ### Python
 

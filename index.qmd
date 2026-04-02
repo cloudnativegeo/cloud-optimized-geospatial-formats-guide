@@ -38,10 +38,10 @@ Regardless, users will access data over a network, which must be considered when
 
 As a community, we have arrived at the following **cloud-optimized format pattern:**
 
-1. Metadata includes addresses for data blocks.
+1. Metadata or specification provides addresses for data blocks.
 2. Metadata is stored in a consistent format and location.
-3. Metadata can be read once.
-4. Metadata can read the underlying file format, which supports subsetted access via addressable chunks, internal tiling, or both.
+3. All metadata can be loaded by a single read operation.
+4. Metadata or the format specification can be used by libraries to read subsets of data from the underlying file format. Subsetted access is facilitated via addressable chunks, internal tiling, or both.
 
 These characteristics allow for parallelized and partial reading.
 
@@ -97,3 +97,9 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 5. How much of your data is typically rendered or selected at once?
 
 {{< include _thankyous.qmd >}}
+
+```{=html}
+<a href="https://www.netlify.com">
+  <img src="https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg" alt="Deploys by Netlify" />
+</a>
+```

@@ -16,7 +16,7 @@ For more details, visit the official site: [Cloud-Optimized Geospatial Formats G
 
 ## How to Get Involved
 
-1. Read the [Get Involved](./contributing.qmd) guide for detailed contribution guidelines.
+1. Read the [Get Involved](https://guide.cloudnativegeo.org/contributing.html) guide for detailed contribution guidelines.
 2. For questions or discussions, start a [GitHub Discussion](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/discussions/new/choose).
 
 ## Installation and Local Preview

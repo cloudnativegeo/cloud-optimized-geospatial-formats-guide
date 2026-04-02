@@ -8,7 +8,7 @@ Cloud-Optimized GeoTIFF (COG), a raster format, is a variant of the TIFF image f
 
 For more details see [https://www.cogeo.org/](https://www.cogeo.org/)
 
-<img alt="COG Diagram" src="../images/cog-diagram-1.png" width=300/>
+<img alt="COG Diagram" src="../images/cog-diagram-2.png" width=100%/>
 
 ## Dimensions
 
