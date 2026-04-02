@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Cloud-Optimized HDF/NetCDF – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -60,7 +63,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -93,14 +95,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ed45e1f7b838f440c59bec50edac8b6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -768,7 +770,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Lazy loading
+<span class="screen-reader-only">Note</span>Lazy loading
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -781,7 +783,7 @@ Lazy loading
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-HDF5 File Space Management Strategies
+<span class="screen-reader-only">Note</span>HDF5 File Space Management Strategies
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -806,7 +808,7 @@ HDF5 File Space Management Strategies
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Uncompressed Chunk Size
+<span class="screen-reader-only">Note</span>Uncompressed Chunk Size
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -929,7 +931,7 @@ Note
 <h2 class="anchored" data-anchor-id="how-to-check-for-consolidated-metadata">How to check for consolidated metadata</h2>
 <p>To be considered cloud-optimized, HDF5 files should be written with the <code>PAGE</code> file space management strategy (see also <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/FileSpaceManagement.html#strategies">File Space Management Strategies</a>). When using this strategy, HDF5 will write aggregate metadata and raw data into fixed-size pages <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>.</p>
 <p>You can check the file space management strategy with the command line h5stat tool:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5stat</span> <span class="at">-S</span> infile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5stat</span> <span class="at">-S</span> infile.h5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This returns output such as:</p>
 <pre class="text"><code>Filename: infile.h5
 File space management strategy: H5F_FSPACE_STRATEGY_FSM_AGGR
@@ -945,14 +947,14 @@ Total space: 40744176 bytes</code></pre>
 <section id="how-to-change-the-file-space-management-strategy" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-change-the-file-space-management-strategy">How to change the file space management strategy</h2>
 <p>You can use the <code>h5repack</code> to reorganize the metadata <span class="citation" data-cites="jelenak2023">(<a href="#ref-jelenak2023" role="doc-biblioref">Jelenak 2023b</a>)</span>. When repacking to use the <code>PAGE</code> file space management strategy, you will also need to specify a page size that will indicate the block size for metadata storage. This should be at least as big as the <code>File metadata</code> value returned from <code>h5stat -S</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="at">-S</span> PAGE <span class="at">-G</span> 4000000 infile.h5 outfile.h5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reading page-aggregated files
+<span class="screen-reader-only">Note</span>Reading page-aggregated files
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -965,7 +967,7 @@ Reading page-aggregated files
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Library limitations
+<span class="screen-reader-only">Warning</span>Library limitations
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -980,10 +982,10 @@ Library limitations
 <section id="how-to-check-chunk-size-and-shape" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-check-chunk-size-and-shape">How to check chunk size and shape</h2>
 <p>Replace infile.h5 with a filename on your system and dataset_name with the name of a dataset in that file.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">h5dump</span> <span class="at">-pH</span> infile.h5 <span class="kw">|</span> <span class="fu">grep</span> dataset_name <span class="at">-A</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>-p</code> shows the properties (dataset layout, chunk size and compression) of objects in the HDF5 file. <code>-H</code> prints the header information only. Together, we get metadata about the structure of the file.</p>
 <p>Example command with output and how to read it, in comments:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5dump <span class="at">-pH</span> ~/Downloads/ATL03_20240510223215_08142301_006_01.h5 <span class="kw">|</span> <span class="fu">grep</span> h_ph <span class="at">-A</span> 10</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5dump <span class="at">-pH</span> ~/Downloads/ATL03_20240510223215_08142301_006_01.h5 <span class="kw">|</span> <span class="fu">grep</span> h_ph <span class="at">-A</span> 10</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">DATASET</span> <span class="st">"h_ph"</span> {</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATATYPE</span>  H5T_IEEE_F32LE <span class="co"># Four-byte, little-endian, IEEE floating point</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">DATASPACE</span>  SIMPLE { <span class="er">(</span> <span class="ex">15853996</span> <span class="kw">)</span> <span class="ex">/</span> <span class="er">(</span> <span class="ex">H5S_UNLIMITED</span> <span class="kw">)</span> <span class="er">}</span> <span class="co"># simple (n-dimensional) dataspace, this is a 1-dimensional array of length 15,853,996</span></span>
@@ -994,13 +996,13 @@ Library limitations
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">FILTERS</span> {</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="ex">COMPRESSION</span> DEFLATE { LEVEL 6 } <span class="co"># Compressed with deflate algorithm with a compression level of 6</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="er">}</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="how-to-change-the-chunk-size-and-shape" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-change-the-chunk-size-and-shape">How to change the chunk size and shape</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> h5repack <span class="dt">\</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># dataset:CHUNK=DIM[xDIM...xDIM]</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">/path/to/dataset:CHUNK=2000</span> infile.h5 outfile.h5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="closing-thoughts" class="level1">
@@ -1009,30 +1011,30 @@ Library limitations
 </section>
 <section id="references" class="level1">
 <h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-barrett2024" class="csl-entry" role="listitem">
-Barrett, Andy, Luis Lopez, Amy Steiker, Aleksander Jelenek, and Jeff Lee. 2024. <span>“Evaluating Cloud-Optimized HDF5 Solutions for NASA Earthdata: A Case Study with ICESat-2.”</span> NSIDC DAAC, HDF Group, NASA; <a href="https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing</a>.
+Barrett, Andy, Luis Lopez, Amy Steiker, Aleksander Jelenek, and Jeff Lee. 2024. <em>Evaluating Cloud-Optimized HDF5 Solutions for NASA Earthdata: A Case Study with ICESat-2</em>. NSIDC DAAC, HDF Group, NASA; <a href="https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1h57MkIZ7RulsOApzxjiaY-g4ImI2_GzK7F5tg0JPVr8/edit?usp=sharing</a>.
 </div>
 <div id="ref-h5py_developers" class="csl-entry" role="listitem">
 H5py Developers. n.d. <em>Datasets</em>. H5py Documentation; <a href="https://docs.h5py.org/en/stable/high/dataset.html" class="uri">https://docs.h5py.org/en/stable/high/dataset.html</a>.
 </div>
 <div id="ref-jelenak2022" class="csl-entry" role="listitem">
-Jelenak, Aleksander. 2022. <span>“Creating Cloud-Optimized HDF5 Files.”</span> The HDF Group; <a href="https://hdfeos.org/workshops/ws25/presentations/axj.pdf" class="uri">https://hdfeos.org/workshops/ws25/presentations/axj.pdf</a>.
+Jelenak, Aleksander. 2022. <em>Creating Cloud-Optimized HDF5 Files</em>. The HDF Group; <a href="https://hdfeos.org/workshops/ws25/presentations/axj.pdf" class="uri">https://hdfeos.org/workshops/ws25/presentations/axj.pdf</a>.
 </div>
 <div id="ref-jelenak2023_report" class="csl-entry" role="listitem">
-———. 2023a. <span>“Cloud-Optimized HDF5 Files.”</span> The HDF Group; <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
+Jelenak, Aleksander. 2023a. <em>Cloud-Optimized HDF5 Files</em>. The HDF Group; <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
 </div>
 <div id="ref-jelenak2023" class="csl-entry" role="listitem">
-———. 2023b. <span>“Cloud-Optimized HDF5 Files – #HUG23.”</span> YouTube video, The HDF Group. <a href="https://www.youtube.com/watch?v=bDH59YTXpkc" class="uri">https://www.youtube.com/watch?v=bDH59YTXpkc</a>.
+Jelenak, Aleksander. 2023b. <em>Cloud-Optimized HDF5 Files – #HUG23</em>. YouTube video, The HDF Group. <a href="https://www.youtube.com/watch?v=bDH59YTXpkc" class="uri">https://www.youtube.com/watch?v=bDH59YTXpkc</a>.
 </div>
 <div id="ref-jelenak2024" class="csl-entry" role="listitem">
-———. 2024. <span>“Cloud Optimized HDF5 Files (Slides).”</span> Slides, <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
+Jelenak, Aleksander. 2024. <em>Cloud Optimized HDF5 Files (Slides)</em>. Slides, <a href="https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing" class="uri">https://drive.google.com/file/d/1qH4x_PydLKTEjWfqXobEMMKZc3FSLqf8/view?usp=sharing</a>.
 </div>
 <div id="ref-quinn2024" class="csl-entry" role="listitem">
-Quinn, Patrick. 2024. <span>“Computer Scientists, Your Planet Needs You: An Introduction to Access-Optimized Data.”</span> NASA ESDIS Architect; <a href="https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing</a>.
+Quinn, Patrick. 2024. <em>Computer Scientists, Your Planet Needs You: An Introduction to Access-Optimized Data</em>. NASA ESDIS Architect; <a href="https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1SsJKX_yOPa1pzV6IjRAQPLC1SBROejH1/edit?usp=sharing</a>.
 </div>
 <div id="ref-shiklomanov2024" class="csl-entry" role="listitem">
-Shiklomanov, Alexey. 2024. <span>“Rethinking the Software Architecture of GMAO Data Tools and Services.”</span> <a href="https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing" class="uri">https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing</a>.
+Shiklomanov, Alexey. 2024. <em>Rethinking the Software Architecture of GMAO Data Tools and Services</em>. <a href="https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing" class="uri">Https://docs.google.com/presentation/d/1KRkolrDokTM0b_SIBds6BrIxFSmgZNuYYYuYbUtWtno/edit?usp=sharing</a>.
 </div>
 </div>
 
@@ -1104,13 +1106,14 @@ Shiklomanov, Alexey. 2024. <span>“Rethinking the Software Architecture of GMAO
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

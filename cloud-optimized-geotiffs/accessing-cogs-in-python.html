@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with Python – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ed45e1f7b838f440c59bec50edac8b6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -702,17 +705,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="environment" class="level2">
 <h2 class="anchored" data-anchor-id="environment">Environment</h2>
 <p>The packages needed for this notebook can be installed with <code>conda</code> or <code>mamba</code>. Using the <a href="./environment.yml"><code>environment.yml</code> from this folder</a> run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Finally, you may activate and select the kernel in the notebook (running in Jupyter)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-cog</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The notebook has been tested to work with the listed Conda environment.</p>
 <section id="tldr-efficiently-read-and-display-the-bottom-half-of-a-cog" class="level3">
 <h3 class="anchored" data-anchor-id="tldr-efficiently-read-and-display-the-bottom-half-of-a-cog">TL;DR: Efficiently Read and Display the Bottom Half of a COG</h3>
 <p>The following cell is a <em>very concise</em> example which demonstrates how easily portions of a COG can be read and visualized. Here, we’ll read the <strong>bottom half</strong> of a Cloud-Optimized GeoTIFF (COG) and display it just to see how simple things are. Keep reading for a bit more detail about how this works!</p>
 <div id="ebbf0dfb-c09f-408b-b77b-b5dac18a3f3b" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -736,7 +739,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read the data for the right half</span></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        bottom_half_data <span class="op">=</span> dataset.read(<span class="dv">1</span>, window<span class="op">=</span>bottom_half_window)</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>show(bottom_half_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>show(bottom_half_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -750,14 +753,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="detailed-demonstration">Detailed Demonstration</h3>
 <p>Now that we’ve seen how to quickly and efficiently read a specific region of a Cloud-Optimized GeoTIFF (COG) in the TL;DR section immediately above, let’s explore things in greater detail. We’ll start with some necessary imports.</p>
 <div id="9d456a49-f52a-4cbe-beec-a7b08513175e" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Rectangle</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.plot <span class="im">import</span> show</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.session <span class="im">import</span> AWSSession</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.windows <span class="im">import</span> from_bounds, Window</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.windows <span class="im">import</span> from_bounds, Window</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="logging-byte-range-requests" class="level3">
@@ -765,7 +768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To demonstrate how Cloud-Optimized GeoTIFFs (COGs) enable request-specific access, we will first set up logging to surface the byte-ranges requested by GDAL. These logs should show how only the necessary portions of the dataset are fetched from the cloud, rather than downloading the entire file.</p>
 <p>This logging provides a view into the mechanics of COG access. It is in no way necessary under normal usage of these libraries!</p>
 <div id="06ccfd37-a4d2-4f33-8fa4-b334f01177d9" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># imports specific to setting up GDAL logging</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># imports specific to setting up GDAL logging</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -786,7 +789,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        msg <span class="op">=</span> record.getMessage()</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Downloading"</span> <span class="kw">in</span> msg <span class="kw">or</span> <span class="st">"HTTP GET request"</span> <span class="kw">in</span> msg</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>handler.addFilter(GdalFilter())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>handler.addFilter(GdalFilter())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="setting-up-the-cog-url-and-aws-session" class="level3">
@@ -795,10 +798,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The specific file we are accessing contains <strong>Band 2 (Blue)</strong> data for a tile in the UTM Zone 12N.</p>
 <p>Since this dataset is publicly accessible, we need to set up an <strong>AWS session</strong> with unsigned requests to access the file without authentication.</p>
 <div id="49beb38f-b944-42ab-adf6-faccff2cbfaa" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cog_url <span class="op">=</span> <span class="st">'s3://sentinel-cogs/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif'</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cog_url <span class="op">=</span> <span class="st">'s3://sentinel-cogs/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif'</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Don't forget to create an AWS session with unsigned requests enabled!</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>aws_session <span class="op">=</span> AWSSession(boto3.Session(), aws_unsigned<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>aws_session <span class="op">=</span> AWSSession(boto3.Session(), aws_unsigned<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="understanding-the-internal-tile-grid-of-the-cog" class="level3">
@@ -842,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>This step sets the stage for visualizing the grid, constructing our read-window, and understanding how tiles align with the raster’s extent.</p>
 <div id="dee4f099-ab15-496c-923f-35a4701126ed" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):  <span class="co"># Set environment for unsigned access</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):  <span class="co"># Set environment for unsigned access</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_url) <span class="im">as</span> dataset:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get raster metadata</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        bounds <span class="op">=</span> dataset.bounds</span>
@@ -854,7 +857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute grid coordinates</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        x_coords <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">int</span>(bounds.left), <span class="bu">int</span>(bounds.right), <span class="bu">int</span>(tile_width)))</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        y_coords <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">int</span>(bounds.top), <span class="bu">int</span>(bounds.bottom), <span class="op">-</span><span class="bu">int</span>(tile_height)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        y_coords <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="bu">int</span>(bounds.top), <span class="bu">int</span>(bounds.bottom), <span class="op">-</span><span class="bu">int</span>(tile_height)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>CPLE_None in S3: Downloading 0-16383 (https://sentinel-cogs.s3.amazonaws.com/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif)...</code></pre>
 </div>
@@ -866,7 +869,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To visualize the raster efficiently, we leverage Cloud-Optimized GeoTIFF (COG) overviews. Overviews are precomputed, lower-resolution versions of the raster data stored within the file.</p>
 <p>Let’s first see the available overviews and do a bit of math to estimate how much less data we need to read for each:</p>
 <div id="977a524e-27f8-4ce2-b6df-61350e7e7f3f" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_url) <span class="im">as</span> dataset:</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        overviews <span class="op">=</span> dataset.overviews(<span class="dv">1</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        pixels_wide <span class="op">=</span> dataset.width</span>
@@ -875,7 +878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>full_res_pixels <span class="op">=</span> pixels_wide <span class="op">*</span> pixel_high</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Available overviews: </span><span class="sc">{</span>overviews<span class="sc">}</span><span class="ss">; total pixels in full resolution image: </span><span class="sc">{</span>full_res_pixels<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, overview <span class="kw">in</span> <span class="bu">enumerate</span>(overviews):</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"With index </span><span class="sc">{</span>idx<span class="sc">}</span><span class="ss"> and value </span><span class="sc">{</span>overview<span class="sc">}</span><span class="ss">, we should have approximately </span><span class="sc">{</span><span class="bu">int</span>(full_res_pixels <span class="op">/</span> (overview <span class="op">*</span> overview))<span class="sc">}</span><span class="ss"> pixels. That's </span><span class="sc">{</span>overview <span class="op">*</span> overview<span class="sc">}</span><span class="ss">x fewer pixels!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"With index </span><span class="sc">{</span>idx<span class="sc">}</span><span class="ss"> and value </span><span class="sc">{</span>overview<span class="sc">}</span><span class="ss">, we should have approximately </span><span class="sc">{</span><span class="bu">int</span>(full_res_pixels <span class="op">/</span> (overview <span class="op">*</span> overview))<span class="sc">}</span><span class="ss"> pixels. That's </span><span class="sc">{</span>overview <span class="op">*</span> overview<span class="sc">}</span><span class="ss">x fewer pixels!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Available overviews: [2, 4, 8, 16]; total pixels in full resolution image: 120560400
 With index 0 and value 2, we should have approximately 30140100 pixels. That's 4x fewer pixels!
@@ -902,9 +905,9 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <p>In the following cell: - The <code>OVERVIEW_LEVEL</code> is set to <code>3</code>, which selects the overview with the lowest resolution in this tif. Referring to the explanation above, that means 1/16th resolution in both <code>x</code> and <code>y</code> dimensions! - The <code>dataset.read</code> function retrieves the first band, resampling the overview to an output shape of <code>512x512</code> pixels for display.</p>
 <p>Take note of how small the byte-range request surfaced in logs are. We get to see a (low resolution) version of the entirety of this tif without moving much data across the wire. This is the advantage of provided overviews.</p>
 <div id="9968bd39-df86-46e7-a90e-757bdd8c222e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_url, OVERVIEW_LEVEL<span class="op">=</span><span class="dv">3</span>) <span class="im">as</span> dataset:</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        overview <span class="op">=</span> dataset.read(<span class="dv">1</span>, out_shape<span class="op">=</span>(<span class="dv">512</span>, <span class="dv">512</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        overview <span class="op">=</span> dataset.read(<span class="dv">1</span>, out_shape<span class="op">=</span>(<span class="dv">512</span>, <span class="dv">512</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>CPLE_None in S3: Downloading 16384-393215 (https://sentinel-cogs.s3.amazonaws.com/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif)...</code></pre>
 </div>
@@ -933,7 +936,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 </ol>
 <p>This visualization illustrates the COG’s tile grid. The grid is important because it is what lets tools like rasterio decide how - and how much - to read. &gt; Note: At the risk of being repetitive, please be aware that you won’t actually have to think about this kind of implementation detail when working with COGs - in practice, they just work and will save you time, data, and memory if you only need part of a TIF!</p>
 <div id="0c1527cb-d60e-449b-b0b9-90ee2078004b" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">8</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ax.imshow(overview, cmap<span class="op">=</span><span class="st">"gray"</span>, extent<span class="op">=</span>[bounds.left, bounds.right, bounds.bottom, bounds.top])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"COG Tile Grid; First Tile Highlighted"</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Easting (meters in EPSG 9807)"</span>)</span>
@@ -960,7 +963,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>ax.add_patch(rect)</span>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -995,11 +998,11 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <h4 class="anchored" data-anchor-id="significance-of-logs">Significance of logs</h4>
 <p>Pay attention to the logs, starting with ‘CPLE_None’. They indicate which bytes needed to be downloaded. As you can see, this read required only one request!</p>
 <div id="30926f15-33a7-4d9a-8779-4b7fbbec265e" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_url) <span class="im">as</span> src:</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        first_tile_window <span class="op">=</span> Window(col_off<span class="op">=</span><span class="dv">0</span>, row_off<span class="op">=</span><span class="dv">0</span>, width<span class="op">=</span>block_width, height<span class="op">=</span>block_height)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        first_tile <span class="op">=</span> src.read(<span class="dv">1</span>, window<span class="op">=</span>first_tile_window)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        show(first_tile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        show(first_tile)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>CPLE_None in S3: Downloading 31424512-32784383 (https://sentinel-cogs.s3.amazonaws.com/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif)...</code></pre>
 </div>
@@ -1039,7 +1042,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <li>The visualization highlights the relationship between the requested region and the internal tile grid.</li>
 </ul>
 <div id="fef151a4-df56-4bf3-b4dd-f624fefb4f2d" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the region spanning multiple tiles</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the region spanning multiple tiles</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>intersection_xmin <span class="op">=</span> bounds.left <span class="op">+</span> tile_width <span class="op">*</span> <span class="fl">0.5</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>intersection_xmax <span class="op">=</span> bounds.left <span class="op">+</span> tile_width <span class="op">*</span> <span class="fl">1.5</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>intersection_ymax <span class="op">=</span> bounds.top <span class="op">-</span> tile_height <span class="op">*</span> <span class="fl">0.5</span></span>
@@ -1069,7 +1072,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>ax.add_patch(read_area)</span>
 <span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1105,7 +1108,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <h4 class="anchored" data-anchor-id="significance-of-logs-1">Significance of Logs</h4>
 <p>Pay attention to the logs, starting with ‘CPLE_None’. They indicate which bytes were downloaded. Despite the region spanning <strong>four tiles</strong>, the file structure allows for <strong>only two HTTP range requests</strong>. How is that possible? Behind the scenes, rasterio (GDAL, actually) is able to determine that these four tiles consist of only two contiguous blocks of bytes!</p>
 <div id="d5512d01-9c3e-4864-9310-880dd61a3e82" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.Env(aws_session):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(cog_url) <span class="im">as</span> src:</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        intersection_window <span class="op">=</span> from_bounds(</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            intersection_xmin, intersection_ymin,</span>
@@ -1113,7 +1116,7 @@ With index 3 and value 16, we should have approximately 470939 pixels. That's 25
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            transform<span class="op">=</span>src.transform</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        intersection_data <span class="op">=</span> src.read(<span class="dv">1</span>, window<span class="op">=</span>intersection_window)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        show(intersection_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        show(intersection_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>CPLE_None in S3: Downloading 31426851-33977114 (https://sentinel-cogs.s3.amazonaws.com/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif)...
 CPLE_None in S3: Downloading 41301455-43892593 (https://sentinel-cogs.s3.amazonaws.com/sentinel-s2-l2a-cogs/12/R/UU/2024/4/S2A_12RUU_20240421_0_L2A/B02.tif)...</code></pre>
@@ -1214,13 +1217,14 @@ CPLE_None in S3: Downloading 41301455-43892593 (https://sentinel-cogs.s3.amazona
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>FlatGeobuf in JavaScript – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ed45e1f7b838f440c59bec50edac8b6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -672,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This example uses slightly-modified JavaScript syntax used in <a href="https://observablehq.com/">Observable notebooks</a>.</p>
 <p>Load the FlatGeobuf JavaScript library:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1" data-startfrom="28" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 27;"><span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>flatgeobuf <span class="op">=</span> <span class="pp">require</span>(<span class="st">"flatgeobuf@3.26.2/dist/flatgeobuf-geojson.min.js"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-startfrom="28" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 27;"><span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>flatgeobuf <span class="op">=</span> <span class="pp">require</span>(<span class="st">"flatgeobuf@3.26.2/dist/flatgeobuf-geojson.min.js"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -681,7 +684,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This library has two functions: <code>deserialize</code> to fetch a remote file and parse it to GeoJSON, and <code>serialize</code>, which converts GeoJSON to FlatGeobuf.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-startfrom="34" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>flatgeobuf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" data-startfrom="34" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>flatgeobuf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
 
@@ -690,7 +693,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>For this demo, we’ll use the same data source as in the <a href="https://flatgeobuf.org/examples/leaflet/large.html">FlatGeobuf leaflet example</a>. This data file represents <em>every census block in the USA</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-startfrom="40" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 39;"><span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://flatgeobuf.septima.dk/population_areas.fgb'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" data-startfrom="40" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 39;"><span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://flatgeobuf.septima.dk/population_areas.fgb'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -700,14 +703,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The above is a really big file at almost 12GB total size, so we don’t want to fetch the entire file. In this demo, we’ll choose a small bounding box representing an area over Manhattan in New York City.</p>
 <p>Beware: if you make this bounding box too big, FlatGeobuf will try to download a large amount of data into your browser and maybe crash the tab!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-startfrom="48" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 47;"><span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-startfrom="48" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 47;"><span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> {</span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
 <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="dt">minX</span><span class="op">:</span> <span class="op">-</span><span class="fl">74.003802</span><span class="op">,</span></span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        <span class="dt">minY</span><span class="op">:</span> <span class="fl">40.725756</span><span class="op">,</span></span>
 <span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="dt">maxX</span><span class="op">:</span> <span class="op">-</span><span class="fl">73.981481</span><span class="op">,</span></span>
 <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="dt">maxY</span><span class="op">:</span> <span class="fl">40.744008</span><span class="op">,</span></span>
 <span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="declaration">
 
@@ -716,11 +719,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The above <code>bbox</code> object represents a bounding box in the format required by the FlatGeobuf API, but Leaflet’s API requires an array-formatted bounding box, so we’ll define a function to convert between the two:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-startfrom="61" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="co">// leaflet uses lat-lon ordering</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-startfrom="61" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="co">// leaflet uses lat-lon ordering</span></span>
 <span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>bboxObjectToArray <span class="op">=</span> (obj) <span class="kw">=&gt;</span> [</span>
 <span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  [obj<span class="op">.</span><span class="at">minY</span><span class="op">,</span> obj<span class="op">.</span><span class="at">minX</span>]<span class="op">,</span></span>
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  [obj<span class="op">.</span><span class="at">maxY</span><span class="op">,</span> obj<span class="op">.</span><span class="at">maxX</span>]<span class="op">,</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="declaration">
 
@@ -729,14 +732,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Next we’ll fetch all the data from the FlatGeobuf file within this bounding box. Notice how we pass the <code>bbox</code> argument into <code>deserialize</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" data-startfrom="71" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 70;"><span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-startfrom="71" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 70;"><span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> {</span>
 <span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> iter <span class="op">=</span> flatgeobuf<span class="op">.</span><span class="fu">deserialize</span>(url<span class="op">,</span> bbox)<span class="op">;</span></span>
 <span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> features <span class="op">=</span> []<span class="op">;</span></span>
 <span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="cf">await</span> (<span class="kw">const</span> feature <span class="kw">of</span> iter) {</span>
 <span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    features<span class="op">.</span><span class="fu">push</span>(feature)<span class="op">;</span></span>
 <span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> features<span class="op">;</span></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="declaration">
 
@@ -745,7 +748,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>There are 354 individual features that match this query:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" data-startfrom="84" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 83;"><span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>features</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-startfrom="84" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 83;"><span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>features</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-7" data-nodetype="expression">
 
@@ -754,7 +757,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As in the FlatGeobuf example, we’ll define a color scale based on how many people live in the census block.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8" data-startfrom="90" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>colorScale <span class="op">=</span> (d) <span class="kw">=&gt;</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-startfrom="90" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 89;"><span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>colorScale <span class="op">=</span> (d) <span class="kw">=&gt;</span> {</span>
 <span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d <span class="op">&gt;</span> <span class="dv">750</span></span>
 <span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"#800026"</span></span>
 <span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> d <span class="op">&gt;</span> <span class="dv">500</span></span>
@@ -770,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> d <span class="op">&gt;</span> <span class="dv">10</span></span>
 <span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>    <span class="op">?</span> <span class="st">"#FED976"</span></span>
 <span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>    <span class="op">:</span> <span class="st">"#FFEDA0"</span><span class="op">;</span></span>
-<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-8" data-nodetype="declaration">
 
@@ -779,14 +782,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Next we load the Leaflet JavaScript library and fetch its CSS styling defintions if needed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> {</span>
 <span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="cf">await</span> <span class="pp">require</span>(<span class="st">"leaflet@1/dist/leaflet.js"</span>)<span class="op">;</span></span>
 <span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>L<span class="op">.</span><span class="at">_style</span>) {</span>
 <span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> href <span class="op">=</span> <span class="cf">await</span> require<span class="op">.</span><span class="fu">resolve</span>(<span class="st">"leaflet@1/dist/leaflet.css"</span>)<span class="op">;</span></span>
 <span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="at">head</span><span class="op">.</span><span class="fu">appendChild</span>(L<span class="op">.</span><span class="at">_style</span> <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;link href=</span><span class="sc">${</span>href<span class="sc">}</span><span class="vs"> rel=stylesheet&gt;`</span>)<span class="op">;</span></span>
 <span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> L<span class="op">;</span></span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-9" data-nodetype="declaration">
 
@@ -801,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>An <code>L.geoJSON</code> item for each feature in the FlatGeobuf response.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10" data-startfrom="130" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 129;"><span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>map <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-startfrom="130" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 129;"><span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>map <span class="op">=</span> {</span>
 <span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> container <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div style="height:600px;"&gt;&lt;/div&gt;`</span><span class="op">;</span></span>
 <span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>  <span class="kw">yield</span> container<span class="op">;</span></span>
 <span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> map <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(container)<span class="op">.</span><span class="fu">setView</span>([<span class="fl">40.7299</span><span class="op">,</span> <span class="op">-</span><span class="fl">73.9923</span>]<span class="op">,</span> <span class="dv">13</span>)<span class="op">;</span></span>
@@ -847,7 +850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a>      )</span>
 <span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">addTo</span>(results)<span class="op">;</span></span>
 <span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-10" data-nodetype="declaration">
 
@@ -944,13 +947,14 @@ window._ojs.runtime.interpretFromScriptTags();
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Zarr in Practice – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ed45e1f7b838f440c59bec50edac8b6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -669,32 +672,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="environment" class="level2">
 <h2 class="anchored" data-anchor-id="environment">Environment</h2>
 <p>The packages needed for this notebook can be installed with <code>conda</code> or <code>mamba</code>. Using the <a href="./environment.yml"><code>environment.yml</code> from this folder</a> run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Finally, you may activate and select the kernel in the notebook (running in Jupyter)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-zarr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coguide-zarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The notebook has been tested to work with the listed Conda environment.</p>
 </section>
 <section id="how-to-create-a-zarr-store" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-create-a-zarr-store">How to create a Zarr store</h2>
 <div id="cell-4" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zarr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>First let’s clean up in case we are running this notebook multiple times.</p>
 <div id="cell-6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf test.zarr</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf example.zarr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf test.zarr</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf example.zarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we will create a simple local Zarr store.</p>
 <div id="cell-8" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.LocalStore(<span class="st">"test.zarr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.LocalStore(<span class="st">"test.zarr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The Zarr store does not write anything to disk until there is data in it.</p>
 <div id="cell-10" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree test.zarr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree test.zarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>test.zarr  [error opening dir]
 
@@ -703,10 +706,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now let’s create an array. Just calling <code>zarr.create_array</code> writes the array to disk.</p>
 <div id="cell-12" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> zarr.create_array(store<span class="op">=</span>store, data<span class="op">=</span>np.arange(<span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> zarr.create_array(store<span class="op">=</span>store, data<span class="op">=</span>np.arange(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-13" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree test.zarr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tree test.zarr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-blue-fg ansi-bold">test.zarr</span>
@@ -727,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We can open the metadata about this Zarr array, which gives us some interesting information. The dataset has a <code>shape</code> of 10 and <code>chunk_shape</code> of 10, so we know all the data was stored in 1 chunk. From the <code>codecs</code> we can see tell that the data was compressed with the <code>zstd</code> compressor.</p>
 <p>Notice that the <code>zarr_format</code> (this is the Zarr format version) and <code>node_type</code> are also specified in the metadata.</p>
 <div id="cell-15" class="cell" data-tags="[]" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat test.zarr<span class="op">/</span>zarr.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat test.zarr<span class="op">/</span>zarr.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "shape": [
@@ -777,13 +780,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="how-to-create-a-group">How to create a group</h2>
 <p>In this example we’ll use a <code>MemoryStore</code>. This is an in-memory representation of a Zarr store that has no physical representation on-disk. Similar to how numpy is an in-memory representation of an array.</p>
 <div id="cell-17" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.MemoryStore()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.MemoryStore()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> zarr.create_group(store)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>group1 <span class="op">=</span> root.create_group(<span class="st">'group1'</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>group2 <span class="op">=</span> root.create_group(<span class="st">'group2'</span>)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>z1 <span class="op">=</span> group1.create_array(name<span class="op">=</span><span class="st">'array_in_group'</span>, shape<span class="op">=</span>(<span class="dv">100</span>,<span class="dv">100</span>), chunks<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>), dtype<span class="op">=</span><span class="st">'i4'</span>)</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> group2.create_array(name<span class="op">=</span><span class="st">'array_in_group'</span>, shape<span class="op">=</span>(<span class="dv">1000</span>,<span class="dv">1000</span>), chunks<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>), dtype<span class="op">=</span><span class="st">'i4'</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>root.tree()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>root.tree()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">/</span>
 ├── <span style="font-weight: bold">group1</span>
@@ -798,23 +801,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="how-to-examine-and-modify-the-chunk-shape">How to Examine and Modify the Chunk Shape</h2>
 <p>If your data is sufficiently large, Zarr will chose a chunksize for you.</p>
 <div id="cell-19" class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.MemoryStore()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.MemoryStore()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks <span class="op">=</span> zarr.create_array(store, name<span class="op">=</span><span class="st">"no_chunks"</span>, data<span class="op">=</span>np.arange(<span class="dv">100</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.chunks, zarr_no_chunks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.chunks, zarr_no_chunks.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>((100,), (100,))</code></pre>
 </div>
 </div>
 <div id="cell-20" class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks <span class="op">=</span> zarr.create_array(store, name<span class="op">=</span><span class="st">"with_chunks"</span>, data<span class="op">=</span>np.arange(<span class="dv">10000000</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.chunks, zarr_with_chunks.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks <span class="op">=</span> zarr.create_array(store, name<span class="op">=</span><span class="st">"with_chunks"</span>, data<span class="op">=</span>np.arange(<span class="dv">10000000</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.chunks, zarr_with_chunks.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>((156250,), (10000000,))</code></pre>
 </div>
 </div>
 <p>For <code>zarr_with_chunks</code> we see the chunks are smaller than the shape, so we know the data has been chunked. Other ways to examine the chunk structure are <code>zarr.info_complete()</code> and <code>zarr.cdata_shape</code>.</p>
 <div id="cell-22" class="cell" data-tags="[]" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>?zarr_no_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>?zarr_no_chunks.cdata_shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">Type:</span>        property
@@ -826,14 +829,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="cell-23" class="cell" data-tags="[]" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.cdata_shape, zarr_with_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>zarr_no_chunks.cdata_shape, zarr_with_chunks.cdata_shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>((1,), (64,))</code></pre>
 </div>
 </div>
 <p>The zarr store with chunks has 64 chunks. The number of chunks multiplied by the chunk size equals the length of the whole array.</p>
 <div id="cell-25" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.cdata_shape[<span class="dv">0</span>] <span class="op">*</span> zarr_with_chunks.chunks[<span class="dv">0</span>] <span class="op">==</span> zarr_with_chunks.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.cdata_shape[<span class="dv">0</span>] <span class="op">*</span> zarr_with_chunks.chunks[<span class="dv">0</span>] <span class="op">==</span> zarr_with_chunks.shape[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>True</code></pre>
 </div>
@@ -842,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="whats-the-storage-size-of-these-chunks">What’s the storage size of these chunks?</h3>
 <p>First we need to know how to access a particular chunk via its prefix. Think of a prefix as the relative path for every item in the <code>MemoryStore</code>.</p>
 <div id="cell-27" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>[p <span class="cf">async</span> <span class="cf">for</span> p <span class="kw">in</span> store.<span class="bu">list</span>()][:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>[p <span class="cf">async</span> <span class="cf">for</span> p <span class="kw">in</span> store.<span class="bu">list</span>()][:<span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>['no_chunks/zarr.json',
  'zarr.json',
@@ -858,24 +861,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now we can use these prefixes to get the size of the first chunk in bytes. Note that this is the compressed size. We will talk more about compression in the next section.</p>
 <div id="cell-29" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> store.getsize_prefix(<span class="st">"with_chunks/c/0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> store.getsize_prefix(<span class="st">"with_chunks/c/0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>195984</code></pre>
 </div>
 </div>
 <p>If we want the chunksize to be bigger, then we can specify the chunks rather than using the default.</p>
 <div id="cell-31" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks <span class="op">=</span> zarr.create_array(store, name<span class="op">=</span><span class="st">"with_big_chunks"</span>, data<span class="op">=</span>np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span>(<span class="dv">500000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks <span class="op">=</span> zarr.create_array(store, name<span class="op">=</span><span class="st">"with_big_chunks"</span>, data<span class="op">=</span>np.arange(<span class="dv">10000000</span>), chunks<span class="op">=</span>(<span class="dv">500000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-32" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks.chunks, zarr_with_big_chunks.shape, zarr_with_big_chunks.cdata_shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>zarr_with_big_chunks.chunks, zarr_with_big_chunks.shape, zarr_with_big_chunks.cdata_shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>((500000,), (10000000,), (20,))</code></pre>
 </div>
 </div>
 <p>This Zarr store has 10 million values, stored in 20 chunks of 500,000 data values.</p>
 <div id="cell-34" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> store.getsize_prefix(<span class="st">"with_big_chunks/c/0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> store.getsize_prefix(<span class="st">"with_big_chunks/c/0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>544926</code></pre>
 </div>
@@ -887,7 +890,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="exploring-and-modifying-data-compression">Exploring and Modifying Data Compression</h2>
 <p>Continuing with data from the example above, we can use <code>zarr.info_complete()</code> or <code>zarr.compressors</code> to learn more about how Zarr has compressed the data for us.</p>
 <div id="cell-37" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.info_complete()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>zarr_with_chunks.info_complete()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>Type               : Array
 Zarr format        : 3
@@ -910,13 +913,13 @@ Chunks Initialized : 64</code></pre>
 <p>From the information above, we can see that the default compression, <code>zstd</code>, is a good choice for n-dimensional data.</p>
 <p>The <code>Blosc</code> compressor is a meta compressor, which means it implements multiple different internal compressors. Let’s try it with <code>lz4</code> compression (if available – this was the default compression for zarr-python&lt;3).</p>
 <div id="cell-39" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>zarr_blosc_compressed <span class="op">=</span> zarr.create_array(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>zarr_blosc_compressed <span class="op">=</span> zarr.create_array(</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    store,</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"blosc_compressed"</span>,</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>np.arange(<span class="dv">10000000</span>),</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    compressors<span class="op">=</span>zarr.codecs.BloscCodec(cname<span class="op">=</span><span class="st">'lz4'</span>, clevel<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="st">"shuffle"</span>, blocksize<span class="op">=</span><span class="dv">0</span>),</span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>zarr_blosc_compressed.info_complete()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>zarr_blosc_compressed.info_complete()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>Type               : Array
 Zarr format        : 3
@@ -939,13 +942,13 @@ Chunks Initialized : 64</code></pre>
 <p>We can see, from the storage ratio above, that compression has made our data 155 times smaller 😱 .</p>
 <p>You can set <code>compressors=None</code> when creating a Zarr array to turn off all compression, but I’m not sure why you would do that.</p>
 <div id="cell-41" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>zarr_uncompressed <span class="op">=</span> zarr.create_array(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>zarr_uncompressed <span class="op">=</span> zarr.create_array(</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    store,</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"not_compressed"</span>,</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>np.arange(<span class="dv">10000000</span>),</span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    compressors<span class="op">=</span><span class="va">None</span>,</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>zarr_uncompressed.info_complete()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>zarr_uncompressed.info_complete()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>Type               : Array
 Zarr format        : 3
@@ -967,13 +970,13 @@ Chunks Initialized : 64</code></pre>
 </div>
 <p>Let’s see what happens when we use a different compression method. We can checkout a full list of registerd Zarr codecs here: <a href="https://zarr.readthedocs.io/en/stable/api/zarr/codecs/index.html">https://zarr.readthedocs.io/en/stable/api/zarr/codecs/index.html</a>.</p>
 <div id="cell-43" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>zarr_gzip_compressed <span class="op">=</span> zarr.create_array(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>zarr_gzip_compressed <span class="op">=</span> zarr.create_array(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    store,</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">"gzip_compressed"</span>,</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>np.arange(<span class="dv">10000000</span>),</span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    compressors<span class="op">=</span>zarr.codecs.GzipCodec()</span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>zarr_gzip_compressed.info_complete()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>zarr_gzip_compressed.info_complete()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>Type               : Array
 Zarr format        : 3
@@ -1000,7 +1003,7 @@ Chunks Initialized : 64</code></pre>
 <p>It’s important to consolidate metadata to minimize requests. Each group and array has a metadata file and when opening the Zarr store every metadata file has be to read. This is the case even if you open the file lazily (for instance using dask within xarray). In order to limit requests to read the whole tree of metadata files, Zarr provides the ability to consolidate metadata at the root of the store.</p>
 <p>So far we have only been dealing in single array Zarr data stores. In this next example, we will create a Zarr store with multiple arrays and then consolidate metadata. The speed up with local storage is insignificant, but becomes significant when dealing in remote storage options, which we will see in the following example on accessing cloud storage.</p>
 <div id="cell-47" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.LocalStore(<span class="st">"example.zarr"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> zarr.storage.LocalStore(<span class="st">"example.zarr"</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>root <span class="op">=</span> zarr.create_group(store, path<span class="op">=</span><span class="st">"root"</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's create many groups and many arrays</span></span>
@@ -1008,11 +1011,11 @@ Chunks Initialized : 64</code></pre>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_groups):</span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    group <span class="op">=</span> root.create_group(<span class="ss">f'group-</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(num_arrays_per_group):</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        group.create_array(<span class="ss">f'array-</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, shape<span class="op">=</span>(<span class="dv">1000</span>,<span class="dv">1000</span>), dtype<span class="op">=</span><span class="st">'i4'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        group.create_array(<span class="ss">f'array-</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">'</span>, shape<span class="op">=</span>(<span class="dv">1000</span>,<span class="dv">1000</span>), dtype<span class="op">=</span><span class="st">'i4'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We don’t expect the consolidated metadata to be populated.</p>
 <div id="cell-49" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {store.root}<span class="op">/</span>zarr.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat {store.root}<span class="op">/</span>zarr.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "attributes": {},
@@ -1023,7 +1026,7 @@ Chunks Initialized : 64</code></pre>
 </div>
 </div>
 <div id="cell-50" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>zarr.consolidate_metadata(store)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>zarr.consolidate_metadata(store)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/home/jsignell/zarr-python/src/zarr/api/asynchronous.py:227: UserWarning: Consolidated metadata is currently not part in the Zarr format 3 specification. It may not be supported by other zarr implementations and may change in the future.
   warnings.warn(</code></pre>
@@ -1035,7 +1038,7 @@ Chunks Initialized : 64</code></pre>
 <p>There is a warning about consolidated not being an official part of the specification, but don’t worry about that. It’s normal that sometimes implementation outpaces specification.</p>
 <p>Now if we check the root metadata file again we see that the consolidated metadata is populated.</p>
 <div id="cell-52" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n100 {store.root}<span class="op">/</span>zarr.json</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n100 {store.root}<span class="op">/</span>zarr.json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "attributes": {},
@@ -1141,7 +1144,7 @@ Chunks Initialized : 64</code></pre>
 </div>
 <p>When opening Zarr stores that have consolidated metadata, use <code>use_consolidated=True</code>.</p>
 <div id="cell-54" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>zarr.<span class="bu">open</span>(store, use_consolidated<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>zarr.<span class="bu">open</span>(store, use_consolidated<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>&lt;Group file://example.zarr&gt;</code></pre>
 </div>
@@ -1159,12 +1162,12 @@ Chunks Initialized : 64</code></pre>
 </ul>
 <p>Once you have identified a remote Zarr it should be straightforward to open it using xarray.</p>
 <div id="cell-56" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> <span class="st">'https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> <span class="st">'https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/gpcp-feedstock/gpcp.zarr'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Tip: You might have seen <code>chunks={}</code> instead of <code>chunks="auto"</code>. The difference is <code>chunks={}</code> means use exactly the same chunks as the Zarr store whereas <code>chunks="auto"</code> allows chunks to be combined into meta-chunks if that makes the tasks a better size for dask.</p>
 <div id="cell-58" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(store, engine<span class="op">=</span><span class="st">'zarr'</span>, chunks<span class="op">=</span><span class="st">"auto"</span>, consolidated<span class="op">=</span><span class="va">True</span>, zarr_format<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(store, engine<span class="op">=</span><span class="st">'zarr'</span>, chunks<span class="op">=</span><span class="st">"auto"</span>, consolidated<span class="op">=</span><span class="va">True</span>, zarr_format<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1635,38 +1638,38 @@ Attributes: (12/45)
     time_coverage_end:          1996-10-01T23:59:59Z
     time_coverage_start:        1996-10-01T00:00:00Z
     title:                      Global Precipitation Climatatology Project (G...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-43a4fe85-8938-405b-b30f-bd7d0ac87b6c" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-43a4fe85-8938-405b-b30f-bd7d0ac87b6c" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">latitude</span>: 180</li><li><span>nv</span>: 2</li><li><span class="xr-has-index">longitude</span>: 360</li><li><span class="xr-has-index">time</span>: 9226</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-f0d45d9a-d8b7-4985-be5e-b332dc7efaf5" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-f0d45d9a-d8b7-4985-be5e-b332dc7efaf5" class="xr-section-summary">Coordinates: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lat_bounds</span></div><div class="xr-var-dims">(latitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(180, 2), meta=np.ndarray&gt;</div><input id="attrs-9d080eba-9646-4f64-80af-ad2983a83388" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9d080eba-9646-4f64-80af-ad2983a83388" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-df0d1a21-1403-45c4-83f9-1b234a660025" class="xr-var-data-in" type="checkbox"><label for="data-df0d1a21-1403-45c4-83f9-1b234a660025" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>latitude values at the north and south bounds of each pixel.</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>1.41 kiB</td>
 <td>1.41 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(180, 2)</td>
 <td>(180, 2)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">1 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -1693,38 +1696,38 @@ Attributes: (12/45)
         66.,  67.,  68.,  69.,  70.,  71.,  72.,  73.,  74.,  75.,  76.,  77.,
         78.,  79.,  80.,  81.,  82.,  83.,  84.,  85.,  86.,  87.,  88.,  89.],
       dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon_bounds</span></div><div class="xr-var-dims">(longitude, nv)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(360, 2), meta=np.ndarray&gt;</div><input id="attrs-61656424-dac8-47cf-82cb-25dfe83c5c81" class="xr-var-attrs-in" type="checkbox"><label for="attrs-61656424-dac8-47cf-82cb-25dfe83c5c81" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7efbb5ac-6b14-44e1-9c66-1b5227ecc7aa" class="xr-var-data-in" type="checkbox"><label for="data-7efbb5ac-6b14-44e1-9c66-1b5227ecc7aa" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>longitude values at the west and east bounds of each pixel.</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>2.81 kiB</td>
 <td>2.81 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(360, 2)</td>
 <td>(360, 2)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">1 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -1739,38 +1742,38 @@ Attributes: (12/45)
        '1996-10-03T00:00:00.000000000', ..., '2021-12-29T00:00:00.000000000',
        '2021-12-30T00:00:00.000000000', '2021-12-31T00:00:00.000000000'],
       shape=(9226,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>time_bounds</span></div><div class="xr-var-dims">(time, nv)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(9226, 2), meta=np.ndarray&gt;</div><input id="attrs-c5e5b464-2c92-4215-bd64-f2a9b4d7d8db" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c5e5b464-2c92-4215-bd64-f2a9b4d7d8db" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-358a6a05-34b5-49fb-9d90-37855b12942f" class="xr-var-data-in" type="checkbox"><label for="data-358a6a05-34b5-49fb-9d90-37855b12942f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>comment :</span></dt><dd>time bounds for each time value</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>144.16 kiB</td>
 <td>144.16 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(9226, 2)</td>
 <td>(9226, 2)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">1 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">datetime64[ns] numpy.ndarray</td>
 </tr>
 </tbody>
@@ -1782,38 +1785,38 @@ Attributes: (12/45)
 </tbody>
 </table>
 </div></li></ul></div></li><li class="xr-section-item"><input id="section-aeab9841-c18c-464b-be96-85b31e02096d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-aeab9841-c18c-464b-be96-85b31e02096d" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>precip</span></div><div class="xr-var-dims">(time, latitude, longitude)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(400, 180, 360), meta=np.ndarray&gt;</div><input id="attrs-fac7120d-6d9c-42f1-ad5b-593be3587922" class="xr-var-attrs-in" type="checkbox"><label for="attrs-fac7120d-6d9c-42f1-ad5b-593be3587922" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0cdb086b-c59a-4bda-ad2d-89d3ed07767b" class="xr-var-data-in" type="checkbox"><label for="data-0cdb086b-c59a-4bda-ad2d-89d3ed07767b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>long_name :</span></dt><dd>NOAA Climate Data Record (CDR) of Daily GPCP Satellite-Gauge Combined Precipitation</dd><dt><span>standard_name :</span></dt><dd>lwe_precipitation_rate</dd><dt><span>units :</span></dt><dd>mm/day</dd><dt><span>valid_range :</span></dt><dd>[0.0, 100.0]</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>2.23 GiB</td>
 <td>105.30 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(9226, 180, 360)</td>
 <td>(426, 180, 360)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">23 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -1843,11 +1846,11 @@ Attributes: (12/45)
 <p>Microsoft’s Planetary Computer goes above and beyond, providing tutorials alongside each dataset. We recommend exploring these on your own to get an idea of what you can do with Zarr and Xarray. The following example is based off the <a href="https://planetarycomputer.microsoft.com/docs/quickstarts/reading-zarr-data/">Zarr tutorial</a>.</p>
 <p>This example demonstrates how to access the <a href="https://planetarycomputer.microsoft.com/dataset/daymet-daily-pr#Example-Notebook">Daymet Puerto Rico Dataset on MS Planetary Computer</a>:</p>
 <div id="cell-60" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> planetary_computer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> planetary_computer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-61" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://planetarycomputer.microsoft.com/api/stac/v1/collections/daymet-daily-hi"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://planetarycomputer.microsoft.com/api/stac/v1/collections/daymet-daily-hi"</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.read_file(url)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>asset <span class="op">=</span> collection.assets[<span class="st">"zarr-abfs"</span>]</span>
@@ -1861,7 +1864,7 @@ Attributes: (12/45)
 <span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    storage_options<span class="op">=</span>asset.extra_fields[<span class="st">"xarray:storage_options"</span>],</span>
 <span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    zarr_format<span class="op">=</span><span class="dv">2</span>,</span>
 <span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -2334,38 +2337,38 @@ Attributes:
     references:        Please see http://daymet.ornl.gov/ for current informa...
     source:            Daymet Software Version 4.0
     start_year:        1980</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-4f675310-7296-4d7c-b9f3-8a3301f3ef47" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-4f675310-7296-4d7c-b9f3-8a3301f3ef47" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 14965</li><li><span class="xr-has-index">y</span>: 584</li><li><span class="xr-has-index">x</span>: 284</li><li><span>nv</span>: 2</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-d9aaca46-190c-430a-bdc0-bb34f5a3547c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d9aaca46-190c-430a-bdc0-bb34f5a3547c" class="xr-section-summary">Coordinates: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lat</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;</div><input id="attrs-92b5f507-58e8-4118-949b-b3a949b53845" class="xr-var-attrs-in" type="checkbox"><label for="attrs-92b5f507-58e8-4118-949b-b3a949b53845" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-74bd7da9-ac2d-4e71-bae3-cee2cfb3923d" class="xr-var-data-in" type="checkbox"><label for="data-74bd7da9-ac2d-4e71-bae3-cee2cfb3923d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>latitude coordinate</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>647.88 kiB</td>
 <td>647.88 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(584, 284)</td>
 <td>(584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">1 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2377,38 +2380,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>lon</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(584, 284), meta=np.ndarray&gt;</div><input id="attrs-b4610481-1ba6-4f63-a952-85b5c8316304" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b4610481-1ba6-4f63-a952-85b5c8316304" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5b9139be-8729-4b8d-8680-4163fdc96b45" class="xr-var-data-in" type="checkbox"><label for="data-5b9139be-8729-4b8d-8680-4163fdc96b45" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>longitude coordinate</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>647.88 kiB</td>
 <td>647.88 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(584, 284)</td>
 <td>(584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">1 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2425,38 +2428,38 @@ Attributes:
       shape=(14965,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-5.802e+06 ... -5.519e+06</div><input id="attrs-243ee9a4-bea4-4a48-bb17-5617aabae3c1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-243ee9a4-bea4-4a48-bb17-5617aabae3c1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9624b4a7-ed33-4484-833a-ad1b863c09a9" class="xr-var-data-in" type="checkbox"><label for="data-9624b4a7-ed33-4484-833a-ad1b863c09a9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>x coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_x_coordinate</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([-5.80225e+06, -5.80125e+06, -5.80025e+06, ..., -5.52125e+06,
        -5.52025e+06, -5.51925e+06], shape=(284,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-3.9e+04 -4e+04 ... -6.22e+05</div><input id="attrs-85abf9fb-e96c-4307-86c7-a042fe04465d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-85abf9fb-e96c-4307-86c7-a042fe04465d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b56f46e3-a4d6-4ad0-bf69-073fec471822" class="xr-var-data-in" type="checkbox"><label for="data-b56f46e3-a4d6-4ad0-bf69-073fec471822" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>y coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_y_coordinate</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([ -39000.,  -40000.,  -41000., ..., -620000., -621000., -622000.],
       shape=(584,), dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5867a2dd-7a58-4873-ba58-063881837d8d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-5867a2dd-7a58-4873-ba58-063881837d8d" class="xr-section-summary">Data variables: <span>(10)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>dayl</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-20bb71fc-a797-447c-a52b-19ca40edfa31" class="xr-var-attrs-in" type="checkbox"><label for="attrs-20bb71fc-a797-447c-a52b-19ca40edfa31" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-03f1e0f1-6dee-4d82-94f6-fc1d30c10109" class="xr-var-data-in" type="checkbox"><label for="data-03f1e0f1-6dee-4d82-94f6-fc1d30c10109" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daylength</dd><dt><span>units :</span></dt><dd>s</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2468,38 +2471,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>lambert_conformal_conic</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1e20ccc9-4aeb-486f-af56-32b9eabe5038" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1e20ccc9-4aeb-486f-af56-32b9eabe5038" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-550e82e1-7ac8-43a8-94b7-d92edace2b05" class="xr-var-data-in" type="checkbox"><label for="data-550e82e1-7ac8-43a8-94b7-d92edace2b05" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>false_easting :</span></dt><dd>0.0</dd><dt><span>false_northing :</span></dt><dd>0.0</dd><dt><span>grid_mapping_name :</span></dt><dd>lambert_conformal_conic</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>42.5</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>-100.0</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>standard_parallel :</span></dt><dd>[25.0, 60.0]</dd></dl></div><div class="xr-var-data"><pre>[1 values with dtype=int16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>prcp</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-5cbf9737-91a8-4727-a832-7e09ca07a59d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5cbf9737-91a8-4727-a832-7e09ca07a59d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b63480bb-e180-40b6-a0a3-e6cb79d180bd" class="xr-var-data-in" type="checkbox"><label for="data-b63480bb-e180-40b6-a0a3-e6cb79d180bd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: sum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily total precipitation</dd><dt><span>units :</span></dt><dd>mm/day</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2511,38 +2514,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>srad</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-d6477185-05dd-4db4-b59c-154f3ae36c53" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d6477185-05dd-4db4-b59c-154f3ae36c53" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-99eabe7b-f3a0-442c-b872-157599caf126" class="xr-var-data-in" type="checkbox"><label for="data-99eabe7b-f3a0-442c-b872-157599caf126" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daylight average incident shortwave radiation</dd><dt><span>units :</span></dt><dd>W/m2</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2554,38 +2557,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>swe</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-7d7408ee-f323-4872-bc90-2b409d9ba4b1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7d7408ee-f323-4872-bc90-2b409d9ba4b1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2a36044d-d728-470e-ab2a-4ce6aa2aaa17" class="xr-var-data-in" type="checkbox"><label for="data-2a36044d-d728-470e-ab2a-4ce6aa2aaa17" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>snow water equivalent</dd><dt><span>units :</span></dt><dd>kg/m2</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2597,38 +2600,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>time_bnds</span></div><div class="xr-var-dims">(time, nv)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 2), meta=np.ndarray&gt;</div><input id="attrs-2f7c52d5-8c18-49cb-aa72-5a9de55d6435" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-2f7c52d5-8c18-49cb-aa72-5a9de55d6435" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-32b02f13-30d2-4979-886d-464c23a80d1c" class="xr-var-data-in" type="checkbox"><label for="data-32b02f13-30d2-4979-886d-464c23a80d1c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>233.83 kiB</td>
 <td>5.70 kiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 2)</td>
 <td>(365, 2)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">datetime64[ns] numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2640,38 +2643,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>tmax</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-e2e8b223-0bcc-493e-83de-a062df8fd6ee" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e2e8b223-0bcc-493e-83de-a062df8fd6ee" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-947b5229-afab-4ca3-b826-0fe0d2effbaf" class="xr-var-data-in" type="checkbox"><label for="data-947b5229-afab-4ca3-b826-0fe0d2effbaf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: maximum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily maximum temperature</dd><dt><span>units :</span></dt><dd>degrees C</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2683,38 +2686,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>tmin</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-aa6e7e1a-f87d-4d03-a933-a2792c2c5674" class="xr-var-attrs-in" type="checkbox"><label for="attrs-aa6e7e1a-f87d-4d03-a933-a2792c2c5674" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-847c9fbb-d85e-4ff9-8ea5-25f8577964af" class="xr-var-data-in" type="checkbox"><label for="data-847c9fbb-d85e-4ff9-8ea5-25f8577964af" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: minimum</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily minimum temperature</dd><dt><span>units :</span></dt><dd>degrees C</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2726,38 +2729,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>vp</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365, 584, 284), meta=np.ndarray&gt;</div><input id="attrs-c90329f0-2507-4343-a7de-2800f14fc64d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c90329f0-2507-4343-a7de-2800f14fc64d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4f74d3a4-3ffb-4b88-bf13-539edcff60b3" class="xr-var-data-in" type="checkbox"><label for="data-4f74d3a4-3ffb-4b88-bf13-539edcff60b3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_methods :</span></dt><dd>area: mean time: mean</dd><dt><span>grid_mapping :</span></dt><dd>lambert_conformal_conic</dd><dt><span>long_name :</span></dt><dd>daily average vapor pressure</dd><dt><span>units :</span></dt><dd>Pa</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>9.25 GiB</td>
 <td>230.93 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965, 584, 284)</td>
 <td>(365, 584, 284)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2769,38 +2772,38 @@ Attributes:
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>yearday</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">int16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(365,), meta=np.ndarray&gt;</div><input id="attrs-3e3cf497-e58c-4258-a70a-2720dc5b5ed6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3e3cf497-e58c-4258-a70a-2720dc5b5ed6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-85dbec7a-d729-4493-b4f1-a79dc05312eb" class="xr-var-data-in" type="checkbox"><label for="data-85dbec7a-d729-4493-b4f1-a79dc05312eb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>day of year (DOY) starting with day 1 on Januaray 1st</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>29.23 kiB</td>
 <td>730 B</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(14965,)</td>
 <td>(365,)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">41 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">int16 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2910,13 +2913,14 @@ Attributes:
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

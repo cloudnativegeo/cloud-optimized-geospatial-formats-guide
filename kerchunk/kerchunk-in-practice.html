@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Kerchunk in Practice – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -72,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-155d4057aaac9a888e6377e50b568817.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b08ee408a0927e0c439fee4658917bfd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ed45e1f7b838f440c59bec50edac8b6a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a2d24bc5fbb8e28aedc2630fea1a265e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
@@ -662,16 +665,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="environment" class="level2">
 <h2 class="anchored" data-anchor-id="environment">Environment</h2>
 <p>The packages needed for this notebook can be installed with <code>conda</code> or <code>mamba</code>. Using the <a href="./environment.yml"><code>environment.yml</code> from this folder</a> run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-f</span> environment.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-f</span> environment.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This notebook has been tested to work with the listed Conda environment.</p>
 </section>
 <section id="how-to-create-a-kerchunk-store" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-create-a-kerchunk-store">How to create a kerchunk store</h2>
 <p>We can use the publicly available <a href="https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6">NEX GDDP CMIP6</a> dataset for this example. This dataset is provided by NASA and publicly available on AWS S3. You can browse that data in the <a href="https://nex-gddp-cmip6.s3.us-west-2.amazonaws.com/index.html#NEX-GDDP-CMIP6/">nex-gddp-cmip6 file browser</a>.</p>
 <div id="1767ba02-46c8-4fa3-95e9-fb48e93fe7be" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tempfile <span class="im">import</span> TemporaryDirectory</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -681,10 +684,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kerchunk.combine <span class="im">import</span> MultiZarrToZarr</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kerchunk.hdf <span class="im">import</span> SingleHdf5ToZarr</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>imagecodecs.numcodecs.register_codecs() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>imagecodecs.numcodecs.register_codecs() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="1f8fd3da-165d-489a-9e5c-f1fe2df1fe6e" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set variables</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set variables</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Since there are a number of CMIP6 models and variables to chose from, we make the model and variable selections variables.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">"ACCESS-CM2"</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># `tasmax` is daily-maximum near-surface air temperature, see https://pcmdi.llnl.gov/mips/cmip3/variableList.html.</span></span>
@@ -699,21 +702,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve list of available data.</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>file_paths <span class="op">=</span> fs_read.glob(s3_path)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(file_paths)<span class="sc">}</span><span class="ss"> discovered from </span><span class="sc">{</span>s3_path<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(file_paths)<span class="sc">}</span><span class="ss"> discovered from </span><span class="sc">{</span>s3_path<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>65 discovered from s3://nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1*/tasmax/*</code></pre>
 </div>
 </div>
 <p>To start, we are just going to create a single reference file for a single NetCDF file.</p>
 <div id="f5ca57fd-189b-4347-9ef8-f0efd1c77020" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>netcdf_file <span class="op">=</span> file_paths[<span class="dv">0</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>netcdf_file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>netcdf_file <span class="op">=</span> file_paths[<span class="dv">0</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>netcdf_file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1950.nc'</code></pre>
 </div>
 </div>
 <div id="51ded9a8-facc-4b09-80df-aa7ab26d62b9" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to generate the kerchunk file so we can use it again for other files.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to generate the kerchunk file so we can use it again for other files.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_json_reference(input_file, temp_dir: <span class="bu">str</span>):</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Use Kerchunk's `SingleHdf5ToZarr` method to create a `Kerchunk` index from a NetCDF file.</span></span>
@@ -726,27 +729,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        outf <span class="op">=</span> os.path.join(temp_dir, <span class="ss">f"</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.json"</span>)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(outf, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            f.write(json.dumps(h5chunks.translate()).encode())</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> outf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> outf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="d7ad66df-f981-49c4-9af8-ff7150371366" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary directory to store the .json reference files.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary directory to store the .json reference files.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternately, you could write these to cloud storage.</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>td <span class="op">=</span> TemporaryDirectory()</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>temp_dir <span class="op">=</span> td.name</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Writing single file references to </span><span class="sc">{</span>temp_dir<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Writing single file references to </span><span class="sc">{</span>temp_dir<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Writing single file references to /var/folders/42/5jr6891d4ds4xysz7q0rsghw0000gn/T/tmpn1bas0mo</code></pre>
 </div>
 </div>
 <div id="aa9059ee-97bf-4194-a5bc-d8a70f60e659" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>single_kerchunk_reference <span class="op">=</span> generate_json_reference(netcdf_file, temp_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>single_kerchunk_reference <span class="op">=</span> generate_json_reference(netcdf_file, temp_dir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1950.nc...</code></pre>
 </div>
 </div>
 <p>We might also want to inspect what was just created. Below we load just the first few keys and values of the “refs” part of the kerchunk reference file.</p>
 <div id="a0b7fed1-a86f-46c9-94e7-f35e96b2fb6d" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read and load the JSON file</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read and load the JSON file</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(single_kerchunk_reference, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> json.load(<span class="bu">file</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>keys_to_select <span class="op">=</span> [<span class="st">'.zgroup'</span>, <span class="st">'tasmax/.zarray'</span>, <span class="st">'tasmax/0.0.0'</span>]</span>
@@ -759,7 +762,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            data_to_print[key] <span class="op">=</span> json.loads(value)</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            data_to_print[key] <span class="op">=</span> value</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(data_to_print, indent<span class="op">=</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(data_to_print, indent<span class="op">=</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
     ".zgroup": {
@@ -801,15 +804,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can also check that our reference file works with <code>xarray</code>.</p>
 <div id="0b090af2-e154-4c8a-987e-23d845de2076" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open dataset as zarr object using fsspec reference file system and Xarray</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open dataset as zarr object using fsspec reference file system and Xarray</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fs_single <span class="op">=</span> fsspec.filesystem(</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"reference"</span>, fo<span class="op">=</span>single_kerchunk_reference, remote_protocol<span class="op">=</span><span class="st">"https"</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>single_map <span class="op">=</span> fs_single.get_mapper(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>single_map <span class="op">=</span> fs_single.get_mapper(<span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="827a47a5-3037-44d7-a9de-1454eaae77e6" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ds_single <span class="op">=</span> xr.open_dataset(single_map, engine<span class="op">=</span><span class="st">"zarr"</span>, backend_kwargs<span class="op">=</span><span class="bu">dict</span>(consolidated<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ds_single</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ds_single <span class="op">=</span> xr.open_dataset(single_map, engine<span class="op">=</span><span class="st">"zarr"</span>, backend_kwargs<span class="op">=</span><span class="bu">dict</span>(consolidated<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ds_single</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1238,8 +1241,8 @@ Attributes: (12/22)
 </div>
 <p>It worked! But we can do even better. What if you want to open multiple NetCDF files with <code>xarray</code>? Let’s create kerchunk references for 3 files and then combine them.</p>
 <div id="5a760a4f-845f-497e-bbb0-e042c21ff420" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>subset_files <span class="op">=</span> file_paths[<span class="dv">0</span>:<span class="dv">3</span>]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>subset_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>subset_files <span class="op">=</span> file_paths[<span class="dv">0</span>:<span class="dv">3</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>subset_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>['nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1950.nc',
  'nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1951.nc',
@@ -1247,11 +1250,11 @@ Attributes: (12/22)
 </div>
 </div>
 <div id="c99e4c63-4637-4da5-8449-c3e69f8f4bad" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through filelist to generate Kerchunked files. Good use for `dask.bag`, see: https://docs.dask.org/en/stable/bag.html.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate through filelist to generate Kerchunked files. Good use for `dask.bag`, see: https://docs.dask.org/en/stable/bag.html.</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>output_files <span class="op">=</span> []</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> single_file <span class="kw">in</span> subset_files:</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    out_file <span class="op">=</span> generate_json_reference(single_file, temp_dir)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    output_files.append(out_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    output_files.append(out_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1950.nc...
 Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/historical/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1951.nc...
@@ -1259,7 +1262,7 @@ Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/histori
 </div>
 </div>
 <div id="29a1be3a-46be-4323-9db6-d1ac813d8c64" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>output_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>output_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>['/var/folders/42/5jr6891d4ds4xysz7q0rsghw0000gn/T/tmpn1bas0mo/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1950.json',
  '/var/folders/42/5jr6891d4ds4xysz7q0rsghw0000gn/T/tmpn1bas0mo/tasmax_day_ACCESS-CM2_historical_r1i1p1f1_gn_1951.json',
@@ -1267,7 +1270,7 @@ Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/histori
 </div>
 </div>
 <div id="7eb9012f-d388-4122-abc7-0371d41fbd30" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine individual references into single consolidated reference</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine individual references into single consolidated reference</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>mzz <span class="op">=</span> MultiZarrToZarr(</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    output_files,</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    remote_protocol<span class="op">=</span><span class="st">'s3'</span>,</span>
@@ -1277,30 +1280,30 @@ Running kerchunk generation for nex-gddp-cmip6/NEX-GDDP-CMIP6/ACCESS-CM2/histori
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># inline_threshold=0 means don't story any raw data in the kerchunk reference file.</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    inline_threshold<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>multi_kerchunk <span class="op">=</span> mzz.translate()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>multi_kerchunk <span class="op">=</span> mzz.translate()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="81d97020-7c85-4641-b8d7-e12b69afa7fc" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write kerchunk .json record</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write kerchunk .json record</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>output_fname <span class="op">=</span> os.path.join(temp_dir, <span class="ss">f"combined_CMIP6_daily_</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">_kerchunk.json"</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"</span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss">"</span>, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Writing combined kerchunk reference file </span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    f.write(json.dumps(multi_kerchunk).encode())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    f.write(json.dumps(multi_kerchunk).encode())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Writing combined kerchunk reference file /var/folders/42/5jr6891d4ds4xysz7q0rsghw0000gn/T/tmpn1bas0mo/combined_CMIP6_daily_ACCESS-CM2_tasmax_kerchunk.json</code></pre>
 </div>
 </div>
 <div id="7bd81f13-f083-45c8-899e-e5c468aa1967" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open dataset as zarr object using fsspec reference file system and Xarray</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open dataset as zarr object using fsspec reference file system and Xarray</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>fs_multi <span class="op">=</span> fsspec.filesystem(</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"reference"</span>,</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    fo<span class="op">=</span>multi_kerchunk,</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    remote_protocol<span class="op">=</span><span class="st">"s3"</span></span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>multi_map <span class="op">=</span> fs_multi.get_mapper(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>multi_map <span class="op">=</span> fs_multi.get_mapper(<span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="668615ee-54cf-42bd-8474-04b99a351182" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ds_multi <span class="op">=</span> xr.open_dataset(multi_map, engine<span class="op">=</span><span class="st">"zarr"</span>, backend_kwargs<span class="op">=</span><span class="bu">dict</span>(consolidated<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ds_multi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ds_multi <span class="op">=</span> xr.open_dataset(multi_map, engine<span class="op">=</span><span class="st">"zarr"</span>, backend_kwargs<span class="op">=</span><span class="bu">dict</span>(consolidated<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>ds_multi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1730,11 +1733,11 @@ Attributes: (12/22)
 <section id="how-to-read-a-kerchunk-store" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-read-a-kerchunk-store">How to read a Kerchunk Store</h2>
 <p>We’ve already demonstrated how to open the datasets with <code>Xarray</code>:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fs_multi <span class="op">=</span> fsspec.filesystem(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fs_multi <span class="op">=</span> fsspec.filesystem(</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"reference"</span>,</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    fo<span class="op">=</span>multi_kerchunk,</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    remote_protocol<span class="op">=</span><span class="st">"s3"</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Let’s take it line by line to understand what’s happening.</p>
 <ol type="1">
 <li><code>fsspec.filesystem</code> is used to open the kerchunk reference. It is not necessary to have kerchunk installed to read data.</li>
@@ -1744,7 +1747,7 @@ Attributes: (12/22)
 </ol>
 <p>Notice how the <code>fs_multi</code> object we’ve created is a <code>fsspec.implementations.reference.ReferenceFileSystem</code>.</p>
 <div id="5de47a48-b7c2-47eb-9668-0eef61cbaa95" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(fs_multi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(fs_multi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>fsspec.implementations.reference.ReferenceFileSystem</code></pre>
 </div>
@@ -1752,7 +1755,7 @@ Attributes: (12/22)
 <p>Read about all the options for a <a href="https://filesystem-spec.readthedocs.io/en/latest/_modules/fsspec/implementations/reference.html"><code>fsspec.ReferenceFileSystem</code> in the <code>fsspec</code> docs</a>.</p>
 <p>One other common situation is to load data over HTTP (as opposed to a local filesystem or via the S3 protocol). Here’s an example from the kerchunk case studies that loads a reference file and data files over HTTP:</p>
 <div id="37d8c57b-772f-4bd4-90ff-96ac011e9f16" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>zarr_all_url<span class="op">=</span><span class="st">'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-2.amazonaws.com/data/wrappers/zarr-all.json'</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>zarr_all_url<span class="op">=</span><span class="st">'https://sentinel-1-global-coherence-earthbigdata.s3.us-west-2.amazonaws.com/data/wrappers/zarr-all.json'</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>mapper <span class="op">=</span> fsspec.get_mapper(</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'reference://'</span>,</span>
@@ -1763,7 +1766,7 @@ Attributes: (12/22)
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> xr.open_dataset(</span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    mapper, engine<span class="op">=</span><span class="st">'zarr'</span>, backend_kwargs<span class="op">=</span>{<span class="st">'consolidated'</span>: <span class="va">False</span>}</span>
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>dataset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -2189,7 +2192,7 @@ Data variables:
 </div>
 <p>Because xarray uses fsspec to read data, you can also bypass creating a fsspec object explicitly. Here’s an example using of opening a kerchunk reference generated with pangeo-forge for the NOAA 1/4° daily Optimum Interpolation Sea Surface Temperature (or daily OISST) Climate Data Record (CDR).</p>
 <div id="b44865cd-01d2-49e5-bfce-ef0f41930aad" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/pangeo-forge/aws-noaa-oisst-feedstock/aws-noaa-oisst-avhrr-only.zarr/reference.json"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://ncsa.osn.xsede.org/Pangeo/pangeo-forge/pangeo-forge/aws-noaa-oisst-feedstock/aws-noaa-oisst-avhrr-only.zarr/reference.json"</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"reference://"</span>,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    engine<span class="op">=</span><span class="st">'zarr'</span>,</span>
@@ -2200,7 +2203,7 @@ Data variables:
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'remote_options'</span>: {<span class="st">'anon'</span>: <span class="va">True</span>},</span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'remote_protocol'</span>: <span class="st">'s3'</span>}},</span>
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    chunks<span class="op">=</span>{})</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -2596,38 +2599,38 @@ Attributes: (12/37)
        '1981-09-03T12:00:00.000000000', ..., '2022-11-06T12:00:00.000000000',
        '2022-11-07T12:00:00.000000000', '2022-11-08T12:00:00.000000000'],
       dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">zlev</span></div><div class="xr-var-dims">(zlev)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">0.0</div><input id="attrs-799659a7-5ebc-4dc1-8711-a2f88854c1b7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-799659a7-5ebc-4dc1-8711-a2f88854c1b7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a9a67281-9792-4dde-b097-c0dbe41739c7" class="xr-var-data-in" type="checkbox"><label for="data-a9a67281-9792-4dde-b097-c0dbe41739c7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>actual_range :</span></dt><dd>0, 0</dd><dt><span>long_name :</span></dt><dd>Sea surface height</dd><dt><span>positive :</span></dt><dd>down</dd><dt><span>units :</span></dt><dd>meters</dd></dl></div><div class="xr-var-data"><pre>array([0.], dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-274367b9-54db-494b-b2bc-9ff186d89081" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-274367b9-54db-494b-b2bc-9ff186d89081" class="xr-section-summary">Data variables: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>anom</span></div><div class="xr-var-dims">(time, zlev, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 1, 720, 1440), meta=np.ndarray&gt;</div><input id="attrs-ec535bd4-fdd2-4471-ac05-7d40ba6eedcf" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ec535bd4-fdd2-4471-ac05-7d40ba6eedcf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b2467dc3-b7f8-497b-a41e-69cf6309d032" class="xr-var-data-in" type="checkbox"><label for="data-b2467dc3-b7f8-497b-a41e-69cf6309d032" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Daily sea surface temperature anomalies</dd><dt><span>units :</span></dt><dd>Celsius</dd><dt><span>valid_max :</span></dt><dd>1200</dd><dt><span>valid_min :</span></dt><dd>-1200</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>58.11 GiB</td>
 <td>3.96 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(15044, 1, 720, 1440)</td>
 <td>(1, 1, 720, 1440)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">15044 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2639,38 +2642,38 @@ Attributes: (12/37)
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>err</span></div><div class="xr-var-dims">(time, zlev, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 1, 720, 1440), meta=np.ndarray&gt;</div><input id="attrs-6b23aa30-1157-4f34-b279-f263057cb464" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6b23aa30-1157-4f34-b279-f263057cb464" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-72e5ad58-f7d1-40ce-a773-214ed69fb7bf" class="xr-var-data-in" type="checkbox"><label for="data-72e5ad58-f7d1-40ce-a773-214ed69fb7bf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Estimated error standard deviation of analysed_sst</dd><dt><span>units :</span></dt><dd>Celsius</dd><dt><span>valid_max :</span></dt><dd>1000</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>58.11 GiB</td>
 <td>3.96 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(15044, 1, 720, 1440)</td>
 <td>(1, 1, 720, 1440)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">15044 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2682,38 +2685,38 @@ Attributes: (12/37)
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>ice</span></div><div class="xr-var-dims">(time, zlev, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 1, 720, 1440), meta=np.ndarray&gt;</div><input id="attrs-0ca4b184-3e6c-4688-b369-cc004b73ec8e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0ca4b184-3e6c-4688-b369-cc004b73ec8e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5e2a1058-2c3c-43f7-b1d7-685a309bb630" class="xr-var-data-in" type="checkbox"><label for="data-5e2a1058-2c3c-43f7-b1d7-685a309bb630" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Sea ice concentration</dd><dt><span>units :</span></dt><dd>%</dd><dt><span>valid_max :</span></dt><dd>100</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>58.11 GiB</td>
 <td>3.96 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(15044, 1, 720, 1440)</td>
 <td>(1, 1, 720, 1440)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">15044 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2725,38 +2728,38 @@ Attributes: (12/37)
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>sst</span></div><div class="xr-var-dims">(time, zlev, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(1, 1, 720, 1440), meta=np.ndarray&gt;</div><input id="attrs-17aa51b8-2863-4368-96fb-bc7a83d31020" class="xr-var-attrs-in" type="checkbox"><label for="attrs-17aa51b8-2863-4368-96fb-bc7a83d31020" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3054b8f3-0c54-4a7a-8cb7-272cbee472d7" class="xr-var-data-in" type="checkbox"><label for="data-3054b8f3-0c54-4a7a-8cb7-272cbee472d7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Daily sea surface temperature</dd><dt><span>units :</span></dt><dd>Celsius</dd><dt><span>valid_max :</span></dt><dd>4500</dd><dt><span>valid_min :</span></dt><dd>-300</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>58.11 GiB</td>
 <td>3.96 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(15044, 1, 720, 1440)</td>
 <td>(1, 1, 720, 1440)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">15044 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float32 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -2873,13 +2876,14 @@ Attributes: (12/37)
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
