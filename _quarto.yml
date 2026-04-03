@@ -71,6 +71,12 @@ website:
         - section: PMTiles
           contents:
             - pmtiles/intro.qmd
+      - section: Data Producer Guide
+        contents:
+          - data-producer-guide/index.qmd
+          - data-producer-guide/data-preparation.qmd
+          - data-producer-guide/providing-data.qmd
+          - data-producer-guide/inclusion-workflow.qmd
       - href: glossary.qmd
         text: Glossary
       - href: cookbooks/index.qmd
