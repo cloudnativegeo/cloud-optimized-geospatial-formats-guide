@@ -1,0 +1,47 @@
+---
+title: "Providing Data"
+---
+
+## **Suggested Storage Locations**
+
+Data should be hosted in cloud-accessible object storage, preferably:
+
+- **AWS S3** *(preferred)*  
+  - Example path: `s3://veda-data-store-staging/<instance>/<dataset>/`
+
+- Other acceptable options:
+  - Google Cloud Storage (GCS)  
+  - Azure Blob Storage  
+
+
+---
+
+## **Best Practices**
+
+- Ensure data is **publicly accessible** or that permissions are correctly configured for the VEDA team  
+- Follow **open data standards** where applicable  
+- Provide **complete and consistent metadata** with your dataset  
+- Include **citation information** as part of the submission  
+
+
+---
+
+## **Ensuring Open Data Status**
+
+Data included in VEDA instances should be openly accessible. Confirm that:
+
+- The dataset has **no access restrictions** that would prevent public use  
+- A clear **license** is provided alongside the dataset (e.g., CC-BY, public domain)  
+
+
+---
+
+## **Achieving Data Citation**
+
+Provide citation information with your dataset submission, including:
+
+- Dataset title and version  
+- Authors or originating organization  
+- DOI or persistent identifier (if available)  
+- Temporal and spatial coverage  
+- Reference or landing page (if available)  

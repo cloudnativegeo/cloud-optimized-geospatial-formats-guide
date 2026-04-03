@@ -1,0 +1,64 @@
+---
+title: "Data Inclusion Workflow"
+---
+
+## **What the Data Producer Should Do**
+
+1. **Prepare Data**
+   - Convert data to a cloud-optimized format (**COG**, **Zarr**, or **CF-compliant NetCDF4**)  
+   - Apply appropriate **chunking and compression** (especially for NetCDF4)
+
+2. **Validate Data**
+   - Verify coordinate reference systems (CRS)  
+   - Ensure metadata is complete, consistent, and CF-compliant (where applicable)
+
+3. **Upload to Cloud Storage**
+   - Upload data to:
+     - The S3 bucket/prefix provided by the VEDA team, **or**
+     - A publicly accessible S3 bucket managed by the data provider  
+   - Ensure correct access permissions (e.g., public-read if applicable)
+
+4. **Provide Metadata**
+   - Dataset description and purpose  
+   - Variables and units  
+   - Temporal and spatial coverage  
+   - Preferred colormaps and rescaling parameters (for visualization)  
+   - Citation information (DOI, authors, version, etc.)
+
+
+---
+
+## **What the ODSI/DSE Team Does**
+
+1. **Data Review**
+   - Validate format, accessibility, and performance  
+   - Ensure compatibility with VEDA infrastructure  
+
+2. **Ingestion**
+   - Ingest the dataset in the **STAC catalog**  
+   - Create a **Virtual Zarr store** (e.g., via Kerchunk) if needed  
+
+3. **Optimization** *(if needed)*
+   - Rechunking  
+   - Format conversion (e.g., NetCDF → Zarr)  
+
+4. **Integration**
+   - Integrate dataset into the AIR4US platform  
+   - Configure visualization layers and access endpoints  
+
+5. **QA/QC**
+   - Verify rendering and map performance  
+   - Validate query and analytics workflows  
+
+
+---
+
+## **Timeline for Data Inclusion**
+
+- Timelines vary based on:
+  - Dataset size  
+  - Format readiness  
+  - Required optimization steps  
+  - Team capacity  
+
+- For current estimates, please contact the ODSI/DSE team.

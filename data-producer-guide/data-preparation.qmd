@@ -1,0 +1,274 @@
+---
+title: "Data Preparation"
+---
+
+For best data use within any VEDA instance, the format and structure of data can either hinder visualization or ensure success and user satisfaction. This section lays out the optimal formats, file sizes, and data structure for the best performance.
+
+## Suggested File Formats
+
+### Raster Data
+
+**1. Cloud Optimized GeoTIFF (COG)**
+
+- ***Best for:***
+  - 2D gridded data (e.g., NO₂, AOD, precipitation snapshots)
+- ***Why use it:***  
+  - Enables HTTP range requests for fast map visualization
+  - Optimized for web-based tile access
+- ***Recommendations::***  
+  - Use internal tiling
+  - Generate overviews for multi-resolution access
+
+Additional [COG details](/cloud-optimized-geotiffs/cogs-details.qmd) that can be helpful.
+
+**2. Zarr (Preferred for Multidimensional Data)**
+
+- ***Best for:***
+  - Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)
+  - Large-scale analytics and cloud-native workflows  
+
+- ***Why use it:***  
+  - Designed for cloud object storage with parallel, chunk-based access  
+  - Enables efficient subsetting across time and space  
+  - Works seamlessly with tools like `xarray`, `dask`, and Python analytics ecosystems  
+
+- ***Recommendations:***  
+  - Align chunking with access patterns (e.g., time vs spatial queries)  
+  - Store data in cloud object storage (e.g., S3) with clear directory structure  
+  - Consolidate metadata for faster access  
+
+Additional [Zarr details](/zarr/intro.qmd) that can be helpful.
+
+
+**3. NetCDF4 (CF-compliant)**
+
+- ***Best for:***
+  - Widely distributed scientific datasets and legacy data formats  
+  - Interoperability with existing Earth science tools and workflows  
+
+- ***Why use it:***  
+  - Mature, widely supported format across the scientific community  
+  - Supports chunking and compression (via HDF5)  
+  - Compatible with most analysis tools and libraries  
+
+- ***Recommendations:***  
+  - Ensure chunking is properly configured (avoid default chunking)  
+  - Use compression (e.g., gzip with shuffle filter)  
+  - Consider complementing with a **Virtual Zarr layer (e.g., Kerchunk)** for improved cloud performance and scalability  
+
+Additional [NetCDF details](/kerchunk/intro.qmd) that can be helpful.
+### **Vector Data**
+
+**1. GeoJSON (Preferred)**
+
+- ***Best for:***
+  - Small to medium-sized vector datasets
+  - Web-based visualization and APIs  
+
+- ***Why use it:***  
+  - Widely supported across web mapping tools  
+  - Human-readable and easy to debug  
+  - Native support in most visualization libraries  
+
+- ***Recommendations:***  
+  - Avoid for large datasets due to performance limitations  
+
+
+**2. Shapefiles**
+
+- ***Best for:***
+  - Legacy GIS workflows  
+  - Interoperability with traditional GIS tools  
+
+- ***Why use it:***  
+  - Broad compatibility across GIS software  
+  - Common exchange format in many datasets  
+
+- ***Recommendations:***  
+  - Avoid for cloud-native workflows  
+  - Consider converting to GeoJSON or GeoParquet for better performance  
+
+
+**3. GeoParquet (Emerging / Future Recommended)**
+
+- ***Best for:***
+  - Large-scale vector datasets  
+  - Analytical and cloud-native workflows  
+
+- ***Why use it:***  
+  - Columnar format optimized for performance  
+  - Efficient storage and query capabilities  
+  - Well-suited for big data processing  
+
+- ***Recommendations:***  
+  - Use for large datasets where performance is critical  
+  - Partition data appropriately for scalable access  
+
+
+---
+
+### **Tabular Data**
+
+**1. CSV**
+
+- ***Best for:***
+  - Simple, small tabular datasets  
+  - Data exchange and quick inspection  
+
+- ***Why use it:***  
+  - Universally supported  
+  - Easy to read and use  
+
+- ***Recommendations:***  
+  - Avoid for large datasets due to size and performance limitations  
+
+
+**2. JSON (Structured as Tabular)**
+
+- ***Best for:***
+  - Lightweight structured data  
+  - API responses and metadata  
+
+- ***Why use it:***  
+  - Flexible schema  
+  - Easy integration with web applications  
+
+- ***Recommendations:***  
+  - Ensure data is structured as records (row-based)  
+  - Avoid deeply nested structures for tabular use cases  
+  - Not recommended for large datasets  
+
+
+**3. Parquet (Preferred for Large Tabular Data)**
+
+- ***Best for:***
+  - Large-scale tabular datasets  
+  - Analytical and cloud-native workflows  
+
+- ***Why use it:***  
+  - Columnar storage enables efficient queries  
+  - Compressed and optimized for performance  
+  - Works well with analytics tools (e.g., Spark, Pandas)  
+
+- ***Recommendations:***  
+  - Use for large datasets instead of CSV or JSON  
+  - Partition data for scalable access in cloud environments  
+
+## **Optimal File Sizes**
+
+### **Cloud Optimized GeoTIFF (COG)**
+
+- ***Recommended:***
+  - **10 MB – 1 GB** per file  
+
+- ***Avoid:***
+  - Very small files (<10 MB) — high request overhead  
+  - Very large files (>2–5 GB) — reduced interactivity and slower partial reads  
+
+
+### **Zarr Stores**
+
+- ***Recommended:***
+  - Total dataset size can scale to TBs or more  
+  - Individual chunk sizes: **~1–10 MB**  
+
+- ***Notes:***
+  - Performance depends on chunking strategy rather than total size  
+  - Designed for scalable, cloud-native access  
+
+
+### **NetCDF4 (HDF5-based)**
+
+- ***Recommended:***
+  - File size should align with dataset scope and access patterns  
+  - Moderate file sizes (e.g., ~x MB – x GB) are often practical  
+
+- ***Notes:***
+  - Performance is driven primarily by chunking and metadata layout  
+  - Large files are acceptable if properly chunked and cloud-optimized (e.g., via Kerchunk)  
+
+
+---
+
+## **Optimal Chunks for Visualization**
+
+### **Chunking Guidelines**
+
+- ***Chunk Size Target:***
+  - **~1–10 MB per chunk**  
+
+- ***Avoid:***
+  - Very small chunks (<256 KB) — request overhead dominates  
+  - Very large chunks (>50–100 MB) — slow reads and poor interactivity  
+
+
+### **Key Considerations**
+
+- Chunking should reflect **expected access patterns**:
+  - Spatial access (map visualization)  
+  - Temporal access (time-series analysis)  
+
+- Balanced chunking across dimensions is recommended for mixed-use workloads (e.g., dashboards)
+
+- Many legacy datasets use:
+  - Very small chunks  
+  - Inefficient file layouts  
+
+  → This leads to **severely degraded cloud performance**
+
+- Cloud-native best practices emphasize:
+  - Minimizing the number of network requests  
+  - While still enabling efficient subsetting of data  
+
+### **Balanced Strategy**
+
+The chunking strategy should ultimately be determined by the dataset’s expected use cases. Below is a balanced approach that supports both map visualization and time-series access:
+
+| Dimension | Recommended |
+|-----------|-------------|
+| Time | 1–24 timesteps per chunk |
+| Spatial | 256 × 256 or 512 × 512 pixels |
+| Chunk size | ~1–10 MB per chunk |
+
+**Why this matters:**
+
+- Enables efficient subsetting across both time and space  
+- Reduces unnecessary data reads (minimizes I/O overhead)  
+- Improves responsiveness in interactive dashboards (e.g., VEDA)  
+
+
+---
+
+## **Compression**
+
+### **Best Practices**
+
+- Use **DEFLATE (gzip)** compression  
+- Use moderate compression levels (e.g., **~x–y**) to balance size and performance  
+- Apply a **shuffle filter** to improve compression efficiency  
+
+
+---
+
+### **HDF/NetCDF-Specific Considerations**
+
+When preparing HDF/NetCDF data for cloud environments:
+
+- Use formats that support **chunking, compression, and consolidated metadata**  
+  *(HDF5 / NetCDF4; not supported in HDF4 or NetCDF3)*  
+
+- Consolidate metadata to enable efficient access in a **single request**  
+
+- Tune chunk sizes appropriately:
+  - Preferred: **~1–10 MB per chunk**
+  - Acceptable range: **100 KB – 16 MB**
+
+- Design chunk shapes based on expected access patterns:
+  - Spatial visualization (map-based access)  
+  - Time-series analysis  
+
+- Apply **gzip (deflate) compression with shuffle filter**  
+
+- Include in data product documentation:
+  - Instructions for **direct cloud access**  
+  - Guidance on using client libraries (e.g., `xarray`, `kerchunk`) for efficient data access  

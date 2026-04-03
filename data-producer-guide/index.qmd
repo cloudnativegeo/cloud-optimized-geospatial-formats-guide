@@ -1,0 +1,29 @@
+---
+title: "Data Producer Guide"
+---
+
+This guide provides recommendations for preparing and submitting data for inclusion in VEDA instances. Follow the sections below to get your dataset ready for ingestion.
+
+## **VEDA Instances**
+
+Data prepared using this guide can be integrated into the following VEDA-powered platforms:
+
+- [U.S. Greenhouse Gas Center](https://earth.gov/ghgcenter)  
+- [MAAP (Multi-Mission Algorithm and Analysis Platform)](https://maap-project.org/)  
+- [Disasters Learning Portal](https://disasters.nasa.gov/)  
+- [Earth Information Center](https://earth.gov/)  
+- [Water Insight](https://earth.gov/water)  
+- [Air Quality (AIR4US)](https://www.earth.gov/air4us/)  
+
+---
+
+## **Contents**
+
+### [Data Preparation](data-preparation.qmd)
+Guidance on recommended file formats (COG, Zarr, NetCDF, GeoParquet), optimal file sizes, chunking strategies, and compression best practices.
+
+### [Providing Data](providing-data.qmd)
+Information on where to host your data, storage location guidelines, open data requirements, and how to include proper data citation.
+
+### [Data Inclusion Workflow](inclusion-workflow.qmd)
+Step-by-step workflow for both data producers and the ODSI/DSE team—from data preparation and upload through ingestion, optimization, and QA/QC.
