@@ -1,0 +1,131 @@
+---
+title: "Virtual Zarr"
+subtitle: Zarr interface for data in archival formats
+aliases:
+  - /kerchunk/intro.html
+---
+
+# What is virtual Zarr?
+
+Virtual Zarr lets you interact with chunked archival data as if it were Zarr. You can get the benefits of Zarr without ever duplicating the data. 
+
+Virtual Zarr stores capture metadata about where particular chunks of data are stored and allows tools like xarray to access the data from the chunks directly. These virtual Zarr stores can be written to disk using Kerchunk or Icechunk and distributed alongside data.
+
+## How does it relate to regular Zarr?
+
+Zarr can be separated into two separate specifications. There is the Zarr interface which describes how libraries such as xarray interact with Zarr Arrays and Stores. That Zarr interface is implemented in libraries such as zarr-python, zarrs, and zarrita.js. Then there is the storage specification. When we think of Zarr stores we normally think of "native" Zarr Stores where the data is stored alongside the metadata. They are in the same hierarchy and sit on the same bucket on cloud storage.
+
+Virtual Zarr Stores implement the Zarr interface, but instead of storing the chunk data in the hierarchy the interface sits on top of data stored in archival data formats.
+
+::: {.callout-warning}
+A major limitation of virtual Zarr stores is that the chunking of data will always be constrained to the chunk structure of the underlying data format. With virtualization you can never change the chunks or the compression of the original data.
+:::
+
+## How does it work?
+
+Virtual Zarr stores contain an index for every chunk of data in a particular dataset. This index gives information about each array and includes the path, byte offset, and length of each chunk. A client library like xarray lazily opens the index as a Zarr store without accessing the underlying chunk data at all. At compute time the Zarr store uses an HTTP range requests to fetch just the bytes of data that make up a particular chunk of data.
+
+## How to a create a virtual Zarr store
+
+To create a virtual Zarr store you first have to figure out the mapping between byte ranges and data chunks. To figure this out you have to scan every file that will be included in the virtual Zarr store. In some cloud-optimized formats like COG the necessary information is all in the file header, but in other formats it can be sprinkled throughout the files. So, depending on the structure of your archival data files, this process can take some time.
+
+There are two libraries for creating virtual Zarr stores: Kerchunk and VirtualiZarr.
+
+### Kerchunk
+
+[`kerchunk`](https://fsspec.github.io/kerchunk) is a Python library which generates a set of references to data or URLs under a key value store that matches the Zarr spec. 
+
+Here's an example:
+
+```python
+import fsspec
+import json
+from kerchunk.hdf import SingleHdf5ToZarr
+
+local_file = 'some_data.nc'
+out_file = 'some_references.json'
+
+# Instantiate the local file system with fsspec to save kerchunk's reference data as json.
+fs = fsspec.filesystem('')
+in_file = fs.open(local_file)
+
+# The inline threshold adjusts the size below which binary blocks are included directly in the output.
+# A higher inline threshold can result in a larger json file but faster loading time overally, since fewer requests are made.
+h5chunks = SingleHdf5ToZarr(in_file, local_file, inline_threshold=300)
+with fs.open(out_file, 'wb') as f:
+    f.write(json.dumps(h5chunks.translate()).encode())
+```
+
+### VirtualiZarr
+
+VirtualiZarr is different from kerchunk in that it totally separates the three main steps of virtualization:
+
+- Parsing chunk index from archival data formats
+- Concatenating/merging
+- Serializing to disk
+
+VirtualiZarr started with the idea that it would be simpler to create Virtual Zarr stores using xarray directly. The basic idea is that you use an existing parser such as HDF5Parser to create a "virtual dataset" which you can then concatenate and merge with another "virtual dataset". Once you are done with the concatenation step you can serialize the virtual store to kerchunk-json, kerchunk-parquet or icechunk.
+
+Here's an example of just the parsing step:
+
+```python
+import icechunk
+import obstore
+
+from obspec_utils.registry import ObjectStoreRegistry
+
+from virtualizarr import open_virtual_dataset
+from virtualizarr.parsers import HDFParser
+
+bucket = "s3://nex-gddp-cmip6"
+path = "NEX-GDDP-CMIP6/ACCESS-CM2/ssp126/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp126_r1i1p1f1_gn_2015_v2.0.nc"
+store = obstore.store.from_url(bucket, region="us-west-2", skip_signature=True)
+
+registry = ObjectStoreRegistry({bucket: store})
+
+parser = HDFParser()
+vds = open_virtual_dataset(
+  url=f"{bucket}/{path}",
+  parser=parser,
+  registry=registry,
+  loadable_variables=[],
+)
+```
+
+## Storage formats
+
+Creating a virtual Zarr store takes some time, but the index that you generate is valid as long as the underlying data stays the same. In order to make use of the virtual Zarr store and potentially share it with others, you need to serialize it to disk. If you are using Kerchunk to create your virtual Zarr stores then you will always serialize to Kerchunk format. If you are using VirtualiZarr then you can serialize to Kerchunk format or to Icechunk.
+
+### Kerchunk
+
+Kerchunk has two options for storage: kerchunk-json and kerchunk-parquet. A simple reference file in kerchunk-json for a NetCDF file might look like:
+
+```json
+{
+  ".zgroup": "{\n    \"zarr_format\": 2\n}",
+  ".zattrs": "{\n    \"Conventions\": \"UGRID-0.9.0\n\"}",
+  "x/.zattrs": "{\n    \"_ARRAY_DIMENSIONS\": [\n        \"node\"\n ...",
+  "x/.zarray": "{\n    \"chunks\": [\n        9228245\n    ],\n    \"compressor\": null,\n    \"dtype\": \"<f8\",\n  ...",
+  "x/0": ["s3://bucket/path/file.nc", 294094376, 73825960]
+}
+```
+The `["s3://bucket/path/file.nc", 294094376, 73825960]` is the key part, which says that to load the first chunk in the `x` dimension, the Zarr reader needs to fetch a byte range starting at `294094376` with a length of `73825960` bytes. 
+
+For very large virtual Zarr stores kerchunk-json files can get too big to be practical. That's where kerchunk-parquet comes in. It uses the same concepts as kerchunk-json, but stores the information in parquet which has the advantages of better compressibility and file partitioning.
+
+### Icechunk
+
+Icechunk is specification for storing Zarr data that provides git-like data versioning and safe concurrent commits to the same store. Regular Icechunk supports storing data alongside metadata like native Zarr. But Icechunk can also be used to store virtual Zarr stores where the metadata points to existing chunks of data within archival formats.
+
+::: {.callout-note}
+Icechunk is an open source file format that is free to use - just like COG or Zarr. It is primarily developed by the company Earthmover. Earthmover has a commercial product called Arraylake that is build on the Icechunk format.
+:::
+
+Icechunk offers several advantages over Kerchunk. The most compelling is that Icechunk stores the last-modified time of the data chunks, so it knows when the underlying data chunks have changed relative to when the virtual store was written. This means that Icechunk will raise an error at read time if the data has changed. For a full comparison see the [VirtualiZarr docs](https://virtualizarr.readthedocs.io/en/stable/faq.html#which-format-should-i-save-my-virtual-references-as).
+
+
+## Performance compared to native Zarr
+
+When streaming data from chunks, performance depends on how the chunks have been compressed, how much throughput the tooling supports, and the latency between compute environment and object storage. None of those are related to the data format. So at the chunk-level, if the chunks are the same size and the compression is the same then the performance should be the same. This is true for any chunked format - Zarr, virtual Zarr, COG, HDF5.
+
+The benefit that you get in virtual Zarr is that you always have the metadata in one defined location. This means that you can read the entire metadata for the whole dataset in one request. As a comparison, in native Zarr (without consolidated metadata) you need one request per array. So when lazily opening a dataset virtual Zarr stores only do one request whereas native Zarr stores do as many as they have arrays. Doing many requests is not necessarily slower, but making it fast requires more sophisticated tooling.
