@@ -7,18 +7,24 @@ aliases:
 
 # What is virtual Zarr?
 
-Virtual Zarr lets you interact with chunked archival data as if it were Zarr. You can get the benefits of Zarr without ever duplicating the data. 
+Virtual Zarr lets you interact with chunked archival data as if it were Zarr. You can get the benefits of Zarr without ever duplicating the data, including:
+
+- partial reads, which minimize data transfer
+- parallel reads, which speed up data loading
+- aggregated metadata, which make it faster to inspect the contents of a dataset
+
+
 
 Virtual Zarr stores capture metadata about where particular chunks of data are stored and allows tools like xarray to access the data from the chunks directly. These virtual Zarr stores can be written to disk using Kerchunk or Icechunk and distributed alongside data.
 
 ## How does it relate to regular Zarr?
 
-Zarr can be separated into two separate specifications. There is the Zarr interface which describes how libraries such as xarray interact with Zarr Arrays and Stores. That Zarr interface is implemented in libraries such as zarr-python, zarrs, and zarrita.js. Then there is the storage specification. When we think of Zarr stores we normally think of "native" Zarr Stores where the data is stored alongside the metadata. They are in the same hierarchy and sit on the same bucket on cloud storage.
+Zarr can be separated into two separate components. There is the Zarr interface (a.k.a. API) which describes how libraries such as xarray interact with Zarr Arrays and Groups. That Zarr interface is implemented in libraries such as zarr-python, zarrs, and zarrita.js. Then there is the storage component, meaning how the data persists outside a computers memory (on cloud storage, a hard drive, etc.). When we think of Zarr stores we normally think of "native" Zarr Stores where the data is stored alongside the metadata. They are in the same hierarchy and sit on the same bucket on cloud storage.
 
 Virtual Zarr Stores implement the Zarr interface, but instead of storing the chunk data in the hierarchy the interface sits on top of data stored in archival data formats.
 
 ::: {.callout-warning}
-A major limitation of virtual Zarr stores is that the chunking of data will always be constrained to the chunk structure of the underlying data format. With virtualization you can never change the chunks or the compression of the original data.
+A major limitation of virtual Zarr stores is that the chunking of data will always be constrained to the chunk structure of the underlying data format. A chunk refers to the bytes in the original data file that are compressed as one unit. Those chunks cannot be changed during virtualization since those compressed units live outside the Virtual Zarr store.
 :::
 
 ## How does it work?
@@ -33,7 +39,7 @@ There are two libraries for creating virtual Zarr stores: Kerchunk and VirtualiZ
 
 ### Kerchunk
 
-[`kerchunk`](https://fsspec.github.io/kerchunk) is a Python library which generates a set of references to data or URLs under a key value store that matches the Zarr spec. 
+[`kerchunk`](https://fsspec.github.io/kerchunk) is a Python library which generates a set of references to data or URLs under a key value store that matches the Zarr spec. You can use kerchunk to serialize your virtual zarr store to kerchunk-json or kerchunk-parquet.
 
 Here's an example:
 
@@ -126,6 +132,6 @@ Icechunk offers several advantages over Kerchunk. The most compelling is that Ic
 
 ## Performance compared to native Zarr
 
-When streaming data from chunks, performance depends on how the chunks have been compressed, how much throughput the tooling supports, and the latency between compute environment and object storage. None of those are related to the data format. So at the chunk-level, if the chunks are the same size and the compression is the same then the performance should be the same. This is true for any chunked format - Zarr, virtual Zarr, COG, HDF5.
+When streaming data from chunks, performance depends on the size of the chunks, how the chunks have been compressed, how close together the chunks are in a data file, how much throughput and concurrent decompression the tooling supports, and the latency between compute environment and object storage. None of those are related to the data format. So at the chunk-level, if the chunks are the same size and the compression is the same then the performance should be the same. This is true for any chunked format - Zarr, virtual Zarr, COG, HDF5.
 
 The benefit that you get in virtual Zarr is that you always have the metadata in one defined location. This means that you can read the entire metadata for the whole dataset in one request. As a comparison, in native Zarr (without consolidated metadata) you need one request per array. So when lazily opening a dataset virtual Zarr stores only do one request whereas native Zarr stores do as many as they have arrays. Doing many requests is not necessarily slower, but making it fast requires more sophisticated tooling.
