@@ -48,6 +48,7 @@ website:
           - zarr/intro.qmd
           - zarr/zarr-in-practice.ipynb
           - zarr/virtual-zarr.qmd
+          - kerchunk/kerchunk-in-practice.ipynb
         - section: Cloud-Optimized HDF/NetCDF
           contents:
             - cloud-optimized-netcdf4-hdf5/index.qmd

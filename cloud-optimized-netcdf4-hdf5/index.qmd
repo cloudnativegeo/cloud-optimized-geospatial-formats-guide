@@ -5,7 +5,7 @@ author: Aimee Barciauskas, Alexey Shiklomanov, Luis Lopez
 toc-depth: 3
 ---
 
-The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. Cloud-optimized formats provide efficient subsetting without maintaining a service, such as [OpenDAP](https://www.opendap.org), [Hyrax](https://www.opendap.org/software/hyrax-data-server/) or [SlideRule](https://slideruleearth.io/). Often HDF5 and NetCDF-4 formats are a requirement, for archival purposes. If HDF5 and NetCDF-4 formats are not a requirement, a cloud-native format like [Zarr](../zarr/intro.qmd) should be considered. If HDF5/NetCDF-4 formats _are_ a requirement,  consider zarr-readable chunk indexes such as [kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/).
+The following provides guidance on how to assess and create cloud-optimized HDF5 and NetCDF4 files. Cloud-optimized formats provide efficient subsetting without maintaining a service, such as [OpenDAP](https://www.opendap.org), [Hyrax](https://www.opendap.org/software/hyrax-data-server/) or [SlideRule](https://slideruleearth.io/). Often HDF5 and NetCDF-4 formats are a requirement, for archival purposes. If HDF5 and NetCDF-4 formats are not a requirement, a cloud-native format like [Zarr](../zarr/intro.qmd) should be considered. If HDF5/NetCDF-4 formats _are_ a requirement,  consider a creating a [virtual Zarr store (kerchunk, icechunk)](../zarr/virtual-zarr.qmd) containing zarr-readable chunk indexes.
 
 ::: {.callout-note}
 You can skip the background and details by jumping to the [checklist](#cloud-optimized-hdfnetcdf-checklist).
@@ -258,7 +258,7 @@ $ h5repack \
 
 # Closing Thoughts
 
-Many existing HDF5 and NetCDF4 collections use the default file space management strategy and with very small raw data chunks. While optimizing these collections would improve performance, it requires significant effort, including benchmark design and development, reprocessing and a deep understanding of HDF5 file space management and caching. When time and resources are limited, tools like [Kerchunk](../kerchunk/intro.qmd) and [VirtualiZarr](https://virtualizarr.readthedocs.io/en/latest/) offer a practical alternative. These tools don’t rechunk the data but instead consolidate metadata, resulting in notable performance improvements.
+Many existing HDF5 and NetCDF4 collections use the default file space management strategy and with very small raw data chunks. While optimizing these collections would improve performance, it requires significant effort, including benchmark design and development, reprocessing and a deep understanding of HDF5 file space management and caching. When time and resources are limited, [virtual Zarr stores](../zarr/virtual-zarr.qmd) offer a practical alternative. Virtual Zarr stores don’t rechunk the data but instead consolidate metadata, resulting in notable performance improvements.
 
 # References
 
