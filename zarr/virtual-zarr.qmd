@@ -133,3 +133,43 @@ Icechunk offers several advantages over Kerchunk. The most compelling is that Ic
 When streaming data from chunks, performance depends on the size of the chunks, how the chunks have been compressed, how close together the chunks are in a data file, how much throughput and concurrent decompression the tooling supports, and the latency between compute environment and object storage. So at the chunk-level, if the chunks are the same size and the compression is the same then the performance should be roughly the same. This is true for any chunked format - Zarr, virtual Zarr, COG, HDF5.
 
 The benefit that you get in virtual Zarr is that you always have the metadata in one defined location. This means that you can read the entire metadata for the whole dataset in one request. As a comparison, in native Zarr (without consolidated metadata) you need one request per array. So when lazily opening a dataset virtual Zarr stores only do one request whereas native Zarr stores do as many as they have arrays. Doing many requests is not necessarily slower, but making it fast requires more sophisticated tooling.
+
+# Reading from virtual Zarr stores
+
+In principle, reading from virtual Zarr stores is just like reading from "native" Zarr stores. So once you have a virtual Zarr store in memory (in VirtualiZarr this is called a `ManifestStore`) you can use that store just as you would any other Zarr store:
+
+```python
+xr.open_zarr(manifest_store)
+```
+
+If you have a virtual Zarr store persisted to disk as Icechunk or Kerchunk then you use those libraries to read the virtual Zarr store. So for kerchunk:
+
+```python
+xr.open_dataset("s3://path/to/kerchunk.json", engine="kerchunk")
+
+For icechunk, the user explicitly specifies the authentication mechanism required for both the archival data loaction and icechunk location. This makes the syntax more verbose:
+
+```python
+import icechunk
+
+storage = icechunk.s3_storage(
+    bucket="icechunk-bucket",
+    prefix="path/to/icechunk",
+    anonymous=False,
+    region="us-west-2"
+)
+
+credentials = icechunk.containers_credentials({
+    "s3://data-bucket/": icechunk.s3_anonymous_credentials()
+})
+
+repo = icechunk.Repository.open(
+    storage=storage,
+    authorize_virtual_chunk_access=credentials,
+)
+
+session = repo.readonly_session('main')
+xr.open_zarr(session.store)
+```
+
+Certain downstream libraries like `earthaccess` and `xpystac` simplify this call by providing wrapper functions.
