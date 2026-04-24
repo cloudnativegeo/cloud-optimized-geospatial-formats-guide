@@ -12,15 +12,15 @@ Virtual Zarr stores lets you interact with chunked archival data as if it were Z
 
 - partial reads, which minimize data transfer
 - parallel reads, which speed up data loading
-- aggregated metadata, which make it faster to inspect the contents of a dataset
+- aggregated metadata, which make it faster to inspect the contents of a dataset (also known as "lazy loading")
 
-Virtual Zarr stores capture metadata about where particular chunks of data are stored and lets tools like [xarray](https://docs.xarray.dev/) access the data from the chunks directly. These virtual Zarr stores can be written to disk using Kerchunk or Icechunk and distributed alongside data.
+Virtual Zarr stores capture metadata about where particular chunks of data are stored, enabling tools like [xarray](https://docs.xarray.dev/) to access relevant data from the chunks directly. These virtual Zarr stores can be written to disk using Kerchunk or Icechunk and distributed alongside data.
 
 # How does it relate to regular Zarr?
 
-[Zarr](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html) can be separated into two separate components. There is the Zarr interface (a.k.a. API) which describes how libraries such as xarray interact with Zarr Arrays and Groups. That Zarr interface is implemented in libraries such as [zarr-python](https://zarr.readthedocs.io/en/stable/), [zarrs](https://zarrs.dev/), and [zarrita.js](https://zarrita.dev/). Then there is the storage component, meaning how the data persists outside a computers memory (on cloud storage, a hard drive, etc.). When we think of Zarr stores we normally think of "native" Zarr stores where the data is stored alongside the metadata. They are in the same hierarchy and sit on the same bucket on cloud storage.
+[Zarr](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html) can be separated into two separate components. There is the Zarr specification (or interface) which describes how libraries such as xarray interact with Zarr Arrays and Groups. That Zarr interface is implemented in libraries such as [zarr-python](https://zarr.readthedocs.io/en/stable/), [zarrs](https://zarrs.dev/), and [zarrita.js](https://zarrita.dev/). Then there is the storage component, meaning how the data persists outside a computers memory (on cloud storage, a hard drive, etc.). For most of Zarr's history, Zarr stores referred to stores which adherred to both the specification and the on-disk storage format. We call these "native" Zarr stores: data is stored in the Zarr on-disk format alongside Zarr metadata. Native Zarr stores usually store data and metadata in the same bucket on cloud storage. Other storage protocols are supported but what is important is the Zarr data is located alongside the metadata, so addresses can be relative.
 
-Virtual Zarr stores implement the Zarr interface, but instead of storing the chunk data in the hierarchy the interface sits on top of data stored in archival data formats.
+Virtual Zarr stores implement the Zarr interface, but instead of storing the chunk data in the hierarchy, the virtual store provides an "indirection layer", pointing to chunks of data stored in archival data formats.
 
 ::: {.callout-warning}
 A major limitation of virtual Zarr stores is that the chunking of data will always be constrained to the chunk structure of the underlying data format. A chunk refers to the bytes in the original data file that are compressed as one unit. Those chunks cannot be changed during virtualization since those compressed units live outside the Virtual Zarr store.
@@ -99,7 +99,7 @@ vds = open_virtual_dataset(
 
 # Storage formats
 
-Creating a virtual Zarr store takes some time, but the index that you generate is valid as long as the underlying data stays the same. In order to make use of the virtual Zarr store and potentially share it with others, you need to serialize it to disk. If you are using Kerchunk to create your virtual Zarr stores then you will always serialize to Kerchunk format. If you are using VirtualiZarr then you can serialize to Kerchunk format or to Icechunk.
+Creating a virtual Zarr store takes time, but the index that you generate is valid as long as the underlying data stays the same. In order to make use of the virtual Zarr store and potentially share it with others, you need to serialize it to disk. If you are using Kerchunk to create your virtual Zarr stores then you will always serialize to Kerchunk format. If you are using VirtualiZarr then you can serialize to Kerchunk format or to Icechunk.
 
 ## Kerchunk
 
@@ -120,10 +120,10 @@ For very large virtual Zarr stores, kerchunk-json files can get too big to be pr
 
 ## Icechunk
 
-[Icechunk](https://icechunk.io/en/stable/) is specification for storing Zarr data that provides git-like data versioning and safe concurrent commits to the same store. Regular Icechunk supports storing data alongside metadata like native Zarr. But Icechunk can also be used to store virtual Zarr stores where the metadata points to existing chunks of data within archival formats.
+[Icechunk](https://icechunk.io/en/stable/) is a specification for storing Zarr data that provides git-like data versioning and safe concurrent commits to the same store. Regular Icechunk supports storing data alongside metadata like native Zarr. But Icechunk can also be used to store virtual Zarr stores where the metadata points to existing chunks of data within archival formats.
 
 ::: {.callout-note}
-Icechunk is an open source file format that is free to use - just like COG or Zarr. It is primarily developed by the company Earthmover. Earthmover has a commercial product called Arraylake that is build on the Icechunk format.
+Icechunk is an open source file format that is free to use - just like COG or Zarr. It is primarily developed by the company Earthmover. Earthmover has a commercial product called Arraylake that is built on the Icechunk format.
 :::
 
 Icechunk offers several advantages over Kerchunk. The most compelling is that Icechunk stores the last-modified time of the data chunks, so it knows when the underlying data chunks have changed relative to when the virtual store was written. This means that Icechunk will raise an error at read time if the data has changed. For a full comparison see the [VirtualiZarr docs](https://virtualizarr.readthedocs.io/en/stable/faq.html#which-format-should-i-save-my-virtual-references-as).
@@ -147,7 +147,7 @@ If you have a virtual Zarr store persisted to disk as Icechunk or Kerchunk then 
 ```python
 xr.open_dataset("s3://path/to/kerchunk.json", engine="kerchunk")
 
-For icechunk, the user explicitly specifies the authentication mechanism required for both the archival data loaction and icechunk location. This makes the syntax more verbose:
+For icechunk, the user explicitly specifies the authentication mechanism required for both the archival data location and icechunk location. This makes the syntax more verbose:
 
 ```python
 import icechunk
