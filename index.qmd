@@ -67,12 +67,11 @@ Notes:
 2. Formats
    a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.qmd)
    b. [Zarr](./zarr/intro.qmd)
-   c. [Kerchunk](./kerchunk/intro.qmd)
-   d. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
-   e. [Cloud-Optimized Point Clouds (COPC)](./copc/index.qmd)
-   f. [GeoParquet](./geoparquet/index.qmd)
-   g. [FlatGeobuf](./flatgeobuf/intro.qmd)
-   h. [PMTiles](./pmtiles/intro.qmd)
+   c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
+   d. [Cloud-Optimized Point Clouds (COPC)](./copc/index.qmd)
+   e. [GeoParquet](./geoparquet/index.qmd)
+   f. [FlatGeobuf](./flatgeobuf/intro.qmd)
+   g. [PMTiles](./pmtiles/intro.qmd)
 3. [Cookbooks](./cookbooks/index.qmd)
 
 
