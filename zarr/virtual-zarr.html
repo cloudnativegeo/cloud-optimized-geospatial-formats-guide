@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Julia Signell">
 
-<title>Cloud-Optimized Cookbooks – Cloud-Optimized Geospatial Formats Guide</title>
+<title>Virtual Zarr – Cloud-Optimized Geospatial Formats Guide</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +68,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../cookbooks/zarr-stac-report/index.html" rel="next">
-<link href="../glossary.html" rel="prev">
+<link href="../kerchunk/kerchunk-in-practice.html" rel="next">
+<link href="../zarr/zarr-in-practice.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -251,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../cookbooks/index.html">Cookbooks</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/virtual-zarr.html">Virtual Zarr</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -362,13 +398,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Zarr</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../zarr/intro.html" class="sidebar-item-text sidebar-link">
@@ -383,7 +419,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../zarr/virtual-zarr.html" class="sidebar-item-text sidebar-link">
+  <a href="../zarr/virtual-zarr.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Virtual Zarr</span></a>
   </div>
 </li>
@@ -520,7 +556,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../cookbooks/index.html" class="sidebar-item-text sidebar-link active">
+            <a href="../cookbooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Cookbooks</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -575,22 +611,49 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-virtual-zarr" id="toc-what-is-virtual-zarr" class="nav-link active" data-scroll-target="#what-is-virtual-zarr">What is virtual Zarr?</a></li>
+  <li><a href="#how-does-it-relate-to-regular-zarr" id="toc-how-does-it-relate-to-regular-zarr" class="nav-link" data-scroll-target="#how-does-it-relate-to-regular-zarr">How does it relate to regular Zarr?</a></li>
+  <li><a href="#how-does-it-work" id="toc-how-does-it-work" class="nav-link" data-scroll-target="#how-does-it-work">How does it work?</a></li>
+  <li><a href="#how-to-a-create-a-virtual-zarr-store" id="toc-how-to-a-create-a-virtual-zarr-store" class="nav-link" data-scroll-target="#how-to-a-create-a-virtual-zarr-store">How to a create a virtual Zarr store</a>
+  <ul class="collapse">
+  <li><a href="#kerchunk" id="toc-kerchunk" class="nav-link" data-scroll-target="#kerchunk">Kerchunk</a></li>
+  <li><a href="#virtualizarr" id="toc-virtualizarr" class="nav-link" data-scroll-target="#virtualizarr">VirtualiZarr</a></li>
+  </ul></li>
+  <li><a href="#storage-formats" id="toc-storage-formats" class="nav-link" data-scroll-target="#storage-formats">Storage formats</a>
+  <ul class="collapse">
+  <li><a href="#kerchunk-1" id="toc-kerchunk-1" class="nav-link" data-scroll-target="#kerchunk-1">Kerchunk</a></li>
+  <li><a href="#icechunk" id="toc-icechunk" class="nav-link" data-scroll-target="#icechunk">Icechunk</a></li>
+  </ul></li>
+  <li><a href="#performance-compared-to-native-zarr" id="toc-performance-compared-to-native-zarr" class="nav-link" data-scroll-target="#performance-compared-to-native-zarr">Performance compared to native Zarr</a></li>
+  <li><a href="#reading-from-virtual-zarr-stores" id="toc-reading-from-virtual-zarr-stores" class="nav-link" data-scroll-target="#reading-from-virtual-zarr-stores">Reading from virtual Zarr stores</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/zarr/virtual-zarr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Formats</li><li class="breadcrumb-item"><a href="../zarr/intro.html">Zarr</a></li><li class="breadcrumb-item"><a href="../zarr/virtual-zarr.html">Virtual Zarr</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Cloud-Optimized Cookbooks</h1>
+<h1 class="title">Virtual Zarr</h1>
+<p class="subtitle lead">Zarr interface for data in archival formats</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julia Signell </p>
+          </div>
+  </div>
     
   
     
@@ -601,14 +664,170 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Cookbooks should address common questions and present solutions for cloud-optimized access and visualization.</p>
-<p>Cookbooks:</p>
+<section id="what-is-virtual-zarr" class="level1">
+<h1>What is virtual Zarr?</h1>
+<p>Virtual Zarr stores lets you interact with chunked archival data as if it were Zarr. You can get the benefits of Zarr without ever duplicating the data, including:</p>
 <ul>
-<li><a href="https://nasa-impact.github.io/zarr-visualization-report/">Zarr Visualization Report (in development)</a></li>
-<li><a href="../cookbooks/zarr-stac-report/index.html">Zarr + STAC Report (in development)</a></li>
+<li>partial reads, which minimize data transfer</li>
+<li>parallel reads, which speed up data loading</li>
+<li>aggregated metadata, which make it faster to inspect the contents of a dataset (also known as “lazy loading”)</li>
 </ul>
+<p>Virtual Zarr stores capture metadata about where particular chunks of data are stored, enabling tools like <a href="https://docs.xarray.dev/">xarray</a> to access relevant data from the chunks directly. These virtual Zarr stores can be written to disk using Kerchunk or Icechunk and distributed alongside data.</p>
+</section>
+<section id="how-does-it-relate-to-regular-zarr" class="level1">
+<h1>How does it relate to regular Zarr?</h1>
+<p><a href="https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html">Zarr</a> can be separated into two separate components. There is the Zarr specification (or interface) which describes how libraries such as xarray interact with Zarr Arrays and Groups. That Zarr interface is implemented in libraries such as <a href="https://zarr.readthedocs.io/en/stable/">zarr-python</a>, <a href="https://zarrs.dev/">zarrs</a>, and <a href="https://zarrita.dev/">zarrita.js</a>. Then there is the storage component, meaning how the data persists outside a computers memory (on cloud storage, a hard drive, etc.). For most of Zarr’s history, Zarr stores referred to stores which adherred to both the specification and the on-disk storage format. We call these “native” Zarr stores: data is stored in the Zarr on-disk format alongside Zarr metadata. Native Zarr stores usually store data and metadata in the same bucket on cloud storage. Other storage protocols are supported but what is important is the Zarr data is located alongside the metadata, so addresses can be relative.</p>
+<p>Virtual Zarr stores implement the Zarr interface, but instead of storing the chunk data in the hierarchy, the virtual store provides an “indirection layer”, pointing to chunks of data stored in archival data formats.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A major limitation of virtual Zarr stores is that the chunking of data will always be constrained to the chunk structure of the underlying data format. A chunk refers to the bytes in the original data file that are compressed as one unit. Those chunks cannot be changed during virtualization since those compressed units live outside the Virtual Zarr store.</p>
+</div>
+</div>
+</section>
+<section id="how-does-it-work" class="level1">
+<h1>How does it work?</h1>
+<p>Virtual Zarr stores contain an index for every chunk of data in a particular dataset. This index gives information about each array and includes the path, byte offset, and length of each chunk. A client library like xarray lazily opens the index as a Zarr store without accessing the underlying chunk data at all. At compute time the Zarr store uses an HTTP range requests to fetch just the bytes of data that make up a particular chunk of data.</p>
+</section>
+<section id="how-to-a-create-a-virtual-zarr-store" class="level1">
+<h1>How to a create a virtual Zarr store</h1>
+<p>To create a virtual Zarr store you first have to figure out the mapping between byte ranges and data chunks. To figure this out you have to scan every file that will be included in the virtual Zarr store. In some cloud-optimized formats like COG the necessary information is all in the file header, but in other formats it can be sprinkled throughout the files. So, depending on the structure of your archival data files, this process can take some time.</p>
+<p>There are two libraries for creating virtual Zarr stores: <a href="https://fsspec.github.io/kerchunk/">Kerchunk</a> and <a href="https://virtualizarr.readthedocs.io/en/stable/">VirtualiZarr</a>.</p>
+<section id="kerchunk" class="level2">
+<h2 class="anchored" data-anchor-id="kerchunk">Kerchunk</h2>
+<p><a href="https://fsspec.github.io/kerchunk">Kerchunk</a> is a Python library which generates a set of references to data or URLs under a key value store that matches the Zarr spec. You can use kerchunk to serialize your virtual zarr store to kerchunk-json or kerchunk-parquet.</p>
+<p>Here’s an example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kerchunk.hdf <span class="im">import</span> SingleHdf5ToZarr</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>local_file <span class="op">=</span> <span class="st">'some_data.nc'</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>out_file <span class="op">=</span> <span class="st">'some_references.json'</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the local file system with fsspec to save kerchunk's reference data as json.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> fsspec.filesystem(<span class="st">''</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>in_file <span class="op">=</span> fs.<span class="bu">open</span>(local_file)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The inline threshold adjusts the size below which binary blocks are included directly in the output.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A higher inline threshold can result in a larger json file but faster loading time overally, since fewer requests are made.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>h5chunks <span class="op">=</span> SingleHdf5ToZarr(in_file, local_file, inline_threshold<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> fs.<span class="bu">open</span>(out_file, <span class="st">'wb'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    f.write(json.dumps(h5chunks.translate()).encode())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="virtualizarr" class="level2">
+<h2 class="anchored" data-anchor-id="virtualizarr">VirtualiZarr</h2>
+<p><a href="https://virtualizarr.readthedocs.io/en/stable/">VirtualiZarr</a> is different from kerchunk in that it totally separates the three main steps of virtualization:</p>
+<ul>
+<li>Parsing chunk index from archival data formats</li>
+<li>Concatenating/merging</li>
+<li>Serializing to disk</li>
+</ul>
+<p>VirtualiZarr started with the idea that it would be simpler to create virtual Zarr stores using xarray directly. The basic idea is that you use an existing parser such as HDF5Parser to create a “virtual dataset” which you can then concatenate and merge with another “virtual dataset”. Once you are done with the concatenation step you can serialize the virtual store to <a href="https://fsspec.github.io/kerchunk/spec.html#version-0">kerchunk-json</a>, <a href="https://fsspec.github.io/kerchunk/spec.html#parquet-references">kerchunk-parquet</a> or <a href="https://icechunk.io/en/stable/">icechunk</a>.</p>
+<p>Here’s an example of just the parsing step:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> obstore</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> obspec_utils.registry <span class="im">import</span> ObjectStoreRegistry</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> virtualizarr <span class="im">import</span> open_virtual_dataset</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> virtualizarr.parsers <span class="im">import</span> HDFParser</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>bucket <span class="op">=</span> <span class="st">"s3://nex-gddp-cmip6"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">"NEX-GDDP-CMIP6/ACCESS-CM2/ssp126/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp126_r1i1p1f1_gn_2015_v2.0.nc"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> obstore.store.from_url(bucket, region<span class="op">=</span><span class="st">"us-west-2"</span>, skip_signature<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>registry <span class="op">=</span> ObjectStoreRegistry({bucket: store})</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>parser <span class="op">=</span> HDFParser()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>vds <span class="op">=</span> open_virtual_dataset(</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  url<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>bucket<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  parser<span class="op">=</span>parser,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  registry<span class="op">=</span>registry,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  loadable_variables<span class="op">=</span>[],</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="storage-formats" class="level1">
+<h1>Storage formats</h1>
+<p>Creating a virtual Zarr store takes time, but the index that you generate is valid as long as the underlying data stays the same. In order to make use of the virtual Zarr store and potentially share it with others, you need to serialize it to disk. If you are using Kerchunk to create your virtual Zarr stores then you will always serialize to Kerchunk format. If you are using VirtualiZarr then you can serialize to Kerchunk format or to Icechunk.</p>
+<section id="kerchunk-1" class="level2">
+<h2 class="anchored" data-anchor-id="kerchunk-1">Kerchunk</h2>
+<p><a href="https://fsspec.github.io/kerchunk/">Kerchunk</a> has two options for storage: kerchunk-json and kerchunk-parquet. A simple reference file in kerchunk-json for a NetCDF file might look like:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">".zgroup"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">zarr_format</span><span class="ch">\"</span><span class="st">: 2</span><span class="ch">\n</span><span class="st">}"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">".zattrs"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">Conventions</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">UGRID-0.9.0</span><span class="ch">\n\"</span><span class="st">}"</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"x/.zattrs"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">_ARRAY_DIMENSIONS</span><span class="ch">\"</span><span class="st">: [</span><span class="ch">\n</span><span class="st">        </span><span class="ch">\"</span><span class="st">node</span><span class="ch">\"\n</span><span class="st"> ..."</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"x/.zarray"</span><span class="fu">:</span> <span class="st">"{</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">chunks</span><span class="ch">\"</span><span class="st">: [</span><span class="ch">\n</span><span class="st">        9228245</span><span class="ch">\n</span><span class="st">    ],</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">compressor</span><span class="ch">\"</span><span class="st">: null,</span><span class="ch">\n</span><span class="st">    </span><span class="ch">\"</span><span class="st">dtype</span><span class="ch">\"</span><span class="st">: </span><span class="ch">\"</span><span class="st">&lt;f8</span><span class="ch">\"</span><span class="st">,</span><span class="ch">\n</span><span class="st">  ..."</span><span class="fu">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"x/0"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"s3://bucket/path/file.nc"</span><span class="ot">,</span> <span class="dv">294094376</span><span class="ot">,</span> <span class="dv">73825960</span><span class="ot">]</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>["s3://bucket/path/file.nc", 294094376, 73825960]</code> is the key part, which says that to load the first chunk in the <code>x</code> dimension, the Zarr reader needs to fetch a byte range starting at <code>294094376</code> with a length of <code>73825960</code> bytes.</p>
+<p>For very large virtual Zarr stores, kerchunk-json files can get too big to be practical. That’s where kerchunk-parquet comes in. It uses the same concepts as kerchunk-json, but stores the information in parquet which has the advantages of better compressibility and file partitioning.</p>
+</section>
+<section id="icechunk" class="level2">
+<h2 class="anchored" data-anchor-id="icechunk">Icechunk</h2>
+<p><a href="https://icechunk.io/en/stable/">Icechunk</a> is a specification for storing Zarr data that provides git-like data versioning and safe concurrent commits to the same store. Regular Icechunk supports storing data alongside metadata like native Zarr. But Icechunk can also be used to store virtual Zarr stores where the metadata points to existing chunks of data within archival formats.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Icechunk is an open source file format that is free to use - just like COG or Zarr. It is primarily developed by the company Earthmover. Earthmover has a commercial product called Arraylake that is built on the Icechunk format.</p>
+</div>
+</div>
+<p>Icechunk offers several advantages over Kerchunk. The most compelling is that Icechunk stores the last-modified time of the data chunks, so it knows when the underlying data chunks have changed relative to when the virtual store was written. This means that Icechunk will raise an error at read time if the data has changed. For a full comparison see the <a href="https://virtualizarr.readthedocs.io/en/stable/faq.html#which-format-should-i-save-my-virtual-references-as">VirtualiZarr docs</a>.</p>
+</section>
+</section>
+<section id="performance-compared-to-native-zarr" class="level1">
+<h1>Performance compared to native Zarr</h1>
+<p>When streaming data from chunks, performance depends on the size of the chunks, how the chunks have been compressed, how close together the chunks are in a data file, how much throughput and concurrent decompression the tooling supports, and the latency between compute environment and object storage. So at the chunk-level, if the chunks are the same size and the compression is the same then the performance should be roughly the same. This is true for any chunked format - Zarr, virtual Zarr, COG, HDF5.</p>
+<p>The benefit that you get in virtual Zarr is that you always have the metadata in one defined location. This means that you can read the entire metadata for the whole dataset in one request. As a comparison, in native Zarr (without consolidated metadata) you need one request per array. So when lazily opening a dataset virtual Zarr stores only do one request whereas native Zarr stores do as many as they have arrays. Doing many requests is not necessarily slower, but making it fast requires more sophisticated tooling.</p>
+</section>
+<section id="reading-from-virtual-zarr-stores" class="level1">
+<h1>Reading from virtual Zarr stores</h1>
+<p>In principle, reading from virtual Zarr stores is just like reading from “native” Zarr stores. So once you have a virtual Zarr store in memory (in VirtualiZarr this is called a <code>ManifestStore</code>) you can use that store just as you would any other Zarr store:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xr.open_zarr(manifest_store)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you have a virtual Zarr store persisted to disk as Icechunk or Kerchunk then you use those libraries to read the virtual Zarr store. So for kerchunk:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xr.open_dataset(<span class="st">"s3://path/to/kerchunk.json"</span>, engine<span class="op">=</span><span class="st">"kerchunk"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>For icechunk, the user explicitly specifies the authentication mechanism required <span class="cf">for</span> both the archival data location <span class="kw">and</span> icechunk location. This makes the syntax more verbose:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>```python</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> icechunk</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>storage <span class="op">=</span> icechunk.s3_storage(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    bucket<span class="op">=</span><span class="st">"icechunk-bucket"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    prefix<span class="op">=</span><span class="st">"path/to/icechunk"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    anonymous<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    region<span class="op">=</span><span class="st">"us-west-2"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>credentials <span class="op">=</span> icechunk.containers_credentials({</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"s3://data-bucket/"</span>: icechunk.s3_anonymous_credentials()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>repo <span class="op">=</span> icechunk.Repository.<span class="bu">open</span>(</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    storage<span class="op">=</span>storage,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    authorize_virtual_chunk_access<span class="op">=</span>credentials,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> repo.readonly_session(<span class="st">'main'</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>xr.open_zarr(session.store)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Certain downstream libraries like <code>earthaccess</code> and <code>xpystac</code> simplify this call by providing wrapper functions.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -711,13 +930,6 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
-            // default icon
-            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1033,13 +1245,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../glossary.html" class="pagination-link" aria-label="Glossary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Glossary</span>
+      <a href="../zarr/zarr-in-practice.html" class="pagination-link" aria-label="Zarr in Practice">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Zarr in Practice</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../cookbooks/zarr-stac-report/index.html" class="pagination-link" aria-label="Zarr + STAC">
-        <span class="nav-page-text">Zarr + STAC</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../kerchunk/kerchunk-in-practice.html" class="pagination-link" aria-label="Kerchunk in Practice">
+        <span class="nav-page-text">Kerchunk in Practice</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1051,7 +1263,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
-<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/cookbooks/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/zarr/virtual-zarr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
