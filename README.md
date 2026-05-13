@@ -1,5 +1,7 @@
 # Cloud-Optimized Geospatial Formats Guide
 
+
+
 See the site [https://guide.cloudnativegeo.org/](https://guide.cloudnativegeo.org/)
 
 **Guide**: <a href="https://tinyurl.com/cogeo-guide" target="_blank">tinyurl.com/cogeo-guide</a>
@@ -35,7 +37,9 @@ This site is built using [Quarto](https://quarto.org/docs/get-started/). To prev
 
 This project is licensed under the Creative Commons Attribution 4.0 International license.
 
-Preferred citation: `Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0`.
+## Citation
+
+See [contributing.qmd#Citation](./contributing.qmd#Citation)
 
 ## Questions?
 

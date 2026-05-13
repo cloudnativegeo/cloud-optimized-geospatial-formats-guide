@@ -6,3 +6,7 @@ repos:
         entry: python scripts/glossary_alphabetical.py
         language: system
         files: 'glossary.qmd'
+  - repo: https://github.com/citation-file-format/cff-converter-python
+    rev: ebf0b5e44d67f8beaa1cd13a0d0393ea04c6058d
+    hooks:
+      - id: validate-cff
