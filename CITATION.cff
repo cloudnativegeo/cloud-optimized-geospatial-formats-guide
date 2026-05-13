@@ -4,7 +4,7 @@ title: "Cloud Optimized Geospatial Formats Guide"
 abstract: "Guide to methods for generating and testing Cloud-Optimized Geospatial Formats."
 license: CC-BY-4.0
 repository: "https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide"
-doi: "https://doi.org/10.5281/zenodo.15498529"
+doi: "10.5281/zenodo.15498529"
 url: "https://guide.cloudnativegeo.org/"
 authors:
 - family-names: "Barciauskas"
