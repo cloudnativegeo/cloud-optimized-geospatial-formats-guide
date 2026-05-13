@@ -85,7 +85,7 @@ This work is licensed under the Creative Commons Attribution 4.0 International L
 
 ## Citation
 
-Please cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: https://doi.org/10.5281/zenodo.15498529. This DOI represents all versions, and will always resolve to the latest one.
+Please cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: [https://doi.org/10.5281/zenodo.15498529](https://doi.org/10.5281/zenodo.15498529). This DOI represents all versions, and will always resolve to the latest one.
 
 The citation will look something like:
 
