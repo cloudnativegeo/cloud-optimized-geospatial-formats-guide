@@ -28,6 +28,8 @@
 
 Intra-format benchmarking (e.g., Zarr chunking configurations) should happen within the format's documentation. Examples of inter-format comparisons could inform the decision framework. The decision framework could cite benchmark results but should not provide instructions on how to run benchmarks.
 
+See also https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/30
+
 ### Task 2: Metadata section
 
 - New Metadata Section: https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/176
