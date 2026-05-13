@@ -490,7 +490,17 @@
     "href": "contributing.html#licensing",
     "title": "Get Involved",
     "section": "Licensing",
-    "text": "Licensing\nThis work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/. For attribution requirements, please look at the license terms.\nPreferred citation: Barciauskas, A et al. 2023. Cloud Optimized Geospatial Formats Guide. CC-By-4.0.",
+    "text": "Licensing\nThis work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/. For attribution requirements, please look at the license terms.",
+    "crumbs": [
+      "Get Involved"
+    ]
+  },
+  {
+    "objectID": "contributing.html#citation",
+    "href": "contributing.html#citation",
+    "title": "Get Involved",
+    "section": "Citation",
+    "text": "Citation\nPlease cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: https://doi.org/10.5281/zenodo.15498529. This DOI represents all versions, and will always resolve to the latest one.\nThe citation will look something like:\n\nAimee Barciauskas, et al (2025). Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529\n\nPlease visit the Guide’s DOI link to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.",
     "crumbs": [
       "Get Involved"
     ]
