@@ -70,7 +70,7 @@ Read more on [consolidated metadata](https://zarr.readthedocs.io/en/main/user-gu
 At its core Zarr is a very flexible format that does not have any requirements regarding the actual storage system. Zarr can be stored in memory, on disk, in Zip files, and in any key-value store, such as object storage like S3. Learn more in the [Storage section of the Zarr specification](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html#id25).
 
 ::: {.callout-note}
-Zarr data chunks do not necessarily need to be stored in the same storage system as the Zarr metadata. This is what enables virtual Zarr stores (kerchunk, icechunk) where the metadata references data in legacy chunked data formats (such as NetCDF and HDF5).
+Zarr data chunks do not necessarily need to be stored in the same storage system as the Zarr metadata. This is what enables [virtual Zarr stores](./virtual-zarr.qmd) where the metadata references data in legacy chunked data formats (such as NetCDF and HDF5).
 :::
 
 ### Chunking
