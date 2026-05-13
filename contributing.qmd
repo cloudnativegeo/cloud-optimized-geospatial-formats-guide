@@ -89,7 +89,7 @@ Please cite the Cloud Optimized Geospatial Formats Guide through the project’s
 
 The citation will look something like:
 
-> Aimee Barciauskas, etc (2023). cloudnativegeo/cloud-optimized-geospatial-formats-guide: Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529
+> Aimee Barciauskas, et al (2025). Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529
 
 Please visit the Guide's [DOI link](https://doi.org/10.5281/zenodo.15498529) to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.
 
