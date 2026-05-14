@@ -31,9 +31,6 @@ authors:
   family-names: "Sparing"
 - given-names: "Jed"
   family-names: "Sundwall"
-
-
-contributors:
 - given-names: "Kiri"
   family-names: "Carini"
 - given-names: "Tyler"
@@ -56,7 +53,8 @@ contributors:
   given-names: "Patrick"
 - family-names: "Hanson"
   given-names: "Matt"
+- name: "autarc"
 - family-names: "Abernathey"
   given-names: "Ryan"
   orcid: "https://orcid.org/0000-0001-5999-4917"
-- name: "autarc"
+
