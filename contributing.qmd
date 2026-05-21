@@ -85,13 +85,13 @@ This work is licensed under the Creative Commons Attribution 4.0 International L
 
 ## Citation
 
-Please cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: [https://doi.org/10.5281/zenodo.15498529](https://doi.org/10.5281/zenodo.15498529). This DOI represents all versions, and will always resolve to the latest one.
+Please cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using its DOI: [https://doi.org/10.5281/zenodo.15498528](https://doi.org/10.5281/zenodo.15498528).
 
 The citation will look something like:
 
 > Aimee Barciauskas, et al (2025). Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529
 
-Please visit the Guide's [DOI link](https://doi.org/10.5281/zenodo.15498529) to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.
+Please visit the Guide's [DOI link](https://doi.org/10.5281/zenodo.15498528) to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.
 
 ## Contact
 
