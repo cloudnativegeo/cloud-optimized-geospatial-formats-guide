@@ -358,7 +358,7 @@
     "href": "contributing.html#citation",
     "title": "Get Involved",
     "section": "Citation",
-    "text": "Citation\nPlease cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using DOI: https://doi.org/10.5281/zenodo.15498529. This DOI represents all versions, and will always resolve to the latest one.\nThe citation will look something like:\n\nAimee Barciauskas, et al (2025). Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529\n\nPlease visit the Guide’s DOI link to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.",
+    "text": "Citation\nPlease cite the Cloud Optimized Geospatial Formats Guide through the project’s Zenodo archive using its DOI: https://doi.org/10.5281/zenodo.15498528.\nThe citation will look something like:\n\nAimee Barciauskas, et al (2025). Cloud Optimized Geospatial Formats Guide v2025.05.21 (v2025.05.21). Zenodo. https://doi.org/10.5281/zenodo.15498529\n\nPlease visit the Guide’s DOI link to get the most recent version - the one above is not automatically generated and may be out of date as we release updated versions of the Guide.",
     "crumbs": [
       "Get Involved"
     ]
