@@ -87,6 +87,7 @@ website:
 
 format:
   html:
+    include-in-header: plausible.html
     theme:
       light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
       dark: [cosmo, theme-dark.scss]
