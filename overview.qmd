@@ -184,8 +184,8 @@ image source: https://xarray.dev/
 * Zarr V3 provides additional extension mechanisms and sharding, which allows high concurrency while minimizing the number of files.
 * Zarr Python 3 supports reading and writing to Zarr format V3 while still supporting Zarr V2, with dramatic performance improvements.
 * Brianna Pagán (formerly NASA, currently Development Seed) has organized the OGC GeoZarr standards working group (SWG) to establish standards for geospatial metadata. The SWG includes representatives from many other orgs in the industry.
-* The GeoZarr spec defines conventions for organizing geospatial data in a Zarr store. Specifically, the spec defines conventions for Zarr DataArray and DataSet metadata and organization of associated data to be conformant as GeoZarr archive. The spec remains in development.
-* Icechunk provides features including data version control and serializable isolation on top of Zarr.
+* The [GeoZarr spec](https://github.com/zarr-developers/geozarr-spec) defines conventions for organizing geospatial data in a Zarr store. Specifically, the spec defines conventions for Zarr DataArray and DataSet metadata and organization of associated data to be conformant as GeoZarr archive. The spec remains in development.
+* [Icechunk](https://icechunk.io/en/stable/) provides features including data version control and serializable isolation on top of Zarr.
 
 ## COPC (Cloud-Optimized Point Clouds)
 
