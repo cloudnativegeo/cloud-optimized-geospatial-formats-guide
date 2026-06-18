@@ -180,7 +180,7 @@ image source: https://xarray.dev/
 
 ## Zarr Specs in Development
 
-* (as of mid-2025) V2 is widely adopted. Zarr V3 was recently released.
+* Zarr V3 was accepted as a spec in 2023. Its community adoption is accelerating.
 * Zarr V3 provides additional extension mechanisms and sharding, which allows high concurrency while minimizing the number of files.
 * Zarr Python 3 supports reading and writing to Zarr format V3 while still supporting Zarr V2, with dramatic performance improvements.
 * Brianna Pagán (formerly NASA, currently Development Seed) has organized the OGC GeoZarr standards working group (SWG) to establish standards for geospatial metadata. The SWG includes representatives from many other orgs in the industry.
