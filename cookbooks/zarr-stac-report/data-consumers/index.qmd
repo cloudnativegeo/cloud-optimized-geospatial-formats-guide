@@ -62,6 +62,7 @@ Virtual reference files can be treated exactly like how you would treat a Zarr s
 This is a newer area of development. It applies to cases where you are interacting with many smaller Zarr stores and concatenating them. The core concept is that instead of repeatedly querying the STAC catalog you could store the results for easy access.
 
 There are several layers at which you can store results:
+
   - Store the result of a STAC search in [stac-geoparquet][2]  (using [rustac][3])
   - Store the result of a data cube constructed by concatenating Zarr stores: 
     - as a new Zarr store - this option can include filtering and subsetting
