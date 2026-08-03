@@ -184,6 +184,8 @@ The idea is a **weighted mean of criteria**, each expressed as a number from 0 t
 | Measured, needs a benchmark run | **size**: output volume against the source |
 | | **performance**: measured read, write, and display, blended by the intent mix |
 
+**Where the measured numbers come from.** The two measured criteria need a harness, and reproducibility is the whole point of quoting a number at all. [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark) is the open-source (MIT) harness behind the numbers on the [Case Studies](case-studies.qmd) page. Per format and per dataset it measures the object-size distribution and tier fitness, write throughput, range-request-aware read latency, and tile-display latency. You describe your own datasets in config files, so no provider or dataset is baked into the code, and you run it on your own infrastructure against your own data. See the [documentation](https://developmentseed.github.io/cng-formats-benchmark/) and the [configuration guide](https://developmentseed.github.io/cng-formats-benchmark/configuration/).
+
 Rank the candidates and read the **margin**, which is the gap to the runner-up. A small margin is an honest signal that a benchmark, or a review of your weights, is what actually decides it. There are **no verdicts and no probability readout**. You get a score, a ranking, and a margin.
 
 Two points are easy to get wrong:
@@ -191,7 +193,7 @@ Two points are easy to get wrong:
 - **Object-size and tier fit is reported information, not a scored penalty.** Report whether a layout clears a given tier, the mean and median object size, and a small-file warning **beside** the score, never inside it. A storage backend's policy is a property of that backend, not of the format, so you must weigh it against your own infrastructure.
 - **Intent weights are your input.** The suitability matrix is a shared expert reference on each format's strengths, and it is useful on its own. The intent mix and the criterion weights belong to your context.
 
-The convincing artifact is never a single score. It is a sensitivity sweep that shows the ranking holds across a range of weights.
+The convincing artifact is never a single score. It is a sensitivity sweep that shows the ranking holds across a range of weights. That is also the honest reason this section stays short and links out: a score you cannot reproduce on your own data is not worth much, so the harness matters more than any number this page could print.
 
 ## Worked examples
 

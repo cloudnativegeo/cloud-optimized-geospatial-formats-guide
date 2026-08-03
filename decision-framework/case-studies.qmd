@@ -24,6 +24,8 @@ A second, related warning: **compare like for like on content.** More than one s
 
 ::: {.callout-note}
 The numbers below are first measurements on a representative unit per mission, meaning one scene, one tile, or a few granules. They are illustrative, not a published benchmark. Two of the six cases have re-runs pending, and each one says so.
+
+They were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), an open-source harness that measures object-size distribution, write, read, and display per format. You can describe your own datasets in its config files and reproduce this shape of comparison on your own data. See [Optional: make it quantitative](index.qmd#optional-make-it-quantitative).
 :::
 
 ## 1. Per-scene optical raster: COG against a Zarr time-stack
@@ -128,4 +130,4 @@ Read the size column together with the recurring lesson at the top of this page.
 
 ## Acknowledgements
 
-These case studies come from a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). They use public Copernicus and NASA mission data. See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).
+These case studies come from a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). They use public Copernicus and NASA mission data. The measurements were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), which is maintained separately from this guide so that its methodological choices stay debatable in their own right. See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).
