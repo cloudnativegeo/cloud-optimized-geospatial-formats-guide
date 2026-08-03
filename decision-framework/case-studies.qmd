@@ -1,0 +1,131 @@
+---
+title: "Decision Framework Case Studies"
+subtitle: "Six products run through the framework, five of them backed by measurements"
+---
+
+Each case study below runs a real product through the [decision framework](index.qmd). It shows where the product lands and why. Five of the six are backed by **measured benchmark results**.
+
+Read each case in two parts:
+
+1. **The path through the spine**: the control fork, the topology gate, then intent, the object-size lever, and maturity.
+2. **What the measurement showed.**
+
+The examples use public Copernicus and NASA missions. The CNES Datalake appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
+
+::: {.callout-important}
+## The recurring lesson
+
+**Going cloud-optimized is rarely smaller than the source you started from.**
+
+What it buys you is partial access, a spatial index, or a level of detail. Where two cloud-optimized candidates *do* differ in size, the cause is usually the **codec**, not the format.
+
+A second, related warning: **compare like for like on content.** More than one surprising number in this study turned out to be a comparison against a file that held fewer variables.
+:::
+
+::: {.callout-note}
+The numbers below are first measurements on a representative unit per mission, meaning one scene, one tile, or a few granules. They are illustrative, not a published benchmark. Two of the six cases have re-runs pending, and each one says so.
+:::
+
+## 1. Per-scene optical raster: COG against a Zarr time-stack
+
+**Product:** Sentinel-2 L2A. **Topology:** 2D raster per scene. **Candidate set:** `{COG, GeoZarr}`.
+
+**The path.** Existing data, and the producer operates the processing chain, so this is a free choice. The topology opens `{COG, GeoZarr}` and the intent decides between them. Per-scene **distribution and visualization** favors COG. **Time-series analysis** favors a GeoZarr cube. The grouping lever is COG internal tiling, or a scene-size Zarr shard.
+
+**Measured, one scene.** Both layouts cleared the warm tier. COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. That gap is the **codec**, Deflate against ZSTD, not the format. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
+
+A **too-small 2048² shard** split the same bytes into 843 objects that fell below the tier. This is exactly the object-grouping anti-pattern the framework warns about.
+
+**Interpretation encoding is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in side metadata that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
+
+**Where it lands.** COG per scene for distribution and visualization. A scene-size GeoZarr shard for temporal analysis. The associated masking product, which is written as many small GeoTIFFs, is a clear anti-pattern to fix at the source.
+
+## 2. Raster time-cube: Zarr v3, with COG as the alternative
+
+**Product:** Sentinel-1 RTC. **Topology:** 2D raster over time. **Candidate set:** `{COG, GeoZarr}`.
+
+**The path.** Existing data, reprocessable, so a free choice. A year of RTC over a region is naturally a `time × y × x × pol` cube. On a Zarr cube, a time-series slice or an area-of-interest subset is one range-addressable query. Across thousands of per-timestamp COGs, the same request becomes a large fan-out. Sharding reconciles fine-grained chunk access with the backend's preference for large objects.
+
+**Measured, one tile and confirmed at area scale.** COG came to 728 MiB per tile and a scene-size GeoZarr shard to 545 MiB. Both cleared the cold tier. GeoZarr is again about 25 % smaller, and again this is the codec: Deflate at 3.70x against ZSTD at 4.98x. The result held over a 16-tile block, at 16498 MiB for COG and 12344 MiB for GeoZarr. Against the 496 MiB delivered `.zip` both are larger, COG by 47 % and GeoZarr by 10 %. Cloud-optimized costs storage here, and buys the range access that the opaque zip cannot give at all.
+
+::: {.callout-warning}
+## A benchmark caveat, not a format verdict
+
+The GeoZarr store read and displayed much slower than the COG, but it was written **with no multiscale overview pyramid**. A store without multiscales is not a faithful GeoZarr, and the missing pyramid is the reason a tile server has to downsample full-resolution chunks on request. The slow read is also in large part a reader effect, from the library used rather than the format.
+
+Both issues are being fixed for the final campaign, so that display is compared on equal terms. Treat the timing numbers from this arm as provisional.
+:::
+
+## 3. Point cloud: netCDF to COPC
+
+**Product:** SWOT L2_HR Pixel Cloud. **Topology:** point cloud. **Candidate set:** `{COPC, GeoParquet}`.
+
+**The path.** Existing data, reprocessable, so a free choice. The point-cloud topology gives COPC, which is a clustered octree inside a LAZ file. The netCDF source has no spatial index and no level of detail, so reading a small geographic subset means scanning the whole granule.
+
+**Measured, content-complete, three granules.** A COPC carrying all per-point variables was about 16 % **smaller** than the source netCDF. This is the one clear size win among the cases, and it comes from the codec: LASzip at 3.72x against netCDF Deflate at 2.56x. Each granule cleared the tier on its own.
+
+The real gain is what the netCDF lacks:
+
+- A **spatial index**. A bounding-box query reads only the overlapping octree nodes.
+- A **level of detail**. Octree levels 0 to 11 are the point-cloud analogue of COG overviews.
+
+::: {.callout-caution}
+An earlier measurement on this product looked like a 97 % size saving. It had dropped most of the per-point variables. Size comparisons must be like for like on content.
+:::
+
+**Where it lands.** COPC. The cloud-optimized value is partial access plus level of detail, with a modest size win on top. GeoParquet is the alternative where columnar analytics dominate.
+
+## 4. Vector and tabular: shapefile to GeoParquet
+
+**Product:** SWOT L2_HR Lake Single Pass. **Topology:** vector and tabular. **Candidate set:** `{GeoParquet, FlatGeobuf}`.
+
+**The path.** Existing data, reprocessable, so a free choice. This is a fixed-schema tabular product, with a lake id, a reach id, water-surface elevation, area, and more. That is the native fit for GeoParquet, with its columns, row groups, and spatial partitioning. A sparse Zarr store would add complexity with no gain.
+
+**Measured, two passes.** GeoParquet came to 17.8 MiB per pass, about 14 % **larger** than the 31.1 MiB zipped shapefile. This surprised reviewers, who expected a binary columnar format to be smaller. The likely cause is the default row-group codec, and it is under investigation.
+
+Each pass sits below the warm-tier floor. The lever is therefore **aggregation across passes**: concatenate first, then size the row groups. A one-for-one transcode of each pass would leave the object-size problem in place. The gain over the shapefile is the bounding-box row-group index, not the size.
+
+**Where it lands.** GeoParquet, with pass-level aggregation. FlatGeobuf is the single-file streaming alternative.
+
+## 5. Small N-D grid: the aggregation regime
+
+**Product:** SWOT L2_HR Raster. **Topology:** N-D grid. **Candidate set:** `{GeoZarr, COG}`.
+
+**The path.** Existing data, reprocessable, so a free choice. A 100 m raster granule covers a small tile, about 160 km across.
+
+**Measured, single variable, so not yet like for like.** On the primary water-surface-elevation variable, COG came to 4.3 MiB per granule and a GeoZarr shard to 0.8 MiB on average, because sharding fragments at this size. Both sit far below the warm-tier floor, so the lever is **aggregation**, and at this small size **COG is the cleaner carrier**: one tiled object that also holds overviews. An all-variable re-run is needed before quoting a size, for the same reason as case 3.
+
+The natural aggregation unit is a spatial mosaic, per grid zone and per orbit cycle. That turns a wall of tiny granules into one range-addressable object.
+
+**Where it lands.** COG for the small raster, plus collection-level aggregation. GeoZarr is the alternative to compare once the pyramid and all variables are in place.
+
+This case is the counterpart to cases 1 and 2. There, one large band already clears the tier, so you group *within* a product. Here the products are small, so you group *above* a single product.
+
+## 6. Existing archive to a virtual store
+
+**Topology:** any. **Candidate set:** a virtual Zarr store.
+
+This case has no benchmark. It illustrates the "existing data, cannot reprocess" branch of the control fork.
+
+An immutable archive, for example HDF5 or netCDF that you cannot reprocess, can be surfaced as a virtual Zarr store with [VirtualiZarr, Kerchunk, or Icechunk](../zarr/virtual-zarr.qmd). This gives range-based access without rewriting the data.
+
+The result is more limited than a native store. Chunk sizes are whatever the source chose, you cannot add overviews, and you inherit the source's codec. It is still much better than whole-file download, and it is often the only option available.
+
+This case is also where the ["unlock this"](index.qmd#dead-ends-are-unlock-this) framing matters. If the source cannot even be virtualized, name what is missing rather than declaring the case impossible.
+
+## Summary
+
+| Case | Topology | Lands on | Size against source | Main gain |
+| --- | --- | --- | --- | --- |
+| 1. Optical scene | 2D raster | COG, or GeoZarr for cubes | COG +30 %, GeoZarr −2 % | Partial access, encoding |
+| 2. SAR time-cube | Raster over time | GeoZarr v3 sharded | COG +47 %, GeoZarr +10 % | One query instead of a fan-out |
+| 3. Pixel cloud | Point cloud | COPC | −16 % | Spatial index, level of detail |
+| 4. Lake vector | Vector, tabular | GeoParquet, aggregated | +14 % | Row-group bbox index |
+| 5. Small raster grid | N-D grid | COG, plus aggregation | Re-run pending | Fewer, larger objects |
+| 6. Frozen archive | Any | Virtual Zarr | No rewrite | Range access with no reprocessing |
+
+Read the size column together with the recurring lesson at the top of this page. Only one case got smaller, and that case got smaller because of its codec.
+
+## Acknowledgements
+
+These case studies come from a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). They use public Copernicus and NASA mission data. See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).

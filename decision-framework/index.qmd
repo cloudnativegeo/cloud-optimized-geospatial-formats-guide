@@ -1,0 +1,206 @@
+---
+title: "Format Selection Decision Framework"
+subtitle: "How to go from data you must publish to a short list of cloud-optimized format candidates"
+---
+
+## What this framework is
+
+This framework helps you go from *"I have geospatial data to publish or migrate"* to a **short list of cloud-optimized format candidates**, and to the **layout choices** that make each candidate work.
+
+It is a guide, not an oracle:
+
+- The **shape of your data** narrows the field.
+- The **intended use** and a few practical levers rank the remaining options.
+- **You keep the final call.**
+
+The framework is provider-neutral. Where a concrete number helps, such as an object-size policy or a benchmark result, the number is given as a worked example and flagged as an example, not as a rule.
+
+This is a first, deliberately simple version. It aligns on the questions to ask and the order to ask them in. Follow the links to a format page when you need more detail.
+
+::: {.callout-note}
+## What this framework is not
+
+- It is not a compliance checklist. No format is disqualified by a single answer.
+- It does not prescribe a catalog or a metadata standard. See [Metadata and cataloging](#metadata-and-cataloging).
+- It does not replace a benchmark. When two candidates are close, measure them.
+:::
+
+## Preconditions
+
+This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part [cloud-optimized format pattern](../index.qmd#the-opportunity), and the glossary defines [cloud-optimized](../glossary.qmd#cloud-optimized) as the ability to read a meaningful *part* of a file without downloading *all* of it.
+
+The framework does not restate that definition. It assumes it. Two consequences are worth naming here, because they decide whether a candidate belongs in the framework at all. They are entry conditions, not questions in the flowchart.
+
+**P1. The format must support partial and parallel reads over HTTP.** [Random access](../glossary.qmd#random-access) through [HTTP range requests](../glossary.qmd#http-range-request) is what makes a format usable from [object storage](../glossary.qmd#object-storage-cloud-storage). It depends on the rest of the pattern: [metadata](../glossary.qmd#metadata) in a consistent place that a reader can load in a single read, and then addressable [chunks](../glossary.qmd#chunk), internal tiling, or both. A reader that cannot locate the bytes it needs from the metadata alone cannot fetch only those bytes.
+
+**P2. No opaque bundles.** An [archive format](../glossary.qmd#archive-format) is not disqualified just for being an archive. [PMTiles](../pmtiles/intro.qmd) is an archive and it is cloud-optimized, because its internal directory makes each tile addressable. What disqualifies a candidate is an archive with no addressable internal layout, or a layer of [external compression](../glossary.qmd#external-compression) wrapped around data that was already cloud-optimized. A zipped Zarr store, a monolithic LAZ file, and a single Parquet file with no row groups all fail this way: the client must fetch the whole object before it can use any part of it.
+
+P2 is easy to fail by accident, and it is worth checking separately from object size. A bucket can hold large, well-sized objects and still fail P2, because the format inside each object is opaque. Object size and internal structure are two independent axes, and a candidate must satisfy both.
+
+## The spine
+
+Two questions come first. They apply to all geospatial data.
+
+1. **Control.** Do you have existing data, and can you reprocess it? This decides whether you can choose freely, whether you must virtualize, or whether you have reached a dead end.
+2. **Topology.** What shape is the data? This selects the **format family**. It opens a candidate set. It does not pick one format.
+
+Three refinements then rank the candidates: **intent**, the **object-size and grouping lever**, and **ecosystem maturity**. A fourth axis, **interpretation encoding**, is worth a separate look, because the formats differ a lot on it.
+
+```{mermaid}
+flowchart TD
+    A[Data to publish or migrate] --> B{Existing data?}
+    B -- No --> C{Archival-format mandate?}
+    C -- Yes --> C1[Cloud-optimized HDF5 guidance + pick a CN access format]
+    C -- No --> T[Topology gate]
+    B -- Yes --> D{Can you reprocess?}
+    D -- Yes --> T
+    D -- No --> E{Optimizable / virtualizable?}
+    E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk: limited, better than nothing]
+    E -- No --> E2[Dead end: not yet funded, unlock this]
+    T --> T1[2D raster, COG]
+    T --> T2[N-D cube, Zarr v3 / GeoZarr]
+    T --> T3[Point cloud, COPC]
+    T --> T4[Vector / tabular, GeoParquet]
+    T1 --> R[Refine: intent, object-size lever, maturity, interpretation]
+    T2 --> R
+    T3 --> R
+    T4 --> R
+```
+
+### The control fork
+
+**No existing data.** You are designing a new product, so you can choose freely. Go to the topology gate. If a mandate requires you to keep an archival format such as HDF5 or netCDF, you have two jobs: apply the [cloud-optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd) guidance to the archive, and choose a cloud-optimized access format for the data you publish.
+
+**Existing data you can reprocess.** You control the production chain, so you can also choose freely. Go to the topology gate.
+
+**Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
+
+**Neither.** Some sources cannot be optimized or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+
+### The topology gate
+
+The shape of the data opens a candidate set:
+
+| Topology | Primary candidate | Common alternatives |
+| --- | --- | --- |
+| 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd) | Zarr, if the product is really a cube |
+| N-D cube, for example `time × y × x × band` | [Zarr v3 / GeoZarr](../zarr/intro.qmd) | COG per time step, if slices are read alone |
+| Point cloud | [COPC](../copc/index.qmd) | [GeoParquet](../geoparquet/index.qmd), if columnar analytics dominate |
+| Vector or tabular | [GeoParquet](../geoparquet/index.qmd) | [FlatGeobuf](../flatgeobuf/intro.qmd) for streaming, [PMTiles](../pmtiles/intro.qmd) for tiled delivery |
+
+The gate is about topology, not about the format the data arrives in. A netCDF granule that holds a point cloud belongs on the point-cloud branch. See the [format table](../index.qmd#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table) for how traditional formats map to cloud-optimized ones.
+
+## Refinements
+
+Apply these within the candidate set your topology opened.
+
+### Intent
+
+What is the data for? Archive and download, processing, visualization, or distribution. Two points matter:
+
+- **Visualization is a first-class intent**, not a side effect. It has its own layout needs, mainly [overviews](../glossary.qmd#overviews) or a level of detail. Max Jones maintains a sibling visualization decision tree; use it together with this page when your product is display-driven.
+- **On-the-fly and batched processing pull the layout in opposite directions.** On-the-fly access rewards small chunks, fine overviews, and cache locality. Batched processing rewards large shards or row groups and a layout that reads well in sequence.
+
+Most real datasets serve several intents at once. Weigh them in proportion rather than picking one.
+
+### The object-size and grouping lever
+
+Every candidate format has a knob that sets how bytes are grouped into objects:
+
+| Format | Grouping lever |
+| --- | --- |
+| COG | internal tiling and overviews |
+| Zarr v3 | chunks within shards ([sharding](../glossary.qmd#chunk-size)) |
+| COPC | octree nodes |
+| GeoParquet | row groups, plus partitioning |
+
+Tune the lever to your **storage backend's object-size policy**. [Object stores](../glossary.qmd#object-storage-cloud-storage) degrade when they must index very many tiny objects, so most backends reward a larger average object.
+
+One worked example: the CNES Datalake sorts data into tiers by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. Those numbers belong to that backend. Your backend will have its own policy, and it may have none. Read the tiers as an instance of a general concern.
+
+The lever works in both directions, and which direction you need depends on product size:
+
+- **Products that are already large.** Group *within* one product. Size the shard, the tile, or the row group so it clears the policy.
+- **Products that are small.** Sharding within one granule only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many granules into one range-addressable object.
+
+### Ecosystem maturity
+
+The real question is not a version number. It is: do you need something production-grade that you can count on, or are you willing to be an early adopter?
+
+| Level | Formats today |
+| --- | --- |
+| Mature | COG, the reference case |
+| Stable | GeoParquet, COPC, FlatGeobuf |
+| Standards track, still ratifying | GeoZarr |
+
+### Interpretation encoding
+
+Does the format carry the information a reader needs to recover the same physical value, or does it lean on a side catalog? The information is units, the [CRS](../glossary.qmd#coordinate-reference-system-crs), the nodata fill, and any scale and offset transform.
+
+This axis separates the candidates more than people expect:
+
+- **Zarr v3 is distinctively strong here.** With the `scale_offset` codec, a declared fill value, CF conventions, and a CRS convention, the transform is a first-class array property. Every reader recovers the same value.
+- **COG, GeoParquet, and COPC standardize the CRS** but leave the value transform to side metadata. Readers honor side metadata unevenly.
+
+If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this axis heavily.
+
+## Cross-cutting considerations
+
+These are not gates. They apply whatever you choose.
+
+### Metadata and cataloging
+
+Metadata that a reader can fetch in a single request is part of [P1](#preconditions), not an extra. Each candidate in the topology gate has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level *above* a single file.
+
+At a scale of tens of thousands to millions of files, collection-level discovery becomes critical. [STAC](https://stacspec.org/) has an essential role there, and it is part of the cloud-native geospatial ecosystem that we recommend. It is **not a format and not a gate in this framework**, so this page does not prescribe it. Choose a catalog approach that fits your organization.
+
+### Within-format depth
+
+Some choices sit below the format and are foundational:
+
+- Base codecs, such as [ZSTD](../glossary.qmd#zstd) and [Deflate](../glossary.qmd#deflate)
+- Data types and scale-offset encoding
+- Sharding in Zarr v3
+
+These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope here, or should be marked as immature when you use them.
+
+### Dead ends are "unlock this"
+
+When a source cannot be optimized or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually missing tooling or missing funding, and both can change.
+
+Frame the branch that way, and route the reader back to the options: reprocess if you can get the chain changed, virtualize if a reader exists, or convert on ingest. Say what is missing, so somebody can unlock it.
+
+## Optional: make it quantitative
+
+The spine above gets you to a short list. When two or three candidates remain and the choice is close, a transparent score can make the trade-off explicit rather than a matter of taste. This section is **optional**. The framework stands on its own without it.
+
+The idea is a **weighted mean of criteria**, each expressed as a number from 0 to 1. It is framework-first and metrics-optional: qualitative terms alone already give a ranking, and a benchmark run sharpens the same ranking.
+
+| Group | Criterion |
+| --- | --- |
+| Qualitative, no benchmark needed | **use-case fit**: your intent mix, applied to a per-format suitability matrix |
+| | **maturity**: the maturity level above, mapped to a utility |
+| | **interpretation encoding**: the encoding level above, mapped to a utility |
+| Measured, needs a benchmark run | **size**: output volume against the source |
+| | **performance**: measured read, write, and display, blended by the intent mix |
+
+Rank the candidates and read the **margin**, which is the gap to the runner-up. A small margin is an honest signal that a benchmark, or a review of your weights, is what actually decides it. There are **no verdicts and no probability readout**. You get a score, a ranking, and a margin.
+
+Two points are easy to get wrong:
+
+- **Object-size and tier fit is reported information, not a scored penalty.** Report whether a layout clears a given tier, the mean and median object size, and a small-file warning **beside** the score, never inside it. A storage backend's policy is a property of that backend, not of the format, so you must weigh it against your own infrastructure.
+- **Intent weights are your input.** The suitability matrix is a shared expert reference on each format's strengths, and it is useful on its own. The intent mix and the criterion weights belong to your context.
+
+The convincing artifact is never a single score. It is a sensitivity sweep that shows the ranking holds across a range of weights.
+
+## Worked examples
+
+Six products run through the spine on the [Case Studies](case-studies.qmd) page. Five are backed by measurements.
+
+One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** What it buys is partial access, a spatial index, or a level of detail. Where two candidates do differ in size, the cause is usually the **codec**, not the format.
+
+## Acknowledgements
+
+This framework was developed as part of a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). The case studies use public Copernicus and NASA missions, and the measurements come from that study's benchmark work.
+
+The framework builds on earlier work in this guide supported by [NASA IMPACT](https://impact.earthdata.nasa.gov/). See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).
