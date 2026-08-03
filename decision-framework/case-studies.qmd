@@ -19,7 +19,7 @@ The examples use public Copernicus and NASA missions. The CNES Datalake appears 
 
 What it buys you is partial access, a spatial index, or a level of detail. Where two cloud-optimized candidates *do* differ in size, the cause is usually the **codec**, not the format.
 
-A second, related warning: **compare like for like on content.** More than one surprising number in this study turned out to be a comparison against a file that held fewer variables.
+A second element explains much of the gap: **the extra bytes are the feature.** Overviews, levels of detail, and spatial indexes are structures the source file did not carry at all. They add volume, and they are exactly what buys fast display and cheap subsetting. The COG in case 1 is about 30 % larger than the delivered archive mostly because it carries overviews, and the row-group index in case 4 is the whole point of the conversion.
 :::
 
 ::: {.callout-note}

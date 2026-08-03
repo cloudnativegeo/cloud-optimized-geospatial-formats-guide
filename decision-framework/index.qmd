@@ -199,7 +199,7 @@ The convincing artifact is never a single score. It is a sensitivity sweep that 
 
 Six products run through the spine on the [Case Studies](case-studies.qmd) page. Five are backed by measurements.
 
-One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** What it buys is partial access, a spatial index, or a level of detail. Where two candidates do differ in size, the cause is usually the **codec**, not the format.
+One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** Overviews, levels of detail, and spatial indexes are structures the source did not carry, so they add volume, and that added volume is the feature you are buying. Where two candidates do differ in size, the cause is usually the **codec**, not the format.
 
 ## Acknowledgements
 
