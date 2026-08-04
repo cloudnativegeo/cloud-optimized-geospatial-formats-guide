@@ -172,7 +172,7 @@ Does the format carry the information a reader needs to recover the same physica
 
 This axis separates the candidates more than people expect:
 
-- **Zarr v3 is distinctively strong here.** With the `scale_offset` codec, a declared fill value, Zarr conventions, and a CRS convention, the transform is a first-class array property. Every reader recovers the same value.
+- **Zarr v3 makes the information first-class.** With the `scale_offset` codec, a declared fill value, Zarr conventions for projection, CRS and multiscale, the transform is a first-class array property. Every reader recovers the same value.
 - **COG, GeoParquet, and COPC standardize the CRS** but leave the value transform to side metadata. Readers honor side metadata unevenly.
 
 If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this axis heavily.
