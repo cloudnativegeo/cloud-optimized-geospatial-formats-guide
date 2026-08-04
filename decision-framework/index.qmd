@@ -98,7 +98,7 @@ Apply these within the candidate set your topology opened.
 
 What is the data for? Archive and download, processing, visualization, or distribution. Two points matter:
 
-- **Visualization is a first-class intent**, not a side effect. It has its own layout needs, mainly [overviews](../glossary.qmd#overviews) or a level of detail. Max Jones maintains a sibling visualization decision tree; use it together with this page when your product is display-driven.
+- **Visualization is a first-class intent**, not a side effect. It has its own layout needs, mainly [overviews](../glossary.qmd#overviews) or a level of detail.
 - **On-the-fly and batched processing pull the layout in opposite directions.** On-the-fly access rewards small chunks, fine overviews, and cache locality. Batched processing rewards large shards or row groups and a layout that reads well in sequence.
 
 Most real datasets serve several intents at once. Weigh them in proportion rather than picking one.
@@ -116,7 +116,7 @@ Every candidate format has a knob that sets how bytes are grouped into objects:
 
 Tune the lever to your **storage backend's object-size policy**. [Object stores](../glossary.qmd#object-storage-cloud-storage) degrade when they must index very many tiny objects, so most backends reward a larger average object.
 
-One worked example: the CNES Datalake sorts data into tiers by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. Those numbers belong to that backend. Your backend will have its own policy, and it may have none. Read the tiers as an instance of a general concern.
+One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into tiers by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. Those numbers belong to that backend. Your backend will have its own policy, and it may have none. Read the tiers as an instance of a general concern.
 
 The lever works in both directions, and which direction you need depends on product size:
 
@@ -125,13 +125,46 @@ The lever works in both directions, and which direction you need depends on prod
 
 ### Ecosystem maturity
 
-The real question is not a version number. It is: do you need something production-grade that you can count on, or are you willing to be an early adopter?
+The real question is not a version number. It is whether you need something production-grade that you can count on, or you are willing to be an early adopter. Maturity is what separates a safe default from a bet.
 
-| Level | Formats today |
+To keep that judgement explicit rather than impressionistic, place each candidate on a five-level scale:
+
+| Level | Meaning |
 | --- | --- |
-| Mature | COG, the reference case |
-| Stable | GeoParquet, COPC, FlatGeobuf |
-| Standards track, still ratifying | GeoZarr |
+| **L5** | De-facto standard, universal tooling, no specification risk |
+| **L4** | Established: released spec, broad independent tooling, in production use |
+| **L3** | Stable: released spec, multiple implementations, growing tooling |
+| **L2** | Emerging: spec stabilizing, reference implementations, early adopters |
+| **L1** | Experimental: draft or in-flux spec, few implementations |
+
+Where the candidates sit today:
+
+| Format | Specification | Tooling | Level |
+| --- | --- | --- | --- |
+| [COG](../cloud-optimized-geotiffs/intro.qmd) | De-facto standard, on a GeoTIFF base | GDAL, rio-tiler, TiTiler, every GIS | **L5** |
+| [GeoParquet](../geoparquet/index.qmd) | v1.x, stable, on an Apache Parquet base | GDAL, GeoPandas, DuckDB, Arrow | **L4** |
+| [COPC](../copc/index.qmd) | v1.0, stable, on a LAZ base | PDAL, untwine, QGIS, copc.js | **L4** |
+| [FlatGeobuf](../flatgeobuf/intro.qmd) | Stable, on a flatbuffers base | GDAL and OGR, QGIS, flatgeobuf.js | **L3** |
+| [GeoZarr](../zarr/intro.qmd) | Draft, in an OGC Standards Working Group | Emerging, mostly xarray-based stacks | **L2** |
+
+**COG is the reference case** and the format the others are measured against: a de-facto standard for years, supported by every relevant library and GIS, with no open specification risk.
+
+**For GeoParquet and COPC, the risk is integration effort, not the specification.** Each inherits a mature base format and adds a spatial index on top.
+
+#### Zarr v3 and GeoZarr are two different questions
+
+This distinction is easy to miss, and it decides how much risk you actually take on.
+
+- **Zarr v3, the substrate, is dependable.** The core specification was finalized in 2024. [Sharding](#the-object-size-and-grouping-lever), the feature that matters most for object storage, is stable in `zarr-python` 3.x and readable by GDAL and xarray. Judged on its own, the Zarr v3 core behaves like an L4.
+- **GeoZarr, the convention layer, is still being ratified.** It is what makes a generic [Zarr](../glossary.qmd#zarr) store *geospatial*: CRS, dimension semantics, and multiscale pyramids. It does for Zarr roughly what the GeoTIFF tags do for a plain TIFF. It is a draft in an OGC Standards Working Group, on the standards track but not yet an adopted OGC standard, and the published draft can lag behind active convention work. Check [geozarr.org](https://geozarr.org/) for the current status before you rely on a specific version.
+
+So the L2 above belongs to the convention layer, not to Zarr. The leading reference implementations today, such as ESA's EOPF Sentinel output, are demonstrators rather than production guarantees.
+
+#### Maturity is a warning, not a veto
+
+An L2 candidate can still be the right answer. The N-D cube branch is exactly that case: there is no mature alternative with the same topology, so a low level does not mean "choose something else". It means **plan for change**. Budget for convention churn, pin the versions you depend on, and expect the visualization story in particular to improve as multiscale tooling catches up.
+
+Read maturity against your own tolerance. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same candidate set.
 
 ### Interpretation encoding
 
@@ -139,7 +172,7 @@ Does the format carry the information a reader needs to recover the same physica
 
 This axis separates the candidates more than people expect:
 
-- **Zarr v3 is distinctively strong here.** With the `scale_offset` codec, a declared fill value, CF conventions, and a CRS convention, the transform is a first-class array property. Every reader recovers the same value.
+- **Zarr v3 is distinctively strong here.** With the `scale_offset` codec, a declared fill value, Zarr conventions, and a CRS convention, the transform is a first-class array property. Every reader recovers the same value.
 - **COG, GeoParquet, and COPC standardize the CRS** but leave the value transform to side metadata. Readers honor side metadata unevenly.
 
 If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this axis heavily.
@@ -179,7 +212,7 @@ The idea is a **weighted mean of criteria**, each expressed as a number from 0 t
 | Group | Criterion |
 | --- | --- |
 | Qualitative, no benchmark needed | **use-case fit**: your intent mix, applied to a per-format suitability matrix |
-| | **maturity**: the maturity level above, mapped to a utility |
+| | **maturity**: the L1 to L5 level above, mapped to a utility (`level / 5`) |
 | | **interpretation encoding**: the encoding level above, mapped to a utility |
 | Measured, needs a benchmark run | **size**: output volume against the source |
 | | **performance**: measured read, write, and display, blended by the intent mix |
