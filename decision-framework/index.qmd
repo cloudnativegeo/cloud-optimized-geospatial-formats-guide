@@ -96,12 +96,13 @@ Apply these within the candidate set your topology opened.
 
 ### Intent
 
-What is the data for? Archive and download, processing, visualization, or distribution. Two points matter:
+What is the data for? Archive and download, processing, visualization, distribution, or data fusion. Three points matter:
 
 - **Visualization is a first-class intent**, not a side effect. It has its own layout needs, mainly [overviews](../glossary.qmd#overviews) or a level of detail.
 - **On-the-fly and batched processing pull the layout in opposite directions.** On-the-fly access rewards small chunks, fine overviews, and cache locality. Batched processing rewards large shards or row groups and a layout that reads well in sequence.
+- **Data fusion raises the stakes on encoding.** Combining products from different missions or processors means every input must be read back as the same physical value, and subsets from each must line up. Fusion is a form of processing, but it is worth naming separately: it weights [interpretation encoding](#interpretation-encoding) and consistent grids far higher than single-product analysis does, and it usually rewards a tabular or columnar target where joins are cheap.
 
-Most real datasets serve several intents at once. Weigh them in proportion rather than picking one.
+Most real datasets serve several intents at once. Weigh them in proportion rather than picking one. The [case studies](case-studies.qmd) state an intent mix for each product, which is what decides the ranking inside a candidate set.
 
 ### The object-size and grouping lever
 

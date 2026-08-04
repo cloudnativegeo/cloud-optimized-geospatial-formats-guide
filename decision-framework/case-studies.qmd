@@ -10,7 +10,7 @@ Read each case in two parts:
 1. **The path through the spine**: the control fork, the topology gate, then intent, the object-size lever, and maturity.
 2. **What the measurement showed.**
 
-The examples use public Copernicus and NASA missions. The CNES Datalake appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
+The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
 
 ::: {.callout-important}
 ## The recurring lesson
@@ -28,23 +28,31 @@ The numbers below are first measurements on a representative unit per mission, m
 They were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), an open-source harness that measures object-size distribution, write, read, and display per format. You can describe your own datasets in its config files and reproduce this shape of comparison on your own data. See [Optional: make it quantitative](index.qmd#optional-make-it-quantitative).
 :::
 
-## 1. Per-scene optical raster: COG against a Zarr time-stack
+## 1. Per-scene optical raster: COG vs GeoZarr for visualization and distribution
 
-**Product:** Sentinel-2 L2A. **Topology:** 2D raster per scene. **Candidate set:** `{COG, GeoZarr}`.
+**Product:** Sentinel-2 L2A. **Topology:** 2D raster per scene. **Source format:** geoTiff in a `.zip`. **Candidate set:** `{COG, GeoZarr}`.
 
-**The path.** Existing data, and the producer operates the processing chain, so this is a free choice. The topology opens `{COG, GeoZarr}` and the intent decides between them. Per-scene **distribution and visualization** favors COG. **Time-series analysis** favors a GeoZarr cube. The grouping lever is COG internal tiling, or a scene-size Zarr shard.
+**[Intent](index.qmd#intent).** Distribution and visualization. Both are served per scene, which is why this case does not need a cube.
+
+**The path.** Existing data, and the producer operates the processing chain, so this is a free choice. The topology opens `{COG, GeoZarr}` and the [intent](index.qmd#intent) decides between them. Per-scene **distribution and visualization** favors COG. **Time-series analysis** favors a GeoZarr cube. The [grouping lever](index.qmd#the-object-size-and-grouping-lever) is COG internal tiling, or a scene-size Zarr shard.
 
 **Measured, one scene.** Both layouts cleared the warm tier. COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. That gap is the **codec**, Deflate against ZSTD, not the format. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
 
-A **too-small 2048² shard** split the same bytes into 843 objects that fell below the tier. This is exactly the object-grouping anti-pattern the framework warns about.
+**[Interpretation encoding](index.qmd#interpretation-encoding) is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in side metadata that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
 
-**Interpretation encoding is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in side metadata that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
+**Where it lands.** COG per scene for distribution and visualization.
 
-**Where it lands.** COG per scene for distribution and visualization. A scene-size GeoZarr shard for temporal analysis. The associated masking product, which is written as many small GeoTIFFs, is a clear anti-pattern to fix at the source.
+For temporal analysis GeoZarr is the right target, but **the arm measured here does not yet deliver it.** What was written is a scene-size store: one scene, so there is no time dimension to exploit. It proves the container and the encoding, because it comes out at roughly source size and it carries the scale, offset, and nodata correctly. A time-series query against it still has to open one store per date, which is the same fan-out the COG layout has.
 
-## 2. Raster time-cube: Zarr v3, with COG as the alternative
+The temporal benefit appears only once many scenes are concatenated along time into a single cube. That is the regime measured in [case 2](#case-time-cube), and it is a collection-level layout decision, not something a scene-size store can give you. Read the per-scene store as a building block and the cube as the product.
 
-**Product:** Sentinel-1 RTC. **Topology:** 2D raster over time. **Candidate set:** `{COG, GeoZarr}`.
+The associated masking product, which is written as many small GeoTIFFs, is a clear anti-pattern to fix at the source.
+
+## 2. Raster time-cube: GeoZarr, with COG as the alternative {#case-time-cube}
+
+**Product:** Sentinel-1 RTC. **Topology:** 2D raster over time. **Source format:** geoTiff in a `.zip`. **Candidate set:** `{COG, GeoZarr}`.
+
+**[Intent](index.qmd#intent).** Advanced analysis and visualization lead, with distribution close behind but weighted a little lower. The analysis half is what separates this case from case 1: it is asked over time, not per scene, and that is what pulls the answer to a cube.
 
 **The path.** Existing data, reprocessable, so a free choice. A year of RTC over a region is naturally a `time × y × x × pol` cube. On a Zarr cube, a time-series slice or an area-of-interest subset is one range-addressable query. Across thousands of per-timestamp COGs, the same request becomes a large fan-out. Sharding reconciles fine-grained chunk access with the backend's preference for large objects.
 
@@ -60,7 +68,9 @@ Both issues are being fixed for the final campaign, so that display is compared 
 
 ## 3. Point cloud: netCDF to COPC
 
-**Product:** SWOT L2_HR Pixel Cloud. **Topology:** point cloud. **Candidate set:** `{COPC, GeoParquet}`.
+**Product:** SWOT L2_HR Pixel Cloud. **Topology:** point cloud. **Source format:** netCDF. **Candidate set:** `{COPC, GeoParquet}`.
+
+**[Intent](index.qmd#intent).** Distribution, visualization, and data fusion. The fusion intent is the one that matters most here: these points get combined with other water products, so a reader has to recover the same physical value per point and subset the same area cheaply. That is what makes the missing spatial index in the source a real cost rather than an inconvenience.
 
 **The path.** Existing data, reprocessable, so a free choice. The point-cloud topology gives COPC, which is a clustered octree inside a LAZ file. The netCDF source has no spatial index and no level of detail, so reading a small geographic subset means scanning the whole granule.
 
@@ -79,7 +89,9 @@ An earlier measurement on this product looked like a 97 % size saving. It had dr
 
 ## 4. Vector and tabular: shapefile to GeoParquet
 
-**Product:** SWOT L2_HR Lake Single Pass. **Topology:** vector and tabular. **Candidate set:** `{GeoParquet, FlatGeobuf}`.
+**Product:** SWOT L2_HR Lake Single Pass. **Topology:** vector and tabular. **Source format:** shapefile. **Candidate set:** `{GeoParquet, FlatGeobuf}`.
+
+**[Intent](index.qmd#intent).** Distribution, download, and data fusion. Note that visualization is *absent* from this mix, and download is present. That combination is why the answer is not automatically the columnar option: download rewards a single streamable file, which is FlatGeobuf's strength, while fusion rewards cheap joins on a fixed schema, which is GeoParquet's. The fusion weight is what settles it.
 
 **The path.** Existing data, reprocessable, so a free choice. This is a fixed-schema tabular product, with a lake id, a reach id, water-surface elevation, area, and more. That is the native fit for GeoParquet, with its columns, row groups, and spatial partitioning. A sparse Zarr store would add complexity with no gain.
 
@@ -91,7 +103,9 @@ Each pass sits below the warm-tier floor. The lever is therefore **aggregation a
 
 ## 5. Small N-D grid: the aggregation regime
 
-**Product:** SWOT L2_HR Raster. **Topology:** N-D grid. **Candidate set:** `{GeoZarr, COG}`.
+**Product:** SWOT L2_HR Raster. **Topology:** N-D grid. **Source format:** geoTiff. **Candidate set:** `{GeoZarr, COG}`.
+
+**[Intent](index.qmd#intent).** Distribution and download, with data fusion against the other SWOT products, and some visualization. This mix is provisional and still to be confirmed with the product owner.
 
 **The path.** Existing data, reprocessable, so a free choice. A 100 m raster granule covers a small tile, about 160 km across.
 
@@ -119,7 +133,7 @@ This case is also where the ["unlock this"](index.qmd#dead-ends-are-unlock-this)
 
 | Case | Topology | Lands on | Size against source | Main gain |
 | --- | --- | --- | --- | --- |
-| 1. Optical scene | 2D raster | COG, or GeoZarr for cubes | COG +30 %, GeoZarr −2 % | Partial access, encoding |
+| 1. Optical scene | 2D raster | COG per scene; a cube needs cross-scene aggregation | COG +30 %, GeoZarr −2 % | Partial access, encoding |
 | 2. SAR time-cube | Raster over time | GeoZarr v3 sharded | COG +47 %, GeoZarr +10 % | One query instead of a fan-out |
 | 3. Pixel cloud | Point cloud | COPC | −16 % | Spatial index, level of detail |
 | 4. Lake vector | Vector, tabular | GeoParquet, aggregated | +14 % | Row-group bbox index |
