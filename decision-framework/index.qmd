@@ -25,6 +25,22 @@ This is a first, deliberately simple version. It aligns on the questions to ask 
 - It does not replace a benchmark. When two candidates are close, measure them.
 :::
 
+## Key terms
+
+The framework uses a few terms in a specific way. Each links to the section that develops it.
+
+| Term | What it means here |
+| --- | --- |
+| [**Archival-format mandate**](#control) | A requirement to keep a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
+| [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the spine, and it can end in "not yet possible". |
+| [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
+| [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
+| [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several at once, in proportion. |
+| [**Interpretation encoding**](#interpretation-encoding) | Whether the format carries units, CRS, nodata and any scale and offset transform in-format, so every reader recovers the same physical value, or leans on a side catalog. |
+| [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object, and many backends apply a size policy or storage tier. |
+| [**Refinement**](#refinements) | A criterion applied *inside* a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding. |
+| [**Topology**](#topology) | The shape of the data: 2D raster, N-D cube, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
+
 ## Preconditions
 
 This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part [cloud-optimized format pattern](../index.qmd#the-opportunity), and the glossary defines [cloud-optimized](../glossary.qmd#cloud-optimized) as the ability to read a meaningful *part* of a file without downloading *all* of it.
@@ -69,9 +85,9 @@ flowchart TD
     A[Data to publish or migrate] --> B{Existing data?}
     B -- No --> C{Archival-format mandate?}
     C -- Yes --> C1[Cloud-optimized HDF5 guidance + pick a CN access format]
-    C -- No --> T[Topology gate]
+    C -- No --> T[What shape are the data?]
     B -- Yes --> D{Can you reprocess?}
-    D -- Yes --> T
+    D -- Yes --> T[What shape are the data?]
     D -- No --> E{Optimizable / virtualizable?}
     E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk: limited, better than nothing]
     E -- No --> E2[Dead end: not yet funded, unlock this]
@@ -85,7 +101,7 @@ flowchart TD
     T4 --> R
 ```
 
-### The control fork
+### The control fork {#control}
 
 **No existing data.** You are designing a new product, so you can choose freely. Go to the topology gate. If a mandate requires you to keep an archival format such as HDF5 or netCDF, you have two jobs: apply the [cloud-optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd) guidance to the archive, and choose a cloud-optimized access format for the data you publish.
 
@@ -95,7 +111,7 @@ flowchart TD
 
 **Neither.** Some sources cannot be optimized or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
 
-### What shape are the data?
+### Topology: what shape are the data? {#topology}
 
 The shape of the data opens a candidate set:
 
@@ -108,11 +124,11 @@ The shape of the data opens a candidate set:
 
 The gate is about topology, not about the format the data arrives in. A netCDF granule that holds a point cloud belongs on the point-cloud branch. See the [format table](../index.qmd#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table) for how traditional formats map to cloud-optimized ones.
 
-## Refinements
+## Refinements {#refinements}
 
 Apply these within the candidate set your topology opened.
 
-### Intent
+### Intent {#intent}
 
 What is the data for? Archive and download, processing, visualization, distribution, or data fusion. Three points matter:
 
@@ -122,7 +138,7 @@ What is the data for? Archive and download, processing, visualization, distribut
 
 Most real datasets serve several intents at once. Weigh them in proportion rather than picking one. The [case studies](case-studies.qmd) state an intent mix for each product, which is what decides the ranking inside a candidate set.
 
-### The object-size and grouping lever
+### The object-size and grouping lever {#grouping-lever}
 
 Every candidate format has a knob that sets how bytes are grouped into objects:
 
@@ -142,7 +158,7 @@ The lever works in both directions, and which direction you need depends on prod
 - **Products that are already large.** Group *within* one product. Size the shard, the tile, or the row group so it clears the policy.
 - **Products that are small.** Sharding within one granule only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many granules into one range-addressable object.
 
-### Ecosystem maturity
+### Ecosystem maturity {#maturity}
 
 The real question is not a version number. It is whether you need something production-grade that you can count on, or you are willing to be an early adopter. Maturity is what separates a safe default from a bet.
 
@@ -185,7 +201,7 @@ An L2 candidate can still be the right answer. The N-D cube branch is exactly th
 
 Read maturity against your own tolerance. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same candidate set.
 
-### Interpretation encoding
+### Interpretation encoding {#interpretation-encoding}
 
 Does the format carry the information a reader needs to recover the same physical value, or does it lean on a side catalog? The information is units, the [CRS](../glossary.qmd#coordinate-reference-system-crs), the nodata fill, and any scale and offset transform.
 
