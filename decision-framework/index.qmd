@@ -35,7 +35,6 @@ The framework does not restate that definition. It assumes it. Two consequences 
 
 **P2. No opaque bundles.** An [archive format](../glossary.qmd#archive-format) is not disqualified just for being an archive. [PMTiles](../pmtiles/intro.qmd) is an archive and it is cloud-optimized, because its internal directory makes each tile addressable. What disqualifies a candidate is an archive with no addressable internal layout, or a layer of [external compression](../glossary.qmd#external-compression) wrapped around data that was already cloud-optimized. A zipped Zarr store, a LAZ file without [COPC metadata](https://copc.io/), and a single Parquet file with no row groups all fail this way: the client must fetch the whole object before it can use any part of it.
 
-P2 is easy to fail by accident, and it is worth checking separately from object size. A bucket can hold large, well-sized objects and still fail P2, because the format inside each object is opaque. Object size and internal structure are two independent axes, and a candidate must satisfy both.
 
 ## The spine
 
