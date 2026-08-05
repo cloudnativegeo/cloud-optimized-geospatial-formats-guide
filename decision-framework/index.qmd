@@ -41,7 +41,7 @@ P2 is easy to fail by accident, and it is worth checking separately from object 
 
 Two questions come first. They apply to all geospatial data.
 
-1. **Control.** Do you have existing data, and can you reprocess it? This decides whether you can choose freely, whether you must virtualize, or whether you have reached a dead end.
+1. **Control.** Do the data already exist? If they exist, are you able (technically, legally) to reprocess them?
 2. **Topology.** What shape is the data? This selects the **format family**. It opens a candidate set. It does not pick one format.
 
 Three refinements then rank the candidates: **intent**, the **object-size and grouping lever**, and **ecosystem maturity**. A fourth axis, **interpretation encoding**, is worth a separate look, because the formats differ a lot on it.
