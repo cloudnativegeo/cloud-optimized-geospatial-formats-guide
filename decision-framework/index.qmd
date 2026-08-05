@@ -51,7 +51,6 @@ The framework does not restate that definition. It assumes it. Two consequences 
 
 **P2. No opaque bundles.** An [archive format](../glossary.qmd#archive-format) is not disqualified just for being an archive. [PMTiles](../pmtiles/intro.qmd) is an archive and it is cloud-optimized, because its internal directory makes each tile addressable. What disqualifies a candidate is an archive with no addressable internal layout, or a layer of [external compression](../glossary.qmd#external-compression) wrapped around data that was already cloud-optimized. A zipped Zarr store, a LAZ file without [COPC metadata](https://copc.io/), and a single Parquet file with no row groups all fail this way: the client must fetch the whole object before it can use any part of it.
 
-
 ## The spine
 
 The spine runs in **two stages**, and the topology question is the hinge between them.
@@ -76,42 +75,62 @@ the shape of the data were the answer:
 | The outcome can be "not yet possible" | Every remaining candidate works; you are ranking |
 | Decided by ownership and reprocessing rights | Decided by intent, layout, maturity, encoding |
 
-Three refinements then rank the candidates: **intent**, the **object-size and
-grouping lever**, and **ecosystem maturity**. A fourth axis, **interpretation
-encoding**, is worth a separate look, because the formats differ a lot on it.
+Four refinements then rank the candidates: **intent**, the **object-size and
+grouping lever**, **ecosystem maturity**, and **interpretation encoding**. The
+last one deserves a close look, because the formats differ on it more than
+people expect.
 
 ```{mermaid}
 flowchart TD
-    A[Data to publish or migrate] --> B{Existing data?}
-    B -- No --> C{Archival-format mandate?}
-    C -- Yes --> C1[Optimize the mandated format + publish a cloud-optimized copy]
-    C -- No --> T[What shape are the data?]
-    B -- Yes --> D{Can you reprocess?}
-    D -- Yes --> T[What shape are the data?]
+    A([Data to publish or migrate]) --> B{Existing data?}
+
+    B -- No --> C{Archival-format<br/>mandate?}
+    C -- Yes --> C1[Optimize the mandated format<br/>+ publish a cloud-optimized copy]
+    C -- No --> T{{What shape are the data?}}
+
+    B -- Yes --> D{Can you<br/>reprocess?}
+    D -- Yes --> T
     D -- No --> E{Virtualizable?}
-    E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk: limited, better than nothing]
-    E -- No --> E2[Dead end: no Cloud-Native formats work for your use-case]
-    T --> T1[2D raster, COG]
-    T --> T2[N-D cube, Zarr v3 / GeoZarr]
-    T --> T3[Point cloud, COPC]
-    T --> T4[Vector / tabular, GeoParquet]
-    T1 --> R[Refine: intent, object-size lever, maturity, interpretation]
+    E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk<br/>limited, better than nothing]
+    E -- No --> E2[Not yet implemented<br/>unlock this]
+
+    T --> T1(2D raster<br/>COG)
+    T --> T2(N-D cube<br/>Zarr v3 / GeoZarr)
+    T --> T3(Point cloud<br/>COPC)
+    T --> T4(Vector / tabular<br/>GeoParquet)
+
+    T1 --> R([Refine: intent, object-size lever,<br/>maturity, interpretation])
     T2 --> R
     T3 --> R
     T4 --> R
+
+    classDef entry   fill:#e7eefb,stroke:#3f6db3,stroke-width:2px,color:#152744
+    classDef ask     fill:#fff6dc,stroke:#ad7c00,stroke-width:2px,color:#4a3600
+    classDef hinge   fill:#dfeffa,stroke:#2a7fb8,stroke-width:3px,color:#0e3247
+    classDef family  fill:#e4f4ea,stroke:#39875f,stroke-width:2px,color:#12301e
+    classDef partial fill:#fdeadb,stroke:#c06520,stroke-width:2px,color:#48260a
+    classDef refine  fill:#ece6f7,stroke:#7355a6,stroke-width:2px,color:#291d44
+
+    class A entry
+    class B,C,D,E ask
+    class T hinge
+    class T1,T2,T3,T4 family
+    class C1,E1,E2 partial
+    class R refine
+
 ```
 
 ### The control fork {#control}
 
-**No existing data.** You are designing a new product, so you can choose freely. Go to [topology](#topology).
+**No existing data.** You are designing a new product, so you can choose freely. Go to the [topology question](#topology).
 
-**An archival-format mandate adds a second job, it does not remove that freedom.** If policy requires you to preserve a particular format like HDF5, netCDF, GRIB, or something specific to your domain, you still publish a cloud-optimized copy for readers, and you additionally make the mandated format as cloud-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, and publish what people will actually read.
+**If an archival-format mandate applies,** it adds a second job, it does not remove that freedom. If policy requires you to preserve a particular format like HDF5, netCDF, GRIB, or something specific to your domain, you still publish a cloud-optimized copy for readers, and you additionally make the mandated format as cloud-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, and publish what people will actually read.
 
 **Existing data you can reprocess.** You control the production chain, so you can also choose freely. Go to the [topology question](#topology).
 
 **Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
-**Neither.** Some sources cannot be optimized or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+**Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
 
 #### How to tell which branch you are on
 
@@ -163,7 +182,7 @@ Apply these within the candidate set your topology opened.
 
 ### Intent {#intent}
 
-What is the data for? Archive and download, processing, visualization, distribution, or data fusion. Three points matter:
+What are the data for? Archive and download, processing, visualization, distribution, or data fusion. Three points matter:
 
 - **Visualization is a first-class intent**, not a side effect. It has its own layout needs, mainly [overviews](../glossary.qmd#overviews) or a level of detail.
 - **On-the-fly and batched processing pull the layout in opposite directions.** On-the-fly access rewards small chunks, fine overviews, and cache locality. Batched processing rewards large shards or row groups and a layout that reads well in sequence.
@@ -247,13 +266,13 @@ If your product stores scaled integers, or if an undeclared fill value would cha
 
 ## Cross-cutting considerations
 
-These are not gates. They apply whatever you choose.
+These are not decision points. They apply whatever you choose.
 
 ### Metadata and cataloging
 
-Metadata that a reader can fetch in a single request is part of [P1](#preconditions), not an extra. Each candidate in the [topology formats](#topology) has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level *above* a single file.
+Metadata that a reader can fetch in a single request is part of [P1](#preconditions), not an extra. Every candidate the [topology question](#topology) opens has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level *above* a single file.
 
-At a scale of tens of thousands to millions of files, collection-level discovery becomes critical. [STAC](https://stacspec.org/) has an essential role there, and it is part of the cloud-native geospatial ecosystem that we recommend. It is **not a format and not a gate in this framework**, so this page does not prescribe it. Choose a catalog approach that fits your organization.
+At a scale of tens of thousands to millions of files, collection-level discovery becomes critical. [STAC](https://stacspec.org/) has an essential role there, and it is part of the cloud-native geospatial ecosystem that we recommend. It is **not a format and not a decision point in this framework**, so this page does not prescribe it. Choose a catalog approach that fits your organization.
 
 ### Within-format depth
 
@@ -267,7 +286,7 @@ These are mature and in scope. The per-format pages cover them. More experimenta
 
 ### Dead ends are "unlock this"
 
-When a source cannot be optimized or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually missing tooling or missing funding, and both can change.
+When a source cannot be repackaged or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually a missing parser, an unsupported codec, or source files with no internal chunking at all. Every one of those can change.
 
 Frame the branch that way, and route the reader back to the options: reprocess if you can get the chain changed, virtualize if a reader exists, or convert on ingest. Say what is missing, so somebody can unlock it.
 
@@ -281,7 +300,7 @@ The idea is a **weighted mean of criteria**, each expressed as a number from 0 t
 | --- | --- |
 | Qualitative, no benchmark needed | **use-case fit**: your intent mix, applied to a per-format suitability matrix |
 | | **maturity**: the L1 to L5 level above, mapped to a utility (`level / 5`) |
-| | **interpretation encoding**: the encoding level above, mapped to a utility |
+| | **interpretation encoding**: how much the format carries in-format, mapped to a utility |
 | Measured, needs a benchmark run | **size**: output volume against the source |
 | | **performance**: measured read, write, and display, blended by the intent mix |
 

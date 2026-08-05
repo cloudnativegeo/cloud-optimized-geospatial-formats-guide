@@ -7,7 +7,7 @@ Each case study below runs a real product through the [decision framework](index
 
 Read each case in two parts:
 
-1. **The path through the spine**: the control fork, the [topology question](index.qmd#topology), then intent, the object-size lever, and maturity.
+1. **The path through the spine**: the control fork, the [topology question](index.qmd#topology), then intent, the object-size lever, maturity, and interpretation encoding.
 2. **What the measurement showed.**
 
 The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
