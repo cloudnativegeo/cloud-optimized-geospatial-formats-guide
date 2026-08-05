@@ -7,7 +7,7 @@ Each case study below runs a real product through the [decision framework](index
 
 Read each case in two parts:
 
-1. **The path through the spine**: the control fork, the topology gate, then intent, the object-size lever, and maturity.
+1. **The path through the spine**: the control fork, the [topology question](index.qmd#topology), then intent, the object-size lever, and maturity.
 2. **What the measurement showed.**
 
 The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
@@ -34,7 +34,7 @@ They were produced with [`cng-formats-benchmark`](https://github.com/development
 
 **[Intent](index.qmd#intent).** Distribution and visualization. Both are served per scene, which is why this case does not need a cube.
 
-**The path.** Existing data, and the producer operates the processing chain, so this is a free choice. The topology opens `{COG, GeoZarr}` and the [intent](index.qmd#intent) decides between them. Per-scene **distribution and visualization** favors COG. **Time-series analysis** favors a GeoZarr cube. The [grouping lever](index.qmd#the-object-size-and-grouping-lever) is COG internal tiling, or a scene-size Zarr shard.
+**The path.** Existing data, and the producer operates the processing chain, so this is a free choice. The topology opens `{COG, GeoZarr}` and the [intent](index.qmd#intent) decides between them. Per-scene **distribution and visualization** favors COG. **Time-series analysis** favors a GeoZarr cube. The [grouping lever](index.qmd#grouping-lever) is COG internal tiling, or a scene-size Zarr shard.
 
 **Measured, one scene.** Both layouts cleared the warm tier. COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. That gap is the **codec**, Deflate against ZSTD, not the format. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
 
