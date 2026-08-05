@@ -69,6 +69,9 @@ website:
         - section: PMTiles
           contents:
             - pmtiles/intro.qmd
+        - section: COSHP
+          contents:
+            - coshp/intro.qmd
       - href: glossary.qmd
         text: Glossary
       - href: cookbooks/index.qmd
