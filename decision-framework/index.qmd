@@ -88,7 +88,7 @@ flowchart TD
     C -- No --> T[What shape are the data?]
     B -- Yes --> D{Can you reprocess?}
     D -- Yes --> T[What shape are the data?]
-    D -- No --> E{Optimizable / virtualizable?}
+    D -- No --> E{Virtualizable?}
     E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk: limited, better than nothing]
     E -- No --> E2[Dead end: no Cloud-Native formats work for your use-case]
     T --> T1[2D raster, COG]
@@ -112,6 +112,37 @@ flowchart TD
 **Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
 **Neither.** Some sources cannot be optimized or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+
+#### How to tell which branch you are on
+
+"Can you reprocess?" and "can you virtualize?" have concrete tests, not judgement calls.
+
+**You can reprocess** if you have the processor, the inputs, and the budget to re-run
+the production chain. Then format and layout are both free choices: go to
+[topology](#topology).
+
+**You can repackage** if you cannot re-run the chain but you may rewrite the delivered
+files. A plain TIFF becomes a COG, a LAS or LAZ file becomes a COPC, a shapefile or CSV
+becomes GeoParquet. Repackaging is a byte-level rewrite rather than a science
+reprocessing, so it is often permitted where reprocessing is not. Format is a free
+choice; the content is fixed at whatever was delivered.
+
+**You can virtualize** if the bytes you have can be indexed as they are.
+[Virtual Zarr](../zarr/virtual-zarr.qmd) publishes that index without copying the data.
+Three tests, in order:
+
+1. **Is the data chunked internally?** This is the hard requirement. A virtual store
+   cannot change the source's chunk structure, so a single contiguous block virtualizes
+   into one enormous chunk and buys you no useful partial access.
+2. **Are those chunks a workable size?** You inherit them exactly. Chunks that are far
+   too small or far too large stay that way.
+3. **Is there a parser for the format?** Kerchunk and VirtualiZarr cover the common
+   archival formats, including netCDF4, HDF5, GRIB2, TIFF and FITS.
+
+**Otherwise you are at a dead end for now.** The usual blockers are HDF4, encrypted
+files, a codec no parser can pass through, and a single uncompressed blob with no
+internal chunking. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+
 
 ### Topology: what shape are the data? {#topology}
 
