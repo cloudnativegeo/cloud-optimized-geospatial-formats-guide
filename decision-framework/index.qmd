@@ -38,12 +38,31 @@ The framework does not restate that definition. It assumes it. Two consequences 
 
 ## The spine
 
-Two questions come first. They apply to all geospatial data.
+The spine runs in **two stages**, and the topology question is the hinge between them.
 
-1. **Control.** Do the data already exist? If they exist, are you able (technically, legally) to reprocess them?
-2. **Topology.** What shape is the data? This selects the **format family**. It opens a candidate set. It does not pick one format.
+**Stage 1 — control: do you have a choice?** Do the data already exist? If they
+exist, are you able (technically, legally) to reprocess them? This stage can end
+the process. If you cannot reprocess the data and cannot virtualize them, there
+is no format decision to make yet.
 
-Three refinements then rank the candidates: **intent**, the **object-size and grouping lever**, and **ecosystem maturity**. A fourth axis, **interpretation encoding**, is worth a separate look, because the formats differ a lot on it.
+**Stage 2 — topology and refinement: which format?** You reach this stage only
+when stage 1 leaves you free to choose. Here the shape of the data selects a
+**format family**: the small group of cloud-optimized formats built for that
+shape. A *family*, not a format. Two or three candidates normally come through,
+and the refinements below rank them.
+
+The hand-off is worth stating outright, because the diagram can be read as if
+the shape of the data were the answer:
+
+| Before the topology question | After it |
+| --- | --- |
+| Do I have a cloud-optimized target at all? | Which of these targets suits me best? |
+| The outcome can be "not yet possible" | Every remaining candidate works; you are ranking |
+| Decided by ownership and reprocessing rights | Decided by intent, layout, maturity, encoding |
+
+Three refinements then rank the candidates: **intent**, the **object-size and
+grouping lever**, and **ecosystem maturity**. A fourth axis, **interpretation
+encoding**, is worth a separate look, because the formats differ a lot on it.
 
 ```{mermaid}
 flowchart TD
@@ -76,7 +95,7 @@ flowchart TD
 
 **Neither.** Some sources cannot be optimized or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
 
-### The topology gate
+### What shape are the data?
 
 The shape of the data opens a candidate set:
 
