@@ -31,6 +31,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 
 | Term | What it means here |
 | --- | --- |
+| [**Access pattern**](#grouping-lever) | How readers will actually hit the data: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. |
 | [**Archival-format mandate**](#control) | A requirement to keep a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
 | [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the spine, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
@@ -153,8 +154,7 @@ Three tests, in order:
 1. **Is the data chunked internally?** This is the hard requirement. A virtual store
    cannot change the source's chunk structure, so a single contiguous block virtualizes
    into one enormous chunk and buys you no useful partial access.
-2. **Are those chunks a workable size?** You inherit them exactly. Chunks that are far
-   too small or far too large stay that way.
+2. **Are those chunks a workable size?** You inherit both the size and the shape exactly, so the source's chunking decides which access patterns stay cheap. A store chunked for one access pattern cannot be virtualized into a store that is good for a different one.
 3. **Is there a parser for the format?** Kerchunk and VirtualiZarr cover the common
    archival formats, including netCDF4, HDF5, GRIB2, TIFF and FITS.
 
@@ -210,6 +210,19 @@ The lever works in both directions, and which direction you need depends on prod
 
 - **Products that are already large.** Group *within* one product. Size the shard, the tile, or the row group so it clears the policy.
 - **Products that are small.** Sharding within one granule only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many granules into one range-addressable object.
+
+**Size and shape are two different questions.** How *big* the objects are is a
+storage-backend question, answered above. How the bytes are arranged *inside* them
+(chunk shape, and the order of the dimensions) is an **access-pattern** question,
+and the backend has no opinion on it. A `time × y × x` cube chunked long in time
+serves a time series at one point cheaply and a full-scene map expensively; chunked
+wide in `y` and `x` it does the opposite. This guide works it through, with a
+diagram, in [chunk shape vs chunk size](../cloud-optimized-netcdf4-hdf5/index.qmd#chunk-shape-vs-chunk-size).
+
+Shape rarely decides *which* format you pick, because every member of a family
+exposes some version of the knob. It decides how well the format you picked
+performs. And it is mostly settled back at the [control](#control) question, because only reprocessing lets you choose the shape freely.
+
 
 ### Ecosystem maturity {#maturity}
 
