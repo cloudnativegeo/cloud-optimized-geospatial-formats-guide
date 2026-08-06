@@ -40,7 +40,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | [**Interpretation encoding**](#interpretation-encoding) | Whether the format carries units, CRS, nodata and any scale and offset transform in-format, so every reader recovers the same physical value, or leans on a side catalog. |
 | [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object, and many backends apply a size policy or storage tier. |
 | [**Refinement**](#refinements) | A criterion applied *inside* a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding. |
-| [**Topology**](#topology) | The shape of the data: 2D raster, N-D cube, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
+| [**Topology**](#topology) | The shape of the data: 2D raster, N-D cubes, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
 
 ## Preconditions
 
@@ -96,7 +96,7 @@ flowchart TD
     E -- No --> E2[Not yet implemented<br/>unlock this]
 
     T --> T1(2D raster<br/>COG, Zarr, PMTiles)
-    T --> T2(N-D cube<br/>GeoZarr, COG)
+    T --> T2(N-D cubes<br/>GeoZarr, COG)
     T --> T3(Point cloud<br/>COPC, GeoParquet)
     T --> T4(Vector / tabular<br/>GeoParquet, FlatGeobuf, PMTiles)
 
@@ -170,7 +170,7 @@ The shape of the data selects a **format family**: the candidate set you refine 
 | Data shape | Format family | Where each member wins |
 | --- | --- | --- |
 | 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd), [Zarr](../zarr/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | COG for distribution and visualization; Zarr if the product is really a cube; PMTiles for pre-rendered tile delivery |
-| N-D cube, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone |
+| N-D cubes, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone |
 | Point cloud | [COPC](../copc/index.qmd), [GeoParquet](../geoparquet/index.qmd) | COPC for spatial subsetting and level of detail; GeoParquet if columnar analytics dominate |
 | Vector or tabular | [GeoParquet](../geoparquet/index.qmd), [FlatGeobuf](../flatgeobuf/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | GeoParquet for joins and analytics; FlatGeobuf for streaming download; PMTiles for tiled web delivery |
 
@@ -263,7 +263,7 @@ So the L2 above belongs to the convention layer, not to Zarr. The leading refere
 
 #### Maturity is a warning, not a veto
 
-An L2 candidate can still be the right answer. The N-D cube branch is exactly that case: there is no mature alternative with the same topology, so a low level does not mean "choose something else". It means **plan for change**. Budget for convention churn, pin the versions you depend on, and expect the visualization story in particular to improve as multiscale tooling catches up.
+An L2 candidate can still be the right answer. The N-D cubes branch is exactly that case: there is no mature alternative with the same topology, so a low level does not mean "choose something else". It means **plan for change**. Budget for convention churn, pin the versions you depend on, and expect the visualization story in particular to improve as multiscale tooling catches up.
 
 Read maturity against your own tolerance. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same candidate set.
 
