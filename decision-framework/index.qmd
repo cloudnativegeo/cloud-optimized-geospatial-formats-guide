@@ -94,10 +94,10 @@ flowchart TD
     E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk<br/>limited, better than nothing]
     E -- No --> E2[Not yet implemented<br/>unlock this]
 
-    T --> T1(2D raster<br/>COG)
-    T --> T2(N-D cube<br/>Zarr v3 / GeoZarr)
-    T --> T3(Point cloud<br/>COPC)
-    T --> T4(Vector / tabular<br/>GeoParquet)
+    T --> T1(2D raster<br/>COG, Zarr, PMTiles)
+    T --> T2(N-D cube<br/>GeoZarr, COG)
+    T --> T3(Point cloud<br/>COPC, GeoParquet)
+    T --> T4(Vector / tabular<br/>GeoParquet, FlatGeobuf, PMTiles)
 
     T1 --> R([Refine: intent, object-size lever,<br/>maturity, interpretation])
     T2 --> R
@@ -165,14 +165,15 @@ internal chunking. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this)
 
 ### Topology: what shape are the data? {#topology}
 
-The shape of the data opens a candidate set:
+The shape of the data selects a **format family**: the candidate set you refine within. It does not select a format. [Intent](#intent) is what decides between the members.
 
-| Topology | Primary candidate | Common alternatives |
+| Data shape | Format family | Where each member wins |
 | --- | --- | --- |
-| 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd) | Zarr, if the product is really a cube |
-| N-D cube, for example `time × y × x × band` | [Zarr v3 / GeoZarr](../zarr/intro.qmd) | COG per time step, if slices are read alone |
-| Point cloud | [COPC](../copc/index.qmd) | [GeoParquet](../geoparquet/index.qmd), if columnar analytics dominate |
-| Vector or tabular | [GeoParquet](../geoparquet/index.qmd) | [FlatGeobuf](../flatgeobuf/intro.qmd) for streaming, [PMTiles](../pmtiles/intro.qmd) for tiled delivery |
+| 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd), [Zarr](../zarr/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | COG for distribution and visualization; Zarr if the product is really a cube; PMTiles for pre-rendered tile delivery |
+| N-D cube, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone |
+| Point cloud | [COPC](../copc/index.qmd), [GeoParquet](../geoparquet/index.qmd) | COPC for spatial subsetting and level of detail; GeoParquet if columnar analytics dominate |
+| Vector or tabular | [GeoParquet](../geoparquet/index.qmd), [FlatGeobuf](../flatgeobuf/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | GeoParquet for joins and analytics; FlatGeobuf for streaming download; PMTiles for tiled web delivery |
+
 
 The question is about topology, not about the format the data arrives in. A netCDF granule that holds a point cloud belongs on the point-cloud branch. See the [format table](../index.qmd#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table) for how traditional formats map to cloud-optimized ones.
 
