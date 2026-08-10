@@ -31,7 +31,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 
 | Term | What it means here |
 | --- | --- |
-| [**Access pattern**](#grouping-lever) | How readers will actually hit the data: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. |
+| [**Access pattern**](../glossary.qmd#access-pattern) | How readers will actually hit the data: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. Defined in the guide's glossary; the layout consequences are in [the grouping lever](#grouping-lever). |
 | [**Archival-format mandate**](#control) | A requirement to keep a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
 | [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the spine, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
@@ -166,6 +166,10 @@ Three tests, in order:
 **Otherwise there is no path yet.** The usual blockers are HDF4, encrypted
 files, a codec no parser can pass through, and a single uncompressed blob with no
 internal chunking. See [Not yet possible](#not-yet-possible).
+
+**Passing these tests means you *can*, not that you *should* yet.** A producer may be
+technically and legally free to change format and still be held by what its users'
+tools expect. See [Existing users and their tools](#existing-users).
 
 
 ### Topology: what shape are the data? {#topology}
@@ -302,6 +306,20 @@ Some choices sit below the format and are foundational:
 - Sharding in Zarr v3
 
 These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope here, or should be marked as immature when you use them.
+
+### Existing users and their tools {#existing-users}
+
+Being able to reprocess is not the same as being free to change format. If a long-standing user community reads your product with established tools, changing format breaks them, and that cost is real even when nothing technical or legal stops you.
+
+This resembles an [archival-format mandate](#control) but behaves differently:
+
+| | Archival-format mandate | User and tooling expectations |
+| --- | --- | --- |
+| Comes from | Institutional policy | Your consumer community |
+| Negotiable | Rarely | Yes, with notice |
+| Ends when | Never, you satisfy it indefinitely | You finish a migration you announced |
+
+In the short term the answer is usually the same: publish the cloud-optimized format alongside what your users already consume. The endpoint differs. A mandate you keep satisfying; an expectation you migrate out of, with a deprecation window and documentation. Weigh it together with [ecosystem maturity](#maturity), because the newer your target format, the more of your users' toolchain you are asking them to replace.
 
 ### Not yet possible {#not-yet-possible}
 

@@ -5,13 +5,15 @@ subtitle: "Six products run through the framework, five of them backed by measur
 
 Each case study below runs a real product through the [decision framework](index.qmd). It shows where the product lands and why. Five of the six are backed by **measured benchmark results**.
 
+If a term here is unfamiliar, the framework page defines the framework's own vocabulary in [Key terms](index.qmd#key-terms), and the guide's [glossary](../glossary.qmd) covers general cloud-native terms.
+
 Read each case in two parts:
 
 1. **The path through the spine**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
 
 2. **What the benchmark measurements showed.**
 
-The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
+The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a [tiered object store](../glossary.qmd#tiered-storage). It is not the only kind of backend, and its tier numbers are not a general rule.
 
 ::: {.callout-important}
 ## The recurring lesson
