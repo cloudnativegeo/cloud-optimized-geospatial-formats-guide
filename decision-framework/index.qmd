@@ -39,7 +39,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
 | [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several at once, in proportion. |
 | [**Interpretation encoding**](#interpretation-encoding) | Whether the format carries units, CRS, nodata and any scale and offset transform in-format, so every reader recovers the same physical value, or leans on a side catalog. |
-| [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object, and many backends apply a size policy or storage tier. |
+| [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object, and many apply a minimum size policy or sort objects into storage tiers. |
 | [**Refinement**](#refinements) | A criterion applied *inside* a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding. |
 | [**Topology**](#topology) | The shape of the data: 2D raster, N-D cubes, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
 
@@ -212,7 +212,7 @@ Every candidate format has a knob that sets how bytes are grouped into objects:
 | COPC | octree nodes |
 | GeoParquet | row groups, plus partitioning |
 
-Tune the lever to your **storage backend's object-size policy**. [Object stores](../glossary.qmd#object-storage-cloud-storage) degrade when they must index very many tiny objects, so most backends reward a larger average object.
+Tune the lever to your [object store's](../glossary.qmd#object-storage-cloud-storage) **object-size policy** (S3, Azure Blob Storage, Google Cloud Storage, or an on-premises equivalent). Object stores degrade when they must index very many tiny objects, so most reward a larger average object.
 
 One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and size the lever against it. Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
 
@@ -222,9 +222,9 @@ The lever works in both directions, and which direction you need depends on prod
 - **Products that are small.** Sharding within one granule only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many granules into one range-addressable object.
 
 **Size and shape are two different questions.** How *big* the objects are is a
-storage-backend question, answered above. How the bytes are arranged *inside* them
+question for your object store, answered above. How the bytes are arranged *inside* them
 (chunk shape, and the order of the dimensions) is an **access-pattern** question,
-and the backend has no opinion on it. A `time × y × x` cube chunked long in time
+and the object store has no opinion on it. A `time × y × x` cube chunked long in time
 serves a time series at one point cheaply and a full-scene map expensively; chunked
 wide in `y` and `x` it does the opposite. This guide works it through, with a
 diagram, in [chunk shape vs chunk size](../cloud-optimized-netcdf4-hdf5/index.qmd#chunk-shape-vs-chunk-size).
@@ -352,7 +352,7 @@ Rank the candidates and read the **margin**, which is the gap to the runner-up. 
 
 Two points are easy to get wrong:
 
-- **Object-size and tier fit is reported information, not a scored penalty.** Report whether a layout clears a given tier, the mean and median object size, and a small-file warning **beside** the score, never inside it. A storage backend's policy is a property of that backend, not of the format, so you must weigh it against your own infrastructure.
+- **Object-size and tier fit is reported information, not a scored penalty.** Report whether a layout clears a given tier, the mean and median object size, and a small-file warning **beside** the score, never inside it. An object store's policy is a property of that store, not of the format, so you must weigh it against your own infrastructure.
 - **Intent weights are your input.** The suitability matrix is a shared expert reference on each format's strengths, and it is useful on its own. The intent mix and the criterion weights belong to your context.
 
 The convincing artifact is never a single score. It is a sensitivity sweep that shows the ranking holds across a range of weights. That is also the honest reason this section stays short and links out: a score you cannot reproduce on your own data is not worth much, so the harness matters more than any number this page could print.
