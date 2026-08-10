@@ -7,7 +7,13 @@ Each case study below runs a real product through the [decision framework](index
 
 If a term here is unfamiliar, the framework page defines the framework's own vocabulary in [Key terms](index.qmd#key-terms), and the guide's [glossary](../glossary.qmd) covers general cloud-native terms.
 
-Read each case in two parts:
+Each case study includes:
+
+1. Characteristics of the product
+2. What the data is intended for
+3. What path the case study follows through the decision tree
+4. A size measurement for each candidate format
+5. The decision outcome
 
 1. **The path through the spine**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
 
