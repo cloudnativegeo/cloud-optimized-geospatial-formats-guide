@@ -93,14 +93,14 @@ The fusion intent matters most here: these points get combined with other water 
 
 The real gain is what the netCDF lacks:
 
-- A **spatial index**. A bounding-box query reads only the overlapping octree nodes.
+- A **spatial index in three dimensions**. The octree subdivides in x, y *and* z, so a query can constrain a bounding box **and** an elevation range, reading only the overlapping nodes. That matters here because water surface elevation is the measurement, not merely a coordinate.
 - A **level of detail**. Octree levels 0 to 11 are the point-cloud analogue of COG overviews.
 
 ::: {.callout-caution}
 An earlier measurement on this product looked like a 97 % size saving. It had dropped most of the per-point variables. Size comparisons must be like for like on content.
 :::
 
-**Where it lands.** COPC. The cloud-optimized value is partial access plus level of detail, with a modest size win on top. GeoParquet is the alternative where columnar analytics dominate.
+**Where it lands.** COPC. The cloud-optimized value is partial access plus level of detail, with a modest size win on top. GeoParquet is the alternative where columnar analytics dominate, though 3D pruning there is optional: the [spec](https://geoparquet.org/releases/v1.1.0/) allows `zmin` and `zmax` in the bbox covering, but the writer has to populate them and the engine has to use them.
 
 ## 4. Vector and tabular: shapefile to GeoParquet
 
@@ -162,7 +162,7 @@ This case is also where the ["not yet possible"](index.qmd#not-yet-possible) fra
 | --- | --- | --- | --- | --- |
 | 1. Optical scene | 2D raster | COG per scene; a cube needs cross-scene aggregation | COG +30 %, GeoZarr −2 % | Partial access, encoding |
 | 2. SAR time-cube | Raster over time | GeoZarr v3 sharded | COG +47 %, GeoZarr +10 % | One query instead of a fan-out |
-| 3. Pixel cloud | Point cloud | COPC | −16 % | Spatial index, level of detail |
+| 3. Pixel cloud | Point cloud | COPC | −16 % | 3D spatial index, level of detail |
 | 4. Lake vector | Vector, tabular | GeoParquet, aggregated | +14 % | Row-group bbox index |
 | 5. Small raster grid | N-D grid | COG, plus aggregation | Re-run pending | Fewer, larger objects |
 | 6. Frozen archive | Any | Virtual Zarr | No rewrite | Range access with no reprocessing |
