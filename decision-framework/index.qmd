@@ -141,7 +141,7 @@ flowchart TD
 
 #### How to tell which branch you are on
 
-"Can you reprocess?" and "can you virtualize?" have concrete tests, not judgement calls.
+Whether you can reprocess or viftualize usually depends on the data and data project context. Answers to these questions are not judgement calls.
 
 **You can reprocess** if you have the processor, the inputs, and the budget to re-run
 the production chain. Then format and layout are both free choices: go to
