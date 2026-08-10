@@ -9,7 +9,7 @@ Read each case in two parts:
 
 1. **The path through the spine**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
 
-2. **What the measurement showed.**
+2. **What the benchmark measurements showed.**
 
 The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a tiered object store. It is not the only kind of backend, and its tier numbers are not a general rule.
 
