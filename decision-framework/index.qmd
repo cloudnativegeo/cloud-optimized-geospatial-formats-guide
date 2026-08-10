@@ -33,7 +33,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | Term | What it means here |
 | --- | --- |
 | [**Access pattern**](../glossary.qmd#access-pattern) | What subsets readers will request: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. Defined in the guide's glossary; the layout consequences are in [the grouping lever](#grouping-lever). |
-| [**Archival-format mandate**](#control) | A requirement to keep a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
+| [**Archival-format mandate**](#control) | A requirement to maintain a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
 | [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the spine, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
 | [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
