@@ -262,7 +262,7 @@ Where the candidates sit today:
 
 **For GeoParquet and COPC, the risk is integration effort, not the specification.** Each inherits a mature base format and adds a spatial index on top.
 
-#### Zarr v3 and GeoZarr are two different questions
+#### New Zarr Standards: Distinguishing Zarr v3 and GeoZarr
 
 This distinction is easy to miss, and it decides how much risk you actually take on.
 
