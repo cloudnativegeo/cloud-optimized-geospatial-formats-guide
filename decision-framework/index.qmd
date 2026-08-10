@@ -289,7 +289,7 @@ These are not decision points. They apply whatever you choose.
 
 ### Metadata and cataloging
 
-Metadata that a reader can fetch in a single request is part of [P1](#preconditions), not an extra. Every candidate the [topology question](#topology) opens has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level *above* a single file.
+Metadata that a reader can fetch in a single request is part of [Precondition P1](#preconditions), not an extra. Every candidate the [topology question](#topology) opens has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level *above* a single file.
 
 At a scale of tens of thousands to millions of files, collection-level discovery becomes critical. [STAC](https://stacspec.org/) has an essential role there, and it is part of the cloud-native geospatial ecosystem that we recommend. It is **not a format and not a decision point in this framework**, so this page does not prescribe it. Choose a catalog approach that fits your organization.
 
