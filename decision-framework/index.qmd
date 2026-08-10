@@ -236,7 +236,7 @@ performs. And it is mostly settled back at the [control](#control) question, bec
 
 ### Ecosystem maturity {#maturity}
 
-The real question is not a version number. It is whether you need something production-grade that you can count on, or you are willing to be an early adopter. Maturity is what separates a safe default from a bet.
+Ecosystem maturity may influence the final decision. You may need something production-grade that you can count on, or you may have the flexibility to be an early adopter. Maturity is what separates a safe default from a bet.
 
 To keep that judgement explicit rather than impressionistic, place each candidate on a five-level scale:
 
