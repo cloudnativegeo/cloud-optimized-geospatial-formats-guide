@@ -15,7 +15,7 @@ Each case study includes:
 4. A size measurement for each candidate format
 5. The decision outcome
 
-1. **The path through the spine**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
+1. **The path through the framework**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
 
 2. **What the benchmark measurements showed.**
 

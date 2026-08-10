@@ -34,7 +34,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | --- | --- |
 | [**Access pattern**](../glossary.qmd#access-pattern) | What subsets readers will request: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. Defined in the guide's glossary; the layout consequences are in [the grouping lever](#grouping-lever). |
 | [**Archival-format mandate**](#control) | A requirement to maintain a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
-| [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the spine, and it can end in "not yet possible". |
+| [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the framework, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
 | [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
 | [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several at once, in proportion. |
@@ -53,9 +53,9 @@ The framework does not restate that definition. It assumes it. Two consequences 
 
 **P2. No opaque bundles.** An [archive format](../glossary.qmd#archive-format) is not disqualified just for being an archive. [PMTiles](../pmtiles/intro.qmd) is an archive and it is cloud-optimized, because its internal directory makes each tile addressable. What disqualifies a candidate is an archive with no addressable internal layout, or a layer of [external compression](../glossary.qmd#external-compression) wrapped around data that was already cloud-optimized. A zipped Zarr store, a LAZ file without [COPC metadata](https://copc.io/), and a single Parquet file with no row groups all fail this way: the client must fetch the whole object before it can use any part of it.
 
-## The spine
+## The two stages
 
-The spine runs in **two stages**, and the topology question is the hinge between them.
+The framework runs in **two stages**, and the topology question is the hinge between them.
 
 **Stage 1 — control: do you have a choice?** Do the data already exist? If they
 exist, are you able (technically, legally) to reprocess them? This stage can end
@@ -334,7 +334,7 @@ Frame the branch that way, and route the reader back to the options: reprocess i
 
 ## Optional: make it quantitative
 
-The spine above gets you to a short list. When two or three candidates remain and the choice is close, a transparent score can make the trade-off explicit rather than a matter of taste. This section is **optional**. The framework stands on its own without it.
+The two stages above get you to a short list. When two or three candidates remain and the choice is close, a transparent score can make the trade-off explicit rather than a matter of taste. This section is **optional**. The framework stands on its own without it.
 
 The idea is a **weighted mean of criteria**, each expressed as a number from 0 to 1. It is framework-first and metrics-optional: qualitative terms alone already give a ranking, and a benchmark run sharpens the same ranking.
 
@@ -359,7 +359,7 @@ The convincing artifact is never a single score. It is a sensitivity sweep that 
 
 ## Worked examples
 
-Six products run through the spine on the [Case Studies](case-studies.qmd) page. Five are backed by measurements.
+Six products run through the framework on the [Case Studies](case-studies.qmd) page. Five are backed by measurements.
 
 One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** Overviews, levels of detail, and spatial indexes are structures the source did not carry, so they add volume, and that added volume is the feature you are buying. Where two candidates do differ in size, the cause is usually the **codec**, not the format.
 
