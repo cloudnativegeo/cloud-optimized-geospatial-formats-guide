@@ -11,7 +11,7 @@ It is a guide, not an oracle:
 
 - The **shape of your data** narrows the field.
 - The **intended use** and a few practical levers rank the remaining options.
-- **You keep the final call.**
+- **You make the final call.**
 
 The framework is provider-neutral. Where a concrete number helps, such as an object-size policy or a benchmark result, the number is given as a worked example and flagged as an example, not as a rule.
 
