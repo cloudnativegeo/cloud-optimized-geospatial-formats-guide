@@ -135,7 +135,7 @@ flowchart TD
 
 **Existing data you cannot reprocess, but can rewrite.** You may still be allowed to repackage the delivered files: a plain TIFF becomes a COG, a LAZ file becomes a COPC, a shapefile becomes GeoParquet. The format is a free choice, but the content is fixed at whatever was delivered. Go to the [topology question](#topology).
 
-**Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
+**Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. The [Virtual Zarr](../zarr/virtual-zarr.qmd) approach is to use a library (such as VirtualiZarr or Kerchunk) to build an index that points into the original files. That index is then stored in formats such as kerchunk json, kerchunk parquet or Icechunk. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
 **Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Not yet possible](#not-yet-possible).
 
