@@ -75,14 +75,6 @@ The analysis half is what separates this case from case 1: it is asked over time
 
 **Measured, one tile and confirmed at area scale.** COG came to 728 MiB per tile and a scene-size GeoZarr shard to 545 MiB. Both cleared the [cold tier](../glossary.qmd#tiered-storage). GeoZarr is again about 25 % smaller, and again this is the codec: Deflate at 3.70x against ZSTD at 4.98x. The result held over a 16-tile block, at 16498 MiB for COG and 12344 MiB for GeoZarr. Against the 496 MiB delivered `.zip` both are larger, COG by 47 % and GeoZarr by 10 %. Cloud-optimized costs storage here, and buys the range access that the opaque zip cannot give at all.
 
-::: {.callout-warning}
-## A benchmark caveat, not a format verdict
-
-The GeoZarr store read and displayed much slower than the COG, but it was written **with no multiscale overview pyramid**. A store without multiscales is not a faithful GeoZarr, and the missing pyramid is the reason a tile server has to downsample full-resolution chunks on request. The slow read is also in large part a reader effect, from the library used rather than the format.
-
-Both issues are being fixed for the final campaign, so that display is compared on equal terms. Treat these timing numbers as provisional.
-:::
-
 ## 3. Point cloud: netCDF to COPC
 
 **Product:** SWOT L2_HR Pixel Cloud. **Source format:** netCDF.
