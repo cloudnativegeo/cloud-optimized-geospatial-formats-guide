@@ -150,12 +150,12 @@ This case is the counterpart to cases 1 and 2. There, one large band already cle
 
 ## 6. Existing archive to a virtual store
 
-**Product:** any immutable archive, for example HDF5 or netCDF. **Source format:** whatever was delivered.
+**Product:** a large immutable archive in a chunked array format, for example HDF5 or netCDF. **Source format:** whatever was delivered.
 
 - **Existing data?** Yes.
 - **[Can you reprocess?](index.qmd#control)** No.
 - **Can you repackage the delivered files?** No.
-- **[Virtualizable?](index.qmd#control)** Yes, so a virtual Zarr store is the candidate.
+- **[Virtualizable?](index.qmd#control)** Yes, *if* the source is a chunked array format. Kerchunk and VirtualiZarr cover netCDF4, HDF5, GRIB2, TIFF and FITS. Most vector formats have no equivalent, so this branch is effectively raster and N-D only.
 - **[Grouping lever](index.qmd#grouping-lever).** None available. You inherit the source's chunking exactly.
 
 This case has no benchmark. It illustrates the "existing data, cannot reprocess" branch of the control fork, and it is the only case that does not reach the topology question at all.
@@ -163,6 +163,8 @@ This case has no benchmark. It illustrates the "existing data, cannot reprocess"
 An immutable archive, for example HDF5 or netCDF that you cannot reprocess, can be surfaced as a virtual Zarr store with [VirtualiZarr, Kerchunk, or Icechunk](../zarr/virtual-zarr.qmd). This gives range-based access without rewriting the data.
 
 The result is more limited than a native store. Chunk sizes are whatever the source chose, you cannot add overviews, and you inherit the source's codec. It is still much better than whole-file download, and it is often the only option available.
+
+**"Cannot reprocess" usually means "too big".** This branch is normally reached for reasons of scale rather than permission: the archive is large enough that duplicating it, or spending the compute to regenerate it, costs more than the access problem is worth. That is why it is mostly an array and raster story. A vector dataset is usually small enough that [repackaging](index.qmd#control) it outright is cheaper than indexing around it, so vector products rarely land here.
 
 This case is also where the ["not yet possible"](index.qmd#not-yet-possible) framing matters. If the source cannot even be virtualized, name what is missing rather than declaring the case impossible.
 
@@ -175,7 +177,7 @@ This case is also where the ["not yet possible"](index.qmd#not-yet-possible) fra
 | 3. Pixel cloud | Point cloud | COPC | −16 % | 3D spatial index, level of detail |
 | 4. Lake vector | Vector, tabular | GeoParquet, aggregated | +14 % | Row-group bbox index |
 | 5. Small raster grid | N-D grid | COG, plus aggregation | Re-run pending | Fewer, larger objects |
-| 6. Frozen archive | Any | Virtual Zarr | No rewrite | Range access with no reprocessing |
+| 6. Frozen archive | Chunked arrays only | Virtual Zarr | No rewrite | Range access with no reprocessing |
 
 Read the size column together with the recurring lesson at the top of this page. Only one case got smaller, and that case got smaller because of its codec.
 
