@@ -229,9 +229,11 @@ serves a time series at one point cheaply and a full-scene map expensively; chun
 wide in `y` and `x` it does the opposite. This guide works it through, with a
 diagram, in [chunk shape vs chunk size](../cloud-optimized-netcdf4-hdf5/index.qmd#chunk-shape-vs-chunk-size).
 
-Shape rarely decides *which* format you pick, because every member of a family
-exposes some version of the knob. It decides how well the format you picked
-performs. And it is mostly settled back at the [control](#control) question, because only reprocessing lets you choose the shape freely.
+Shape rarely decides *which* format you pick, because every candidate in a family lets
+you set it: a COG chooses its tile dimensions, Zarr its chunk shape and dimension
+order, GeoParquet its row-group size and row ordering. What shape decides is how well
+the format you picked performs, not which one you pick. And it is mostly settled back
+at the [control](#control) question, because only reprocessing lets you choose it freely.
 
 
 ### Ecosystem maturity {#maturity}
