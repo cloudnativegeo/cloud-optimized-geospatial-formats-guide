@@ -18,7 +18,7 @@ The examples use public Copernicus and NASA missions. The [CNES Datalake](https:
 ::: {.callout-important}
 ## Cloud-optimized != smaller storage size
 
-**Going cloud-optimized is rarely smaller than the source you started from.**
+**A cloud-optimized format is not necessarily smaller than a non-cloud-optimized version.**
 
 Cloud-optimized formats provide partial access via byte-range indices into the data, accessible via addressable metadata.
 
