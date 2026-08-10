@@ -325,7 +325,7 @@ In the short term the answer is usually the same: publish the cloud-optimized fo
 
 When a source cannot be repackaged or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually a missing parser, an unsupported codec, or source files with no internal chunking at all. Every one of those can change.
 
-The precedent is HDF5 itself: once the standard example of a format that could not be read efficiently from object storage, until a change in write strategy and reader tooling made it viable, see [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd). Formats move.
+The precedent is HDF5 itself: once the standard example of a format that could not be read efficiently from object storage, until a change in write strategy and reader tooling made it viable, see [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd).The reader half is still moving: switching xarray's default cache for the h5netcdf engine improves dataset opening ([xarray #11216](https://github.com/pydata/xarray/pull/11216), measured by its authors on NISAR data). Formats move, and so do the libraries.
 
 Frame the branch that way, and route the reader back to the options: reprocess if you can get the chain changed, virtualize if a reader exists, or convert on ingest. Say what is missing, so somebody can unlock it.
 
