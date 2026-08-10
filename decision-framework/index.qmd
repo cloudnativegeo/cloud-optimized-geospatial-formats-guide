@@ -91,12 +91,15 @@ flowchart TD
 
     B -- Yes --> D{Can you<br/>reprocess?}
     D -- Yes --> T
-    D -- No --> E{Virtualizable?}
+    D -- No --> P{Can you repackage<br/>the delivered files?}
+    P -- Yes --> P1[Format free,<br/>content fixed as delivered]
+    P1 --> T
+    P -- No --> E{Virtualizable?}
     E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk<br/>limited, better than nothing]
     E -- No --> E2[Not yet possible<br/>say what is missing]
 
     T --> T1(2D raster<br/>COG, Zarr, PMTiles)
-    T --> T2(N-D cubes<br/>GeoZarr, COG)
+    T --> T2(N-D cubes<br/>GeoZarr, COG, CO-HDF5)
     T --> T3(Point cloud<br/>COPC, GeoParquet)
     T --> T4(Vector / tabular<br/>GeoParquet, FlatGeobuf, PMTiles)
 
@@ -113,10 +116,10 @@ flowchart TD
     classDef refine  fill:#ece6f7,stroke:#7355a6,stroke-width:2px,color:#291d44
 
     class A entry
-    class B,C,D,E ask
+    class B,C,D,E,P ask
     class T hinge
     class T1,T2,T3,T4 family
-    class C1,E1,E2 partial
+    class C1,P1,E1,E2 partial
     class R refine
 
 ```
@@ -128,6 +131,8 @@ flowchart TD
 **If an archival-format mandate applies,** it adds a second job, it does not remove that freedom. If policy requires you to preserve a particular format like HDF5, netCDF, GRIB, or something specific to your domain, you still publish a cloud-optimized copy for readers, and you additionally make the mandated format as cloud-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, and publish what people will actually read.
 
 **Existing data you can reprocess.** You control the production chain, so you can also choose freely. Go to the [topology question](#topology).
+
+**Existing data you cannot reprocess, but can rewrite.** You may still be allowed to repackage the delivered files: a plain TIFF becomes a COG, a LAZ file becomes a COPC, a shapefile becomes GeoParquet. The format is a free choice, but the content is fixed at whatever was delivered. Go to the [topology question](#topology).
 
 **Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
@@ -170,7 +175,7 @@ The shape of the data selects a **format family**: the candidate set you refine 
 | Data shape | Format family | Where each member wins |
 | --- | --- | --- |
 | 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd), [Zarr](../zarr/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | COG for distribution and visualization; Zarr if the product is really a cube; PMTiles for pre-rendered tile delivery |
-| N-D cubes, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone |
+| N-D cubes, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd), [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone; cloud-optimized HDF/netCDF where an archival format is mandated or existing tooling must keep working |
 | Point cloud | [COPC](../copc/index.qmd), [GeoParquet](../geoparquet/index.qmd) | COPC for spatial subsetting and level of detail; GeoParquet if columnar analytics dominate |
 | Vector or tabular | [GeoParquet](../geoparquet/index.qmd), [FlatGeobuf](../flatgeobuf/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | GeoParquet for joins and analytics; FlatGeobuf for streaming download; PMTiles for tiled web delivery |
 
