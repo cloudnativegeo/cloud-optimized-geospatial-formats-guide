@@ -11,7 +11,7 @@ This glossary aims to describe all the jargon of geospatial in the cloud! Are we
 
 #### Access pattern
 
-How readers actually reach the data: a time series at a single point, a spatial window at a single date, or a full scan of everything.
+What subsets of the data get requested: a time series at a single point, a spatial window at a single date, or a full scan of everything.
 
 The access pattern drives the [chunk](#chunk) shape and the order of the dimensions, which is a separate question from [chunk size](#chunk-size). A cube chunked long in time answers a time series at one point cheaply and a full map expensively; chunked wide in latitude and longitude it does the opposite. Only rewriting the data lets you change it, so a virtualized dataset inherits whatever access pattern its source was written for.
 
