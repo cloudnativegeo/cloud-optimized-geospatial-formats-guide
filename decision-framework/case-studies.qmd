@@ -55,7 +55,7 @@ Both intents are served per scene, which is why this case does not need a cube a
 
 **Where it lands.** COG per scene for distribution and visualization.
 
-For temporal analysis GeoZarr is the right target, but **the arm measured here does not yet deliver it.** What was written is a scene-size store: one scene, so there is no time dimension to exploit. It proves the container and the encoding, because it comes out at roughly source size and it carries the scale, offset, and nodata correctly. A time-series query against it still has to open one store per date, which is the same fan-out the COG layout has.
+For temporal analysis GeoZarr is the right target, but **the GeoZarr store measured here does not yet deliver it.** What was written is a scene-size store: one scene, so there is no time dimension to exploit. It proves the container and the encoding, because it comes out at roughly source size and it carries the scale, offset, and nodata correctly. A time-series query against it still has to open one store per date, which is the same fan-out the COG layout has.
 
 The temporal benefit appears only once many scenes are concatenated along time into a single cube. That is the regime measured in [case 2](#case-time-cube), and it is a collection-level layout decision, not something a scene-size store can give you. Read the per-scene store as a building block and the cube as the product.
 
@@ -80,7 +80,7 @@ The analysis half is what separates this case from case 1: it is asked over time
 
 The GeoZarr store read and displayed much slower than the COG, but it was written **with no multiscale overview pyramid**. A store without multiscales is not a faithful GeoZarr, and the missing pyramid is the reason a tile server has to downsample full-resolution chunks on request. The slow read is also in large part a reader effect, from the library used rather than the format.
 
-Both issues are being fixed for the final campaign, so that display is compared on equal terms. Treat the timing numbers from this arm as provisional.
+Both issues are being fixed for the final campaign, so that display is compared on equal terms. Treat these timing numbers as provisional.
 :::
 
 ## 3. Point cloud: netCDF to COPC
