@@ -112,13 +112,23 @@ An earlier measurement on this product looked like a 97 % size saving. It had dr
 - **[Intent](index.qmd#intent).** Distribution, download, and data fusion. Visualization is *absent* from this mix.
 - **[Grouping lever](index.qmd#grouping-lever).** Row groups, but only after aggregating across passes; a single pass is below the warm-tier floor.
 
-The intent mix is what makes this case interesting: visualization is absent and download is present, so the answer is not automatically the columnar one. Download rewards a single streamable file, which is FlatGeobuf's strength, while fusion rewards cheap joins on a fixed schema, which is GeoParquet's. The fusion weight settles it. The product is fixed-schema tabular, with a lake id, a reach id, water-surface elevation, area and more, which is the native fit for GeoParquet's columns, row groups and spatial partitioning. A sparse Zarr store would add complexity with no gain.
+The intent mix makes this case a genuine two-way contest, though not in the way it first appears:
 
-**Measured, two passes.** GeoParquet came to 17.8 MiB per pass, about 14 % **larger** than the 31.1 MiB zipped shapefile. This surprised reviewers, who expected a binary columnar format to be smaller. The likely cause is the default row-group codec, and it is under investigation.
+- **Download favors GeoParquet, not FlatGeobuf.** FlatGeobuf has [no internal compression](../flatgeobuf/intro.qmd#no-internal-compression), and it cannot simply be gzipped, because its spatial index addresses byte ranges in the *uncompressed* file. GeoParquet [compresses per column by default](../geoparquet/index.qmd#internal-compression-by-default), so within this candidate set it is the smaller transfer.
+- **Streaming is a visualization property, not a download one.** FlatGeobuf [streams](../flatgeobuf/intro.qmd#streaming-features-is-supported), so features render progressively as they arrive. Valuable, but visualization is absent from this mix.
+- **FlatGeobuf wins on whole-row spatial subsetting.** It is row-oriented with a Hilbert R-tree, so every attribute of the features in a bounding box is one contiguous read, where a [column-oriented](../geoparquet/index.qmd#column-oriented) store has to touch every column. A real access pattern, just not one this intent mix asks for.
+
+At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. These passes are tiny, so it does not bite here.
+
+So GeoParquet wins on download *and* fusion. The product is fixed-schema tabular, with a lake id, a reach id, water-surface elevation, area and more, which is the native fit for its columns and row groups. A sparse Zarr store would add complexity with no gain.
+
+**Measured, two passes.** GeoParquet came to 17.8 MiB per pass, so 35.6 MiB for the two passes, against 31.1 MiB for the same two passes as a zipped shapefile. That is about 14 % **larger**, and the ratio is the same per pass (17.8 against 15.6 MiB).
+
+Note that this compares GeoParquet against the **source**, not against FlatGeobuf. Against its actual rival in the candidate set, GeoParquet is the smaller of the two, because FlatGeobuf cannot compress at all.
 
 Each pass sits below the warm-tier floor. The lever is therefore **aggregation across passes**: concatenate first, then size the row groups. A one-for-one transcode of each pass would leave the object-size problem in place. The gain over the shapefile is the bounding-box row-group index, not the size.
 
-**Where it lands.** GeoParquet, with pass-level aggregation. FlatGeobuf is the single-file streaming alternative.
+**Where it lands.** GeoParquet, with pass-level aggregation. FlatGeobuf is the alternative where whole-row spatial subsetting or progressive rendering dominates, and where the data stays small enough for a single file.
 
 ## 5. Small N-D grid: the aggregation regime
 
