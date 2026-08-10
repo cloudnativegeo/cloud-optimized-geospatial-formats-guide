@@ -9,6 +9,7 @@ This framework helps you go from *"I have geospatial data to publish or migrate"
 
 It is a guide, not an oracle:
 
+- **What you control** comes first: whether the data already exist, whether you may reprocess them, and whether a mandate fixes an archival format. This can settle the answer before format even comes up.
 - The **shape of your data** narrows the field.
 - The **intended use** and a few practical levers rank the remaining options.
 - **You make the final call.**
