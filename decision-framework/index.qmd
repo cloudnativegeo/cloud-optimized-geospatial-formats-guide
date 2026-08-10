@@ -214,7 +214,7 @@ Every candidate format has a knob that sets how bytes are grouped into objects:
 
 Tune the lever to your **storage backend's object-size policy**. [Object stores](../glossary.qmd#object-storage-cloud-storage) degrade when they must index very many tiny objects, so most backends reward a larger average object.
 
-One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into tiers by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. Those numbers belong to that backend. Your backend will have its own policy, and it may have none. Read the tiers as an instance of a general concern.
+One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and size the lever against it. Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
 
 The lever works in both directions, and which direction you need depends on product size:
 
