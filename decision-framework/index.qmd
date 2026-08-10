@@ -302,6 +302,8 @@ These are mature and in scope. The per-format pages cover them. More experimenta
 
 When a source cannot be repackaged or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually a missing parser, an unsupported codec, or source files with no internal chunking at all. Every one of those can change.
 
+The precedent is HDF5 itself: once the standard example of a format that could not be read efficiently from object storage, until a change in write strategy and reader tooling made it viable, see [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd). Formats move.
+
 Frame the branch that way, and route the reader back to the options: reprocess if you can get the chain changed, virtualize if a reader exists, or convert on ingest. Say what is missing, so somebody can unlock it.
 
 ## Optional: make it quantitative
