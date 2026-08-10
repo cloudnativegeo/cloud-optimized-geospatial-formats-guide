@@ -127,7 +127,7 @@ An immutable archive, for example HDF5 or netCDF that you cannot reprocess, can 
 
 The result is more limited than a native store. Chunk sizes are whatever the source chose, you cannot add overviews, and you inherit the source's codec. It is still much better than whole-file download, and it is often the only option available.
 
-This case is also where the ["unlock this"](index.qmd#dead-ends-are-unlock-this) framing matters. If the source cannot even be virtualized, name what is missing rather than declaring the case impossible.
+This case is also where the ["not yet possible"](index.qmd#not-yet-possible) framing matters. If the source cannot even be virtualized, name what is missing rather than declaring the case impossible.
 
 ## Summary
 

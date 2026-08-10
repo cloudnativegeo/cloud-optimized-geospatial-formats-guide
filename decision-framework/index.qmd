@@ -93,7 +93,7 @@ flowchart TD
     D -- Yes --> T
     D -- No --> E{Virtualizable?}
     E -- Yes --> E1[VirtualiZarr / Kerchunk / Icechunk<br/>limited, better than nothing]
-    E -- No --> E2[Not yet implemented<br/>unlock this]
+    E -- No --> E2[Not yet possible<br/>say what is missing]
 
     T --> T1(2D raster<br/>COG, Zarr, PMTiles)
     T --> T2(N-D cubes<br/>GeoZarr, COG)
@@ -131,7 +131,7 @@ flowchart TD
 
 **Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. [Virtual Zarr](../zarr/virtual-zarr.qmd), with VirtualiZarr, Kerchunk, or Icechunk, builds an index that points into the original files. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
-**Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+**Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Not yet possible](#not-yet-possible).
 
 #### How to tell which branch you are on
 
@@ -158,9 +158,9 @@ Three tests, in order:
 3. **Is there a parser for the format?** Kerchunk and VirtualiZarr cover the common
    archival formats, including netCDF4, HDF5, GRIB2, TIFF and FITS.
 
-**Otherwise you are at a dead end for now.** The usual blockers are HDF4, encrypted
+**Otherwise there is no path yet.** The usual blockers are HDF4, encrypted
 files, a codec no parser can pass through, and a single uncompressed blob with no
-internal chunking. See [Dead ends are "unlock this"](#dead-ends-are-unlock-this).
+internal chunking. See [Not yet possible](#not-yet-possible).
 
 
 ### Topology: what shape are the data? {#topology}
@@ -298,7 +298,7 @@ Some choices sit below the format and are foundational:
 
 These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope here, or should be marked as immature when you use them.
 
-### Dead ends are "unlock this"
+### Not yet possible {#not-yet-possible}
 
 When a source cannot be repackaged or virtualized today, the honest answer is *"not yet implemented"*, not *"impossible"*. The blocker is usually a missing parser, an unsupported codec, or source files with no internal chunking at all. Every one of those can change.
 
