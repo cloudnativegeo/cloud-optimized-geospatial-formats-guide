@@ -1,0 +1,186 @@
+---
+title: "Decision Framework Case Studies"
+subtitle: "Six products run through the framework, five of them backed by measurements"
+---
+
+Each case study below runs a real product through the [decision framework](index.qmd). It shows where the product lands and why. Five of the six are backed by **measured benchmark results**.
+
+If a term here is unfamiliar, the framework page defines the framework's own vocabulary in [Key terms](index.qmd#key-terms), and the guide's [glossary](../glossary.qmd) covers general cloud-native terms.
+
+Each case study includes:
+
+1. Characteristics of the product
+2. What the data is intended for
+3. What path the case study follows through the decision tree
+4. A size measurement for each candidate format
+5. The decision outcome
+
+1. **The path through the framework**: the [control fork](index.qmd#control), the [topology question](index.qmd#topology), then the four refinements: [intent](index.qmd#intent), the [object-size and grouping lever](index.qmd#grouping-lever), [ecosystem maturity](index.qmd#maturity), and   [interpretation encoding](index.qmd#interpretation-encoding).
+
+2. **What the benchmark measurements showed.**
+
+The examples use public Copernicus and NASA missions. The [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) appears as one worked example of a [tiered object store](../glossary.qmd#tiered-storage). Its two thresholds appear throughout the cases below: a **warm tier** with a mean-object-size floor of about 32 MB on disk, and a **cold tier** of about 100 MB on tape. It is not the only kind of object store, and its tier numbers are not a general rule.
+
+::: {.callout-note}
+## Cloud-optimized != smaller storage size
+
+**A cloud-optimized format is not necessarily smaller than a non-cloud-optimized version.**
+
+Cloud-optimized formats provide partial access via byte-range indices into the data, accessible via addressable metadata.
+
+**The extra bytes are the feature.** Overviews, levels of detail, and spatial indexes are structures the source file did not carry at all. They add volume, and they are exactly what buys fast display and cheap subsetting. The COG in case 1 is about 30% larger than the delivered archive mostly because it carries overviews, and the row-group index in case 4 is the whole point of the conversion.
+:::
+
+::: {.callout-note}
+The numbers below are first measurements on a representative unit per mission, meaning one scene, one tile, or a few granules. They are illustrative, not a published benchmark. Two of the six cases have re-runs pending, and each one says so.
+
+They were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), an open-source harness that measures object-size distribution, write, read, and display per format. You can describe your own datasets in its config files and reproduce this shape of comparison on your own data. See [Optional: make it quantitative](index.qmd#optional-make-it-quantitative).
+:::
+
+## 1. Per-scene optical raster: COG vs GeoZarr for visualization and distribution
+
+**Product:** Sentinel-2 L2A. **Source format:** geoTiff in a `.zip`.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** Yes, the producer operates the processing chain, so the format is a free choice.
+- **[What shape are the data?](index.qmd#topology)** 2D raster per scene, which opens `{COG, GeoZarr}`.
+- **[Intent](index.qmd#intent).** Distribution and visualization, both served per scene. That favors COG; time-series analysis would favor a GeoZarr cube instead.
+- **[Grouping lever](index.qmd#grouping-lever).** COG internal tiling, or a scene-size Zarr shard.
+
+Both intents are served per scene, which is why this case does not need a cube at all.
+
+**Measured, one scene.** Both layouts cleared the [warm tier](../glossary.qmd#tiered-storage). COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. That gap is the **codec**, Deflate against ZSTD, not the format. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
+
+**[Interpretation encoding](index.qmd#interpretation-encoding) is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in side metadata that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
+
+**Where it lands.** COG per scene for distribution and visualization.
+
+For temporal analysis GeoZarr is the right target, but **the GeoZarr store measured here does not yet deliver it.** What was written is a scene-size store: one scene, so there is no time dimension to exploit. It proves the container and the encoding, because it comes out at roughly source size and it carries the scale, offset, and nodata correctly. A time-series query against it still has to open one store per date, which is the same fan-out the COG layout has.
+
+The temporal benefit appears only once many scenes are concatenated along time into a single cube. That is the regime measured in [case 2](#case-time-cube), and it is a collection-level layout decision, not something a scene-size store can give you. Read the per-scene store as a building block and the cube as the product.
+
+The associated masking product, which is written as many small GeoTIFFs, is a clear anti-pattern to fix at the source.
+
+Sentinel-2 also has a second multiscale dimension worth naming: its bands are natively captured at 10 m, 20 m, and 60 m, not derived from each other by downsampling. See [Multiscale and native mixed resolution](index.qmd#multiscale-and-native-mixed-resolution) for how one aligned pyramid can host all three without picking a single working resolution.
+
+## 2. Raster time-cube: GeoZarr, with COG as the alternative {#case-time-cube}
+
+**Product:** Sentinel-1 RTC. **Source format:** geoTiff in a `.zip`.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** Yes, so the format is a free choice.
+- **[What shape are the data?](index.qmd#topology)** 2D raster over time, which opens `{COG, GeoZarr}`.
+- **[Intent](index.qmd#intent).** Advanced analysis and visualization lead, with distribution close behind but weighted a little lower.
+- **[Grouping lever](index.qmd#grouping-lever).** Zarr sharding, sized to the object store's preference for large objects.
+
+The analysis half is what separates this case from case 1: it is asked over time, not per scene. A year of RTC over a region is naturally a `time × y × x × pol` cube, and on a Zarr cube a time-series slice or an area-of-interest subset is one range-addressable query. Across thousands of per-timestamp COGs the same request becomes a large fan-out. Sharding reconciles fine-grained chunk access with the object store's preference for large objects.
+
+**Measured, one tile and confirmed at area scale.** COG came to 728 MiB per tile and a scene-size GeoZarr shard to 545 MiB. Both cleared the [cold tier](../glossary.qmd#tiered-storage). GeoZarr is again about 25 % smaller, and again this is the codec: Deflate at 3.70x against ZSTD at 4.98x. The result held over a 16-tile block, at 16498 MiB for COG and 12344 MiB for GeoZarr. Against the 496 MiB delivered `.zip` both are larger, COG by 47 % and GeoZarr by 10 %. Cloud-optimized costs storage here, and buys the range access that the opaque zip cannot give at all.
+
+## 3. Point cloud: netCDF to COPC
+
+**Product:** SWOT L2_HR Pixel Cloud. **Source format:** netCDF.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** Yes, so the format is a free choice.
+- **[What shape are the data?](index.qmd#topology)** Point cloud, which opens `{COPC, GeoParquet}`.
+- **[Intent](index.qmd#intent).** Distribution, visualization, and data fusion.
+- **[Grouping lever](index.qmd#grouping-lever).** COPC octree nodes; each granule already clears the tier on its own.
+
+The fusion intent matters most here: these points get combined with other water products, so a reader has to recover the same physical value per point and subset the same area cheaply. That is what makes the source's missing spatial index a real cost rather than an inconvenience. COPC is a clustered octree inside a LAZ file; the netCDF source has no spatial index and no level of detail, so reading a small geographic subset means scanning the whole granule.
+
+**Measured, content-complete, three granules.** A COPC carrying all per-point variables was about 16 % **smaller** than the source netCDF. This is the one clear size win among the cases, and it comes from the codec: LASzip at 3.72x against netCDF Deflate at 2.56x. Each granule cleared the tier on its own.
+
+The real gain is what the netCDF lacks:
+
+- A **spatial index in three dimensions**. The octree subdivides in x, y *and* z, so a query can constrain a bounding box **and** an elevation range, reading only the overlapping nodes. That matters here because water surface elevation is the measurement, not merely a coordinate.
+- A **level of detail**. Octree levels 0 to 11 are the point-cloud analogue of COG overviews.
+
+::: {.callout-caution}
+An earlier measurement on this product looked like a 97 % size saving. It had dropped most of the per-point variables. Size comparisons must be like for like on content.
+:::
+
+**Where it lands.** COPC. The cloud-optimized value is partial access plus level of detail, with a modest size win on top. GeoParquet is the alternative where columnar analytics dominate, though 3D pruning there is optional: the [spec](https://geoparquet.org/releases/v1.1.0/) allows `zmin` and `zmax` in the bbox covering, but the writer has to populate them and the engine has to use them.
+
+## 4. Vector and tabular: shapefile to GeoParquet
+
+**Product:** SWOT L2_HR Lake Single Pass. **Source format:** shapefile.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** Yes, so the format is a free choice.
+- **[What shape are the data?](index.qmd#topology)** Vector and tabular, which opens `{GeoParquet, FlatGeobuf}`.
+- **[Intent](index.qmd#intent).** Distribution, download, and data fusion. Visualization is *absent* from this mix.
+- **[Grouping lever](index.qmd#grouping-lever).** Row groups, but only after aggregating across passes; a single pass is below the warm-tier floor.
+
+The intent mix makes this case a genuine two-way contest, though not in the way it first appears:
+
+- **Download favors GeoParquet, not FlatGeobuf.** FlatGeobuf has [no internal compression](../flatgeobuf/intro.qmd#no-internal-compression), and it cannot simply be gzipped, because its spatial index addresses byte ranges in the *uncompressed* file. GeoParquet [compresses per column by default](../geoparquet/index.qmd#internal-compression-by-default), so within this candidate set it is the smaller transfer.
+- **Streaming is a visualization property, not a download one.** FlatGeobuf [streams](../flatgeobuf/intro.qmd#streaming-features-is-supported), so features render progressively as they arrive. Valuable, but visualization is absent from this mix.
+- **FlatGeobuf wins on whole-row spatial subsetting.** It is row-oriented with a Hilbert R-tree, so every attribute of the features in a bounding box is one contiguous read, where a [column-oriented](../geoparquet/index.qmd#column-oriented) store has to touch every column. A real access pattern, just not one this intent mix asks for.
+
+At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. These passes are tiny, so it does not bite here.
+
+So GeoParquet wins on download *and* fusion. The product is fixed-schema tabular, with a lake id, a reach id, water-surface elevation, area and more, which is the native fit for its columns and row groups. A sparse Zarr store would add complexity with no gain.
+
+**Measured, two passes.** GeoParquet came to 17.8 MiB per pass, so 35.6 MiB for the two passes, against 31.1 MiB for the same two passes as a zipped shapefile. That is about 14 % **larger**, and the ratio is the same per pass (17.8 against 15.6 MiB).
+
+Note that this compares GeoParquet against the **source**, not against FlatGeobuf. Against its actual rival in the candidate set, GeoParquet is the smaller of the two, because FlatGeobuf cannot compress at all.
+
+Each pass sits below the warm-tier floor. The lever is therefore **aggregation across passes**: concatenate first, then size the row groups. A one-for-one transcode of each pass would leave the object-size problem in place. The gain over the shapefile is the bounding-box row-group index, not the size.
+
+**Where it lands.** GeoParquet, with pass-level aggregation. FlatGeobuf is the alternative where whole-row spatial subsetting or progressive rendering dominates, and where the data stays small enough for a single file.
+
+## 5. Small N-D grid: the aggregation regime
+
+**Product:** SWOT L2_HR Raster. **Source format:** geoTiff.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** Yes, so the format is a free choice.
+- **[What shape are the data?](index.qmd#topology)** N-D grid, which opens `{GeoZarr, COG}`.
+- **[Intent](index.qmd#intent).** Distribution and download, with data fusion against the other SWOT products, and some visualization. This mix is provisional and still to be confirmed with the product owner.
+- **[Grouping lever](index.qmd#grouping-lever).** Aggregation *above* the product, not sharding within it. A 100 m granule covers a small tile, about 160 km across, so it is far below the warm-tier floor.
+
+**Measured, single variable, so not yet like for like.** On the primary water-surface-elevation variable, COG came to 4.3 MiB per granule and a GeoZarr shard to 0.8 MiB on average, because sharding fragments at this size. Both sit far below the warm-tier floor, so the lever is **aggregation**, and at this small size **COG is the cleaner carrier**: one tiled object that also holds overviews. An all-variable re-run is needed before quoting a size, for the same reason as case 3.
+
+The natural aggregation unit is a spatial mosaic, per grid zone and per orbit cycle. That turns a wall of tiny granules into one range-addressable object.
+
+**Where it lands.** COG for the small raster, plus collection-level aggregation. GeoZarr is the alternative to compare once the pyramid and all variables are in place.
+
+This case is the counterpart to cases 1 and 2. There, one large band already clears the tier, so you group *within* a product. Here the products are small, so you group *above* a single product.
+
+## 6. Existing archive to a virtual store
+
+**Product:** a large immutable archive in a chunked array format, for example HDF5 or netCDF. **Source format:** whatever was delivered.
+
+- **Existing data?** Yes.
+- **[Can you reprocess?](index.qmd#control)** No.
+- **Can you repackage the delivered files?** No.
+- **[Virtualizable?](index.qmd#control)** Yes, *if* the source is a chunked array format. Kerchunk and VirtualiZarr cover netCDF4, HDF5, GRIB2, TIFF and FITS. Most vector formats have no equivalent, so this branch is effectively raster and N-D only.
+- **[Grouping lever](index.qmd#grouping-lever).** None available. You inherit the source's chunking exactly.
+
+This case has no benchmark. It illustrates the "existing data, cannot reprocess" branch of the control fork, and it is the only case that does not reach the topology question at all.
+
+An immutable archive, for example HDF5 or netCDF that you cannot reprocess, can be surfaced as a virtual Zarr store with [VirtualiZarr, Kerchunk, or Icechunk](../zarr/virtual-zarr.qmd). This gives range-based access without rewriting the data.
+
+The result is more limited than a native store. Chunk sizes are whatever the source chose, you cannot add overviews, and you inherit the source's codec. It is still much better than whole-file download, and it is often the only option available.
+
+**"Cannot reprocess" usually means "too big".** This branch is normally reached for reasons of scale rather than permission: the archive is large enough that duplicating it, or spending the compute to regenerate it, costs more than the access problem is worth. That is why it is mostly an array and raster story. A vector dataset is usually small enough that [repackaging](index.qmd#control) it outright is cheaper than indexing around it, so vector products rarely land here.
+
+This case is also where the ["not yet possible"](index.qmd#not-yet-possible) framing matters. If the source cannot even be virtualized, name what is missing rather than declaring the case impossible.
+
+## Summary
+
+| Case | Topology | Lands on | Size against source | Main gain |
+| --- | --- | --- | --- | --- |
+| 1. Optical scene | 2D raster | COG per scene; a cube needs cross-scene aggregation | COG +30 %, GeoZarr −2 % | Partial access, encoding |
+| 2. SAR time-cube | Raster over time | GeoZarr v3 sharded | COG +47 %, GeoZarr +10 % | One query instead of a fan-out |
+| 3. Pixel cloud | Point cloud | COPC | −16 % | 3D spatial index, level of detail |
+| 4. Lake vector | Vector, tabular | GeoParquet, aggregated | +14 % | Row-group bbox index |
+| 5. Small raster grid | N-D grid | COG, plus aggregation | Re-run pending | Fewer, larger objects |
+| 6. Frozen archive | Chunked arrays only | Virtual Zarr | No rewrite | Range access with no reprocessing |
+
+Read the size column together with the recurring lesson at the top of this page. Only one case got smaller, and that case got smaller because of its codec.
+
+## Acknowledgements
+
+These case studies come from a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). They use public Copernicus and NASA mission data. The measurements were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), which is maintained separately from this guide so that its methodological choices stay debatable in their own right. See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).

@@ -9,6 +9,12 @@ format:
 
 This glossary aims to describe all the jargon of geospatial in the cloud! Are we missing something? [Create an issue](https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new?title=Glossary+suggestion:&labels=glossary) to suggest an improvement.
 
+#### Access pattern
+
+What subsets of the data get requested: a time series at a single point, a spatial window at a single date, or a full scan of everything.
+
+The access pattern drives the [chunk](#chunk) shape and the order of the dimensions, which is a separate question from [chunk size](#chunk-size). A cube chunked long in time answers a time series at one point cheaply and a full map expensively; chunked wide in latitude and longitude it does the opposite. Only rewriting the data lets you change it, so a virtualized dataset inherits whatever access pattern its source was written for.
+
 #### Amazon S3 (S3)
 
 The [object storage](#object-storage-cloud-storage) service offered by Amazon. Part of [Amazon Web Services](#amazon-web-services-aws).
@@ -327,6 +333,12 @@ For further reading: [A dive into spatial search algorithms](https://blog.mapbox
 #### Tagged Image File Format (TIFF)
 
 A file format for image and raster data that supports [lossless compression](#lossless-compression).
+
+#### Tiered storage
+
+A storage service that keeps data on different classes of hardware at different prices and speeds. A common arrangement is a "warm" tier on disk for data that is read often, and a "cold" tier on tape or archival storage for data that is read rarely.
+
+Some providers set a minimum mean [object](#object-storage-cloud-storage) size for each tier, because indexing very many small objects is expensive. A layout whose objects fall below that floor can be refused or moved to a slower tier, so [chunk size](#chunk-size) and grouping choices have to be made against the policy of the storage you are actually using.
 
 #### Vector data
 
