@@ -61,6 +61,8 @@ The temporal benefit appears only once many scenes are concatenated along time i
 
 The associated masking product, which is written as many small GeoTIFFs, is a clear anti-pattern to fix at the source.
 
+Sentinel-2 also has a second multiscale dimension worth naming: its bands are natively captured at 10 m, 20 m, and 60 m, not derived from each other by downsampling. See [Multiscale and native mixed resolution](index.qmd#multiscale-and-native-mixed-resolution) for how one aligned pyramid can host all three without picking a single working resolution.
+
 ## 2. Raster time-cube: GeoZarr, with COG as the alternative {#case-time-cube}
 
 **Product:** Sentinel-1 RTC. **Source format:** geoTiff in a `.zip`.

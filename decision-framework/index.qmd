@@ -34,7 +34,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | --- | --- |
 | [**Access pattern**](../glossary.qmd#access-pattern) | What subsets readers will request: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. Defined in the guide's glossary; the layout consequences are in [the grouping lever](#grouping-lever). |
 | [**Archival-format mandate**](#control) | A requirement to maintain a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
-| [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is stage 1 of the framework, and it can end in "not yet possible". |
+| [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is Stage 1 of the framework, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
 | [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
 | [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several at once, in proportion. |
@@ -43,6 +43,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 | [**Refinement**](#refinements) | A criterion applied *inside* a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding. |
 | [**Topology**](#topology) | The shape of the data: 2D raster, N-D cubes, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
 : {tbl-colwidths="[15,85]"}
+
 ## Preconditions
 
 This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part [cloud-optimized format pattern](../index.qmd#the-opportunity), and the glossary defines [cloud-optimized](../glossary.qmd#cloud-optimized) as the ability to read a meaningful *part* of a file without downloading *all* of it.
@@ -55,7 +56,7 @@ The framework does not restate that definition. It assumes it. Two consequences 
 
 ## The two stages
 
-The framework runs in **two stages**, and the topology question is the hinge between them.
+The framework runs in **two stages**, and the topology question marks the hand-off between them.
 
 **Stage 1 — control: do you have a choice?** Do the data already exist? If they
 exist, are you able (technically, legally) to reprocess them? This stage can end
@@ -63,7 +64,7 @@ the process. If you cannot reprocess the data and cannot virtualize them, there
 is no format decision to make yet.
 
 **Stage 2 — topology and refinement: which format?** You reach this stage only
-when stage 1 leaves you free to choose. Here the shape of the data selects a
+when Stage 1 leaves you free to choose. Here the shape of the data selects a
 **format family**: the small group of cloud-optimized formats built for that
 shape. A *family*, not a format. Two or three candidates normally come through,
 and the refinements below rank them.
@@ -129,29 +130,32 @@ flowchart TD
 
 **No existing data.** You are designing a new product, so you can choose freely. Go to the [topology question](#topology).
 
-**If an archival-format mandate applies,** it adds a second job, it does not remove that freedom. If policy requires you to preserve a particular format like HDF5, netCDF, GRIB, or something specific to your domain, you still publish a cloud-optimized copy for readers, and you additionally make the mandated format as cloud-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, and publish what people will actually read.
+**If an archival-format mandate applies,** it adds a second job, and it does not remove your freedom to choose how readers get access. Applying cloud-optimized practice to the archive itself is not optional: whatever the mandated format, make it as range-request-friendly as it can be. What is genuinely optional is what you do beyond that. The stronger, recommended option is to also publish a full cloud-optimized copy for readers, since a native copy gives real range access rather than the archive's own chunking. A lighter option is to skip the second copy and instead wrap the optimized archive in a [virtual Zarr](../zarr/virtual-zarr.qmd) layer: cheaper to maintain, but you inherit the archive's chunk shape, the same limit as [existing data you cannot reprocess](#control) below. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, then choose deliberately how far you go for readers.
 
 **Existing data you can reprocess.** You control the production chain, so you can also choose freely. Go to the [topology question](#topology).
 
 **Existing data you cannot reprocess, but can rewrite.** You may still be allowed to repackage the delivered files: a plain TIFF becomes a COG, a LAZ file becomes a COPC, a shapefile becomes GeoParquet. The format is a free choice, but the content is fixed at whatever was delivered. Go to the [topology question](#topology).
 
-**Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. The [Virtual Zarr](../zarr/virtual-zarr.qmd) approach is to use a library (such as VirtualiZarr or Kerchunk) to build an index that points into the original files. That index is then stored in formats such as kerchunk json, kerchunk parquet or Icechunk. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
+**Existing data you cannot reprocess.** You can often still publish a virtual view over the bytes you have. The [Virtual Zarr](../zarr/virtual-zarr.qmd) approach is to use a library (such as VirtualiZarr or Kerchunk) to build an index that points into the original files. That index is then stored in formats such as Icechunk, kerchunk json, or kerchunk parquet. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.
 
-**Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large uncompressed blob. See [Not yet possible](#not-yet-possible).
+**Neither.** Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large blob with no internal structure, whether or not it's compressed. See [Not yet possible](#not-yet-possible).
 
 #### How to tell which branch you are on
 
-Whether you can reprocess or viftualize usually depends on the data and data project context. Answers to these questions are not judgement calls.
+Whether you can reprocess or virtualize usually depends on the data and data project context. Answers to these questions are not judgement calls.
 
 **You can reprocess** if you have the processor, the inputs, and the budget to re-run
 the production chain. Then format and layout are both free choices: go to
 [topology](#topology).
 
 **You can repackage** if you cannot re-run the chain but you may rewrite the delivered
-files. A plain TIFF becomes a COG, a LAS or LAZ file becomes a COPC, a shapefile or CSV
-becomes GeoParquet. Repackaging is a byte-level rewrite rather than a science
-reprocessing, so it is often permitted where reprocessing is not. Format is a free
-choice; the content is fixed at whatever was delivered.
+files. A plain TIFF, JPEG2000, or MrSID image becomes a COG, a LAS or LAZ file becomes
+a COPC, a shapefile or CSV becomes GeoParquet. The rewrite can be drastic and still
+count as repackaging, not reprocessing: an HDF5 granule can become a COG, and many
+single-scene COGs can become one Zarr cube, as long as the underlying values are not
+recomputed. Repackaging is a byte-level rewrite rather than a science reprocessing,
+so it is often permitted where reprocessing is not. Format is a free choice; the
+content is fixed at whatever was delivered.
 
 **You can virtualize** if the bytes you have can be indexed as they are.
 [Virtual Zarr](../zarr/virtual-zarr.qmd) publishes that index without copying the data.
@@ -160,15 +164,15 @@ Three tests, in order:
 1. **Is the data chunked internally?** This is the hard requirement. A virtual store
    cannot change the source's chunk structure, so a single contiguous block virtualizes
    into one enormous chunk and buys you no useful partial access.
-2. **Are those chunks a workable size?** You inherit both the size and the shape exactly, so the source's chunking decides which access patterns stay cheap. A store chunked for one access pattern cannot be virtualized into a store that is good for a different one.
-3. **Is there a parser for the format?** Kerchunk and VirtualiZarr cover the common
+2. **Are those chunks a workable size?** You mostly inherit the source's chunk size and shape, so its chunking limits which access patterns stay cheap. There is little room to make a store built for one access pattern also serve a very different one well.
+3. **Is there a parser for the format?** VirtualiZarr and Kerchunk cover the common
    archival formats, including netCDF4, HDF5, GRIB2, TIFF and FITS.
 
 **Otherwise there is no path yet.** The usual blockers are HDF4, encrypted
-files, a codec no parser can pass through, and a single uncompressed blob with no
-internal chunking. See [Not yet possible](#not-yet-possible).
+files, a codec no parser can pass through, and a single blob with no internal
+chunking, whether or not it's compressed. See [Not yet possible](#not-yet-possible).
 
-**Passing these tests means you *can*, not that you *should* yet.** A producer may be
+**Passing these tests means you *can*, not that you *should*.** A producer may be
 technically and legally free to change format and still be held by what its users'
 tools expect. See [Existing users and their tools](#existing-users).
 
@@ -309,6 +313,16 @@ Some choices sit below the format and are foundational:
 - Sharding in Zarr v3
 
 These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope here, or should be marked as immature when you use them.
+
+Formats also differ in which data types they support, and in whether types can be mixed within one file, column, or schema. Those specifics live on each format's own page and are worth checking before committing to a candidate; they can rule one out as surely as topology or intent.
+
+### Multiscale and native mixed resolution
+
+A multiscale pyramid does not have to come from one source resolution downsampled by a fixed factor. The common case is **overviews**, also called [pyramids](../glossary.qmd#overviews): downsampled copies of the same band, generated at a uniform decimation so a reader can zoom out without reading and resampling full-resolution chunks. COG overviews, COPC's octree levels of detail, and most GeoZarr pyramids work this way, and it is already covered above under [ecosystem maturity](#maturity) and the [grouping lever](#grouping-lever).
+
+The same structure can also host bands that were never derived from each other and were simply captured at different native resolutions, as long as the steps between levels are chosen to land on each native resolution rather than a fixed factor. Sentinel-2 is the reference case, worked through in [case 1](case-studies.qmd) of the case studies: the 10 m, 20 m, and 60 m bands from the same sensor fold into one pyramid by aligning the decimation to each step (10 m to 20 m halves the resolution, 20 m to 60 m divides it by three), and the pyramid can continue past 60 m into ordinary overviews using the same mechanism. The [Zarr multiscales convention](https://github.com/zarr-conventions/multiscales) is built for exactly this: scale factors between levels are not required to be uniform, and its own reference examples use this Sentinel-2 layout.
+
+This still interacts with the [grouping lever](#grouping-lever), since each native resolution needs its own tiling or chunk shape, and with [interpretation encoding](#interpretation-encoding), since each band needs its own geotransform. What changes from the plain-overview case is that these become refinements within one multiscale structure.
 
 ### Existing users and their tools {#existing-users}
 
