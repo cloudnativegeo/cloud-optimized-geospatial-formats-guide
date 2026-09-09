@@ -64,7 +64,9 @@ Notes:
 ## Table of Contents
 
 1. [Overview of Formats (slideshow)](./overview.qmd)
-2. Formats
+2. [Format Selection Decision Framework](./decision-framework/index.qmd)
+   a. [Case Studies](./decision-framework/case-studies.qmd)
+3. Formats
    a. [Cloud-Optimized GeoTIFFs](./cloud-optimized-geotiffs/intro.qmd)
    b. [Zarr](./zarr/intro.qmd)
    c. [Cloud-Optimized NetCDF4/HDF5](./cloud-optimized-netcdf4-hdf5/index.qmd)
@@ -72,7 +74,7 @@ Notes:
    e. [GeoParquet](./geoparquet/index.qmd)
    f. [FlatGeobuf](./flatgeobuf/intro.qmd)
    g. [PMTiles](./pmtiles/intro.qmd)
-3. [Cookbooks](./cookbooks/index.qmd)
+4. [Cookbooks](./cookbooks/index.qmd)
 
 
 ## Running Examples
@@ -85,6 +87,7 @@ Most of the data formats covered in this guide have a Jupyter Notebook example t
 * [Alex Mandel](https://developmentseed.org/team/alex-mandel)
 * [Kyle Barron](https://github.com/kylebarron)
 * [Zac Deziel](https://developmentseed.org/team/zac-deziel)
+* [Emmanuel Mathot](https://developmentseed.org/team/emmanuel-mathot)
 * [Overview Slide](./overview.qmd) credits: Vincent Sarago, Chris Holmes, Patrick Quinn, Matt Hanson, Ryan Abernathey
 
 ## Questions to Ask When Generating Cloud-Optimized Geospatial Data in Any Format
