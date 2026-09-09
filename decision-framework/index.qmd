@@ -10,11 +10,11 @@ This framework helps you go from *"I have geospatial data to publish or migrate"
 It is a guide, not an oracle:
 
 - **What you control** comes first: whether the data already exist, whether you may reprocess them, and whether a mandate fixes an archival format. This can settle the answer before format even comes up.
-- The **shape of your data** narrows the field.
+- The **shape of your data** narrows the set of candidate formats.
 - The **intended use** and a few practical levers rank the remaining options.
 - **You make the final call.**
 
-The framework is provider-neutral. Where a concrete number helps, such as an object-size policy or a benchmark result, the number is given as a worked example and flagged as an example, not as a rule.
+The framework is data- and cloud-provider-neutral. Within data and cloud-provider contexts, a rule may help make a decision. For example, an object-size policy or a benchmark result may influence the choice. These cases are given as worked examples, not rules.
 
 This is a first, deliberately simple version. It aligns on the questions to ask and the order to ask them in. Follow the links to a format page when you need more detail.
 
@@ -36,10 +36,10 @@ The framework uses a few terms in a specific way. Each links to the section that
 | [**Archival-format mandate**](#control) | A requirement to maintain a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it. |
 | [**Control**](#control) | Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is Stage 1 of the framework, and it can end in "not yet possible". |
 | [**Ecosystem maturity**](#maturity) | How settled a format is, on an L1 to L5 scale from experimental to de-facto standard. It answers "safe default, or bet?". |
-| [**Grouping lever**](#grouping-lever) | The knob each format gives you for grouping bytes into objects: COG internal tiling, Zarr v3 sharding, COPC octree nodes, GeoParquet row groups. |
-| [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several at once, in proportion. |
+| [**Grouping lever**](#grouping-lever) | The knobs each format gives you for grouping bytes into data chunks and objects in cloud storage: COG internal tiling, Zarr v3 chunking and sharding, COPC octree nodes, GeoParquet row groups. |
+| [**Intent**](#intent) | What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several intentsat once. |
 | [**Interpretation encoding**](#interpretation-encoding) | Whether the format carries units, CRS, nodata and any scale and offset transform in-format, so every reader recovers the same physical value, or leans on a side catalog. |
-| [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object, and many apply a minimum size policy or sort objects into storage tiers. |
+| [**Object size**](#grouping-lever) | The size of the objects your layout actually writes to storage. Object stores reward a larger average object and many apply a minimum size policy. |
 | [**Refinement**](#refinements) | A criterion applied *inside* a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding. |
 | [**Topology**](#topology) | The shape of the data: 2D raster, N-D cubes, point cloud, or vector and tabular. Answering *what shape are the data?* selects a format family, not a format. |
 : {tbl-colwidths="[15,85]"}
@@ -48,7 +48,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 
 This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part [cloud-optimized format pattern](../index.qmd#the-opportunity), and the glossary defines [cloud-optimized](../glossary.qmd#cloud-optimized) as the ability to read a meaningful *part* of a file without downloading *all* of it.
 
-The framework does not restate that definition. It assumes it. Two consequences are worth naming here, because they decide whether a candidate belongs in the framework at all. They are entry conditions, not questions in the flowchart.
+The framework starts from that definition Two consequences are worth naming here, because they decide whether a candidate belongs in the framework at all:
 
 **P1. The format must support partial and parallel reads over HTTP.** [Random access](../glossary.qmd#random-access) through [HTTP range requests](../glossary.qmd#http-range-request) is what makes a format usable from [object storage](../glossary.qmd#object-storage-cloud-storage). It depends on the rest of the pattern: [metadata](../glossary.qmd#metadata) in a consistent place that a reader can load in a single read, and then addressable [chunks](../glossary.qmd#chunk), internal tiling, or both. A reader that cannot locate the bytes it needs from the metadata alone cannot fetch only those bytes.
 
@@ -66,8 +66,7 @@ is no format decision to make yet.
 **Stage 2 — topology and refinement: which format?** You reach this stage only
 when Stage 1 leaves you free to choose. Here the shape of the data selects a
 **format family**: the small group of cloud-optimized formats built for that
-shape. A *family*, not a format. Two or three candidates normally come through,
-and the refinements below rank them.
+shape. The refinements below rank the options within a format family.
 
 The hand-off is worth stating outright, because the diagram can be read as if
 the shape of the data were the answer:
@@ -142,7 +141,7 @@ flowchart TD
 
 #### How to tell which branch you are on
 
-Whether you can reprocess or virtualize usually depends on the data and data project context. Answers to these questions are not judgement calls.
+Whether you can reprocess or virtualize usually depends on the data and data project context.
 
 **You can reprocess** if you have the processor, the inputs, and the budget to re-run
 the production chain. Then format and layout are both free choices: go to
@@ -184,7 +183,7 @@ The shape of the data selects a **format family**: the candidate set you refine 
 | Data shape | Format family | Where each member wins |
 | --- | --- | --- |
 | 2D raster, per scene or per tile | [COG](../cloud-optimized-geotiffs/intro.qmd), [Zarr](../zarr/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | COG for distribution and visualization; Zarr if the product is really a cube; PMTiles for pre-rendered tile delivery |
-| N-D cubes, for example `time × y × x × band` | [GeoZarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd), [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone; cloud-optimized HDF/netCDF where an archival format is mandated or existing tooling must keep working |
+| N-D cubes, for example `time × y × x × band` | [[Geo]Zarr](../zarr/intro.qmd), [COG](../cloud-optimized-geotiffs/intro.qmd), [Cloud-Optimized HDF/NetCDF](../cloud-optimized-netcdf4-hdf5/index.qmd) | GeoZarr for analysis across the cube; COG per time step if slices are read alone; cloud-optimized HDF/netCDF where an archival format is mandated or existing tooling must keep working |
 | Point cloud | [COPC](../copc/index.qmd), [GeoParquet](../geoparquet/index.qmd) | COPC for spatial subsetting and level of detail; GeoParquet if columnar analytics dominate |
 | Vector or tabular | [GeoParquet](../geoparquet/index.qmd), [FlatGeobuf](../flatgeobuf/intro.qmd), [PMTiles](../pmtiles/intro.qmd) | GeoParquet for joins and analytics; FlatGeobuf for streaming download; PMTiles for tiled web delivery |
 
@@ -205,9 +204,9 @@ What are the data for? Archive and download, processing, visualization, distribu
 
 Most real datasets serve several intents at once. Weigh them in proportion rather than picking one. The [case studies](case-studies.qmd) state an intent mix for each product, which is what decides the ranking inside a candidate set.
 
-### The object-size and grouping lever {#grouping-lever}
+### The object size and grouping lever {#grouping-lever}
 
-Every candidate format has a knob that sets how bytes are grouped into objects:
+Every candidate format has a knob that sets how bytes are grouped into data chunks and chunks grouped into objects:
 
 | Format | Grouping lever |
 | --- | --- |
@@ -218,12 +217,12 @@ Every candidate format has a knob that sets how bytes are grouped into objects:
 
 Tune the lever to your [object store's](../glossary.qmd#object-storage-cloud-storage) **object-size policy** (S3, Azure Blob Storage, Google Cloud Storage, or an on-premises equivalent). Object stores degrade when they must index very many tiny objects, so most reward a larger average object.
 
-One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and size the lever against it. Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
+One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and adjust your groupings accordingly. Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
 
 The lever works in both directions, and which direction you need depends on product size:
 
 - **Products that are already large.** Group *within* one product. Size the shard, the tile, or the row group so it clears the policy.
-- **Products that are small.** Sharding within one granule only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many granules into one range-addressable object.
+- **Products that are small.** Sharding within one already small file only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many small files into one range-addressable object.
 
 **Size and shape are two different questions.** How *big* the objects are is a
 question for your object store, answered above. How the bytes are arranged *inside* them
@@ -244,7 +243,7 @@ at the [control](#control) question, because only reprocessing lets you choose i
 
 Ecosystem maturity may influence the final decision. You may need something production-grade that you can count on, or you may have the flexibility to be an early adopter. Maturity is what separates a safe default from a bet.
 
-To keep that judgement explicit rather than impressionistic, place each candidate on a five-level scale:
+To keep that judgement explicit rather than impressionistic, this framework assigns candidate formats on the following five-level scale:
 
 | Level | Meaning |
 | --- | --- |
@@ -260,6 +259,7 @@ Where the candidates sit today:
 | --- | --- | --- | --- |
 | [COG](../cloud-optimized-geotiffs/intro.qmd) | De-facto standard, on a GeoTIFF base | GDAL, rio-tiler, TiTiler, every GIS | **L5** |
 | [GeoParquet](../geoparquet/index.qmd) | v1.x, stable, on an Apache Parquet base | GDAL, GeoPandas, DuckDB, Arrow | **L4** |
+| [Zarr](../zarr/intro.qmd) | v2 and v3 stable | GDAL, zarr-python, zarrs | **L4** |
 | [COPC](../copc/index.qmd) | v1.0, stable, on a LAZ base | PDAL, untwine, QGIS, copc.js | **L4** |
 | [FlatGeobuf](../flatgeobuf/intro.qmd) | Stable, on a flatbuffers base | GDAL and OGR, QGIS, flatgeobuf.js | **L3** |
 | [GeoZarr](../zarr/intro.qmd) | Draft, in an OGC Standards Working Group | Emerging, mostly xarray-based stacks | **L2** |
@@ -272,31 +272,31 @@ Where the candidates sit today:
 
 This distinction is easy to miss, and it decides how much risk you actually take on.
 
-- **Zarr v3, the substrate, is dependable.** The core specification was finalized in 2024. [Sharding](#grouping-lever), the feature that matters most for object storage, is stable in `zarr-python` 3.x and readable by GDAL and xarray. Judged on its own, the Zarr v3 core behaves like an L4.
+- **Zarr v3, the substrate of GeoZarr, is dependable.** The core specification was finalized in 2024. [Sharding](#grouping-lever), the feature that matters most for object storage, is stable in `zarr-python` 3.x and readable by GDAL and xarray. Judged on its own, the Zarr v3 core behaves like an L4.
 - **GeoZarr, the convention layer, is still being ratified.** It is what makes a generic [Zarr](../glossary.qmd#zarr) store *geospatial*: CRS, dimension semantics, and multiscale pyramids. It does for Zarr roughly what the GeoTIFF tags do for a plain TIFF. It is a draft in an OGC Standards Working Group, on the standards track but not yet an adopted OGC standard, and the published draft can lag behind active convention work. Check [geozarr.org](https://geozarr.org/) for the current status before you rely on a specific version.
 
-So the L2 above belongs to the convention layer, not to Zarr. The leading reference implementations today, such as ESA's EOPF Sentinel output, are demonstrators rather than production guarantees.
+So the L2 above belongs to the convention layer, not to Zarr. The leading reference implementations of GeoZarrtoday, such as ESA's EOPF Sentinel output, are demonstrators rather than production guarantees.
 
 #### Maturity is a warning, not a veto
 
-An L2 candidate can still be the right answer. The N-D cubes branch is exactly that case: there is no mature alternative with the same topology, so a low level does not mean "choose something else". It means **plan for change**. Budget for convention churn, pin the versions you depend on, and expect the visualization story in particular to improve as multiscale tooling catches up.
+An L2 candidate can still be the right answer. Multidimensional cubes have no mature candidate for the multidimensional topology. A low level does not mean "choose something else". It means **plan for change**. Budget for convention churn, pin the versions you depend on, and expect visualization tooling in particular to improve as tooling catches up.
 
-Read maturity against your own tolerance. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same candidate set.
+Many factors influence what maturity level you can tolerate. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same set of candidate formats.
 
 ### Interpretation encoding {#interpretation-encoding}
 
-Does the format carry the information a reader needs to recover the same physical value, or does it lean on a side catalog? The information is units, the [CRS](../glossary.qmd#coordinate-reference-system-crs), the nodata fill, and any scale and offset transform.
+Does the format carry the information a reader needs to recover the same physical value, or does it lean on a side catalog? Interpretation encoding includes units, the [CRS](../glossary.qmd#coordinate-reference-system-crs), the nodata fill value (see also [Virtualizarr's distinction of fill values](https://virtualizarr.readthedocs.io/en/latest/explanation/custom_parsers.html#fill-values)), and any scale and offset transform.
 
-This axis separates the candidates more than people expect:
+Interpretation encoding separates the candidates more than people expect:
 
-- **Zarr v3 makes the information first-class.** With the `scale_offset` codec, a declared fill value, Zarr conventions for projection, CRS and multiscale, the transform is a first-class array property. Every reader recovers the same value.
+- **Zarr v3 makes the information first-class.** With the `scale_offset` codec, a declared fill value, Zarr conventions for projection, CRS and multiscales, the transform is a first-class array property. Every reader recovers the same value.
 - **COG, GeoParquet, and COPC standardize the CRS** but leave the value transform to side metadata. Readers honor side metadata unevenly.
 
-If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this axis heavily.
+If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this aspect heavily.
 
 ## Cross-cutting considerations
 
-These are not decision points. They apply whatever you choose.
+These considerations do not impact what format you choose, but they do affect how you implement that format.
 
 ### Metadata and cataloging
 
@@ -309,7 +309,7 @@ At a scale of tens of thousands to millions of files, collection-level discovery
 Some choices sit below the format and are foundational:
 
 - Base codecs, such as [ZSTD](../glossary.qmd#zstd) and [Deflate](../glossary.qmd#deflate)
-- Data types and scale-offset encoding
+- Data types, and scale-offset encoding
 - Sharding in Zarr v3
 
 These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope here, or should be marked as immature when you use them.
@@ -360,9 +360,9 @@ The idea is a **weighted mean of criteria**, each expressed as a number from 0 t
 | Measured, needs a benchmark run | **size**: output volume against the source |
 | | **performance**: measured read, write, and display, blended by the intent mix |
 
-**Where the measured numbers come from.** The two measured criteria need a harness, and reproducibility is the whole point of quoting a number at all. [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark) is the open-source (MIT) harness behind the numbers on the [Case Studies](case-studies.qmd) page. Per format and per dataset it measures the object-size distribution and tier fitness, write throughput, range-request-aware read latency, and tile-display latency. You describe your own datasets in config files, so no provider or dataset is baked into the code, and you run it on your own infrastructure against your own data. See the [documentation](https://developmentseed.github.io/cng-formats-benchmark/) and the [configuration guide](https://developmentseed.github.io/cng-formats-benchmark/configuration/).
+**Where the measured numbers come from.** The two measured criteria need a benchmark, and reproducibility is the whole point of quoting a number at all. [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark) is the open-source (MIT) harness behind the numbers on the [Case Studies](case-studies.qmd) page. Per format and per dataset it measures the object-size distribution and tier fitness, write throughput, range-request-aware read latency, and tile-display latency. You describe your own datasets in config files, so no provider or dataset is baked into the code, and you run it on your own infrastructure against your own data. See the [documentation](https://developmentseed.github.io/cng-formats-benchmark/) and the [configuration guide](https://developmentseed.github.io/cng-formats-benchmark/configuration/).
 
-Rank the candidates and read the **margin**, which is the gap to the runner-up. A small margin is an honest signal that a benchmark, or a review of your weights, is what actually decides it. There are **no verdicts and no probability readout**. You get a score, a ranking, and a margin.
+You can use this framework to rank the candidates and evaluate the **margin** between the winner and the runner-up. A small margin is an honest signal that a benchmark, or a review of your weights, is what actually decides it. There are **no verdicts and no probability readout**. You get a score, a ranking, and a margin.
 
 Two points are easy to get wrong:
 
@@ -381,4 +381,4 @@ One lesson recurs often enough to state up front: **going cloud-optimized is rar
 
 This framework was developed as part of a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), carried out by [Development Seed](https://developmentseed.org/). The case studies use public Copernicus and NASA missions, and the measurements come from that study's benchmark work.
 
-The framework builds on earlier work in this guide supported by [NASA IMPACT](https://impact.earthdata.nasa.gov/). See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).
+The framework builds on earlier work in this guide supported by [NASA IMPACT](https://impact.earthdata.nasa.gov/) (now [NASA ODSI](https://www.nasa.gov/marshall/marshall-space-flight-missions/office-of-data-science-and-informatics-odsi/)). See [Our Supporters](../contributing.qmd#thank-you-to-our-supporters).

@@ -28,11 +28,11 @@ The examples use public Copernicus and NASA missions. The [CNES Datalake](https:
 
 Cloud-optimized formats provide partial access via byte-range indices into the data, accessible via addressable metadata.
 
-**The extra bytes are the feature.** Overviews, levels of detail, and spatial indexes are structures the source file did not carry at all. They add volume, and they are exactly what buys fast display and cheap subsetting. The COG in case 1 is about 30% larger than the delivered archive mostly because it carries overviews, and the row-group index in case 4 is the whole point of the conversion.
+**The extra bytes are the feature.** Overviews, levels of detail, and spatial indexes are structures the non-cloud-optimized versions do not carry at all (at least not by definition). They add volume, and they are exactly what buys fast display and cheap subsetting. The COG in case 1 is about 30% larger than the delivered archive mostly because it carries overviews, and the row-group index in case 4 is the whole point of the conversion.
 :::
 
 ::: {.callout-note}
-The numbers below are first measurements on a representative unit per mission, meaning one scene, one tile, or a few granules. They are illustrative, not a published benchmark. Two of the six cases have re-runs pending, and each one says so.
+The numbers below are first measurements on a representative unit per mission, meaning one scene, one tile, or a few granules. They are illustrative, not a robust benchmark. Two of the six cases have re-runs pending.
 
 They were produced with [`cng-formats-benchmark`](https://github.com/developmentseed/cng-formats-benchmark), an open-source harness that measures object-size distribution, write, read, and display per format. You can describe your own datasets in its config files and reproduce this shape of comparison on your own data. See [Optional: make it quantitative](index.qmd#optional-make-it-quantitative).
 :::
@@ -49,9 +49,9 @@ They were produced with [`cng-formats-benchmark`](https://github.com/development
 
 Both intents are served per scene, which is why this case does not need a cube at all.
 
-**Measured, one scene.** Both layouts cleared the [warm tier](../glossary.qmd#tiered-storage). COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. That gap is the **codec**, Deflate against ZSTD, not the format. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
+**Measured, one scene.** Both layouts cleared the [warm tier](../glossary.qmd#tiered-storage). COG came to 2625.7 MiB in 28 objects. A scene-size GeoZarr shard came to 1975.6 MiB in 26 objects, about 25 % smaller. The difference comes from the compression algorithm, not the format. ZSTD was used for GeoZarr, and deflate was used for COG compression. Against the 2023.7 MiB delivered `.zip`, the GeoZarr store is about source size (−2 %) and the COG is larger (+30 %), because the COG carries overviews.
 
-**[Interpretation encoding](index.qmd#interpretation-encoding) is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in side metadata that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
+**[Interpretation encoding](index.qmd#interpretation-encoding) is a real differentiator here.** The source reflectance is stored as scaled integers, and the nodata fill is left undeclared. COG puts the scale, the offset, and the nodata in a sidecar metadata file that readers honor unevenly. Zarr v3 can carry all three as first-class array properties, using the `scale_offset` codec and a declared fill value, so every reader recovers the same physical value.
 
 **Where it lands.** COG per scene for distribution and visualization.
 
@@ -75,7 +75,7 @@ Sentinel-2 also has a second multiscale dimension worth naming: its bands are na
 
 The analysis half is what separates this case from case 1: it is asked over time, not per scene. A year of RTC over a region is naturally a `time × y × x × pol` cube, and on a Zarr cube a time-series slice or an area-of-interest subset is one range-addressable query. Across thousands of per-timestamp COGs the same request becomes a large fan-out. Sharding reconciles fine-grained chunk access with the object store's preference for large objects.
 
-**Measured, one tile and confirmed at area scale.** COG came to 728 MiB per tile and a scene-size GeoZarr shard to 545 MiB. Both cleared the [cold tier](../glossary.qmd#tiered-storage). GeoZarr is again about 25 % smaller, and again this is the codec: Deflate at 3.70x against ZSTD at 4.98x. The result held over a 16-tile block, at 16498 MiB for COG and 12344 MiB for GeoZarr. Against the 496 MiB delivered `.zip` both are larger, COG by 47 % and GeoZarr by 10 %. Cloud-optimized costs storage here, and buys the range access that the opaque zip cannot give at all.
+**Measured, one tile and confirmed at area scale.** COG came to 728 MiB per tile and a scene-size GeoZarr shard to 545 MiB. Both cleared the [cold tier](../glossary.qmd#tiered-storage). GeoZarr is again about 25 % smaller, and again this is the codec: Deflate at 3.70x against ZSTD at 4.98x. The result held over a 16-tile block, at 16498 MiB for COG and 12344 MiB for GeoZarr. Against the 496 MiB delivered `.zip` both are larger, COG by 47 % and GeoZarr by 10 %. Cloud-optimized costs storage here but buys the range access that the opaque zip cannot give at all.
 
 ## 3. Point cloud: netCDF to COPC
 
@@ -118,7 +118,7 @@ The intent mix makes this case a genuine two-way contest, though not in the way 
 - **Streaming is a visualization property, not a download one.** FlatGeobuf [streams](../flatgeobuf/intro.qmd#streaming-features-is-supported), so features render progressively as they arrive. Valuable, but visualization is absent from this mix.
 - **FlatGeobuf wins on whole-row spatial subsetting.** It is row-oriented with a Hilbert R-tree, so every attribute of the features in a bounding box is one contiguous read, where a [column-oriented](../geoparquet/index.qmd#column-oriented) store has to touch every column. A real access pattern, just not one this intent mix asks for.
 
-At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. These passes are tiny, so it does not bite here.
+At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. The SWOT L2_HR passes are tiny, so the scale question does not matter here.
 
 So GeoParquet wins on download *and* fusion. The product is fixed-schema tabular, with a lake id, a reach id, water-surface elevation, area and more, which is the native fit for its columns and row groups. A sparse Zarr store would add complexity with no gain.
 
@@ -140,7 +140,7 @@ Each pass sits below the warm-tier floor. The lever is therefore **aggregation a
 - **[Intent](index.qmd#intent).** Distribution and download, with data fusion against the other SWOT products, and some visualization. This mix is provisional and still to be confirmed with the product owner.
 - **[Grouping lever](index.qmd#grouping-lever).** Aggregation *above* the product, not sharding within it. A 100 m granule covers a small tile, about 160 km across, so it is far below the warm-tier floor.
 
-**Measured, single variable, so not yet like for like.** On the primary water-surface-elevation variable, COG came to 4.3 MiB per granule and a GeoZarr shard to 0.8 MiB on average, because sharding fragments at this size. Both sit far below the warm-tier floor, so the lever is **aggregation**, and at this small size **COG is the cleaner carrier**: one tiled object that also holds overviews. An all-variable re-run is needed before quoting a size, for the same reason as case 3.
+**Measured, single variable, so not yet like for like.** On the primary water-surface-elevation variable, COG came to 4.3 MiB per file and a GeoZarr shard to 0.8 MiB on average, because sharding fragments at this size. Both sit far below the warm-tier floor, so the lever is **aggregation**, and at this small size **COG is the cleaner carrier**: one tiled object that also holds overviews. An all-variable re-run is needed before quoting a size, for the same reason as case 3.
 
 The natural aggregation unit is a spatial mosaic, per grid zone and per orbit cycle. That turns a wall of tiny granules into one range-addressable object.
 
