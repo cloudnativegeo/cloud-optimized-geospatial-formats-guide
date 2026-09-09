@@ -7,7 +7,7 @@ subtitle: "How to go from data you must publish to a short list of cloud-optimiz
 
 This framework helps you go from *"I have geospatial data to publish or migrate"* to a **short list of cloud-optimized format candidates**, and to the **layout choices** that make each candidate work.
 
-It is a guide, not an oracle:
+It is a guide to help make informed decisions, and does not prescribe a single correct format.
 
 - **What you control** comes first: whether the data already exist, whether you may reprocess them, and whether a mandate fixes an archival format. This can settle the answer before format even comes up.
 - The **shape of your data** narrows the set of candidate formats.
@@ -48,7 +48,7 @@ The framework uses a few terms in a specific way. Each links to the section that
 
 This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part [cloud-optimized format pattern](../index.qmd#the-opportunity), and the glossary defines [cloud-optimized](../glossary.qmd#cloud-optimized) as the ability to read a meaningful *part* of a file without downloading *all* of it.
 
-The framework starts from that definition Two consequences are worth naming here, because they decide whether a candidate belongs in the framework at all:
+The framework starts from the definition on the Welcome page. Two requirements are worth explaining in more detail, because they decide whether a candidate belongs in the framework at all:
 
 **P1. The format must support partial and parallel reads over HTTP.** [Random access](../glossary.qmd#random-access) through [HTTP range requests](../glossary.qmd#http-range-request) is what makes a format usable from [object storage](../glossary.qmd#object-storage-cloud-storage). It depends on the rest of the pattern: [metadata](../glossary.qmd#metadata) in a consistent place that a reader can load in a single read, and then addressable [chunks](../glossary.qmd#chunk), internal tiling, or both. A reader that cannot locate the bytes it needs from the metadata alone cannot fetch only those bytes.
 
@@ -56,7 +56,7 @@ The framework starts from that definition Two consequences are worth naming here
 
 ## The two stages
 
-The framework runs in **two stages**, and the topology question marks the hand-off between them.
+The framework has **two stages**:
 
 **Stage 1 — control: do you have a choice?** Do the data already exist? If they
 exist, are you able (technically, legally) to reprocess them? This stage can end
@@ -67,15 +67,6 @@ is no format decision to make yet.
 when Stage 1 leaves you free to choose. Here the shape of the data selects a
 **format family**: the small group of cloud-optimized formats built for that
 shape. The refinements below rank the options within a format family.
-
-The hand-off is worth stating outright, because the diagram can be read as if
-the shape of the data were the answer:
-
-| Before the topology question | After it |
-| --- | --- |
-| Do I have a cloud-optimized target at all? | Which of these targets suits me best? |
-| The outcome can be "not yet possible" | Every remaining candidate works; you are ranking |
-| Decided by ownership and reprocessing rights | Decided by intent, layout, maturity, encoding |
 
 Four refinements then rank the candidates: **intent**, the **object-size and
 grouping lever**, **ecosystem maturity**, and **interpretation encoding**. The
@@ -129,7 +120,9 @@ flowchart TD
 
 **No existing data.** You are designing a new product, so you can choose freely. Go to the [topology question](#topology).
 
-**If an archival-format mandate applies,** it adds a second job, and it does not remove your freedom to choose how readers get access. Applying cloud-optimized practice to the archive itself is not optional: whatever the mandated format, make it as range-request-friendly as it can be. What is genuinely optional is what you do beyond that. The stronger, recommended option is to also publish a full cloud-optimized copy for readers, since a native copy gives real range access rather than the archive's own chunking. A lighter option is to skip the second copy and instead wrap the optimized archive in a [virtual Zarr](../zarr/virtual-zarr.qmd) layer: cheaper to maintain, but you inherit the archive's chunk shape, the same limit as [existing data you cannot reprocess](#control) below. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. For other archival formats the principle holds even where the guide has no page: optimize what you must keep, then choose deliberately how far you go for readers.
+**If an archival-format mandate applies,** it adds a second job, and it does not remove your freedom to choose how readers get access. Whatever the mandated format, make it as range-request-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has [specific guidance](../cloud-optimized-netcdf4-hdf5/index.qmd) on consolidated metadata and chunk sizing. What is genuinely optional is what you do beyond the archival format. 
+
+You can wrap the optimized archive in a [virtual Zarr](../zarr/virtual-zarr.qmd) layer: cheaper to maintain, but you inherit the archive's chunk shape, the same limit as [existing data you cannot reprocess](#control) below. The stronger, recommended option is to also publish a cloud-optimized copy for readers, since a cloud-optimized copy is an opportunity to provide access beyond the archive's native chunking.
 
 **Existing data you can reprocess.** You control the production chain, so you can also choose freely. Go to the [topology question](#topology).
 
@@ -176,7 +169,7 @@ technically and legally free to change format and still be held by what its user
 tools expect. See [Existing users and their tools](#existing-users).
 
 
-### Topology: what shape are the data? {#topology}
+## Topology: what shape are the data? {#topology}
 
 The shape of the data selects a **format family**: the candidate set you refine within. It does not select a format. [Intent](#intent) is what decides between the members.
 
@@ -192,7 +185,7 @@ The question is about topology, not about the format the data arrives in. A netC
 
 ## Refinements {#refinements}
 
-Apply these within the candidate set your topology opened.
+These refinements help rank candidate formats within a family.
 
 ### Intent {#intent}
 
@@ -217,12 +210,11 @@ Every candidate format has a knob that sets how bytes are grouped into data chun
 
 Tune the lever to your [object store's](../glossary.qmd#object-storage-cloud-storage) **object-size policy** (S3, Azure Blob Storage, Google Cloud Storage, or an on-premises equivalent). Object stores degrade when they must index very many tiny objects, so most reward a larger average object.
 
-One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and adjust your groupings accordingly. Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
+One worked example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and adjust your groupings accordingly.
 
-The lever works in both directions, and which direction you need depends on product size:
+Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.
 
-- **Products that are already large.** Group *within* one product. Size the shard, the tile, or the row group so it clears the policy.
-- **Products that are small.** Sharding within one already small file only makes the fragmentation worse. Group *above* the product instead: mosaic or concatenate many small files into one range-addressable object.
+Objects can be too large (readers have to download and decompress more data than they need) or too small (readers make many small requests and pay the network latency for each).
 
 **Size and shape are two different questions.** How *big* the objects are is a
 question for your object store, answered above. How the bytes are arranged *inside* them
