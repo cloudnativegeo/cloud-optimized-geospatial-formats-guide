@@ -342,7 +342,7 @@ A file format for image and raster data that supports [lossless compression](#lo
 
 A storage service that keeps data on different classes of hardware at different prices and speeds. A common arrangement is a "warm" tier on disk for data that is read often, and a "cold" tier on tape or archival storage for data that is read rarely.
 
-Some providers set a minimum mean [object](#object-storage-cloud-storage) size for each tier, because indexing very many small objects is expensive. A layout whose objects fall below that floor can be refused or moved to a slower tier, so [chunk size](#chunk-size) and grouping choices have to be made against the policy of the storage you are actually using.
+Some providers set a recommended minimum mean [object](#object-storage-cloud-storage) size for each tier. The storage service holds one index entry for each object, and very many small objects can fill that index before the storage capacity is full. Some providers enforce this limit. Other providers give it as guidance only. Find the policy of the service that you use, then make your [chunk size](#chunk-size) and grouping choices against it.
 
 #### Vector data
 

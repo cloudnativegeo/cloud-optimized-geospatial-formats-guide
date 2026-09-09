@@ -350,7 +350,9 @@ The two stages above get you to a short list. When two or three candidates remai
 
 Six products run through the framework on the [Case Studies](case-studies.qmd) page. Five are backed by measurements.
 
-One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** Overviews, levels of detail, and spatial indexes are structures the source did not carry, so they add volume, and that added volume is the feature you are buying. Where two candidates do differ in size, the cause is usually the **codec**, not the format.
+One lesson recurs often enough to state up front: **going cloud-optimized is rarely smaller than the source you started from.** Overviews, levels of detail, and spatial indexes are structures the source did not carry, so they add volume, and that added volume is the feature you are buying.
+
+Where two candidates do differ in size, look at the overviews before you look at the codec. In the measured cases, a codec change moves the total by 0.3 % to 2 %. Adding an overview pyramid to a store that had none adds 28 % to 34 %. The pyramid also costs a COG only bytes, because its overviews sit inside the one file, and it costs a Zarr store objects, because each level is a separate array.
 
 ## Acknowledgements
 
