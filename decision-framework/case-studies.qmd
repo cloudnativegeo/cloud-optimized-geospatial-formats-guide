@@ -141,7 +141,7 @@ The intent mix makes this case a genuine two-way contest, though not in the way 
 - **Streaming is a visualization property, not a download one.** FlatGeobuf [streams](../flatgeobuf/intro.qmd#streaming-features-is-supported), so features render progressively as they arrive. Valuable, but visualization is absent from this mix.
 - **FlatGeobuf wins on whole-row spatial subsetting.** It is row-oriented with a Hilbert R-tree, so every attribute of the features in a bounding box is one contiguous read, where a [column-oriented](../geoparquet/index.qmd#column-oriented) store has to touch every column. The measurements below put this at about 10x faster. It is a real access pattern, but it is not one that this intent mix asks for.
 
-At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. These passes are tiny, so it does not bite here.
+At volume the scale question would matter too, because GeoParquet shards across [multiple files](../geoparquet/index.qmd#multi-file-support) while FlatGeobuf is a single file with a single index. The SWOT L2_HR passes are tiny, so the scale question does not matter here.
 
 So GeoParquet wins on download *and* fusion. The product is fixed-schema tabular, with a lake id, a reach id, water-surface elevation, area and more, which is the native fit for its columns and row groups. A sparse Zarr store would add complexity with no gain.
 

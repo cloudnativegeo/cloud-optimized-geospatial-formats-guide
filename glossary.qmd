@@ -318,6 +318,10 @@ An R library for using and managing [vector data](#vector-data), organized aroun
 
 A [vector data](#vector-data) file format. There are [many reasons](http://switchfromshapefile.org/) to no longer use Shapefile.
 
+#### Shard
+
+The definition of shard here is specific to [Zarr](#zarr). A shard is a single object in object storage that contains multiple [chunks](#chunk) of data. See also: [Zarr sharding](https://zarr.readthedocs.io/en/latest/user-guide/performance/#sharding).
+
 #### Space-filling curve
 
 An algorithm that translates two- or n- dimensional data into one-dimensional data. In practice, this is used as part of [spatial indexes](#spatial-index) to group [vector geometries](#vector-data) nearby within a file according to their two-dimensional location.
