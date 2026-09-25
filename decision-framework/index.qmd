@@ -210,7 +210,7 @@ Every candidate format has a knob that sets how bytes are grouped into data chun
 
 Tune the lever to your [object store's](../glossary.qmd#object-storage-cloud-storage) **object-size policy** (S3, Azure Blob Storage, Google Cloud Storage, or an on-premises equivalent). Object stores degrade when they must index very many tiny objects, so most reward a larger average object. 
 
-In general, when it comes to reading from object storage, objects can be too large (readers have to download and decompress more data than they need) or too small (readers make many small requests and pay the network latency for each). See also: [the datacube guid on tiny chunks](https://developmentseed.org/datacube-guide/latest/worst-practices/tiny-chunks.html) and [massive chunks](https://developmentseed.org/datacube-guide/latest/worst-practices/massive-chunks.html).
+In general, when it comes to reading from object storage, objects can be too large (readers have to download and decompress more data than they need) or too small (readers make many small requests and pay the network latency for each). See also: [the datacube guide on tiny chunks](https://developmentseed.org/datacube-guide/latest/worst-practices/tiny-chunks.html) and [massive chunks](https://developmentseed.org/datacube-guide/latest/worst-practices/massive-chunks.html).
 
 One example: the [CNES Datalake](https://cnes.fr/en/projects/centre-de-calcul) sorts data into [tiers](../glossary.qmd#tiered-storage) by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and adjust your groupings accordingly.
 
