@@ -31,6 +31,15 @@ website:
         text: Welcome
       - href: overview.qmd
         text: Overview Slides
+      # NOTE for @abarciauskas-bgse: proposed nav placement only.
+      # Placed before "Formats" so a reader can pick a format family before
+      # diving into a format page. Final position depends on the Track-3 site
+      # redesign - please confirm or move (and rename the path if needed).
+      - section: Choosing a Format
+        href: decision-framework/index.qmd
+        contents:
+          - decision-framework/index.qmd
+          - decision-framework/case-studies.qmd
       - section: Formats
         contents:
         - section: Cloud Optimized GeoTIFFs (COG)
@@ -89,7 +98,7 @@ format:
   html:
     include-in-header: plausible.html
     theme:
-      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+      light: cosmo # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
       dark: [cosmo, theme-dark.scss]
     code-copy: true
     code-overflow: wrap
