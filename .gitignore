@@ -15,3 +15,5 @@ __pycache__/
 .ipynb_checkpoints
 
 /.luarc.json
+
+**/*.quarto_ipynb
