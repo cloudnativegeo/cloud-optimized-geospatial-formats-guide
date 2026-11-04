@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Format Selection Decision Framework – Cloud-Optimized Geospatial Formats Guide</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../decision-framework/case-studies.html" rel="next">
+<link href="../overview.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a28ee3da46f972aba15bd66eb60f13fa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-e010a647dc5d5d7618ea7fd25b088e12.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-a28ee3da46f972aba15bd66eb60f13fa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async="" src="https://plausible.io/js/pa-rcqfHNzAD126-Gf76IoQv.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455).
+    // Not run on load: stylesheets are set before first paint there, and
+    // scrolling would undo the scroll to a URL fragment (#14973).
+    // The one pixel nudge keeps the reader where they were.
+    const refreshSafariScrollbar = () => {
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        const scrollY = window.scrollY;
+        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
+        setTimeout(() => {
+          window.scrollTo(0, scrollY);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      refreshSafariScrollbar();
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" aria-label="Toolbar">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="Breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../decision-framework/index.html">Choosing a Format</a></li></ol></nav>
+        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Site">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Cloud-Optimized Geospatial Formats Guide</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide" title="Cloud-Optimized Geospatial Formats Guide" class="quarto-navigation-tool px-1" aria-label="Cloud-Optimized Geospatial Formats Guide"><i class="bi bi-github"></i></a>
+  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode" aria-label="Toggle dark mode"><i class="bi"></i></button>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview Slides</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../decision-framework/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text" id="quarto-sidebar-section-1-label">Choosing a Format</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section: Choosing a Format">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decision-framework/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Format Selection Decision Framework</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../decision-framework/case-studies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Decision Framework Case Studies</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text" id="quarto-sidebar-section-2-label">Formats</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-controls="quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-3-label">Cloud Optimized GeoTIFFs (COG)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-3" aria-labelledby="quarto-sidebar-section-3-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized GeoTIFFs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-details.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced COG/GeoTIFF Details</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples of Working with COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/cogs-overview_resampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud Optimized Geotiff (COG) Overview Resampling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/accessing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/writing-cogs-in-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Writing Cloud Optimized Geotiffs (COGs) with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-stars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>stars</code> in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-geotiffs/accessing-cogs-in-r-terra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing Data in Cloud-Optimized GeoTIFFs (COGs) with <code>terra</code> in R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-controls="quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-4-label">Zarr</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-4" aria-labelledby="quarto-sidebar-section-4-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../zarr/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../zarr/zarr-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr in Practice</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../zarr/virtual-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Virtual Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../kerchunk/kerchunk-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kerchunk in Practice</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-controls="quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-5-label">Cloud-Optimized HDF/NetCDF</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-5" aria-labelledby="quarto-sidebar-section-5-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cloud-optimized-netcdf4-hdf5/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized HDF/NetCDF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-controls="quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-6-label">Cloud-Optimized Point Clouds (COPC)</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-6" aria-labelledby="quarto-sidebar-section-6-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cloud-Optimized Point Clouds (COPC)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../copc/lidar-las-to-copc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting LiDAR LAS Files to Cloud-Optimized Point Clouds (COPCs)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-controls="quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-7-label">GeoParquet</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-7" aria-labelledby="quarto-sidebar-section-7-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../geoparquet/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GeoParquet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../geoparquet/geoparquet-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GeoParquet Example</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-controls="quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-8-label">FlatGeobuf</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-8" aria-labelledby="quarto-sidebar-section-8-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/hilbert-r-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf Spatial Index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/flatgeobuf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../flatgeobuf/flatgeobuf-in-js.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlatGeobuf in JavaScript</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-controls="quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-9-label">PMTiles</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-9" aria-labelledby="quarto-sidebar-section-9-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pmtiles/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PMTiles</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../cookbooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cookbooks</span></a>
+            <button type="button" class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#" aria-expanded="true" aria-label="Toggle section: Cookbooks">
+              <i class="bi bi-chevron-right ms-2" aria-hidden="true"></i>
+            </button> 
+      </div>
+      <ul id="" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://nasa-impact.github.io/zarr-visualization-report/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr Visualization Report ↗</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-controls="quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text" id="quarto-sidebar-section-10-label">Zarr + STAC Report</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+      </div>
+      <ul id="quarto-sidebar-section-10" aria-labelledby="quarto-sidebar-section-10-label" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/data-producers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Producers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cookbooks/zarr-stac-report/data-consumers/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Zarr + STAC for Data Consumers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Involved</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-this-framework-is" id="toc-what-this-framework-is" class="nav-link active" data-scroll-target="#what-this-framework-is">What this framework is</a></li>
+  <li><a href="#key-terms" id="toc-key-terms" class="nav-link" data-scroll-target="#key-terms">Key terms</a></li>
+  <li><a href="#preconditions" id="toc-preconditions" class="nav-link" data-scroll-target="#preconditions">Preconditions</a></li>
+  <li><a href="#the-two-stages" id="toc-the-two-stages" class="nav-link" data-scroll-target="#the-two-stages">The two stages</a></li>
+  <li><a href="#control" id="toc-control" class="nav-link" data-scroll-target="#control">The control fork</a>
+  <ul class="collapse">
+  <li><a href="#how-to-tell-which-branch-you-are-on" id="toc-how-to-tell-which-branch-you-are-on" class="nav-link" data-scroll-target="#how-to-tell-which-branch-you-are-on">How to tell which branch you are on</a></li>
+  </ul></li>
+  <li><a href="#topology" id="toc-topology" class="nav-link" data-scroll-target="#topology">Topology: what shape are the data?</a></li>
+  <li><a href="#refinements" id="toc-refinements" class="nav-link" data-scroll-target="#refinements">Refinements</a>
+  <ul class="collapse">
+  <li><a href="#intent" id="toc-intent" class="nav-link" data-scroll-target="#intent">Intent</a></li>
+  <li><a href="#grouping-lever" id="toc-grouping-lever" class="nav-link" data-scroll-target="#grouping-lever">The object size and grouping lever</a></li>
+  <li><a href="#maturity" id="toc-maturity" class="nav-link" data-scroll-target="#maturity">Ecosystem maturity</a></li>
+  <li><a href="#interpretation-encoding" id="toc-interpretation-encoding" class="nav-link" data-scroll-target="#interpretation-encoding">Interpretation encoding</a></li>
+  </ul></li>
+  <li><a href="#cross-cutting-considerations" id="toc-cross-cutting-considerations" class="nav-link" data-scroll-target="#cross-cutting-considerations">Cross-cutting considerations</a>
+  <ul class="collapse">
+  <li><a href="#metadata-and-cataloging" id="toc-metadata-and-cataloging" class="nav-link" data-scroll-target="#metadata-and-cataloging">Metadata and cataloging</a></li>
+  <li><a href="#within-format-depth" id="toc-within-format-depth" class="nav-link" data-scroll-target="#within-format-depth">Within-format depth</a></li>
+  <li><a href="#multiscale-and-native-mixed-resolution" id="toc-multiscale-and-native-mixed-resolution" class="nav-link" data-scroll-target="#multiscale-and-native-mixed-resolution">Multiscale and native mixed resolution</a></li>
+  <li><a href="#existing-users" id="toc-existing-users" class="nav-link" data-scroll-target="#existing-users">Existing users and their tools</a></li>
+  <li><a href="#not-yet-possible" id="toc-not-yet-possible" class="nav-link" data-scroll-target="#not-yet-possible">Not yet possible</a></li>
+  </ul></li>
+  <li><a href="#optional-make-it-quantitative" id="toc-optional-make-it-quantitative" class="nav-link" data-scroll-target="#optional-make-it-quantitative">Optional: make it quantitative</a></li>
+  <li><a href="#worked-examples" id="toc-worked-examples" class="nav-link" data-scroll-target="#worked-examples">Worked examples</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/decision-framework/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Format Selection Decision Framework</h1>
+<p class="subtitle lead">How to go from data you must publish to a short list of cloud-optimized format candidates</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="what-this-framework-is" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-framework-is">What this framework is</h2>
+<p>This framework helps you go from <em>“I have geospatial data to publish or migrate”</em> to a <strong>short list of cloud-optimized format candidates</strong>, and to the <strong>layout choices</strong> that make each candidate work.</p>
+<p>It is a guide to help make informed decisions, and does not prescribe a single correct format.</p>
+<ul>
+<li><strong>What you control</strong> comes first: whether the data already exist, whether you may reprocess them, and whether a mandate fixes an archival format. This can settle the answer before format even comes up.</li>
+<li>The <strong>shape of your data</strong> narrows the set of candidate formats.</li>
+<li>The <strong>intended use</strong> and a few practical levers rank the remaining options.</li>
+<li><strong>You make the final call.</strong></li>
+</ul>
+<p>The framework is data- and cloud-provider-neutral. Within data and cloud-provider contexts, a rule may help make a decision. For example, an object-size policy or a benchmark result may influence the choice. These cases are given as worked examples, not rules.</p>
+<p>This is a first, deliberately simple version. It aligns on the questions to ask and the order to ask them in. Follow the links to a format page when you need more detail.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>What this framework is not
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>It is not a compliance checklist. No format is disqualified by a single answer.</li>
+<li>It does not prescribe a catalog or a metadata standard. See <a href="#metadata-and-cataloging">Metadata and cataloging</a>.</li>
+<li>It does not replace a benchmark. When two candidates are close, measure them.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="key-terms" class="level2">
+<h2 class="anchored" data-anchor-id="key-terms">Key terms</h2>
+<p>The framework uses a few terms in a specific way. Each links to the section that develops it.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>What it means here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../glossary.html#access-pattern"><strong>Access pattern</strong></a></td>
+<td>What subsets readers will request: a time series at one point, a spatial window at one date, a full scan. Intent implies an access pattern, and your layout either serves it or fights it. Defined in the guide’s glossary; the layout consequences are in <a href="#grouping-lever">the grouping lever</a>.</td>
+</tr>
+<tr class="even">
+<td><a href="#control"><strong>Archival-format mandate</strong></a></td>
+<td>A requirement to maintain a specific archival format for preservation, such as HDF5, netCDF or GRIB, whatever cloud-optimized format you publish alongside it.</td>
+</tr>
+<tr class="odd">
+<td><a href="#control"><strong>Control</strong></a></td>
+<td>Whether the choice is yours to make at all: do the data already exist, and may you reprocess them, technically and legally. This is Stage 1 of the framework, and it can end in “not yet possible”.</td>
+</tr>
+<tr class="even">
+<td><a href="#maturity"><strong>Ecosystem maturity</strong></a></td>
+<td>How settled a format is, on an L1 to L5 scale from experimental to de-facto standard (see below). It answers “safe default, or bet?”.</td>
+</tr>
+<tr class="odd">
+<td><a href="#grouping-lever"><strong>Grouping lever</strong></a></td>
+<td>The knobs each format gives you for grouping bytes into data chunks and objects in cloud storage: COG internal tiling, Zarr v3 chunking and sharding, COPC octree nodes, GeoParquet row groups.</td>
+</tr>
+<tr class="even">
+<td><a href="#intent"><strong>Intent</strong></a></td>
+<td>What the data are for: archive and download, processing, visualization, distribution, or data fusion. Most products serve several intents at once.</td>
+</tr>
+<tr class="odd">
+<td><a href="#interpretation-encoding"><strong>Interpretation encoding</strong></a></td>
+<td>Whether the format carries units, CRS, nodata and any scale and offset transform in-format, so every reader recovers the same physical value, or leans on a side catalog.</td>
+</tr>
+<tr class="even">
+<td><a href="#grouping-lever"><strong>Object size</strong></a></td>
+<td>The size of the objects your layout actually writes to storage. Object stores reward a larger average object and many apply a minimum size policy.</td>
+</tr>
+<tr class="odd">
+<td><a href="#refinements"><strong>Refinement</strong></a></td>
+<td>A criterion applied <em>inside</em> a format family to rank its members. There are four: intent, the grouping lever, ecosystem maturity, and interpretation encoding.</td>
+</tr>
+<tr class="even">
+<td><a href="#topology"><strong>Topology</strong></a></td>
+<td>The shape of the data: 2D raster, N-D cubes, point cloud, or vector and tabular. Answering <em>what shape are the data?</em> selects a format family, not a format.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="preconditions" class="level2">
+<h2 class="anchored" data-anchor-id="preconditions">Preconditions</h2>
+<p>This guide already defines what makes a format cloud-optimized. The Welcome page states it as a four-part <a href="../index.html#the-opportunity">cloud-optimized format pattern</a>, and the glossary defines <a href="../glossary.html#cloud-optimized">cloud-optimized</a> as the ability to read a meaningful <em>part</em> of a file without downloading <em>all</em> of it.</p>
+<p>The framework starts from the definition on the Welcome page. Two requirements are worth explaining in more detail, because they decide whether a candidate belongs in the framework at all:</p>
+<p><strong>P1. The format must support partial and parallel reads over HTTP.</strong> <a href="../glossary.html#random-access">Random access</a> through <a href="../glossary.html#http-range-request">HTTP range requests</a> is what makes a format usable from <a href="../glossary.html#object-storage-cloud-storage">object storage</a>. It depends on the rest of the pattern: <a href="../glossary.html#metadata">metadata</a> in a consistent place that a reader can load in a single read, and then addressable <a href="../glossary.html#chunk">chunks</a>, internal tiling, or both. A reader that cannot locate the bytes it needs from the metadata alone cannot fetch only those bytes.</p>
+<p><strong>P2. No opaque bundles.</strong> An <a href="../glossary.html#archive-format">archive format</a> is not disqualified just for being an archive. <a href="../pmtiles/intro.html">PMTiles</a> is an archive and it is cloud-optimized, because its internal directory makes each tile addressable. What disqualifies a candidate is an archive with no addressable internal layout, or a layer of <a href="../glossary.html#external-compression">external compression</a> wrapped around data that was already cloud-optimized. A zipped Zarr store, a LAZ file without <a href="https://copc.io/">COPC metadata</a>, and a single Parquet file with no row groups all fail this way: the client must fetch the whole object before it can use any part of it.</p>
+</section>
+<section id="the-two-stages" class="level2">
+<h2 class="anchored" data-anchor-id="the-two-stages">The two stages</h2>
+<p>The framework has <strong>two stages</strong>:</p>
+<p><strong>Stage 1 — control: do you have a choice?</strong> Do the data already exist? If they exist, are you able (technically, legally) to reprocess them? This stage can end the process. If you cannot reprocess the data and cannot virtualize them, there is no format decision to make yet.</p>
+<p><strong>Stage 2 — topology and refinement: which format?</strong> You reach this stage only when Stage 1 leaves you free to choose. Here the shape of the data selects a <strong>format family</strong>: the small group of cloud-optimized formats built for that shape. The refinements below rank the options within a format family.</p>
+<p>Four refinements then rank the candidates: <strong>intent</strong>, the <strong>object-size and grouping lever</strong>, <strong>ecosystem maturity</strong>, and <strong>interpretation encoding</strong>. The last one deserves a close look, because the formats differ on it more than people expect.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+
+<pre class="mermaid mermaid-js">flowchart TD
+    A([Data to publish or migrate]) --&gt; B{Existing data?}
+
+    B -- No --&gt; C{Archival-format&lt;br/&gt;mandate?}
+    C -- Yes --&gt; C1[Optimize the mandated format&lt;br/&gt;+ publish a cloud-optimized copy]
+    C -- No --&gt; T{{What shape are the data?}}
+
+    B -- Yes --&gt; D{Can you&lt;br/&gt;reprocess?}
+    D -- Yes --&gt; T
+    D -- No --&gt; P{Can you repackage&lt;br/&gt;the delivered files?}
+    P -- Yes --&gt; P1[Format free,&lt;br/&gt;content fixed as delivered]
+    P1 --&gt; T
+    P -- No --&gt; E{Virtualizable?}
+    E -- Yes --&gt; E1[VirtualiZarr / Kerchunk / Icechunk&lt;br/&gt;limited, better than nothing]
+    E -- No --&gt; E2[Not yet possible&lt;br/&gt;say what is missing]
+
+    T --&gt; T1(2D raster&lt;br/&gt;COG, Zarr, PMTiles)
+    T --&gt; T2(N-D cubes&lt;br/&gt;GeoZarr, COG, CO-HDF5)
+    T --&gt; T3(Point cloud&lt;br/&gt;COPC, GeoParquet)
+    T --&gt; T4(Vector / tabular&lt;br/&gt;GeoParquet, FlatGeobuf, PMTiles)
+
+    T1 --&gt; R([Refine: intent, object-size lever,&lt;br/&gt;maturity, interpretation])
+    T2 --&gt; R
+    T3 --&gt; R
+    T4 --&gt; R
+
+    classDef entry   fill:#e7eefb,stroke:#3f6db3,stroke-width:2px,color:#152744
+    classDef ask     fill:#fff6dc,stroke:#ad7c00,stroke-width:2px,color:#4a3600
+    classDef hinge   fill:#dfeffa,stroke:#2a7fb8,stroke-width:3px,color:#0e3247
+    classDef family  fill:#e4f4ea,stroke:#39875f,stroke-width:2px,color:#12301e
+    classDef partial fill:#fdeadb,stroke:#c06520,stroke-width:2px,color:#48260a
+    classDef refine  fill:#ece6f7,stroke:#7355a6,stroke-width:2px,color:#291d44
+
+    class A entry
+    class B,C,D,E,P ask
+    class T hinge
+    class T1,T2,T3,T4 family
+    class C1,P1,E1,E2 partial
+    class R refine
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="control" class="level2">
+<h2 class="anchored" data-anchor-id="control">The control fork</h2>
+<p><strong>No existing data.</strong> You are designing a new product, so you can choose freely. Go to the <a href="#topology">topology question</a>.</p>
+<p><strong>If an archival-format mandate applies,</strong> it adds a second job, and it does not remove your freedom to choose how readers get access. Whatever the mandated format, make it as range-request-friendly as it can be. Where the mandated format is HDF5 or netCDF, this guide has <a href="../cloud-optimized-netcdf4-hdf5/index.html">specific guidance</a> on consolidated metadata and chunk sizing. What is genuinely optional is what you do beyond the archival format.</p>
+<p>You can wrap the optimized archive in a <a href="../zarr/virtual-zarr.html">virtual Zarr</a> layer: cheaper to maintain, but you inherit the archive’s chunk shape, the same limit as <a href="#control">existing data you cannot reprocess</a> below. The stronger, recommended option is to also publish a cloud-optimized copy for readers, since a cloud-optimized copy is an opportunity to provide access beyond the archive’s native chunking.</p>
+<p><strong>Existing data you can reprocess.</strong> You control the production chain, so you can also choose freely. Go to the <a href="#topology">topology question</a>.</p>
+<p><strong>Existing data you cannot reprocess, but can rewrite.</strong> You may still be allowed to repackage the delivered files: a plain TIFF becomes a COG, a LAZ file becomes a COPC, a shapefile becomes GeoParquet. The format is a free choice, but the content is fixed at whatever was delivered. Go to the <a href="#topology">topology question</a>.</p>
+<p><strong>Existing data you cannot reprocess.</strong> You can often still publish a virtual view over the bytes you have. The <a href="../zarr/virtual-zarr.html">Virtual Zarr</a> approach is to use a library (such as VirtualiZarr or Kerchunk) to build an index that points into the original files. That index is then stored in formats such as Icechunk, kerchunk json, or kerchunk parquet. This gives range-based access without rewriting the data. The result is more limited than a native store, but it is much better than nothing.</p>
+<p><strong>Neither.</strong> Some sources cannot be repackaged or virtualized today. Examples are HDF4, encrypted files, and a single large blob with no internal structure, whether or not it’s compressed. See <a href="#not-yet-possible">Not yet possible</a>.</p>
+<section id="how-to-tell-which-branch-you-are-on" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-tell-which-branch-you-are-on">How to tell which branch you are on</h3>
+<p>Whether you can reprocess or virtualize usually depends on the data and data project context.</p>
+<p><strong>You can reprocess</strong> if you have the processor, the inputs, and the budget to re-run the production chain. Then format and layout are both free choices: go to <a href="#topology">topology</a>.</p>
+<p><strong>You can repackage</strong> if you cannot re-run the chain but you may rewrite the delivered files. A plain TIFF, JPEG2000, or MrSID image becomes a COG, a LAS or LAZ file becomes a COPC, a shapefile or CSV becomes GeoParquet. The rewrite can be drastic and still count as repackaging, not reprocessing: an HDF5 granule can become a COG, and many single-scene COGs can become one Zarr cube, as long as the underlying values are not recomputed. Repackaging is a byte-level rewrite rather than a science reprocessing, so it is often permitted where reprocessing is not. Format is a free choice; the content is fixed at whatever was delivered.</p>
+<p><strong>You can virtualize</strong> if the bytes you have can be indexed as they are. <a href="../zarr/virtual-zarr.html">Virtual Zarr</a> publishes that index without copying the data. Three tests, in order:</p>
+<ol type="1">
+<li><strong>Is the data chunked internally?</strong> This is the hard requirement. A virtual store cannot change the source’s chunk structure, so a single contiguous block virtualizes into one enormous chunk and buys you no useful partial access.</li>
+<li><strong>Are those chunks a workable size?</strong> You mostly inherit the source’s chunk size and shape, so its chunking limits which access patterns stay cheap. There is little room to make a store built for one access pattern also serve a very different one well.</li>
+<li><strong>Is there a parser for the format?</strong> VirtualiZarr and Kerchunk cover the common archival formats, including netCDF4, HDF5, GRIB2, TIFF and FITS.</li>
+</ol>
+<p><strong>Otherwise there is no path yet.</strong> The usual blockers are HDF4, encrypted files, a codec no parser can pass through, and a single blob with no internal chunking, whether or not it’s compressed. See <a href="#not-yet-possible">Not yet possible</a>.</p>
+<p><strong>Passing these tests means you <em>can</em>, not that you <em>should</em>.</strong> A producer may be technically and legally free to change format and still be held by what its users’ tools expect. See <a href="#existing-users">Existing users and their tools</a>.</p>
+</section>
+</section>
+<section id="topology" class="level2">
+<h2 class="anchored" data-anchor-id="topology">Topology: what shape are the data?</h2>
+<p>The shape of the data selects a <strong>format family</strong>: the set of format candidates the refinement process narrows down. <a href="#intent">Intent</a> is what decides between the members.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Data shape</th>
+<th>Format family</th>
+<th>Where each member wins</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2D raster, per scene or per tile</td>
+<td><a href="../cloud-optimized-geotiffs/intro.html">COG</a>, <a href="../zarr/intro.html">Zarr</a>, <a href="../pmtiles/intro.html">PMTiles</a></td>
+<td>COG for distribution and visualization; Zarr if the product is really a cube; PMTiles for pre-rendered tile delivery</td>
+</tr>
+<tr class="even">
+<td>N-D cubes, for example <code>time × y × x × band</code></td>
+<td><a href="../zarr/intro.html">[Geo]Zarr</a>, <a href="../cloud-optimized-geotiffs/intro.html">COG</a>, <a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a></td>
+<td>GeoZarr for analysis across the cube; COG per time step if slices are read alone; cloud-optimized HDF/netCDF where an archival format is mandated or existing tooling must keep working</td>
+</tr>
+<tr class="odd">
+<td>Point cloud</td>
+<td><a href="../copc/index.html">COPC</a>, <a href="../geoparquet/index.html">GeoParquet</a></td>
+<td>COPC for spatial subsetting and level of detail; GeoParquet if columnar analytics dominate</td>
+</tr>
+<tr class="even">
+<td>Vector or tabular</td>
+<td><a href="../geoparquet/index.html">GeoParquet</a>, <a href="../flatgeobuf/intro.html">FlatGeobuf</a>, <a href="../pmtiles/intro.html">PMTiles</a></td>
+<td>GeoParquet for joins and analytics; FlatGeobuf for streaming download; PMTiles for tiled web delivery</td>
+</tr>
+</tbody>
+</table>
+<p>The question is about topology, not about the format the data arrives in. A netCDF granule that holds a point cloud belongs on the point-cloud branch. See the <a href="../index.html#data-type-to-traditional-to-cloud-optimized-geospatial-file-format-table">format table</a> for how traditional formats map to cloud-optimized ones.</p>
+</section>
+<section id="refinements" class="level2">
+<h2 class="anchored" data-anchor-id="refinements">Refinements</h2>
+<p>These refinements help rank candidate formats within a family.</p>
+<section id="intent" class="level3">
+<h3 class="anchored" data-anchor-id="intent">Intent</h3>
+<p>What are the data for? Archive and download, processing, visualization, distribution, or data fusion. Three points matter:</p>
+<ul>
+<li><strong>Visualization is a first-class intent</strong>, not a side effect. It has its own layout needs, mainly <a href="../glossary.html#overviews">overviews</a> or a level of detail.</li>
+<li><strong>On-the-fly and batched processing pull the layout in opposite directions.</strong> On-the-fly access rewards small chunks, fine overviews, and cache locality: a reader fetches a little and wants it back fast. Batched processing rewards large shards or row groups, so that a bulk scan becomes a few large contiguous reads that many workers can run in parallel, instead of thousands of small scattered ones.</li>
+<li><strong>Data fusion raises the stakes on encoding.</strong> Combining products from different missions or processors means every input must be read back as the same physical value, and subsets from each must line up. Fusion is a form of processing, but it is worth naming separately: it weights <a href="#interpretation-encoding">interpretation encoding</a> and consistent grids far higher than single-product analysis does, and it usually rewards a tabular or columnar target where joins are cheap.</li>
+</ul>
+<p>Most real datasets serve several intents at once. However, the intents often carry different weight in the decision process. The <a href="../decision-framework/case-studies.html">case studies</a> state an intent mix for each product, which is what decides the ranking inside a candidate set.</p>
+</section>
+<section id="grouping-lever" class="level3">
+<h3 class="anchored" data-anchor-id="grouping-lever">The object size and grouping lever</h3>
+<p>Every candidate format has a knob that sets how bytes are grouped into data chunks and chunks grouped into objects:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>Grouping lever</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>COG</td>
+<td>internal tiling and overviews</td>
+</tr>
+<tr class="even">
+<td>Zarr v3</td>
+<td>chunks and shards (<a href="../glossary.html#chunk">chunk</a> and <a href="../glossary.html#shard">shard</a>)</td>
+</tr>
+<tr class="odd">
+<td>COPC</td>
+<td>octree nodes</td>
+</tr>
+<tr class="even">
+<td>GeoParquet</td>
+<td>row groups, plus partitioning</td>
+</tr>
+</tbody>
+</table>
+<p>Tune the lever to your <a href="../glossary.html#object-storage-cloud-storage">object store’s</a> <strong>object-size policy</strong> (S3, Azure Blob Storage, Google Cloud Storage, or an on-premises equivalent). Object stores degrade when they must index very many tiny objects, so most reward a larger average object.</p>
+<p>In general, when it comes to reading from object storage, objects can be too large (readers have to download and decompress more data than they need) or too small (readers make many small requests and pay the network latency for each). See also: <a href="https://developmentseed.org/datacube-guide/latest/worst-practices/tiny-chunks.html">the datacube guide on tiny chunks</a> and <a href="https://developmentseed.org/datacube-guide/latest/worst-practices/massive-chunks.html">massive chunks</a>.</p>
+<p>One example: the <a href="https://cnes.fr/en/projects/centre-de-calcul">CNES Datalake</a> sorts data into <a href="../glossary.html#tiered-storage">tiers</a> by mean object size, with about 32 MB or more for warm disk and about 100 MB or more for cold tape. This serves the general point: find out whether your storage has an object-size policy, and adjust your groupings accordingly.</p>
+<p>Some providers publish a threshold, some only charge you as if your objects were larger, and some have no policy at all.</p>
+<p><strong>Size and shape are two different questions.</strong> How <em>big</em> the objects are is a question for your object store, answered above. How the bytes are arranged <em>inside</em> them (chunk shape, and the order of the dimensions) is an <strong>access-pattern</strong> question, and an object store provider has no opinion about the shape. A <code>time × y × x</code> cube chunked long in time serves a time series at one point cheaply and a full-scene map expensively; chunked wide in <code>y</code> and <code>x</code> it does the opposite. This guide works it through, with a diagram, in <a href="../cloud-optimized-netcdf4-hdf5/index.html#chunk-shape-vs-chunk-size">chunk shape vs chunk size</a>.</p>
+<p>Shape rarely decides <em>which</em> format you pick, because every candidate in a family lets you set the shape: a COG chooses its tile dimensions, Zarr its chunk shape and dimension order, GeoParquet its row-group size and row ordering. What shape decides is how well the format you picked performs, not which one you pick. And it is mostly settled back at the <a href="#control">control</a> question, because only reprocessing lets you choose it freely.</p>
+</section>
+<section id="maturity" class="level3">
+<h3 class="anchored" data-anchor-id="maturity">Ecosystem maturity</h3>
+<p>Ecosystem maturity may influence the final decision. You may need something production-grade that you can count on, or you may have the flexibility to be an early adopter. Maturity is what separates a safe default from a bet.</p>
+<p>To keep that judgement explicit rather than impressionistic, this framework assigns candidate formats on the following five-level scale:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>L5</strong></td>
+<td>De-facto standard: universal tooling, no specification risk</td>
+</tr>
+<tr class="even">
+<td><strong>L4</strong></td>
+<td>Established: released spec, broad independent tooling, in production use</td>
+</tr>
+<tr class="odd">
+<td><strong>L3</strong></td>
+<td>Stable: released spec, multiple implementations, growing tooling</td>
+</tr>
+<tr class="even">
+<td><strong>L2</strong></td>
+<td>Emerging: spec stabilizing, reference implementations, early adopters</td>
+</tr>
+<tr class="odd">
+<td><strong>L1</strong></td>
+<td>Experimental: draft or in-flux spec, few implementations</td>
+</tr>
+</tbody>
+</table>
+<p>Where the candidates sit today:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Format</th>
+<th>Specification</th>
+<th>Tooling</th>
+<th>Level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../cloud-optimized-geotiffs/intro.html">COG</a></td>
+<td>De-facto standard, on a GeoTIFF base</td>
+<td>GDAL, rio-tiler, TiTiler, every GIS</td>
+<td><strong>L5</strong></td>
+</tr>
+<tr class="even">
+<td><a href="../geoparquet/index.html">GeoParquet</a></td>
+<td>v1.x, stable, on an Apache Parquet base</td>
+<td>GDAL, GeoPandas, DuckDB, Arrow</td>
+<td><strong>L4</strong></td>
+</tr>
+<tr class="odd">
+<td><a href="../zarr/intro.html">Zarr</a></td>
+<td>v2 and v3 stable</td>
+<td>GDAL, zarr-python, zarrs</td>
+<td><strong>L4</strong></td>
+</tr>
+<tr class="even">
+<td><a href="../copc/index.html">COPC</a></td>
+<td>v1.0, stable, on a LAZ base</td>
+<td>PDAL, untwine, QGIS, copc.js</td>
+<td><strong>L4</strong></td>
+</tr>
+<tr class="odd">
+<td><a href="../flatgeobuf/intro.html">FlatGeobuf</a></td>
+<td>Stable, on a flatbuffers base</td>
+<td>GDAL and OGR, QGIS, flatgeobuf.js</td>
+<td><strong>L3</strong></td>
+</tr>
+<tr class="even">
+<td><a href="../zarr/intro.html">GeoZarr</a></td>
+<td>Draft, in an OGC Standards Working Group</td>
+<td>Emerging, mostly xarray-based stacks</td>
+<td><strong>L2</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>COG is the reference case</strong> and the format the others are measured against: a de-facto standard for years, supported by every relevant library and GIS, with no open specification risk.</p>
+<p><strong>For GeoParquet and COPC, the risk is integration effort, not the specification.</strong> Each inherits a mature base format and adds a spatial index on top.</p>
+<section id="new-zarr-standards-distinguishing-zarr-v3-and-geozarr" class="level4">
+<h4 class="anchored" data-anchor-id="new-zarr-standards-distinguishing-zarr-v3-and-geozarr">New Zarr Standards: Distinguishing Zarr v3 and GeoZarr</h4>
+<p>This distinction is easy to miss, and it decides how much risk you actually take on.</p>
+<ul>
+<li><strong>Zarr v3, the substrate of GeoZarr, is dependable.</strong> The core specification was finalized in 2024. <a href="#grouping-lever">Sharding</a>, the feature that matters most for object storage, is stable in <code>zarr-python</code> 3.x and readable by GDAL and xarray. Judged on its own, the Zarr v3 core behaves like an L4.</li>
+<li><strong>GeoZarr, the convention layer, is still being ratified.</strong> It is what makes a generic <a href="../glossary.html#zarr">Zarr</a> store <em>geospatial</em>: CRS, dimension semantics, and multiscale pyramids. It does for Zarr roughly what the GeoTIFF tags do for a plain TIFF. It is a draft in an OGC Standards Working Group, on the standards track but not yet an adopted OGC standard, and the published draft can lag behind active convention work. Check <a href="https://geozarr.org/">geozarr.org</a> for the current status before you rely on a specific version.</li>
+</ul>
+<p>So the L2 above belongs to the convention layer, not to Zarr. The leading reference implementations of GeoZarr today, such as ESA’s EOPF Sentinel output, are demonstrators rather than production guarantees.</p>
+</section>
+<section id="maturity-is-a-warning-not-a-veto" class="level4">
+<h4 class="anchored" data-anchor-id="maturity-is-a-warning-not-a-veto">Maturity is a warning, not a veto</h4>
+<p>An L2 candidate can still be the right answer. Multidimensional cubes have no mature format candidate. A low level does not mean “choose something else”. It means <strong>plan for change</strong>. Budget for convention churn, pin the versions you depend on, and expect visualization tooling in particular to improve as tooling catches up.</p>
+<p>Many factors influence what maturity level you can tolerate. A one-off internal product and a mission archive with a twenty-year retention commitment can reasonably land on different levels from the same set of candidate formats.</p>
+</section>
+</section>
+<section id="interpretation-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-encoding">Interpretation encoding</h3>
+<p>Does the format carry the information a reader needs to recover the same physical value, or does it lean on a side catalog? Interpretation encoding includes units, the <a href="../glossary.html#coordinate-reference-system-crs">CRS</a>, the nodata fill value (see also <a href="https://virtualizarr.readthedocs.io/en/latest/explanation/custom_parsers.html#fill-values">Virtualizarr’s distinction of fill values</a>), and any scale and offset transform.</p>
+<p>Interpretation encoding separates the candidates more than people expect:</p>
+<ul>
+<li><strong>Zarr v3 makes the information first-class.</strong> With the <code>scale_offset</code> codec, a declared fill value, Zarr conventions for projection, CRS and multiscales, the transform is a first-class array property. Every reader recovers the same value.</li>
+<li><strong>COG, GeoParquet, and COPC standardize the CRS</strong> but leave the value transform to side metadata. Readers honor side metadata unevenly.</li>
+</ul>
+<p>If your product stores scaled integers, or if an undeclared fill value would change a computed result, weigh this aspect heavily.</p>
+</section>
+</section>
+<section id="cross-cutting-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="cross-cutting-considerations">Cross-cutting considerations</h2>
+<p>These considerations do not impact what format you choose, but they do affect how you implement that format.</p>
+<section id="metadata-and-cataloging" class="level3">
+<h3 class="anchored" data-anchor-id="metadata-and-cataloging">Metadata and cataloging</h3>
+<p>Metadata that a reader can fetch in a single request is part of <a href="#preconditions">Precondition P1</a>, not an extra. Every candidate the <a href="#topology">topology question</a> opens has its own mechanism for it: Zarr consolidated metadata, COG headers, GeoParquet footers, and the COPC header. What this section adds is the level <em>above</em> a single file.</p>
+<p>At a scale of tens of thousands to millions of files, collection-level discovery becomes critical. <a href="https://stacspec.org/">STAC</a> has an essential role there, and it is part of the cloud-native geospatial ecosystem that we recommend. It is <strong>not a format and not a decision point in this framework</strong>, so this page does not prescribe it. Choose a catalog approach that fits your organization.</p>
+</section>
+<section id="within-format-depth" class="level3">
+<h3 class="anchored" data-anchor-id="within-format-depth">Within-format depth</h3>
+<p>Some choices sit below the format and are foundational:</p>
+<ul>
+<li>Base codecs, such as <a href="../glossary.html#zstd">ZSTD</a> and <a href="../glossary.html#deflate">Deflate</a></li>
+<li>Data types, and scale-offset encoding</li>
+<li>Sharding in Zarr v3</li>
+</ul>
+<p>These are mature and in scope. The per-format pages cover them. More experimental optimizations, such as bit-rounding and advanced compression tricks, are out of scope at this time.</p>
+<p>Formats also differ in which data types they support, and in whether types can be mixed within one file, column, or schema. Those specifics live on each format’s own page and are worth checking before committing to a candidate; they can rule one out as surely as topology or intent.</p>
+</section>
+<section id="multiscale-and-native-mixed-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="multiscale-and-native-mixed-resolution">Multiscale and native mixed resolution</h3>
+<p>Providing downsampled levels of original data in the source resolution is a common pattern for providing good performance, usually for visualization. A common example is COG overviews, which provide tiles at standard resolutions for mapping clients. A multiscale pyramid is a more general concept: a set of levels of detail, each with its own resolution, that can be used for visualization or analysis.</p>
+<p>Often these multiscale pyramids are generated at a uniform decimation so a reader can zoom out without reading and resampling full-resolution chunks. COG overviews, COPC’s octree levels of detail, and most GeoZarr pyramids work this way, and it is already covered above under <a href="#maturity">ecosystem maturity</a> and the <a href="#grouping-lever">grouping lever</a>.</p>
+<p>How these multiscale pyramids are generated can vary: Sometimes, data is provided at varying resolution where lower resolution data is not derived from the higher resolution data. Sentinel-2 is an example, worked through in <a href="../decision-framework/case-studies.html">case 1</a> of the case studies: Sentinel-2 collects data in 10m, 20m, and 60m bands from the same sensor. These bands can become a pyramid by aligning the decimation to each step (10m to 20m halves the resolution, 20m to 60m divides it by three), and the pyramid can continue past 60 m into ordinary overviews using the same mechanism. <a href="https://github.com/zarr-conventions/multiscales">Zarr multiscales convention</a> allows for non-uniform scale factors.</p>
+<p>This still interacts with the <a href="#grouping-lever">grouping lever</a>, since each native resolution needs its own tiling or chunk shape, and with <a href="#interpretation-encoding">interpretation encoding</a>, since each band needs its own geotransform. What changes from the plain-overview case is that these become refinements within one multiscale structure.</p>
+</section>
+<section id="existing-users" class="level3">
+<h3 class="anchored" data-anchor-id="existing-users">Existing users and their tools</h3>
+<p>Being able to reprocess is not the same as being free to change format. If a long-standing user community reads your product with established tools, changing format breaks them, and that cost is real even when nothing technical or legal stops you.</p>
+<p>This resembles an <a href="#control">archival-format mandate</a> but behaves differently:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Archival-format mandate</th>
+<th>User and tooling expectations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Comes from</td>
+<td>Institutional policy</td>
+<td>Your consumer community</td>
+</tr>
+<tr class="even">
+<td>Negotiable</td>
+<td>Rarely</td>
+<td>Yes, with notice</td>
+</tr>
+<tr class="odd">
+<td>Ends when</td>
+<td>Never, you satisfy it indefinitely</td>
+<td>You finish a migration you announced</td>
+</tr>
+</tbody>
+</table>
+<p>In the short term the answer is usually the same: publish the cloud-optimized format alongside what your users already consume. The endpoint differs. A mandate you keep satisfying; an expectation you migrate out of, with a deprecation window and documentation. Weigh it together with <a href="#maturity">ecosystem maturity</a>, because the newer your target format, the more of your users’ toolchain you are asking them to replace.</p>
+</section>
+<section id="not-yet-possible" class="level3">
+<h3 class="anchored" data-anchor-id="not-yet-possible">Not yet possible</h3>
+<p>When a source cannot be repackaged or virtualized today, the honest answer is <em>“not yet implemented”</em>, not <em>“impossible”</em>. The blocker is usually a missing parser, an unsupported codec, or source files with no internal chunking at all. Every one of those can change.</p>
+<p>The precedent is HDF5 itself: once the standard example of a format that could not be read efficiently from object storage, until a change in write strategy and reader tooling made it viable, see <a href="../cloud-optimized-netcdf4-hdf5/index.html">Cloud-Optimized HDF/NetCDF</a>. The reader half is still moving: switching xarray’s default cache for the h5netcdf engine improves dataset opening (<a href="https://github.com/pydata/xarray/pull/11216">xarray #11216</a>, measured by its authors on NISAR data). Formats move, and so do the libraries.</p>
+<p>Not yet possible does not mean never possible. Re-evaluate the options to pinpoint what needs to change to make cloud-optimized access possible. This could mean revaluating reprocessing, conversion and virtualization.</p>
+</section>
+</section>
+<section id="optional-make-it-quantitative" class="level2">
+<h2 class="anchored" data-anchor-id="optional-make-it-quantitative">Optional: make it quantitative</h2>
+<p>The two stages above get you to a short list. When two or three candidates remain and the choice is close, a transparent score can make the trade-off explicit and quantitative, reducing bias.</p>
+<p><a href="https://github.com/developmentseed/cng-formats-benchmark"><code>cng-formats-benchmark</code></a> is an open-source (MIT) harness behind the numbers on the <a href="../decision-framework/case-studies.html">Case Studies</a> page. Per format and per dataset it measures the object-size distribution and tier fitness, write throughput, range-request-aware read latency, and tile-display latency. You describe your own datasets in config files, so no provider or dataset is baked into the code, and you run it on your own infrastructure against your own data. See the <a href="https://developmentseed.github.io/cng-formats-benchmark/">documentation</a> and the <a href="https://developmentseed.github.io/cng-formats-benchmark/configuration/">configuration guide</a>.</p>
+</section>
+<section id="worked-examples" class="level2">
+<h2 class="anchored" data-anchor-id="worked-examples">Worked examples</h2>
+<p>Six products run through the framework on the <a href="../decision-framework/case-studies.html">Case Studies</a> page. Five are backed by measurements.</p>
+<p>One lesson recurs often enough to state up front: <strong>going cloud-optimized is rarely smaller than the source you started from.</strong> Overviews, levels of detail, and spatial indexes are structures the source did not carry, so they add volume, and that added volume is the feature you are buying.</p>
+<p>Where two candidates do differ in size, look at the overviews before you look at the codec. In the measured cases, a codec change moves the total by 0.3 % to 2 %. Adding an overview pyramid to a store that had none adds 28 % to 34 %. The pyramid also costs a COG only bytes, because its overviews sit inside the one file, and it costs a Zarr store objects, because each level is a separate array.</p>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This framework was developed as part of a study for the <a href="https://cnes.fr/">Centre National d’Études Spatiales (CNES)</a>, carried out by <a href="https://developmentseed.org/">Development Seed</a>. The case studies use public Copernicus and NASA missions, and the measurements come from that study’s benchmark work.</p>
+<p>The framework builds on earlier work in this guide supported by <a href="https://impact.earthdata.nasa.gov/">NASA IMPACT</a> (now <a href="https://www.nasa.gov/marshall/marshall-space-flight-missions/office-of-data-science-and-informatics-odsi/">NASA ODSI</a>). See <a href="../contributing.html#thank-you-to-our-supporters">Our Supporters</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const toggle = window.document.createElement('button');
+      toggle.type = "button";
+      toggle.setAttribute("role", "switch");
+      toggle.setAttribute("aria-checked", "false");
+      toggle.classList.add('top-right');
+      toggle.classList.add('quarto-color-scheme-toggle');
+      toggle.setAttribute("aria-label", "Toggle dark mode");
+      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      toggle.appendChild(i);
+      // Put the toggle in a landmark of its own, so that landmark navigation
+      // can reach it.
+      //
+      // The container is always a fresh direct child of body, and the toggle is
+      // never moved into page furniture that the theme or the author controls.
+      // The toggle is positioned against the page, so any ancestor that
+      // establishes a containing block captures it: a positioned element or a
+      // grid for position: absolute, and transform, filter, will-change or
+      // contain for position: fixed. A direct child of body has none of these
+      // to inherit, and the shift when one appears is silent and visual.
+      //
+      // ARIA says a document should have at most one banner, and axe reports a
+      // duplicate whether or not the banners carry distinct labels. So use a
+      // header when the page has no banner yet, and a named region otherwise.
+      //
+      // A header is a banner wherever it sits, unless it is inside sectioning
+      // content, so this cannot just look at the children of body: a custom
+      // page layout wraps the title block header in a plain div. An explicit
+      // role="banner" always counts.
+      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
+      const hasBanner = Array.from(
+        window.document.querySelectorAll('header:not([role]), [role="banner"]')
+      ).some(function(el) {
+        return el.hasAttribute("role") || el.closest(sectioning) === null;
+      });
+      const container = window.document.createElement(hasBanner ? "div" : "header");
+      if (hasBanner) {
+        container.setAttribute("role", "region");
+        container.setAttribute("aria-label", "Toggle dark mode");
+      }
+      container.classList.add('quarto-color-scheme-toggle-container');
+      container.appendChild(toggle);
+      window.document.body.appendChild(container);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/guide\.cloudnativegeo\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
+  </script>
+<nav class="page-navigation" aria-label="Page">
+  <div class="nav-page nav-page-previous">
+      <a href="../overview.html" class="pagination-link" aria-label="Overview Slides">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Overview Slides</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../decision-framework/case-studies.html" class="pagination-link" aria-label="Decision Framework Case Studies">
+        <span class="nav-page-text">Decision Framework Case Studies</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© <a href="https://cloudnativegeo.org/">Cloud-Native Geospatial Forum</a>, 2023</p>
+</div>   
+    <div class="nav-footer-center">
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. <img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/edit/main/decision-framework/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/cloudnativegeo/cloud-optimized-geospatial-formats-guide/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
