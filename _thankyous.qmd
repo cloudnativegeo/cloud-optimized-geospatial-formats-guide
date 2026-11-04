@@ -11,3 +11,5 @@ This guide has been made possible through the support of:
 
 [![](./images/thankyous-cng-logo.png){fig-alt="Cloud-Native Geospatial Forum" fig-align="left" width=40%}](https://cloudnativegeo.org)
 :::
+
+The [Format Selection Decision Framework](./decision-framework/index.qmd) and its case studies were contributed from a study for the [Centre National d'Études Spatiales (CNES)](https://cnes.fr/), and use public [Copernicus](https://www.copernicus.eu/) and [NASA](https://www.earthdata.nasa.gov/) mission data.
